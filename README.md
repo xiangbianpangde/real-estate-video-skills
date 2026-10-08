@@ -17,7 +17,7 @@ skills/   执行层：Agent 实际遵守的行为
       └── references/
           ├── trigger-design.md       触发机制设计与正负向样例
           ├── acceptance-matrix.md    证据门禁矩阵与拒绝条件
-          ├── subtitle-style.md       参考片字幕样式与视觉 QC
+          ├── subtitle-style.md       参考片样式、口播覆盖模式与字幕 QC
           ├── overall-plan.md         整体方案冻结细则
           ├── freeze-record-template.json
           └── examples/               图文笔记（示意图 + 判据）
