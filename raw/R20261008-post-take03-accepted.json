@@ -1,0 +1,29 @@
+{
+  "schema": "raw-run-trace/v1",
+  "record_id": "R20261008-post-take03-accepted",
+  "recorded_at": "2026-10-08",
+  "listing": "HOUSE-REDACTED-001",
+  "immutable": true,
+  "phase": "post-production",
+  "take": "take03",
+  "changes_from_previous": [
+    "subtitle font switched to a font verified to contain simplified Chinese glyphs",
+    "music regenerated with user-selected minimal ambient direction",
+    "new output directory; previous take untouched"
+  ],
+  "output": {
+    "path": "<private-project>/S9_V3后期成片/take03_20261008/<redacted>.mp4",
+    "sha256": "fa3d10dc70a04284479b373b54bf928f3835dbd8919368b929f9770b7a73cf3e",
+    "duration_sec": 35.0
+  },
+  "machine_checks": {
+    "subtitle_frame_inspection": "pass (glyphs readable)",
+    "full_decode": "pass",
+    "browser_video_load": "pass",
+    "console_messages": 0,
+    "page_errors": 0
+  },
+  "user_decision": {"decision": "ACCEPTED", "accepted_at": "2026-10-08"},
+  "disposition": "bound to this SHA only; does not unlock commercial release or new revisions",
+  "feeds_patterns": ["P001", "P002", "P003", "P004"]
+}

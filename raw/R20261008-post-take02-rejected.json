@@ -1,0 +1,34 @@
+{
+  "schema": "raw-run-trace/v1",
+  "record_id": "R20261008-post-take02-rejected",
+  "recorded_at": "2026-10-08",
+  "listing": "HOUSE-REDACTED-001",
+  "immutable": true,
+  "phase": "post-production",
+  "take": "take02",
+  "inputs": {
+    "silent_master_sha256": "7fdeb88ee52e6648d9767c470a9509161dd59c5bc47d003fcc04cd877c6f877c",
+    "narration_sha256": "d91c2970beb805511656957d807ea20f576437d8300b4ed4a477dd9e699eb0d0",
+    "music_sha256": "c34db8e128c7cbbc447ec202d60baa90da3ba1e358b4a3c8ad3f97c2184973c0",
+    "subtitle_sha256": "8f20be380169244cbe84c12c7978781bd318e8f91e2db625d8201951aee04a72"
+  },
+  "output": {
+    "path": "<private-project>/S9_V3后期成片/take02_20261008/<redacted>.mp4",
+    "sha256": "3648f594678bd9d29c7c90c3b005027c6592d6349474943172c19009f4085d56",
+    "duration_sec": 35.0,
+    "video": {"codec": "h264", "width": 720, "height": 1280, "fps": "30/1", "frames": 1050},
+    "audio": {"codec": "aac", "sample_rate": 48000, "channels": 2}
+  },
+  "machine_checks": {
+    "full_decode": "pass",
+    "browser_video_load": "pass",
+    "console_messages": 0,
+    "page_errors": 0
+  },
+  "user_decision": {
+    "decision": "REJECTED",
+    "reasons": ["subtitle_glyph_boxes", "bgm_direction_mismatch"]
+  },
+  "disposition": "take retained; no overwrite; no automatic retry",
+  "feeds_patterns": ["P001", "P002", "P003"]
+}

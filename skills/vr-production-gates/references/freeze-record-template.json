@@ -1,0 +1,31 @@
+{
+  "$schema": "shooting-plan-freeze/v1",
+  "status": "IN_REVIEW",
+  "property_id": "",
+  "plan_version": "",
+  "plan_path": "",
+  "plan_sha256": "",
+  "diagram_path": "",
+  "diagram_sha256": "",
+  "source_and_method_scope": {
+    "method_candidates": [],
+    "verified_for_this_property": [],
+    "candidate_only": [],
+    "prohibited_or_blocked": []
+  },
+  "approved_scope": [],
+  "not_approved": [],
+  "voice_and_cost_constraints": [],
+  "next_shot_gate": "",
+  "user_acceptance": {
+    "explicit_text": "",
+    "at": "",
+    "accepted_by": "user",
+    "acceptance_is_overall_only": true
+  },
+  "generated_media": {
+    "video": false,
+    "audio": false,
+    "paid_call": false
+  }
+}
