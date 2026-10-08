@@ -14,6 +14,7 @@
 | [P004](patterns/P004-acceptance-does-not-unlock-next-stage.md) | 上一阶段接受不自动解锁下一阶段 | 触发边界 | active |
 | [P005](patterns/P005-narration-timeline-fit.md) | 配音时长与镜头时间轴错配 | 第 B 步 9 · 后期单 take | active |
 | [P006](patterns/P006-render-filter-capability-gap.md) | 渲染器缺少字幕滤镜时的替代路径 | 第 B 步 4 · 先测后写 | active |
+| [P007](patterns/P007-reference-subtitle-style.md) | 参考片正文字幕样式：中部单行锚点 | 第 B 步 10 · 后期 QC | active |
 
 ## 配套
 

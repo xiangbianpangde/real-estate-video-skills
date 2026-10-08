@@ -3,7 +3,7 @@ name: vr-production-gates
 description: 房产介绍视频（VR/全景/数字人）制作的门禁流程。当用户要写拍摄脚本或分镜、先审脚本再让 AI 一次做完、按镜头生成房产视频、给成片配音配 BGM 加字幕、判断某个成片能不能发布，或要对视频/成片做接受与退回决策时触发。默认先审脚本再一体化生成；事实不清或用户要求逐镜确认时切换逐镜门禁。不处理查房源、查房价、查学区、写推广文案等无视频制作门禁的任务。
 compatibility: Pi coding agent; Python 3.10+, FFmpeg/ffprobe, local browser playback
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
   status: "active"
   layer: "task"
   priority: "40"
@@ -56,7 +56,7 @@ disable-model-invocation: false
 7. **静默整编**：全部镜头已接受才整编；默认只用已接受输入、明确顺序、硬切，先出静默内部版，不加声音、字幕、CTA、数字人、付费或发布。
 8. **后期资产**：TTS 记录 provider/model/voice/语言/SHA；BGM 与音效记录生成器或来源、许可证、格式、采样率、码率、SHA。候选资产不等于成片接受。CTA 默认空。
 9. **后期单 take**：锁定母版 SHA、逐句台本与时间轴；一个独立许可只出一个 take。短 BGM 可循环与淡出但必须记录；TTS 与字幕不得越界；旁白优先混音，记录响度/峰值/采样率/声道。
-10. **后期 QC 与接受**：除通用 QC 外，必须确认字幕字形可读、位置与时间同步、旁白未被 BGM 掩盖、无削波，并取得新的 SHA 人工接受。
+10. **后期 QC 与接受**：除通用 QC 外，必须按 `references/subtitle-style.md` 检查字幕版式（默认一行居中、白字粗黑描边、少量关键词标黄、无底框；标题卡另论）、字形可读、位置与时间同步；确认旁白未被 BGM 掩盖、无削波，并取得新的 SHA 人工接受。用户已批准的其他样式以脚本合同为准。
 11. **状态回写**：同步唯一实时状态与 append-only 运行日志。候选、机器通过、历史试片都不得写成接受。
 
 ## 硬性约束
@@ -70,7 +70,7 @@ disable-model-invocation: false
 
 ## 验证
 
-完成前必须齐备：脚本/合同 SHA 绑定、输入资产 SHA、一次性许可与无覆盖保护、回归测试通过、技术检查、抽帧或视觉检查、浏览器播放至结束且无媒体错误、用户接受或退回记录。整编另需全部输入为已接受 SHA、顺序与切点正确。后期另需音频资产权利记录、字幕字形可读、无越界、无削波、旁白可辨。
+完成前必须齐备：脚本/合同 SHA 绑定、输入资产 SHA、一次性许可与无覆盖保护、回归测试通过、技术检查、抽帧或视觉检查、浏览器播放至结束且无媒体错误、用户接受或退回记录。整编另需全部输入为已接受 SHA、顺序与切点正确。后期另需音频资产权利记录、字幕字形可读、版式符合批准规范（默认参考片样式）、无越界、无削波、旁白可辨。
 
 ## 完成报告
 
@@ -80,6 +80,7 @@ disable-model-invocation: false
 
 - `references/trigger-design.md` — 触发机制设计与正负向测试样例
 - `references/acceptance-matrix.md` — 证据门禁矩阵与拒绝条件
+- `references/subtitle-style.md` — 参考片字幕格式与后期字幕 QC
 - `references/overall-plan.md` — 整体方案冻结细则
 - `references/freeze-record-template.json` — 冻结记录模板
 - `references/examples/` — 图文笔记示例

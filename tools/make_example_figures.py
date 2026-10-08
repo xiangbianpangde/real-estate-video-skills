@@ -8,6 +8,7 @@
     python3 tools/make_example_figures.py
 """
 from pathlib import Path
+from PIL import Image, ImageDraw, ImageFont
 
 import matplotlib
 matplotlib.use("Agg")
@@ -224,8 +225,44 @@ def fig_subtitle_check():
     save(fig, "04-subtitle-check.png")
 
 
+def fig_subtitle_style():
+    """虚构室内示意 + 参考片字幕版式，不含真实房源画面。"""
+    OUT.mkdir(parents=True, exist_ok=True)
+    w, h = 720, 1280
+    im = Image.new("RGB", (w, h), "#e8e7e1")
+    d = ImageDraw.Draw(im)
+    # Abstract interior: wall, window, floor, sofa; deliberately schematic.
+    d.rectangle((0, 0, w, 840), fill="#e8e7e1")
+    d.rectangle((430, 140, 680, 690), fill="#b8d5e4", outline="#434a4d", width=14)
+    d.line((555, 145, 555, 685), fill="#59636a", width=9)
+    d.rectangle((0, 840, w, h), fill="#b9a991")
+    d.polygon([(0, 840), (720, 840), (720, 1280), (0, 1280)], fill="#b7a68f")
+    d.rectangle((70, 740, 365, 920), fill="#a99d91", outline="#695f57", width=8)
+    d.rectangle((95, 705, 340, 815), fill="#c5b8aa", outline="#695f57", width=6)
+    # Mock line: no facts or listing claims, only a style demonstration.
+    font = ImageFont.truetype("/System/Library/Fonts/STHeiti Medium.ttc", 58)
+    left, right = "空间关系", "更直观"
+    stroke = 10
+    lbox = d.textbbox((0, 0), left, font=font, stroke_width=stroke)
+    rbox = d.textbbox((0, 0), right, font=font, stroke_width=stroke)
+    gap = 12
+    total = (lbox[2] - lbox[0]) + gap + (rbox[2] - rbox[0])
+    x = (w - total) // 2
+    y = int(h * 0.61) - (lbox[3] - lbox[1]) // 2
+    d.text((x, y), left, font=font, fill="#FFD600", stroke_width=stroke, stroke_fill="#050505")
+    x2 = x + (lbox[2] - lbox[0]) + gap
+    d.text((x2, y), right, font=font, fill="#FFFFFF", stroke_width=stroke, stroke_fill="#050505")
+    # Non-intrusive labels are outside the video-safe mock area.
+    label_font = ImageFont.truetype("/System/Library/Fonts/STHeiti Medium.ttc", 24)
+    d.text((28, 1190), "示意图｜正文字幕：白字 + 粗黑描边 + 少量标黄｜无底框", font=label_font, fill="#30363b")
+    out = OUT / "05-subtitle-style.png"
+    im.save(out)
+    print(f"wrote {out.relative_to(ROOT)}")
+
+
 if __name__ == "__main__":
     fig_modes()
     fig_states()
     fig_timeline()
     fig_subtitle_check()
+    fig_subtitle_style()

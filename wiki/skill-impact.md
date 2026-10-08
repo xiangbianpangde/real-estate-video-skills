@@ -14,6 +14,8 @@
 | P004 | `references/acceptance-matrix.md` | Required state split | — |
 | P005 | `SKILL.md` | 第 B 步 9 后期单 take | Post mix |
 | P006 | `SKILL.md` | 第 B 步 4 先测后写 | Render / Preflight |
+| P007 | `SKILL.md` | 第 B 步 10 后期 QC 与接受 | Subtitle style / burn-in |
+| P007 | `references/subtitle-style.md` | 正文版式、关键词高亮、标题卡区分与拒收条件 | — |
 
 ## 回归检查
 
@@ -25,6 +27,7 @@
 - [ ] P004：`technical_passed` 与 `ACCEPTED` 仍未合并
 - [ ] P005：字幕末条仍要求不越界
 - [ ] P006：预检仍先于生成
+- [ ] P007：字幕仍保留单行居中、白字黑描边、少量标黄、无底框；标题卡独立
 
 任一项丢失视为回归，不得发布新版本。
 

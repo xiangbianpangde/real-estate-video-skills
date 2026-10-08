@@ -1,0 +1,44 @@
+{
+  "schema": "raw-run-trace/v1",
+  "record_id": "R20261008-subtitle-reference-review",
+  "recorded_at": "2026-10-08",
+  "immutable": true,
+  "phase": "subtitle-style-analysis",
+  "sources": [
+    {
+      "alias": "REF-A",
+      "sha256": "dd894a5f2847f1c6e71951e21522bd5dd5191aafba9aea5e962909a0c95345dd",
+      "width": 720,
+      "height": 1280,
+      "fps": "30/1",
+      "duration_sec": 34.166667,
+      "sampled_times_sec": [1.0, 7.0, 20.0],
+      "body_caption_center_y_over_height": [0.616, 0.616, 0.616]
+    },
+    {
+      "alias": "REF-B",
+      "sha256": "64f4885851ebe1aed93ce2d3845cc4c520d0b4aabe55e68bc07f19bfca0c7a8c",
+      "width": 1080,
+      "height": 1920,
+      "fps": "60/1",
+      "duration_sec": 22.216016,
+      "sampled_times_sec": [7.0, 17.0],
+      "body_caption_center_y_over_height": [0.623, 0.614],
+      "title_card_sample_sec": 1.5
+    }
+  ],
+  "observations": {
+    "body_caption": [
+      "single line",
+      "horizontally centered",
+      "white main glyphs with heavy black outline",
+      "selective yellow emphasis on one or two short fact anchors",
+      "no opaque backing box",
+      "keyword-compressed rather than verbatim narration"
+    ],
+    "title_card": "separate two-line hierarchy; not the body-caption template",
+    "measurement_method": "manual frame inspection plus approximate pixel bounding box normalization; geometry is an observed range, not a platform-safe-area guarantee"
+  },
+  "disposition": "source videos and extracted frames remain outside public repository; only an abstract synthetic diagram and text note are published",
+  "feeds_patterns": ["P007"]
+}

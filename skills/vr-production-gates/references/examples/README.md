@@ -9,7 +9,7 @@
 | 笔记 | 覆盖内容 |
 |---|---|
 | [example-01-integrated-run.md](example-01-integrated-run.md) | 脚本先审一体化生产全流程、验收阶梯、交付后修改映射 |
-| [example-02-post-audio-subtitle.md](example-02-post-audio-subtitle.md) | 时间轴对齐、配音重排、音乐延展与响度、字幕可读性 |
+| [example-02-post-audio-subtitle.md](example-02-post-audio-subtitle.md) | 时间轴对齐、配音重排、音乐延展与响度、参考片字幕版式与可读性 |
 
 ## 图片生成
 
@@ -19,4 +19,4 @@
 python3 tools/make_example_figures.py
 ```
 
-图中不含任何真实房源画面、素材、标识或个人信息。
+图中不含任何真实房源画面、素材、标识或个人信息。`05-subtitle-style.png` 是按本地参考片观察结果重绘的虚构室内示意，不是从真实视频截帧。
