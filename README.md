@@ -17,6 +17,7 @@ skills/   执行层：Agent 实际遵守的行为
       ├── scripts/check_shooting_plan.py  图文/提交/SHA/一次采集检查
       ├── tests/run.py                  门禁正负与并发回归
       └── references/
+          ├── visual-acceptance.md    用户认可参考、带限制通过与接受边界
           ├── trigger-design.md       触发机制设计与正负向样例
           ├── acceptance-matrix.md    证据门禁矩阵与拒绝条件
           ├── subtitle-style.md       参考片样式、口播覆盖模式与字幕 QC
@@ -29,7 +30,9 @@ skills/   执行层：Agent 实际遵守的行为
 wiki/     判断层：真实踩坑与有效做法的知识条目
   ├── index.md            模式索引
   ├── patterns/           P001–P008
+  ├── cases/              实际制作流程参考（标明完成阶段与限制）
   ├── logs.md             演化日志
+  ├── issues.md           Bug现象、证据、修复状态与回归结果
   └── skill-impact.md     模式 → Skill 段落映射与回归检查
 
 raw/      留痕层：不可变的原始执行记录（只追加、已脱敏）
@@ -41,9 +44,9 @@ raw/      留痕层：不可变的原始执行记录（只追加、已脱敏）
 
 先确认空间覆盖/顺序/时长；同点回转归 MOV-006，跨房间行进归 MOV-007。跨房间证据不足即阻塞，不用单点回转或拼接冒充。硬切只限明确批准的非连续例外，详见 `skills/vr-production-gates/references/continuous-take.md`。
 
-当前行为版本 **3.1.0**：
+当前行为版本 **3.2.0**：
 
-1. AI先规划完整候选路线，有限探索：一次关键预检、每问题最多两组局部对照、一次全路线预检；无改善/源限制/预算耗尽即停，不反复全屋运行。当前成像方法须绑定源/配置/路线及完整动态媒体、遥测/目视/恢复证据；旧同点全景、静态端点或loaded/回调成功不能给Model或全景跨点放行。
+1. 先读[用户视觉基准](skills/vr-production-gates/references/visual-acceptance.md)，再有限预检当前方法/源/路线。参考内过渡重影可带限制通过，不自设零伪影或额外容忍阈值；旧动态PASS/端点/回调不替当前证据。默认关键预检1、每问题局部对照最多2、全路线1，不为AI更高标准反复录制。
 2. **实际呈现图文脚本**：整体PNG、真实源章节图卡、S-ID时间/动作/字幕黄标/BGM/风险，以及首镜户型图、室内尾镜和完整制作范围；纯文字表或只报路径不算提交。
 3. 用户一次批准正文/PNG/输入/范围SHA绑定对象，`SCRIPT_APPROVED_ONCE`含一次正式采集与列明后期。入口调用检查器并原子消费capture claim。
 4. AI自主完成连续母版（或获批非连续例外）、首尾、获批配音、素材库BGM、字幕/混音/导出/QC，不默认逐镜、等母版接受或逐层索权。
@@ -79,7 +82,7 @@ python3 ~/.pi/agent/skills/task/skill-authoring/scripts/validate.py \
   --strict --root-mode pi skills/vr-production-gates
 ```
 
-拍前检查用法、实际会话证据与限制见 [图文脚本协议](skills/vr-production-gates/references/illustrated-script.md)，成像报告合同见 [动态预检](skills/vr-production-gates/references/continuous-take.md#拍前成像证据合同)。沿用v2但3.1.0新采集必填当前成像绑定/预检，旧批准和claim原样保留，不补造迁移；post_only仅后期不要求新预检。检查器只核结构/SHA及声明，不自动观看画面、认证作者/房况/身份或拦截绕过入口。
+[图文协议](skills/vr-production-gates/references/illustrated-script.md)/[预检合同](skills/vr-production-gates/references/continuous-take.md#拍前成像证据合同)沿用v2；3.2.0允许绑定用户参考/真实原话及当前比较、披露的`PASS_WITH_LIMITATIONS`，不是伪写无瑕疵或增加第二次缺陷审批。旧记录/claim保留，post_only仍仅后期。检查器核结构/SHA，不看片、认证作者/身份或拦截绕过；Agent不能代签最终用户接受。
 
 **修复/验证本Skill只改canonical及必要配套并运行测试，不自动打开房源、导航或录制，也不以缺真实新模型阻塞规则修复。** 规则通过不等于现有片畸变已修复。
 
@@ -94,6 +97,16 @@ python3 ~/.pi/agent/skills/task/wendang/scripts/check_embeds.py \
 ```bash
 python3 tools/make_example_figures.py
 ```
+
+## Bug记录
+
+具体异常登记在 [Bug与问题台账](wiki/issues.md)，包括影响版本、最小复现/观察、证据、处理和实际验证；同一问题复发时更新原ID并追加状态历史。`fixed`表示改动已落盘，`verified`表示约定范围实际回归通过，两者不等于原视频已修复或用户验收。
+
+`wiki/logs.md`继续记录版本/经验演化，`wiki/patterns/`归纳稳定模式，不代替具体bug台账。台账带模板，当前手动维护，没有自动采集或外部issue同步；私有媒体/房源/凭证不入公开记录。
+
+## 实际流程参考
+
+[CASE-20261013-001](wiki/cases/CASE-20261013-001-current-skill-production.md)保留3.1.0选材/预检/问题/恢复快照。用户随后明确视觉基准，3.2.0不再用旧更严门槛替其接受范围；旧媒体可另评，不改raw或自动称通过。完整视频未生成，非出片成功案例；真实媒体留私有。
 
 ## 维护约定
 

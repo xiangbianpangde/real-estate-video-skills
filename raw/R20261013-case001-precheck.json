@@ -1,0 +1,152 @@
+{
+  "schema": "vr-case-observation/v1",
+  "case_id": "CASE-20261013-001",
+  "recorded_at": "2026-10-13T15:24:03.941377+08:00",
+  "status": "precheck_blocked",
+  "source_namespace_alias": "HOUSE-REDACTED-002",
+  "skill": {
+    "version": "3.1.0",
+    "sha256": "8c4a2d5b71750107e5250d68f52e20efa1a4ff69c0d41fe43316adb1db9cefec"
+  },
+  "scope": {
+    "new_listing": true,
+    "complete_new_video_requested": true,
+    "max_formal_capture_attempts": 1,
+    "internal_review_only": true,
+    "zero_new_payment": true,
+    "publish_authorized": false
+  },
+  "observations": {
+    "library_source_files_hashed": 126,
+    "model_and_texture_online_sha_matched": 5,
+    "model_static_visual": "FAIL",
+    "same_pose_panorama_static": "clear_reference_not_dynamic_pass",
+    "navigation_dynamic_visual": "FAIL",
+    "full_route_prechecks": 0,
+    "formal_capture_attempts": 0,
+    "capture_claim_created": false,
+    "finished_video_created": false,
+    "human_accepted": false
+  },
+  "precheck_media": {
+    "private_alias": "kitchen-nav-precheck.webm",
+    "sha256": "8350fc754f2273c814f0edd24e2d4f2810b545c7fffe30927a0e25deb0852b5e",
+    "bytes": 2563729,
+    "codec": "VP9",
+    "width": 720,
+    "height": 1280,
+    "audio_streams": 0,
+    "decoded_frames": 138,
+    "frame_rate_contract": "VFR not CFR certified",
+    "first_frame_pts_s": 0,
+    "last_frame_pts_s": 4.512,
+    "recording_wall_s": 5.7025,
+    "requested_move_s": 4.0,
+    "actual_call_to_arrival_s": 4.498,
+    "decoded_all_frames_exit": 0,
+    "review_scope": {
+      "all_frame_contact_sheets": 4,
+      "contact_sheet_frames": 138,
+      "full_size_frames": [
+        1,
+        70,
+        138
+      ],
+      "motion_failure_frame_pts_s": 2.245,
+      "every_frame_full_size_reviewed": false
+    }
+  },
+  "control": {
+    "raf_samples": 291,
+    "backward_steps": 0,
+    "max_fov_error_deg": 0,
+    "end_error_model_units": 0.0004757628191646763,
+    "declared_endpoint_tolerance_model_units": 0.001,
+    "state_offset_shallow_reference_discarded": true
+  },
+  "playback": {
+    "exact_source_from_0_to_ended": true,
+    "media_end_s": 4.512,
+    "rate": 1,
+    "wall_ms": 4525.700000017881,
+    "callbacks": 136,
+    "media_errors": 0,
+    "window_errors": 0,
+    "waiting_stalled": 0,
+    "quality_cumulative": {
+      "total": 276,
+      "corrupted": 0,
+      "dropped": 3
+    },
+    "quality_caveat": "includes initial load/seek, not exact per-play frame count"
+  },
+  "restore": {
+    "checks_passed": 14,
+    "position_error_model_units": 2.0039106700637763e-16,
+    "tolerance_model_units": 1e-10,
+    "viewport_restored": true,
+    "sync_own_restored": true,
+    "helper_restored": true,
+    "view_restored": true,
+    "tracks_stopped": true
+  },
+  "evidence_sha256": {
+    "wrongly_named_input_image": "753a87f0691040793ffa1a096f92df54f3e1d6a71e5ba958636fa6429f380070",
+    "real_floorplan_jpeg": "16eaa5b1a6099352fe11396320b25745533ec91a95f596be221bd0ba05a44544",
+    "model_static_target_png": "9dbd8969550f6a6f004fae1c541360bb13787fe2639f577955b2f6b996733321",
+    "panorama_static_target_png": "08d4e59454182db8edaf1aa9ab669dd7d4ba2aea79d39ce7a121cea4aef9f811",
+    "motion_failure_frame070_png": "bf363ce9844d707d8db3c2ca2cc36ad69f03f629f47c50d2e4e1ca74296c33eb",
+    "raw_media_and_telemetry_json": "bd06c0399db502e88fc8aa81f0aead588cee5a3bf0e7f66de4ae35d730e00214",
+    "exact_media_playback_json": "143725cbad4bac4484b3e7da46185dd4fac76a1829f270cb84c5a4fd8b0cdd82",
+    "restore_json": "5fd04e388e23a6d04925f299c0e6d61eb4f4d7f0239f024f33b8a02a11734a1a",
+    "bounded_driver_js": "55b74a58c3892d5cb747034c34f3fd1e284beb1cd55296a07abca425f67c7584",
+    "final_precheck_verdict_json": "c97592e2a7ec41c78ff4048870bdd74a4de5ad3d842151d8088433c474cd7227"
+  },
+  "issues": [
+    {
+      "id": "ISSUE-20261013-006",
+      "status": "verified"
+    },
+    {
+      "id": "ISSUE-20261013-007",
+      "status": "verified"
+    },
+    {
+      "id": "ISSUE-20261013-008",
+      "status": "verified"
+    },
+    {
+      "id": "ISSUE-20261013-009",
+      "status": "triaged"
+    },
+    {
+      "id": "ISSUE-20261013-010",
+      "status": "verified"
+    },
+    {
+      "id": "ISSUE-20261013-011",
+      "status": "triaged"
+    },
+    {
+      "id": "ISSUE-20261013-012",
+      "status": "triaged"
+    },
+    {
+      "id": "ISSUE-20261013-013",
+      "status": "triaged"
+    },
+    {
+      "id": "ISSUE-20261013-014",
+      "status": "verified"
+    }
+  ],
+  "limits": [
+    "raw public record is a redacted extraction, private originals not published",
+    "no executable illustrated package or content approval yet",
+    "no full-route PASS or production E2E claim",
+    "no claim invocation/consumption",
+    "no proof of all routes or all listings failure",
+    "no automatic bug capture or automatic visual certification"
+  ],
+  "next_input": "new valid same-listing representation/continuous real footage, or explicit non-continuous video format approval"
+}

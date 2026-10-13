@@ -66,6 +66,45 @@ def check(record_path, phase, claim):
             errors.append("asset_sha_mismatch:" + label)
         return path
 
+    def visual_acceptance(scope, assets):
+        policy = scope.get("visual_acceptance")
+        if policy is None:
+            return
+        if not isinstance(policy, dict):
+            errors.append("invalid_visual_acceptance")
+            return
+        paths = {}
+        for key, role in (("reference", "acceptance_reference"), ("decision", "acceptance_decision")):
+            entry = policy.get(key)
+            if not isinstance(entry, dict) or not entry.get("path"):
+                errors.append("missing_visual_acceptance:" + key)
+                continue
+            bound = assets.get(entry["path"], {})
+            if bound.get("role") != role or bound.get("sha256") != entry.get("sha256"):
+                errors.append("unbound_visual_acceptance:" + key)
+            paths[key] = asset_ok(entry["path"], entry.get("sha256"), "visual_acceptance_" + key)
+        decision_path = paths.get("decision")
+        if decision_path is None or not decision_path.is_file():
+            return
+        decision = json.loads(decision_path.read_text(encoding="utf-8"))
+        if not isinstance(decision, dict):
+            errors.append("invalid_visual_acceptance_decision")
+            return
+        event = decision.get("user_event")
+        criteria = decision.get("criteria")
+        if (decision.get("schema") != "vr-visual-acceptance/v1" or not isinstance(event, dict)
+                or not event.get("id") or event.get("message", {}).get("role") != "user"
+                or not isinstance(criteria, str) or not criteria.strip() or criteria != text(event).strip()):
+            errors.append("invalid_visual_acceptance_decision")
+        reference = policy.get("reference", {})
+        if not isinstance(reference, dict) or decision.get("reference_sha256") != reference.get("sha256"):
+            errors.append("visual_reference_decision_mismatch")
+        visible = [criteria] + [policy.get(key, {}).get(field) for key, field in
+                               (("reference", "path"), ("reference", "sha256"), ("decision", "path"))
+                               if isinstance(policy.get(key), dict)]
+        if any(not isinstance(value, str) or not value or value not in body for value in visible):
+            errors.append("visual_acceptance_not_in_plan")
+
     def render_precheck(scope, assets):
         validation = scope.get("render_validation")
         if not isinstance(validation, dict) or not validation.get("path"):
@@ -92,9 +131,28 @@ def check(record_path, phase, claim):
         if report.get("evidence_kind") != "continuous_media" or report.get("complete_interval_reviewed") is not True:
             errors.append("render_precheck_not_continuous")
         checks = report.get("checks", {})
-        for key in ("control", "visual", "playback", "state_restore"):
+        for key in ("control", "playback", "state_restore"):
             if not isinstance(checks, dict) or checks.get(key) != "PASS":
                 errors.append("render_precheck_not_passed:" + key)
+        visual = checks.get("visual") if isinstance(checks, dict) else None
+        if visual not in ("PASS", "PASS_WITH_LIMITATIONS"):
+            errors.append("render_precheck_not_passed:visual")
+        policy = scope.get("visual_acceptance")
+        if policy is not None or visual == "PASS_WITH_LIMITATIONS":
+            if not isinstance(policy, dict):
+                errors.append("missing_visual_acceptance")
+            elif report.get("visual_acceptance") != policy:
+                errors.append("render_precheck_identity_mismatch:visual_acceptance")
+            review = report.get("visual_review")
+            if not isinstance(review, dict) or review.get("within_user_criteria") is not True:
+                errors.append("visual_acceptance_not_matched")
+            limitations = review.get("limitations") if isinstance(review, dict) else None
+            if (not isinstance(limitations, list)
+                    or any(not isinstance(item, str) or not item.strip() for item in limitations)
+                    or (visual == "PASS_WITH_LIMITATIONS" and not limitations)):
+                errors.append("missing_visual_limitations")
+            elif any(item not in body for item in limitations):
+                errors.append("visual_limitations_not_in_plan")
         evidence = report.get("evidence", {})
         for key in ("media", "telemetry", "review", "restore"):
             entry = evidence.get(key) if isinstance(evidence, dict) else None
@@ -224,6 +282,7 @@ def check(record_path, phase, claim):
             visible.append(validation["path"])
         if any(not isinstance(value, str) or not value or value not in body for value in visible):
             errors.append("render_binding_not_in_plan")
+        visual_acceptance(scope, assets)
         if phase != "review":
             render_precheck(scope, assets)
     duration, tolerance = scope.get("duration_s"), scope.get("duration_tolerance_s")

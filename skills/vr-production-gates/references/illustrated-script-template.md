@@ -35,14 +35,15 @@
 ## 制作与验收范围
 
 - `capture_medium` / `render_method` / `validation_scope` / `continuity_class`：待填；同点全景、Model、SDK全景跨点不能混用。
-- `source_namespace` / `render_config` / `render_validation`：待填；正文写预检报告路径/结论、实际检查范围与限制，报告/连续媒体/遥测/完整目视/状态恢复证据纳入SHA绑定。结构见 [动态预检合同](continuous-take.md#拍前成像证据合同)；缺动态证据或FAIL不可正式采集。
+- `source_namespace` / `render_config` / `render_validation`：待填；列当前动态证据/范围/限制并绑定SHA，缺证据或未决/超范围FAIL不采集。
+- `visual_acceptance`：有用户参考时列文件/SHA/决定原话，按[视觉标准](visual-acceptance.md)比较、披露；没有参考则删除记录模板中本对象和两项acceptance assets，不额外索参考批准。PASS/PASS_WITH_LIMITATIONS按实际用户标准，不自设零伪影/时长/幅度上限或把基准内表现列为必修。
 - `max_capture_attempts=1`；原始录制及独立后期输出路径：待填。
 - 字幕 `subtitle_content_mode` / `subtitle_delivery`：待填。
 - 授权动作：一次采集、首尾包装、字幕、BGM、编码/QC；有配音/音效需逐项列明。获批后无需逐层申请。
 - 事实与权利来源、素材库BGM授权池、付费上限/零新增付费：待填。
 - 未授权：商业发布、未列付费、新事实/CTA、第二次拍摄。
 - 探索证据：一次关键预检、每问题最多两组对照、一次全路线预检的实际次数和停止理由。
-- QC：技术全解码、覆盖/连续性/视觉、字幕首中尾、浏览器完整实播及音轨实听，最终SHA人审。
+- QC：技术/控制、实际视觉现象、是否符合用户标准、字幕/音频和完整实播分开；最终SHA交用户决定，预检带限制通过不代签最终接受。
 
 ## 提交与批准
 

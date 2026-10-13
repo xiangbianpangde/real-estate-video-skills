@@ -15,7 +15,9 @@
     {"path": "precheck.webm", "sha256": "", "role": "precheck", "origin": "actual_run"},
     {"path": "telemetry.json", "sha256": "", "role": "precheck", "origin": "actual_run"},
     {"path": "visual-review.md", "sha256": "", "role": "precheck", "origin": "actual_run"},
-    {"path": "restore.json", "sha256": "", "role": "precheck", "origin": "actual_run"}
+    {"path": "restore.json", "sha256": "", "role": "precheck", "origin": "actual_run"},
+    {"path": "accepted-reference.mp4", "sha256": "", "role": "acceptance_reference", "origin": "actual_source"},
+    {"path": "visual-decision.json", "sha256": "", "role": "acceptance_decision", "origin": "actual_user_event"}
   ],
   "segments": [
     {"id": "S01", "start_s": 0, "end_s": 3, "reference_image": "S01.png", "action": "", "focus": "", "text": "", "highlights": [], "music": "", "risk": ""},
@@ -28,6 +30,10 @@
     "render_method": "model_mesh",
     "render_config": {"renderer": "", "width": 720, "height": 1280, "dpr": 1, "fov_axis": "vertical", "fov_deg": 85.57},
     "render_validation": {"path": "precheck.json", "sha256": ""},
+    "visual_acceptance": {
+      "reference": {"path": "accepted-reference.mp4", "sha256": ""},
+      "decision": {"path": "visual-decision.json", "sha256": ""}
+    },
     "validation_scope": "model_only",
     "continuity_class": "cross_room_travel",
     "max_capture_attempts": 1,

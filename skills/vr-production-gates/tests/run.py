@@ -131,6 +131,40 @@ class GateTests(unittest.TestCase):
         self.assertIn(code, data["errors"], data)
         self.assertFalse((self.root / "take01").exists())
 
+    def visual_reference_record(self, visual="PASS_WITH_LIMITATIONS"):
+        # Synthetic reference/decision: proves contract handling, not actual video quality.
+        (self.root / "accepted-reference.mp4").write_bytes(b"synthetic accepted kitchen reference")
+        criteria = "参考中的过渡重影属于接受范围，按整体布局与观看效果比较。"
+        decision = {"schema": "vr-visual-acceptance/v1",
+                    "reference_sha256": sha(self.root / "accepted-reference.mp4"),
+                    "criteria": criteria,
+                    "user_event": {"id": "criteria-user", "message": {"role": "user", "content": criteria}}}
+        (self.root / "visual-decision.json").write_text(json.dumps(decision, ensure_ascii=False))
+        policy = {"reference": {"path": "accepted-reference.mp4", "sha256": decision["reference_sha256"]},
+                  "decision": {"path": "visual-decision.json", "sha256": sha(self.root / "visual-decision.json")}}
+        self.record["scope"]["visual_acceptance"] = policy
+        for key, role in [("reference", "acceptance_reference"), ("decision", "acceptance_decision")]:
+            self.record["assets"].append({**policy[key], "role": role, "origin": "synthetic_fixture"})
+        self.precheck["visual_acceptance"] = json.loads(json.dumps(policy))
+        self.precheck["checks"]["visual"] = visual
+        self.limitation = "S01 0–5秒：过渡门框重影，到达后主体可读。"
+        self.precheck["visual_review"] = {"within_user_criteria": True, "limitations": [self.limitation]}
+        self.body += ("\n## 用户视觉基准\naccepted-reference.mp4 SHA256: " + decision["reference_sha256"]
+                      + "\nvisual-decision.json\n" + criteria + "\n" + self.limitation + "\n")
+        path = self.root / "plan_v1.md"
+        path.write_text(self.body)
+        self.record["plan"]["sha256"] = sha(path)
+        self.save_precheck()
+        self.save()
+
+    def save_visual_decision(self, decision):
+        path = self.root / "visual-decision.json"
+        path.write_text(json.dumps(decision, ensure_ascii=False))
+        self.record["scope"]["visual_acceptance"]["decision"]["sha256"] = sha(path)
+        next(a for a in self.record["assets"] if a["role"] == "acceptance_decision")["sha256"] = sha(path)
+        self.precheck["visual_acceptance"] = json.loads(json.dumps(self.record["scope"]["visual_acceptance"]))
+        self.save_precheck()
+
     def test_complete_plan_readonly(self):
         code, data = self.run_gate()
         self.assertEqual(code, 0, data)
@@ -403,6 +437,135 @@ class GateTests(unittest.TestCase):
         code, data = self.run_gate("post")
         self.assertEqual(code, 0, data)
         self.assertFalse((self.root / "post_v2").exists())
+
+    def test_user_reference_limits_can_capture_and_post(self):
+        self.visual_reference_record()
+        code, data = self.run_gate(claim=True)
+        self.assertEqual(code, 0, data)
+        self.assertTrue((self.root / "take01/capture-claim.json").is_file())
+        code, data = self.run_gate("post")
+        self.assertEqual(code, 0, data)
+
+    def test_user_reference_clean_pass(self):
+        self.visual_reference_record("PASS")
+        self.precheck["visual_review"]["limitations"] = []
+        self.save_precheck()
+        code, data = self.run_gate()
+        self.assertEqual(code, 0, data)
+
+    def test_limits_without_user_reference_rejected(self):
+        self.precheck["checks"]["visual"] = "PASS_WITH_LIMITATIONS"
+        self.save_precheck()
+        self.rejected("missing_visual_acceptance", claim=True)
+
+    def test_user_reference_outside_criteria_rejected(self):
+        self.visual_reference_record()
+        self.precheck["visual_review"]["within_user_criteria"] = False
+        self.save_precheck()
+        self.rejected("visual_acceptance_not_matched", claim=True)
+
+    def test_user_reference_comparison_missing_rejected(self):
+        self.visual_reference_record()
+        self.precheck.pop("visual_review")
+        self.save_precheck()
+        self.rejected("visual_acceptance_not_matched")
+
+    def test_user_reference_clean_pass_cannot_skip_comparison(self):
+        self.visual_reference_record("PASS")
+        self.precheck.pop("visual_review")
+        self.save_precheck()
+        self.rejected("visual_acceptance_not_matched")
+
+    def test_user_reference_limits_cannot_be_empty(self):
+        self.visual_reference_record()
+        self.precheck["visual_review"]["limitations"] = []
+        self.save_precheck()
+        self.rejected("missing_visual_limitations")
+
+    def test_user_reference_limits_must_be_visible_in_plan(self):
+        self.visual_reference_record()
+        self.precheck["visual_review"]["limitations"] = ["S02 5–10秒：未展示的新缺陷"]
+        self.save_precheck()
+        self.rejected("visual_limitations_not_in_plan")
+
+    def test_user_reference_binding_hidden_from_plan(self):
+        self.visual_reference_record()
+        self.body = self.body.replace("accepted-reference.mp4 SHA256:", "参考地址未展示 SHA256:")
+        path = self.root / "plan_v1.md"
+        path.write_text(self.body)
+        self.record["plan"]["sha256"] = sha(path)
+        self.save_precheck()
+        self.rejected("visual_acceptance_not_in_plan", "review")
+
+    def test_user_reference_criteria_hidden_from_plan(self):
+        self.visual_reference_record()
+        decision = json.loads((self.root / "visual-decision.json").read_text())
+        self.body = self.body.replace(decision["criteria"], "标准未展示")
+        path = self.root / "plan_v1.md"
+        path.write_text(self.body)
+        self.record["plan"]["sha256"] = sha(path)
+        self.save_precheck()
+        self.rejected("visual_acceptance_not_in_plan")
+
+    def test_user_reference_wrong_decision_role_rejected(self):
+        self.visual_reference_record()
+        decision = json.loads((self.root / "visual-decision.json").read_text())
+        decision["user_event"]["message"]["role"] = "assistant"
+        self.save_visual_decision(decision)
+        self.rejected("invalid_visual_acceptance_decision")
+
+    def test_user_reference_criteria_cannot_be_agent_rewrite(self):
+        self.visual_reference_record()
+        decision = json.loads((self.root / "visual-decision.json").read_text())
+        decision["criteria"] = "AI自行增加零重影门槛"
+        self.save_visual_decision(decision)
+        self.rejected("invalid_visual_acceptance_decision")
+
+    def test_user_reference_decision_sha_mismatch_rejected(self):
+        self.visual_reference_record()
+        decision = json.loads((self.root / "visual-decision.json").read_text())
+        decision["reference_sha256"] = "0" * 64
+        self.save_visual_decision(decision)
+        self.rejected("visual_reference_decision_mismatch")
+
+    def test_user_reference_asset_role_required(self):
+        self.visual_reference_record()
+        next(a for a in self.record["assets"] if a["role"] == "acceptance_reference")["role"] = "source"
+        self.save_precheck()
+        self.rejected("unbound_visual_acceptance:reference")
+
+    def test_user_reference_report_cannot_use_other_policy(self):
+        self.visual_reference_record()
+        self.precheck["visual_acceptance"]["reference"]["sha256"] = "0" * 64
+        self.save_precheck()
+        self.rejected("render_precheck_identity_mismatch:visual_acceptance")
+
+    def test_user_reference_media_drift_blocks_claim(self):
+        self.visual_reference_record()
+        (self.root / "accepted-reference.mp4").write_bytes(b"other reference")
+        self.rejected("asset_sha_mismatch:accepted-reference.mp4", claim=True)
+
+    def test_user_reference_fail_is_not_overridden(self):
+        self.visual_reference_record("FAIL")
+        self.rejected("render_precheck_not_passed:visual", claim=True)
+
+    def test_user_reference_control_fail_still_blocks(self):
+        self.visual_reference_record()
+        self.precheck["checks"]["control"] = "FAIL"
+        self.save_precheck()
+        self.rejected("render_precheck_not_passed:control", claim=True)
+
+    def test_user_reference_partial_media_review_still_blocks(self):
+        self.visual_reference_record()
+        self.precheck["complete_interval_reviewed"] = False
+        self.save_precheck()
+        self.rejected("render_precheck_not_continuous", claim=True)
+
+    def test_user_reference_change_cannot_keep_old_approval(self):
+        self.visual_reference_record()
+        self.run_gate("review")
+        self.record["scope"]["visual_acceptance"]["reference"]["sha256"] = "0" * 64
+        self.rejected("bundle_not_actually_presented")
 
     def test_malformed_json_fails_closed(self):
         (self.root / "broken.json").write_text("{")

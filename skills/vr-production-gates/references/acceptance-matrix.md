@@ -7,7 +7,7 @@
 | Actual presentation | 完整图文正文及两个摘要已在实际提交事件呈现；真实用户随后回复绑定该事件；纯文字表、路径-only、未解析附件不算提交 | 沿用任何拍前批准 |
 | Integrated execution | 获批脚本/范围/输入SHA、按段QC索引、原件保护；同次许可覆盖列明首尾/字幕/BGM/导出，不再逐层索权 | 成片审看 |
 | Contract | `DRAFT/IN_REVIEW` → `SCRIPT_APPROVED_ONCE`（含采集`APPROVED_ONCE`含义），`max_capture_attempts=1`；仅设计冻结不执行 | 正式采集 |
-| Render-method precheck | 当前源命名空间/输入SHA、介质/方法/配置/路线/覆盖一致的报告，完整连续媒体/实际遥测/整段目视/恢复证据SHA；control/visual/playback/state_restore分项PASS。旧同点/端点/回调/loaded不继承为新方法动态PASS | 新正式采集；不阻塞仅后期或Skill修复 |
+| Render-method precheck | 当前方法/源/路线完整动态证据/SHA；control/playback/state_restore真实PASS，visual按[用户标准](visual-acceptance.md)为PASS或有参考/决定/实际比较及披露的PASS_WITH_LIMITATIONS。旧动态PASS不迁移，但用户声明的评价基准可使用 | 新正式采集；不阻塞纯后期/修Skill |
 | Preflight | 核文件/提交/批准/探索预算及上述预检绑定；入口调用check_shooting_plan且退出码0；`--claim`原子占新目录，不覆盖。门禁不自动观看画面或认证报告作者 | 正式采集 |
 | Exploration | 一次关键预检、每问题最多两组局部对照、一次全路线预检；台账/停止理由与检查范围，不随机续跑；扩预算需明确同意 | 无限探索/全屋重复运行 |
 | Render | 只一次正式采集、留原流及SHA；失败消费claim，不删claim、不自动重拍，不用多take伪连续 | 新采集尝试 |
@@ -30,7 +30,7 @@
 
 ## 状态必须拆开
 
-- `technical_passed`、`control_passed`、`visual_passed`、完整实播、用户接受分别判定；报告四项PASS声明不等于自动视觉识别或`ACCEPTED`。
+- 技术/控制、实际画面现象、符合用户标准、完整实播与最终用户接受分开；PASS/PASS_WITH_LIMITATIONS均不表示自动识别或用户已接受。Agent不得给用户参考加零重影/零变形、额外幅度/持续时长门槛。
 - 修Skill只改规则/代码及运行验证，不自动采样/生成视频；视频输入缺口不能阻塞仍可完成的Skill修复工作。
 - 接受旧SHA不扩大许可；一次完整脚本批准可明确包含采集+首尾+声音+字幕+CTA+导出，已列范围无需第二次/逐层批准。商业发布仍独立授权。
 - `max_capture_attempts=1`限制正式采集；`--claim`先消费，目录已存在失败关闭。独立后期输出不等于第二次拍摄，失败版和原母版均保留。
@@ -51,7 +51,9 @@
 
 ## 负向测试
 
-- 当前方法没有完整动态证据/目视记录、只有静态端点、或visual/control为FAIL，却用旧同点接受/loaded/SDK fly回调放行 → 拒绝采集，保留FAIL/INVALID；不伪写PASS，也不自动补一次试验。
+- 缺当前完整动态证据/目视、控制FAIL或确定超用户范围，却用端点/loaded/回调放行 → 拒绝；基准内已披露过渡现象用PASS_WITH_LIMITATIONS，不把技术成功或AI理想标准替用户接受范围。
+- 用户明确参考范围，Agent仍因过渡重影自动FAIL、要求无瑕疵/换房/硬切或重复缺陷批准 → 规范回归；实际比较与整包审核按原节奏，建议不作阻断。
+- 带限制报告缺用户原话/参考SHA、当前比较、可见限制，或参考变了沿用旧BUNDLE批准 → 拒绝；已知超范围FAIL不能直接写通过，用户改标准另出报告、不重写历史。
 - Model与SDK全景跨点方法混用、源命名空间/配置/路线/覆盖或证据SHA漂移 → 当前预检不适用，拒绝沿用批准。`post_only`不要求新预检，不授采集。
 - 临时挂起SDK同步后赋undefined代替恢复继承方法、采辅助相机identity为主矩阵、有效view offset/实际相机未回读 → 控制证据无效；保留尝试，按原次数限制而非自动重试。
 - 用户说修/验证Skill，却要求新模型、打开房源录预览或把视频FAIL当Skill修复不能做 → 修复对象错误；继续canonical修订及独立规则验证。

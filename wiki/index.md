@@ -17,8 +17,15 @@
 | [P007](patterns/P007-reference-subtitle-style.md) | 区分卖点字幕样式与完整口播覆盖 | 脚本包、后期时间轴与字幕 QC | active |
 | [P008](patterns/P008-vertical-fov-two-axis-focal-split.md) | 竖屏六面重投影的 FOV 约定：两轴必须分离焦距 | 第 B 步 4 · 先测后写 | active |
 
+## 参考案例
+
+| ID | 实际流程 | 记录范围 |
+|---|---|---|
+| [CASE-20261013-001](cases/CASE-20261013-001-current-skill-production.md) | 3.1.0新房源选材/预检/问题/停止快照，追加3.2.0用户视觉范围更正 | 原历史保留，旧零伪影门槛不覆盖用户范围；完整视频未做，非出片成功案例 |
+
 ## 配套
 
+- [Bug与问题台账](issues.md) — 具体异常、复现/观察证据、处理状态及实际回归；新条目按页内模板登记
 - [演化日志](logs.md) — 每次模式增删改与 Skill 版本变化
 - [Skill 影响表](skill-impact.md) — 模式到 Skill 段落的映射与回归检查
 - [原始记录](../raw/README.md) — 不可变执行留痕的写法
@@ -29,3 +36,4 @@
 2. 每个模式必须指向至少一个 Skill 段落或明确写"暂不影响 Skill"。
 3. 模式被 Skill 吸收后不再删除；只在 `logs.md` 记录状态迁移。
 4. 写入新模式时同步更新本索引、`skill-impact.md` 和 `CHANGELOG.md`。
+5. 具体bug先登记到`issues.md`，同因复发更新原ID；仅登记不自动升级模式或更改Skill生产规则。实际修Skill仍按原验证/版本流程。
