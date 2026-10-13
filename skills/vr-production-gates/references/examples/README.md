@@ -8,7 +8,7 @@
 
 | 笔记 | 覆盖内容 |
 |---|---|
-| [example-01-integrated-run.md](example-01-integrated-run.md) | 脚本先审一体化生产全流程、验收阶梯、交付后修改映射 |
+| [example-01-integrated-run.md](example-01-integrated-run.md) | 有限探索、真实源图文脚本结构、一次完整制作批准、验收阶梯、后期版本与采集次数分离 |
 | [example-02-post-audio-subtitle.md](example-02-post-audio-subtitle.md) | 时间轴对齐、配音重排、音乐延展与响度、字幕覆盖模式、参考片版式与可读性 |
 
 ## 图片生成
@@ -19,4 +19,6 @@
 python3 tools/make_example_figures.py
 ```
 
-图中不含任何真实房源画面、素材、标识或个人信息。`05-subtitle-style.png` 是按本地参考片观察结果重绘的虚构室内示意，不是从真实视频截帧。
+图中不含任何真实房源画面、素材、标识或个人信息。`05-subtitle-style.png` 是虚构室内字幕示意，不是真实截帧；`06-illustrated-script.png`只有格式占位，**不可通过实际拍摄检查**。真实参考PNG留私有项目。
+
+只更新指定图可用 `--only modes states timeline subtitle-check storyboard`；保持未改变的旧图不重写。图文脚本协议与可复用模板见上级 `illustrated-script.md` / `illustrated-script-template.md`。

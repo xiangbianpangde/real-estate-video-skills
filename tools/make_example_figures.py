@@ -7,6 +7,7 @@
 用法：
     python3 tools/make_example_figures.py
 """
+import argparse
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
@@ -60,15 +61,15 @@ def save(fig, name):
 
 
 def fig_modes():
-    """两种生产模式的门禁差异。"""
+    """默认一体化与明确请求的逐镜节奏，不按风险自动切模式。"""
     fig, ax = canvas(11, 6.6)
 
     ax.text(0.02, 0.955, "默认模式：脚本先审，一体化执行", fontsize=13, color=INK, weight="bold")
-    y = 0.79
-    steps = ["写脚本包\n分镜 + 台本 + 时间码", "用户批准脚本\nSCRIPT_APPROVED_ONCE",
-             "AI 一次跑完\n镜头 / 整片 / 配音 / 音乐 / 字幕", "技术 QC\n抽帧 / 解码 / 浏览器",
-             "用户按脚本验收\n接受或提修改"]
-    w, gap = 0.168, 0.037
+    y = 0.77
+    steps = ["有限探索 + 图文脚本\n真实源图 / 段落 / 范围", "实际展示后一次批准\n正文 / 图片 / 范围摘要",
+             "AI 自主完整制作\n只拍一次 / 后期不再索权", "自主 QC\n全解码 / 视觉 / 实播",
+             "用户按脚本验收\n接受或按段落提问题"]
+    w, gap = 0.172, 0.022
     x = 0.02
     for i, s in enumerate(steps):
         last = i == len(steps) - 1
@@ -82,8 +83,8 @@ def fig_modes():
 
     ax.plot([0.02, 0.98], [0.63, 0.63], color=LINE, lw=1)
 
-    ax.text(0.02, 0.565, "备用模式：逐镜门禁", fontsize=13, color=INK, weight="bold")
-    ax.text(0.02, 0.50, "事实不清、点位未核证、源面或位移风险、权利不明，或用户明确要求逐镜确认时启用",
+    ax.text(0.02, 0.565, "例外节奏：仅用户明确要求逐镜确认", fontsize=13, color=INK, weight="bold")
+    ax.text(0.02, 0.50, "事实/权利风险集中澄清，不自动切逐镜；设计候选不等于已验证，不替代取证",
             fontsize=9.5, color=MUTED)
     y2 = 0.30
     steps2 = ["单镜设计", "一次性许可", "只出一个 take", "镜头 QC", "SHA 人工接受"]
@@ -93,7 +94,7 @@ def fig_modes():
         if i < len(steps2) - 1:
             arrow(ax, (x + w, y2 + 0.057), (x + w + gap, y2 + 0.057), color=WARN)
         x += w + gap
-    ax.text(0.02, 0.20, "每一镜都必须停下来等用户：代价是往返多，收益是问题不会堆积到成片",
+    ax.text(0.02, 0.20, "旧逐镜批准不追认为整片许可；已批准完整制作不再为每层首尾/字幕/音乐索权",
             fontsize=9.5, color=MUTED, style="italic")
 
     ax.text(0.02, 0.09, "两种模式都不跳过：技术 QC · 浏览器验证 · 事实边界 · 最终用户验收",
@@ -108,14 +109,14 @@ def fig_states():
 
     levels = [
         ("脚本批准", "SCRIPT_APPROVED_ONCE", "脚本版本 SHA + 批准范围", "#eef4fa"),
-        ("执行许可", "APPROVED_ONCE", "合同范围 + 一次性许可", "#eef4fa"),
+        ("内部采集claim", "CONSUMED_BEFORE_CAPTURE", "同次批准含采集许可；不再找用户批准", "#eef4fa"),
         ("机器检查", "technical_passed", "技术 / QC 凭据", "#f5f6f7"),
         ("用户接受", "ACCEPTED", "用户对确切 SHA 的明确决定", "#eef7f0"),
         ("对外发布", "RELEASED", "独立的发布授权与审核", "#fdf1f1"),
     ]
-    x0, w, h, gap = 0.06, 0.30, 0.115, 0.035
+    x0, w, h, gap = 0.06, 0.30, 0.105, 0.032
     for i, (cn, code, ev, fill) in enumerate(levels):
-        y = 0.70 - i * (h + gap)
+        y = 0.74 - i * (h + gap)
         edge = OK if code == "ACCEPTED" else (BAD if code == "RELEASED" else LINE)
         box(ax, x0, y, w, h, f"{cn}\n{code}", edge=edge, fill=fill, size=10, weight="bold")
         ax.text(x0 + w + 0.03, y + h / 2, f"证据：{ev}", fontsize=9.5, color=INK, va="center")
@@ -126,7 +127,7 @@ def fig_states():
                                      color=BAD, linestyle=(0, (3, 2))))
 
     ax.text(0.03, 0.11,
-            "红色双向箭头 = 不可跳级：接受任一级都不自动解锁其上一级",
+            "制作范围一次批准；技术PASS、用户接受、允许发布仍是三个独立结果",
             fontsize=10, color=BAD, weight="bold")
     ax.text(0.03, 0.045,
             "例：静默母版被接受，不等于后期成片被接受，更不等于可以对外发布",
@@ -135,13 +136,13 @@ def fig_states():
 
 
 def fig_timeline():
-    """配音、字幕、音乐与镜头切点的对齐。"""
+    """配音、字幕、音乐与连续镜头叙事段的对齐。"""
     fig, ax = canvas(11, 5.6)
-    ax.text(0.03, 0.94, "时间轴对齐：字幕与旁白落在镜头切点上，音乐按需延展",
+    ax.text(0.03, 0.94, "时间轴对齐：字幕与旁白按叙事段排布，章节边界不是切点",
             fontsize=13, color=INK, weight="bold")
 
     cuts = [0, 3, 11, 16, 20, 24, 28, 32, 35]
-    labels = ["A", "B", "C", "D1", "D2", "E1", "F1", "G", ""]
+    labels = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", ""]
 
     def x_of(t):
         return 0.06 + (t / 35.0) * 0.90
@@ -211,7 +212,7 @@ def fig_subtitle_check():
         ax.text(0.14 + i * 0.245, 0.645, "PASS", ha="center", fontsize=9, color=OK, weight="bold")
 
     ax.text(0.03, 0.53, "机器 QC 证明不了的", fontsize=11, color=BAD, weight="bold")
-    fails = ["字体是否含简体中文字形", "字幕是否被 BGM 盖住", "字幕位置是否挡关键画面"]
+    fails = ["实际帧字形是否完整", "旁白是否被 BGM 盖住", "字幕位置是否挡关键画面"]
     for i, p in enumerate(fails):
         box(ax, 0.03 + i * 0.325, 0.40, 0.30, 0.09, p, edge=BAD, fill="#fdf1f1", size=9)
         ax.text(0.18 + i * 0.325, 0.365, "FAIL", ha="center", fontsize=9, color=BAD, weight="bold")
@@ -260,9 +261,67 @@ def fig_subtitle_style():
     print(f"wrote {out.relative_to(ROOT)}")
 
 
+def fig_storyboard():
+    """图文脚本结构示意；没有真实房况，不可用于批准拍摄。"""
+    w, h = 1560, 1400
+    im = Image.new("RGB", (w, h), "#f4f6f8")
+    d = ImageDraw.Draw(im)
+    font_path = "/System/Library/Fonts/STHeiti Medium.ttc"
+    title = ImageFont.truetype(font_path, 48)
+    heading = ImageFont.truetype(font_path, 33)
+    body = ImageFont.truetype(font_path, 27)
+    small = ImageFont.truetype(font_path, 22)
+    d.text((55, 35), "图文脚本结构示意｜不是实际房源脚本", font=title, fill=INK)
+    d.rounded_rectangle((45, 120, 1515, 420), radius=24, fill="white", outline=LINE, width=3)
+    d.text((80, 145), "总体方案：一次正式拍摄 · 一镜到底 · 推进式 · 首户型 / 尾室内", font=heading, fill=INK)
+    nodes = ["S01 开场", "S02 公共区", "S03 房间段", "S04 室内尾镜"]
+    for i, label in enumerate(nodes):
+        x = 90 + i * 360
+        d.rounded_rectangle((x, 220, x+290, 305), radius=14, fill="#edf5fa", outline=ACCENT, width=3)
+        d.text((x+25, 243), label, font=body, fill=INK)
+        if i < 3:
+            d.line((x+300, 263, x+345, 263), fill=ACCENT, width=5)
+            d.polygon([(x+345, 263), (x+331, 253), (x+331, 273)], fill=ACCENT)
+    d.text((80, 340), "章节不是切点；绑定正文 / PNG / 输入 / 制作范围SHA，实际呈现后一次批准", font=body, fill=MUTED)
+    cards = [("S01｜首镜 0–3秒", "户型图浮层进出；连续室内背景", "白字 + 黄标；户型图保持原比例", "素材库潮流BGM；已列权利范围"),
+             ("S02｜空间段 3–N秒", "平稳推进；展示空间关系", "按口播模式写全文或卖点关键词", "注明源缺陷 / 遮挡 / 连续性证据"),
+             ("S04｜室内收尾 N–结束", "在批准房间内收束，不切户型图", "单行白黄CTA；文案需本房源批准", "BGM淡出；按S-ID审核完整成片")]
+    for i, (label, action, subtitle, risk) in enumerate(cards):
+        x = 45 + i*500
+        d.rounded_rectangle((x, 460, x+470, 1260), radius=22, fill="white", outline=LINE, width=3)
+        d.text((x+22, 488), label, font=heading, fill=INK)
+        d.rectangle((x+22, 555, x+448, 825), fill="#e9eef1", outline=ACCENT, width=3)
+        d.line((x+25, 558, x+445, 822), fill=LINE, width=3)
+        d.line((x+445, 558, x+25, 822), fill=LINE, width=3)
+        d.rectangle((x+65, 636, x+405, 744), fill="#e9eef1")
+        d.text((x+80, 650), "生产时嵌真实源PNG", font=body, fill=INK)
+        d.text((x+97, 695), "此处只有结构占位", font=small, fill=BAD)
+        y = 860
+        for line in ["动作："+action, "字幕："+subtitle, "音乐/风险："+risk, "证据：源图 / SHA / 事实索引"]:
+            current = ""
+            for character in line:
+                candidate = current + character
+                if current and d.textlength(candidate, font=body) > 426:
+                    d.text((x+22, y), current, font=body, fill=INK)
+                    y += 36
+                    current = character
+                else:
+                    current = candidate
+            d.text((x+22, y), current, font=body, fill=INK)
+            y += 62
+    d.text((55, 1310), "公开示意不可冒充真实参考图；私有脚本缺图、路径-only、版本漂移都不能开拍。", font=body, fill=BAD)
+    out = OUT / "06-illustrated-script.png"
+    OUT.mkdir(parents=True, exist_ok=True)
+    im.save(out)
+    print(f"wrote {out.relative_to(ROOT)}")
+
+
 if __name__ == "__main__":
-    fig_modes()
-    fig_states()
-    fig_timeline()
-    fig_subtitle_check()
-    fig_subtitle_style()
+    functions = {"modes": fig_modes, "states": fig_states, "timeline": fig_timeline,
+                 "subtitle-check": fig_subtitle_check, "subtitle-style": fig_subtitle_style,
+                 "storyboard": fig_storyboard}
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--only", nargs="+", choices=list(functions))
+    args = parser.parse_args()
+    for name in args.only or functions:
+        functions[name]()

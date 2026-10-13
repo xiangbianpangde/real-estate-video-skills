@@ -6,31 +6,47 @@
 
 | 模式 | Skill 文件 | 段落 | 门禁编号 |
 |---|---|---|---|
-| P001 | `SKILL.md` | 工作流 · 第 0 步 脚本先审门 | Script approval / Integrated execution |
-| P002 | `SKILL.md` | 第 B 步 10 后期 QC 与接受 | Subtitle burn-in |
+| P001 | `SKILL.md` | §2 图文脚本实际提交、§3 一次完整制作 | Script approval / Integrated execution |
+| P002 | `SKILL.md` | §4 实帧字形与后期QC | Subtitle burn-in |
 | P002 | `references/acceptance-matrix.md` | Subtitle burn-in 行 + 负向测试 | — |
-| P003 | `SKILL.md` | 第 B 步 8 后期资产 / 第 B 步 9 后期单 take | TTS/BGM/SFX assets / Post mix |
-| P004 | `SKILL.md` | 触发边界、第 0 步、第 B 步 6 人工门禁 | Human acceptance |
+| P003 | `SKILL.md` | §3 获批后期资产/独立后期版本 | TTS/BGM/SFX assets / Post mix |
+| P004 | `SKILL.md` | 默认授权边界、§2版本批准、§4人工验收/发布分离 | Human acceptance |
 | P004 | `references/acceptance-matrix.md` | Required state split | — |
-| P005 | `SKILL.md` | 第 B 步 9 后期单 take | Post mix |
-| P006 | `SKILL.md` | 第 B 步 4 先测后写 | Render / Preflight |
-| P007 | `SKILL.md` | 第 0 步脚本包、第 B 步 9 后期时间轴、第 B 步 10 后期 QC 与接受 | Subtitle intent / coverage / style / burn-in |
+| P005 | `SKILL.md` | §3最终音轨/字幕时间轴 | Post mix |
+| P006 | `SKILL.md` | §1 有限预检与渲染器基准回归 | Render / Preflight |
+| P007 | `SKILL.md` | §2真实源图卡、§3时间轴、§4首中尾结构/QC | Subtitle intent / coverage / style / burn-in |
 | P007 | `references/subtitle-style.md` | 完整口播与卖点压缩模式、首/中/尾角色、背景与标题/CTA授权边界、视觉版式、时间同步及拒收条件 | — |
 | P007 | `references/opening-ending-layout.md` | 2.5.0 首尾目标优先级、三层开场/室内尾镜、源时间与布局合同、结构与覆盖分项验收 | Opening/ending match |
+| P008 | `SKILL.md` / `references/continuous-take.md` | §1渲染基准回归、连续规范两轴FOV/SDK主相机控制 | Preflight / Continuity |
+| P001 / P006 | `references/continuous-take.md` / `scripts/check_shooting_plan.py` | 当前成像方法/源/配置/路线动态证据绑定；静态/loaded/回调不代替移动视觉PASS | Render-method precheck |
 
 ## 回归检查
 
 修改 Skill 后逐条确认：
 
-- [ ] P001：脚本先审门仍在，且仍保留逐镜备用模式
+- [ ] P001：真实源图文脚本实际展示/一次完整制作仍在，逐镜仅用户明确要求
 - [ ] P002：后期 QC 仍要求字幕字形可读与抽帧目视
-- [ ] P003：BGM/SFX 仍需记录来源、许可、SHA 与响度
-- [ ] P004：`technical_passed` 与 `ACCEPTED` 仍未合并
+- [ ] P003：BGM/SFX仍需记录来源、许可、SHA与响度；获批范围内不逐层索权
+- [ ] P004：完整制作批准可覆盖列明后期，但`technical_passed`、`ACCEPTED`和发布仍分开
 - [ ] P005：字幕末条仍要求不越界
 - [ ] P006：预检仍先于生成
 - [ ] P007：字幕仍保留单行居中、白字黑描边、少量标黄、无底框；标题卡独立；完整口播覆盖不得被卖点压缩误替代，内容模式与交付方式须入合同；首/尾结构必须分别对比，超范围先审脚本
+- [ ] P008：复用既有渲染器前仍须先跑已知被接受 take 的回归测试；竖屏重投影的 kx/ky 必须分离，不得用共用 k 的正方形视场
+
+- 图文脚本回归：真实源PNG/S-ID/动作/字幕/音乐/风险嵌入；路径-only/纯文字/版本漂移拒绝；检查器claim一次且并发失败关闭。
+- 探索回归：单问题最多两组对照、一次全路线预检、停止理由；不因小角度随机重跑全屋。
+- 3.1.0成像回归：同点全景/Model/SDK跨点通过不迁移；缺连续报告、控制或视觉FAIL、方法/源/配置/路线/证据漂移拒绝新采集；review草案与post_only分流保留，声明PASS不当自动视觉认证。
+- 修复对象回归：修/验证Skill只改canonical和测试，不操作房源，不因视频输入缺口停规则任务；INVALID不自动追加take或预算。
 
 任一项丢失视为回归，不得发布新版本。
+
+### 2.7.0 连续镜头专项回归
+
+- 默认一镜到底，但 MOV-006 不解锁 MOV-007；硬切例外不得宣称连续行走。
+- 跨房间先分模型内与现实核证：模型内缺轨迹/画面/穿模证据阻塞，缺现场测量不阻塞；现实分支另核尺度/眼高/净空。执行意向及旧许可不可替代所属分支证据。
+- 保留对象优先、有限预检、单变量对照和拍前/拍后双节点；局部冲突先报告、按实际优先级，不把旧逐段规则写成全局默认。
+- FOV回归不能只看编码；案例阈值、角度、时长和源面避让结论不推广。
+- P008 原文与既有未提交改动保留；新增规范采用有界描述，不将案例 MAE 或 down 面豁免写成全局安全认证。
 
 ### 2.5.0 首尾专项回归
 

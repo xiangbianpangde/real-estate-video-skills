@@ -15,6 +15,7 @@
 | [P005](patterns/P005-narration-timeline-fit.md) | 配音时长与镜头时间轴错配 | 第 B 步 9 · 后期单 take | active |
 | [P006](patterns/P006-render-filter-capability-gap.md) | 渲染器缺少字幕滤镜时的替代路径 | 第 B 步 4 · 先测后写 | active |
 | [P007](patterns/P007-reference-subtitle-style.md) | 区分卖点字幕样式与完整口播覆盖 | 脚本包、后期时间轴与字幕 QC | active |
+| [P008](patterns/P008-vertical-fov-two-axis-focal-split.md) | 竖屏六面重投影的 FOV 约定：两轴必须分离焦距 | 第 B 步 4 · 先测后写 | active |
 
 ## 配套
 

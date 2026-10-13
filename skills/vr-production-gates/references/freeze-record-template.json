@@ -1,31 +1,64 @@
 {
-  "$schema": "shooting-plan-freeze/v1",
-  "status": "IN_REVIEW",
-  "property_id": "",
-  "plan_version": "",
-  "plan_path": "",
-  "plan_sha256": "",
-  "diagram_path": "",
-  "diagram_sha256": "",
-  "source_and_method_scope": {
-    "method_candidates": [],
-    "verified_for_this_property": [],
-    "candidate_only": [],
-    "prohibited_or_blocked": []
+  "schema": "vr-production-plan/v2",
+  "status": "DRAFT",
+  "plan": {
+    "version": "v1",
+    "path": "plan_v1.md",
+    "sha256": ""
   },
-  "approved_scope": [],
-  "not_approved": [],
-  "voice_and_cost_constraints": [],
-  "next_shot_gate": "",
-  "user_acceptance": {
-    "explicit_text": "",
-    "at": "",
-    "accepted_by": "user",
-    "acceptance_is_overall_only": true
+  "assets": [
+    {"path": "overview.png", "sha256": "", "role": "overview", "origin": "schematic"},
+    {"path": "S01.png", "sha256": "", "role": "reference", "origin": "actual_source"},
+    {"path": "S02.png", "sha256": "", "role": "reference", "origin": "actual_source"},
+    {"path": "../source/model.at3d", "sha256": "", "role": "source", "origin": "actual_source"},
+    {"path": "precheck.json", "sha256": "", "role": "precheck_report", "origin": "actual_run"},
+    {"path": "precheck.webm", "sha256": "", "role": "precheck", "origin": "actual_run"},
+    {"path": "telemetry.json", "sha256": "", "role": "precheck", "origin": "actual_run"},
+    {"path": "visual-review.md", "sha256": "", "role": "precheck", "origin": "actual_run"},
+    {"path": "restore.json", "sha256": "", "role": "precheck", "origin": "actual_run"}
+  ],
+  "segments": [
+    {"id": "S01", "start_s": 0, "end_s": 3, "reference_image": "S01.png", "action": "", "focus": "", "text": "", "highlights": [], "music": "", "risk": ""},
+    {"id": "S02", "start_s": 3, "end_s": 60, "reference_image": "S02.png", "action": "", "focus": "", "text": "", "highlights": [], "music": "", "risk": ""}
+  ],
+  "scope": {
+    "execution_mode": "capture_and_post",
+    "capture_medium": "model_render",
+    "source_namespace": "",
+    "render_method": "model_mesh",
+    "render_config": {"renderer": "", "width": 720, "height": 1280, "dpr": 1, "fov_axis": "vertical", "fov_deg": 85.57},
+    "render_validation": {"path": "precheck.json", "sha256": ""},
+    "validation_scope": "model_only",
+    "continuity_class": "cross_room_travel",
+    "max_capture_attempts": 1,
+    "duration_s": 60,
+    "duration_tolerance_s": 0.5,
+    "output_dir": "take01",
+    "authorized_actions": ["capture", "opening", "ending", "subtitles", "bgm", "encode", "qc"],
+    "subtitle_content_mode": "editorial_keywords",
+    "subtitle_delivery": "burned_in",
+    "opening": "",
+    "ending": "",
+    "bgm": "",
+    "coverage": [],
+    "route": "",
+    "facts_and_rights": "",
+    "not_authorized": ["publish", "paid_service", "new_facts_or_cta", "reshoot"]
   },
-  "generated_media": {
-    "video": false,
-    "audio": false,
-    "paid_call": false
+  "exploration": {
+    "key_prechecks": 0,
+    "full_route_prechecks": 0,
+    "comparisons_by_issue": {},
+    "stop_reason": ""
+  },
+  "presentation": {
+    "mode": "inline_cards",
+    "transcript_path": "review.jsonl",
+    "transcript_sha256": "",
+    "assistant_event_id": ""
+  },
+  "approval": {
+    "user_event_id": "",
+    "explicit_text": ""
   }
 }
