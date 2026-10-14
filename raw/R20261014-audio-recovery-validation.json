@@ -1,0 +1,35 @@
+{
+  "skill_version": "3.6.1",
+  "strict": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "gate_tests": 72,
+  "document_review_additional_tests": 6,
+  "renderer_tests": 5,
+  "media_batch_cli_tests": 8,
+  "media_batch_red_before_implementation": true,
+  "real_private_receipt_check": {
+    "passed": true,
+    "complete": false,
+    "retry_indices": [
+      2,
+      4,
+      7,
+      8
+    ],
+    "network_calls": 0,
+    "media_generated": false
+  },
+  "pi_loader_diagnostics": [],
+  "project_links": {
+    "passed": true,
+    "markdown_documents": 41,
+    "image_references": 16
+  },
+  "unverified": [
+    "new-context model trigger stability",
+    "human audio listening and current video acceptance"
+  ],
+  "scope": "3.6.1 recovery rules and offline batch receipt checks; current video unchanged"
+}

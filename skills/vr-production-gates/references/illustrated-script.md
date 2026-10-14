@@ -89,3 +89,9 @@ python3 /path/to/vr-production-gates/scripts/check_shooting_plan.py \
 ## 公开仓库与私有房源
 
 公开 Skill 只放抽象规则、PNG示意图和脱敏示例；真实房源图、视频、音频、模型和可识别信息留私有项目。私有项目不得覆盖 `AST-*` 原始资产、冻结合同或历史批准；新版本使用新路径，运行记录 append-only。
+
+## 浏览器整合文档的批准记录
+
+`presentation.mode=rendered_document`适用于用户已在浏览器审核完整文档。`document_path`绑定assets中integrated_review_source的自包含HTML；检查正文各行与全部嵌入PNG字节、原始Codex response_item展示/批准顺序、用户当前文档URL，以及展示之前真实review工具输出中的正文/范围摘要。用户直接请求“审核通过开始下一步”可作为明确批准；页面URL只绑定对象，授权来自请求原文。导出原始事件，不伪造parentId或向旧展示事件补正文/摘要。
+
+旧预检报告移出原审核目录时，可在presentation.precheck_bindings逐项列sources、evidence的旧字段到已绑定文件路径映射，各SHA/角色仍须匹配；报告和批准正文不重写。风险措辞缩写用limitations列表逐项保存report_text、segment_id、script_risk，核原报告条目与已获审段落完全对应。此映射记录人工语义核对，不自动认证相似度；原现象不能消除，改拍法/范围仍须新审。旧inline_cards分支保持原要求。

@@ -128,8 +128,16 @@ def check(record_path, phase, claim):
                     "render_config", "continuity_class", "route", "coverage"):
             if report.get(key) != scope.get(key):
                 errors.append("render_precheck_identity_mismatch:" + key)
+        presentation = record.get("presentation", {})
+        bindings = presentation.get("precheck_bindings", {}) if presentation.get("mode") == "rendered_document" else {}
         sources = {name: asset.get("sha256") for name, asset in assets.items() if asset.get("role") == "source"}
-        if report.get("source_sha256") != sources:
+        source_map = bindings.get("sources")
+        if source_map is not None:
+            expected_sources = report.get("source_sha256", {})
+            if (not expected_sources or set(source_map) != set(expected_sources)
+                    or any(sources.get(source_map[n]) != h for n, h in expected_sources.items())):
+                errors.append("render_precheck_source_mismatch")
+        elif report.get("source_sha256") != sources:
             errors.append("render_precheck_source_mismatch")
         if report.get("evidence_kind") != "continuous_media" or report.get("complete_interval_reviewed") is not True:
             errors.append("render_precheck_not_continuous")
@@ -155,17 +163,25 @@ def check(record_path, phase, claim):
                     or (visual == "PASS_WITH_LIMITATIONS" and not limitations)):
                 errors.append("missing_visual_limitations")
             elif any(item not in body for item in limitations):
-                errors.append("visual_limitations_not_in_plan")
+                alignment = bindings.get("limitations", [])
+                segments_by_id = {s.get("id"): s for s in record.get("segments", [])}
+                if (len(alignment) != len(limitations)
+                        or any(a.get("report_text") != item
+                               or a.get("script_risk") != segments_by_id.get(a.get("segment_id"), {}).get("risk")
+                               or not a.get("script_risk") or a["script_risk"] not in body
+                               for a, item in zip(alignment, limitations))):
+                    errors.append("visual_limitations_not_in_plan")
         evidence = report.get("evidence", {})
         for key in ("media", "telemetry", "review", "restore"):
             entry = evidence.get(key) if isinstance(evidence, dict) else None
             if not isinstance(entry, dict) or not entry.get("path"):
                 errors.append("missing_render_precheck_evidence:" + key)
                 continue
-            bound = assets.get(entry["path"], {})
+            actual_name = bindings.get("evidence", {}).get(entry["path"], entry["path"])
+            bound = assets.get(actual_name, {})
             if bound.get("role") != "precheck" or bound.get("sha256") != entry.get("sha256"):
                 errors.append("unbound_render_precheck_evidence:" + key)
-            asset_ok(entry["path"], entry.get("sha256"), "render_precheck_" + key)
+            asset_ok(actual_name, entry.get("sha256"), "render_precheck_" + key)
 
     if record.get("schema") not in ("vr-production-plan/v2", "vr-production-plan/v3"):
         errors.append("unsupported_schema")
@@ -353,24 +369,29 @@ def check(record_path, phase, claim):
         else:
             trace = asset_ok(presentation.get("transcript_path"), presentation.get("transcript_sha256"), "review_transcript")
             events = [json.loads(line) for line in trace.read_text(encoding="utf-8").splitlines() if line.strip()] if trace.is_file() else []
-            shown_id = presentation.get("assistant_event_id")
-            shown = next((e for e in events if e.get("id") == shown_id), {})
-            shown_text = text(shown)
-            if (presentation.get("mode") != "inline_cards" or shown.get("message", {}).get("role") != "assistant"
-                    or body.strip() not in shown_text or plan_sha not in shown_text):
-                errors.append("plan_not_actually_presented")
-            if "BUNDLE_SHA256: " + bundle_sha not in shown_text:
-                errors.append("bundle_not_actually_presented")
-            approval = record.get("approval", {})
-            decided = next((e for e in events if e.get("id") == approval.get("user_event_id")), {})
-            quote = approval.get("explicit_text", "")
-            if (decided.get("message", {}).get("role") != "user" or not quote or quote != text(decided).strip()
-                    or not re.search(r"批准|同意执行|确认执行|\bapprove[ds]?\b", quote, re.I)
-                    or re.search(r"不.{0,3}批准|未批准|暂不|不要|拒绝|不同意|不能|not approve|do not approve", quote, re.I)):
-                errors.append("invalid_user_approval")
-            if (not shown_id or decided.get("parentId") != shown_id
-                    or shown not in events or decided not in events or events.index(decided) <= events.index(shown)):
-                errors.append("approval_not_bound_to_submission")
+            if presentation.get("mode") == "rendered_document":
+                from document_review import check_document
+                errors.extend(check_document(presentation, record.get("approval", {}), events,
+                                             base, assets, body, plan_sha, bundle_sha))
+            else:
+                shown_id = presentation.get("assistant_event_id")
+                shown = next((e for e in events if e.get("id") == shown_id), {})
+                shown_text = text(shown)
+                if (presentation.get("mode") != "inline_cards" or shown.get("message", {}).get("role") != "assistant"
+                        or body.strip() not in shown_text or plan_sha not in shown_text):
+                    errors.append("plan_not_actually_presented")
+                if "BUNDLE_SHA256: " + bundle_sha not in shown_text:
+                    errors.append("bundle_not_actually_presented")
+                approval = record.get("approval", {})
+                decided = next((e for e in events if e.get("id") == approval.get("user_event_id")), {})
+                quote = approval.get("explicit_text", "")
+                if (decided.get("message", {}).get("role") != "user" or not quote or quote != text(decided).strip()
+                        or not re.search(r"批准|同意执行|确认执行|\bapprove[ds]?\b", quote, re.I)
+                        or re.search(r"不.{0,3}批准|未批准|暂不|不要|拒绝|不同意|不能|not approve|do not approve", quote, re.I)):
+                    errors.append("invalid_user_approval")
+                if (not shown_id or decided.get("parentId") != shown_id
+                        or shown not in events or decided not in events or events.index(decided) <= events.index(shown)):
+                    errors.append("approval_not_bound_to_submission")
 
     output = local(scope.get("output_dir"), inside=True)
     if output == base or output in [plan_path, record_path.resolve()] or any(output == local(a) or local(a).is_relative_to(output) for a in assets):

@@ -1,0 +1,19 @@
+{
+  "skill_version": "3.6.0",
+  "strict": {
+    "errors": 0,
+    "warnings": 0,
+    "entry_bytes": 11995
+  },
+  "existing_gate_tests": 72,
+  "document_review_tests_additional": 6,
+  "renderer_tests": 5,
+  "pi_loader_diagnostics": [],
+  "project_links": {
+    "markdown_documents": 41,
+    "image_references": 16,
+    "errors": []
+  },
+  "scope": "sound workflow documentation; no new executable audio gate claimed",
+  "new_context_model_trigger_verified": false
+}
