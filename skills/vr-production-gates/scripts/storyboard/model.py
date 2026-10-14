@@ -20,7 +20,37 @@ def motion_steps(visual):
     return steps
 
 
+def validate_editing(record):
+    scope=record.get('scope',{});policy=scope.get('editing_policy')
+    if policy is None:return
+    keys=('single_take_required','allow_cuts','allow_remove_intervals','allow_speed_changes')
+    if not isinstance(policy,dict) or any(type(policy.get(k)) is not bool for k in keys):
+        raise ValueError('Explicit editing permissions required')
+    if policy['single_take_required'] and (policy['allow_cuts'] or policy['allow_remove_intervals'] or scope.get('continuity_class') not in {'same_point_rotation','cross_room_travel'}):
+        raise ValueError('Single take cannot permit cuts or deleted source intervals')
+    if not policy['allow_cuts'] and record.get('review_route',{}).get('cuts'):
+        raise ValueError('Single take/cut prohibition conflicts with route cuts')
+    mapping=scope.get('speed_map')
+    if mapping is None:return
+    duration=scope.get('editing_source_duration_s')
+    if type(duration) not in (int,float) or not math.isfinite(duration) or duration<=0 or not isinstance(mapping,list) or not mapping:
+        raise ValueError('Speed map requires finite source duration and intervals')
+    previous=0
+    for part in mapping:
+        if not isinstance(part,dict):raise ValueError('Speed map interval required')
+        start,end,speed=(part.get(k) for k in ('source_start_s','source_end_s','speed'))
+        if any(type(x) not in (int,float) or not math.isfinite(x) for x in (start,end,speed)) or start<0 or end<=start or speed<=0:
+            raise ValueError('Speed map requires finite positive intervals and speed')
+        if not policy['allow_speed_changes'] and speed!=1:raise ValueError('Speed map speed change not allowed')
+        if policy['single_take_required'] and abs(start-previous)>1e-6:
+            raise ValueError('Speed map cannot omit, overlap or reorder source intervals')
+        previous=end
+    if policy['single_take_required'] and abs(previous-duration)>1e-6:
+        raise ValueError('Speed map must cover the complete original')
+
+
 def validate(record):
+    validate_editing(record)
     segments = record.get('segments', [])
     if not segments:
         raise ValueError('At least one chapter required')

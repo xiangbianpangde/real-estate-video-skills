@@ -201,6 +201,12 @@
     "review_route_layout": {
       "board": "route-board.png",
       "source": "route-board.html"
+    },
+    "editing_policy": {
+      "single_take_required": true,
+      "allow_cuts": false,
+      "allow_remove_intervals": false,
+      "allow_speed_changes": false
     }
   },
   "exploration": {

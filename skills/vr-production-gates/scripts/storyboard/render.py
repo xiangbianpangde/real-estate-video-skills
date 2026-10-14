@@ -54,6 +54,8 @@ def render_markdown(record, floorplan):
              f'- 时长：{s["duration_s"]}秒；配置：{json.dumps(s.get("render_config",{}),ensure_ascii=False)}。']
     for key in ['opening','ending','bgm','route','facts_and_rights']:
         lines.append(f'- {key}：{s.get(key,"未声明")}')
+    if 'editing_policy' in s:
+        lines.append('- 连续性与后期边界：'+json.dumps(s['editing_policy'],ensure_ascii=False)+'；绑定同一完整原件，变速不授予切镜。')
     lines += [f'- 覆盖：{"、".join(s.get("coverage",[]))}',f'- 字幕：{s.get("subtitle_content_mode","未声明")} / {s.get("subtitle_delivery","未声明")}。',
               f'- 授权范围：{json.dumps(s.get("authorized_actions",[]),ensure_ascii=False)}。',f'- 未授权：{json.dumps(s.get("not_authorized",[]),ensure_ascii=False)}。',f'- 原户型图：{floorplan}']
     for key in ['render_validation','visual_acceptance']:

@@ -16,6 +16,48 @@ class RouteBoardTests(unittest.TestCase):
     def tearDown(self):self.fixture.tearDown()
     def invoke(self):
         (self.root/'record.json').write_text(json.dumps(self.record));return subprocess.run([sys.executable,str(SCRIPT),'--record',str(self.root/'record.json'),'--floorplan','floor.png','--output-dir',str(self.root/'package')],capture_output=True,text=True)
+    def editing_policy(self):
+        self.record['scope'].update(continuity_class='cross_room_travel',editing_policy={'single_take_required':True,'allow_cuts':False,'allow_remove_intervals':False,'allow_speed_changes':True})
+
+    def test_single_take_policy_rejects_cut_exception(self):
+        from storyboard.model import validate
+        self.editing_policy();self.record['scope']['continuity_class']='approved_cut_exception'
+        with self.assertRaisesRegex(ValueError,'Single take'):
+            validate(self.record)
+
+    def test_single_take_policy_rejects_cut_deletion_permission(self):
+        from storyboard.model import validate
+        self.editing_policy();self.record['scope']['editing_policy']['allow_remove_intervals']=True
+        with self.assertRaisesRegex(ValueError,'Single take'):
+            validate(self.record)
+
+    def test_single_take_speed_map_preserves_timeline(self):
+        from storyboard.model import validate
+        self.editing_policy();self.record['scope'].update(editing_source_duration_s=10,speed_map=[{'source_start_s':0,'source_end_s':4,'speed':1.25},{'source_start_s':4,'source_end_s':10,'speed':1}])
+        validate(self.record)
+        self.record['scope']['speed_map'][1]['source_start_s']=5
+        with self.assertRaisesRegex(ValueError,'Speed map'):
+            validate(self.record)
+
+    def test_cut_is_separate_from_navigation(self):
+        self.record['scope']['continuity_class']='approved_cut_exception'
+        self.record['review_route']['cuts']=[{'from_pano':0,'to_pano':1,'label':'剪辑切换'}]
+        from storyboard.route_board import route_document
+        from storyboard.render import load
+        (self.root/'record.json').write_text(json.dumps(self.record,ensure_ascii=False))
+        record,images=load(self.root/'record.json','floor.png')
+        page=route_document(record,images,'floor.png')
+        self.assertIn('data-cut="0-1"',page)
+        self.assertNotIn('data-edge="0-1"',page)
+        self.assertIn('剪辑切换',page)
+
+    def test_cut_cannot_claim_continuous_route(self):
+        self.record['scope']['continuity_class']='cross_room_travel'
+        self.record['review_route']['cuts']=[{'from_pano':0,'to_pano':1,'label':'剪辑切换'}]
+        from storyboard.model import validate
+        with self.assertRaisesRegex(ValueError,'Cut requires'):
+            validate(self.record)
+
     def test_route_board_is_independent_and_in_document(self):
         result=self.invoke();self.assertEqual(result.returncode,0,result.stderr)
         route=(self.root/'package/route-board.html').read_text();md=(self.root/'package/plan.md').read_text()

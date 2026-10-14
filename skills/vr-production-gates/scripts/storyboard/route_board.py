@@ -25,6 +25,16 @@ def validate_route(record):
             raise ValueError('Unique route nodes with finite coordinates required')
         points[index]=xy
     if any(x not in points for x in seq):raise ValueError('Route references unknown node')
+    cuts=route.get('cuts',[])
+    if cuts and record['scope'].get('continuity_class')!='approved_cut_exception':
+        raise ValueError('Cut requires approved_cut_exception')
+    if not isinstance(cuts,list):raise ValueError('Explicit cut list required')
+    pairs=set(zip(seq,seq[1:]));seen_cuts=set()
+    for cut in cuts:
+        pair=(cut.get('from_pano'),cut.get('to_pano'))
+        if pair not in pairs or pair in seen_cuts or not str(cut.get('label','')).strip():
+            raise ValueError('Cut must bind a unique route transition and label')
+        seen_cuts.add(pair)
     chapters=route.get('chapters',[]);segments=record['segments']
     if not isinstance(chapters,list) or [c.get('id') for c in chapters]!=[s['id'] for s in segments]:
         raise ValueError('Route chapters must match script')
@@ -58,7 +68,7 @@ ROUTE_CSS='''
 
 
 def route_section(record, images, floorplan):
-    from .components import esc,image,motion_component
+    from .components import esc,image
     from .model import motion_steps
     validate_route(record)
     route=record['review_route']
@@ -69,8 +79,13 @@ def route_section(record, images, floorplan):
     points={n['pano_index']:n['floorplan_xy'] for n in route['nodes']};seq=[int(x) for x in route['route'].split('→')]
     parts=[f'<svg class="route-map" role="img" aria-label="完整章节路线与户型对应图" viewBox="{" ".join(str(x) for x in box)}" xmlns="http://www.w3.org/2000/svg"><defs><marker id="route-arrow" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0 0 L5 2.5 L0 5" fill="#1577ce"/></marker></defs><image href="{image(images[str(floorplan)])}" width="{width}" height="{height}"/>']
     seen=set()
+    cuts={(c['from_pano'],c['to_pano']):c['label'] for c in route.get('cuts',[])}
     for a,b in zip(seq,seq[1:]):
         if a==b:continue
+        if (a,b) in cuts:
+            x,y=points[a];u,v=points[b]
+            parts.append(f'<path data-cut="{a}-{b}" d="M{x} {y} L{u} {v}" fill="none" stroke="#aa5a24" stroke-width="7" stroke-dasharray="12 16"/><text x="{(x+u)/2}" y="{(y+v)/2}" font-size="27" fill="#aa5a24" stroke="white" stroke-width="6" paint-order="stroke">{esc(cuts[(a,b)])}</text>')
+            continue
         x,y=points[a];u,v=points[b];back=(b,a) in seen;dash=' stroke-dasharray="17 12"' if back else ''
         parts.append(f'<path data-edge="{a}-{b}" data-return="{str(back).lower()}" d="M{x} {y} L{u} {v}" fill="none" stroke="white" stroke-width="13"/><path d="M{x} {y} L{u} {v}" fill="none" stroke="#1577ce" stroke-width="7"{dash} marker-end="url(#route-arrow)"/>');seen.add((a,b))
     anchors={}
@@ -82,7 +97,8 @@ def route_section(record, images, floorplan):
     for c,s in zip(route['chapters'],record['segments']):
         label=' → '.join(step['label'] for step in motion_steps(s['visual']))
         rows.append(f'<li data-route-chapter="{esc(s["id"])}" data-start="{s["start_s"]}" data-end="{s["end_s"]}" data-panos="{"→".join(str(n) for n in c["pano_indices"])}"><b>{esc(s["id"])} · {esc(s["visual"]["title"])}</b><span>{s["start_s"]:.2f}–{s["end_s"]:.2f}秒 · {esc(label)}</span><code>{" → ".join("P"+str(n) for n in c["pano_indices"])}</code></li>')
-    return '<section class="route-review" data-complete-route-board="true"><h2>户型运镜路线图 · 仅用于剧本审核</h2><p class="route-legend">蓝线＋箭头：导航顺序　虚线：重复回程　圆点：点位　S-ID：章节停留点（同点可对应多章）</p><div class="route-grid"><div>'+''.join(parts)+'</div><div><ul class="route-list">'+''.join(rows)+'</ul><p class="route-note">'+esc(route['caption'])+'</p><p class="route-note">'+esc(record.get('board_content',{}).get('limitations','候选路线需按本方法动态验证，静态图不证明实际连续性。'))+'</p><p class="route-legend">本图不进入视频、不占成片时长，不继承旧版批准。</p></div></div></section>'
+    legend='蓝线＋箭头：导航顺序　蓝虚线：重复回程　'+('棕虚线：剪辑切换，不是行走　' if cuts else '')+'圆点：点位　S-ID：章节停留点（同点可对应多章）'
+    return '<section class="route-review" data-complete-route-board="true"><h2>户型运镜路线图 · 仅用于剧本审核</h2><p class="route-legend">'+legend+'</p><div class="route-grid"><div>'+''.join(parts)+'</div><div><ul class="route-list">'+''.join(rows)+'</ul><p class="route-note">'+esc(route['caption'])+'</p><p class="route-note">'+esc(record.get('board_content',{}).get('limitations','候选路线需按本方法动态验证，静态图不证明实际连续性。'))+'</p><p class="route-legend">本图不进入视频、不占成片时长，不继承旧版批准。</p></div></div></section>'
 
 
 def route_document(record,images,floorplan):

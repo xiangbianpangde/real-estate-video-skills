@@ -8,7 +8,7 @@
 |---|---|
 | 继续当前项目 | [交接导航](skills/vr-production-gates/HANDOFF.md) |
 | 执行制作流程 | [制作技能](skills/vr-production-gates/SKILL.md) |
-| 设计图文剧本 | [设计系统 v1.0](skills/vr-production-gates/design-system/SPEC.md) |
+| 设计图文剧本 | [设计系统 v1.1](skills/vr-production-gates/design-system/SPEC.md) |
 | 看完整正反示例 | [设计系统示例](skills/vr-production-gates/design-system/examples/README.md) |
 | 提交与绑定拍前审核 | [提交协议](skills/vr-production-gates/references/illustrated-script.md) |
 | 查问题与复盘 | [Wiki导航](wiki/index.md)、[Bug台账](wiki/issues.md) |
@@ -20,7 +20,7 @@ skills/vr-production-gates/
   SKILL.md                 执行入口
   design-system/           设计规范、tokens/CSS、标准结构、正反示例
   scripts/storyboard/       共享数据校验、组件和两种输出
-  scripts/build_script_package.py  record -> 方案板HTML + 详细正文
+  scripts/build_script_package.py  record -> 总板HTML + 独立路线板HTML + 正文
   scripts/check_shooting_plan.py   审核/来源/一次采集门禁
   references/              提交、成像、字幕和首尾的专项合同
   tests/                   现有门禁与生成器回归

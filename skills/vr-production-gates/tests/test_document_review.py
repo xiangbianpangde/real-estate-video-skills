@@ -35,12 +35,12 @@ class DocumentReviewTests(unittest.TestCase):
     def tearDown(self):
         self.fixture.tearDown()
 
-    def run_gate(self):
+    def run_gate(self, phase="capture"):
         trace=self.root/'document-review.jsonl'
         trace.write_text(''.join(json.dumps(i,ensure_ascii=False)+'\n' for i in self.items))
         self.record['presentation']['transcript_sha256']=sha(trace)
         (self.root/'record.json').write_text(json.dumps(self.record,ensure_ascii=False))
-        result=subprocess.run([sys.executable,str(SCRIPT),'--record',str(self.root/'record.json'),'--phase','capture'],capture_output=True,text=True)
+        result=subprocess.run([sys.executable,str(SCRIPT),'--record',str(self.root/'record.json'),'--phase',phase],capture_output=True,text=True)
         return json.loads(result.stdout)
 
     def add_shot_constraints(self, framing):
@@ -81,6 +81,34 @@ class DocumentReviewTests(unittest.TestCase):
         core={k:self.record[k] for k in ('plan','assets','segments','scope','exploration')}
         bundle=hashlib.sha256(json.dumps(core,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
         self.items[0]['payload']['output']=json.dumps({'passed':True,'phase':'review','plan_sha256':self.record['plan']['sha256'],'bundle_sha256':bundle})
+
+    def test_single_take_post_requires_complete_speed_map(self):
+        self.add_complete_route()
+        self.record['scope']['editing_policy']={'single_take_required':True,'allow_cuts':False,'allow_remove_intervals':False,'allow_speed_changes':True}
+        self.refresh_digest()
+        result=self.run_gate('post')
+        self.assertIn('missing_continuous_speed_map',result['errors'])
+
+    def continuous_receipt(self):
+        self.add_complete_route()
+        self.record['scope']['editing_policy']={'single_take_required':True,'allow_cuts':False,'allow_remove_intervals':False,'allow_speed_changes':True}
+        self.refresh_digest();capture=self.run_gate()
+        self.assertTrue(capture['passed'])
+        take=self.root/'take01';take.mkdir()
+        (take/'capture-claim.json').write_text(json.dumps({'record_sha256':capture['record_sha256'],'plan_sha256':capture['plan_sha256'],'bundle_sha256':capture['bundle_sha256'],'max_capture_attempts':1,'state':'CONSUMED_BEFORE_CAPTURE'}))
+        (take/'raw-original.webm').write_bytes(b'synthetic identity fixture, not video')
+        receipt={'schema':'vr-continuous-edit/v1','source_sha256':sha(take/'raw-original.webm'),'source_duration_s':10,'speed_map':[{'source_start_s':0,'source_end_s':4,'speed':1.25},{'source_start_s':4,'source_end_s':10,'speed':1}]}
+        (take/'continuous-edit.json').write_text(json.dumps(receipt))
+        return take,receipt
+
+    def test_continuous_post_receipt_keeps_frozen_claim(self):
+        self.continuous_receipt()
+        self.assertTrue(self.run_gate('post')['passed'])
+
+    def test_continuous_post_receipt_binds_original_sha(self):
+        take,receipt=self.continuous_receipt();receipt['source_sha256']='0'*64
+        (take/'continuous-edit.json').write_text(json.dumps(receipt))
+        self.assertIn('continuous_edit_source_mismatch',self.run_gate('post')['errors'])
 
     def test_complete_route_document_passes(self):
         self.add_complete_route();self.assertTrue(self.run_gate()['passed'])

@@ -90,3 +90,7 @@ python3 skills/vr-production-gates/scripts/build_script_package.py \
 共享生成器同时输出`storyboard.html`、`route-board.html`、`plan.md`；渲染PNG后正文固定分为“一、完整方案板”“二、详细视频剧本”，后者另嵌独立`route-board.png`。只有总板里的缩小简图、仅P点顺序、外置路线图或旧章数截图都不满足此结构。
 
 `scope.review_route_layout`绑定board/source两个资产（role分别review_route/review_route_source）；生产入口核源图章节/时码/点位表及正文真实嵌图，文档批准检查继续核对应内嵌PNG字节。元数据声明不替图像目视，图只用于剧本审核、不进入成片；实际地图对齐和动态路线证据仍独立。旧v1.0兼容为历史，新建/修订模板用v1.1，不得降版本逃避必需路线板。
+
+用户明确许可切镜时，`continuity_class=approved_cut_exception`，`review_route.cuts`逐项写from_pano/to_pano/label。路线板棕虚线是剪辑切换，不绘成导航箭头，不证明空间行走。先删除无信息等待，再局部变速；必须保留原时码/切点/倍率与新PTS，动态比较后才能称节奏已改善。源缺陷或未展示内容不能靠加速掩盖。
+
+一镜到底新稿绑定scope.editing_policy；切镜/删除源间隔与连续模式矛盾时拒绝生成。局部变速不改变单原件、全时间线要求；正式后期提供完整speed_map。用户改回连续后，旧cuts与局部拼接试片仅保留历史。

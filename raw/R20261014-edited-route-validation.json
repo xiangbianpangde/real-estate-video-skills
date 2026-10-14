@@ -1,0 +1,23 @@
+{
+  "skill_version": "3.8.1",
+  "tests": 112,
+  "all_passed": true,
+  "strict": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "pi_loader": "passed",
+  "v9_render": {
+    "chapters": 5,
+    "navigation_edges": 3,
+    "cut_edges": 1,
+    "images": 8,
+    "no_overflow": true
+  },
+  "local_edit_duration_s": 5.666667,
+  "local_edit_speed": 1.25,
+  "local_edit_playback_ended": true,
+  "new_capture": false,
+  "new_local_motion_validation": "PENDING",
+  "user_acceptance": "PENDING"
+}

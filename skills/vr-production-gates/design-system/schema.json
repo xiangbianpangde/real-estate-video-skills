@@ -69,6 +69,59 @@
             "type": "string",
             "minLength": 1
           }
+        },
+        "editing_policy": {
+          "type": "object",
+          "required": [
+            "single_take_required",
+            "allow_cuts",
+            "allow_remove_intervals",
+            "allow_speed_changes"
+          ],
+          "properties": {
+            "single_take_required": {
+              "type": "boolean"
+            },
+            "allow_cuts": {
+              "type": "boolean"
+            },
+            "allow_remove_intervals": {
+              "type": "boolean"
+            },
+            "allow_speed_changes": {
+              "type": "boolean"
+            }
+          }
+        },
+        "editing_source_duration_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "speed_map": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "source_start_s",
+              "source_end_s",
+              "speed"
+            ],
+            "properties": {
+              "source_start_s": {
+                "type": "number",
+                "minimum": 0
+              },
+              "source_end_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "speed": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          }
         }
       }
     },
@@ -463,6 +516,31 @@
                   "orbit",
                   "fov"
                 ]
+              }
+            }
+          }
+        },
+        "cuts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "from_pano",
+              "to_pano",
+              "label"
+            ],
+            "properties": {
+              "from_pano": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "to_pano": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
               }
             }
           }

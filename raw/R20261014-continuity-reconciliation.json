@@ -1,0 +1,37 @@
+{
+  "skill_version": "3.9.0",
+  "test_counts": {
+    "route": 13,
+    "document_and_gates": 87,
+    "storyboard": 10,
+    "media_batch": 8,
+    "total": 118
+  },
+  "tests": "PASS",
+  "strict": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "loader": "PASS",
+  "v10": {
+    "chapters": 6,
+    "navigation_edges": 8,
+    "cuts": 0,
+    "images": 9,
+    "all_images_loaded": true,
+    "overflow": false,
+    "final_record_regeneration": "BYTE_IDENTICAL",
+    "dynamic_precheck": "NOT_RUN",
+    "approval": "NOT_APPROVED",
+    "formal_capture": false
+  },
+  "organization": {
+    "historical_handoff_original_sha256": "dbd4cef8c236be660f2f61bd2c4b0bf55db774b947795bdde5b2755ab2c91c74",
+    "no_media_moved_or_deleted": true
+  },
+  "fresh_model_trigger": "NOT_RUN",
+  "limits": [
+    "Source timeline declaration checks and SHA binding do not certify image continuity or media duration.",
+    "v10 adjacency and layout do not prove smooth motion, no bathroom visibility, or 35-second feasibility."
+  ]
+}

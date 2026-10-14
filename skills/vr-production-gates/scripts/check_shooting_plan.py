@@ -49,7 +49,7 @@ def check(record_path, phase, claim):
     if not isinstance(record, dict):
         raise ValueError("record must be an object")
     base = record_path.parent.resolve()
-    if record.get("design_system") is not None or record.get("scope", {}).get("shot_constraints") is not None:
+    if record.get("design_system") is not None or record.get("scope", {}).get("shot_constraints") is not None or record.get("scope", {}).get("editing_policy") is not None:
         from storyboard.model import validate
         validate(record)
         if phase in ("capture", "post") and record.get("scope", {}).get("shot_constraints") is not None:
@@ -433,6 +433,24 @@ def check(record_path, phase, claim):
                     errors.append("approval_not_bound_to_submission")
 
     output = local(scope.get("output_dir"), inside=True)
+    if phase == "post" and scope.get("editing_policy", {}).get("single_take_required"):
+        evidence_path = output / "continuous-edit.json"
+        if not evidence_path.is_file():
+            errors.append("missing_continuous_speed_map")
+        else:
+            evidence = json.loads(evidence_path.read_text())
+            original = output / "raw-original.webm"
+            if (evidence.get("schema") != "vr-continuous-edit/v1" or not original.is_file()
+                    or evidence.get("source_sha256") != digest(original)):
+                errors.append("continuous_edit_source_mismatch")
+            from storyboard.model import validate_editing
+            merged = dict(record)
+            merged["scope"] = dict(scope, editing_source_duration_s=evidence.get("source_duration_s"),
+                                   speed_map=evidence.get("speed_map"))
+            if not evidence.get("speed_map"):
+                errors.append("missing_continuous_speed_map")
+            else:
+                validate_editing(merged)
     if output == base or output in [plan_path, record_path.resolve()] or any(output == local(a) or local(a).is_relative_to(output) for a in assets):
         errors.append("output_overlaps_input")
     record_sha = digest(record_path)
