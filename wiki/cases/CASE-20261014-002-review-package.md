@@ -86,3 +86,7 @@ Tingting配音素材已按完整原文生成并测量各cue时长，尚未实听
 2026-10-14 ISSUE031修复：Skill3.8.0 / 设计系统1.1固化review_route，共享生成器输出独立左户型右五章路线板，正文保留路线板和首尾预览。逐章ID/时码/动作/路径校验，缺板、缺章、陈旧路线/时码及正文遗漏拒绝；同时修正正文子目录图片路径误判。110项相关回归、strict零错误警告及真实Pi loader通过。当前房源v7由同一最终record重生成，三份输出逐字节一致；本机Chrome两板与整合正文检查通过，8图片加载、五章与5边对应、无横向溢出，PNG已目视。问题状态verified仅指完整板结构与嵌入；用户验收和动态运动未验证，未正式采集。
 
 私有证据：拍前图文包_v7_30秒_完整方案板/package/generation.json、图文渲染检查.json、整合正文检查.json、layout-review.json；公共验证回执raw/R20261014-complete-route-board-validation.json。v6和原始视频保留，新版仅剧本审核用。
+
+## 2026-10-14 新路线预检01启动失败
+
+Skills修复5fc8c16已推送且远程SHA一致。新路线预检在录制前因画布DPR未同步失败；未生成媒体、未执行路线，原失败保留。就绪后DPR设置静态两次尺寸回读通过，页面/相机/SDK恢复；准备修正启动稿，追加一次预算待用户许可。动态画面/速度/连贯性仍未验证，未正式拍摄。私有证据v7/precheck-route01/failure-review.json、precheck-telemetry.json及预检结果.md。
