@@ -29,3 +29,7 @@ python3 tools/verify_design_system.py --evidence-out /path/to/verification.json
 ```
 
 反例JSON只记录相对valid.json的最小差异，避免维护五份重复剧本；验收程序在临时目录中展开差异，再运行真实生成命令。程序运行真实生成命令、核两种输出内容和失败退出状态；UI部分需另在浏览器核图片、动作、首尾图层、溢出并导出PNG。脚本不伪造UI验证。
+
+## 设计系统1.1完整路线板回归
+
+上述valid.json为1.0历史兼容示例。新剧本使用1.1，必须提供review_route及独立完整路线板；可运行tests/test_route_board.py和tests/test_document_review.py验证同点多章、缺路线/缺章、时码与路径漂移、正文遗漏和子目录图片引用。合成回归不替代当前房源成图检查。

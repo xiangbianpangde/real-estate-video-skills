@@ -24,18 +24,20 @@ def render_html(record, images, floorplan):
     title = record.get('storyboard_title','房源介绍 · 拍前图文方案')
     subtitle_mode = scope.get('subtitle_content_mode','未声明')
     subtitle_delivery = scope.get('subtitle_delivery','未声明')
+    from .route_board import ROUTE_CSS,route_section
+    route_view=route_section(record,images,floorplan) if record.get('review_route') else ''
     cards = ''.join(chapter_card(s,images,floorplan,fixture) for s in record['segments'])
     notes = content.get('changes', [])
     if not isinstance(notes,list): raise ValueError('board_content.changes must be a list')
     changes = ''.join(f'<div class="note"><b>{esc(note["title"])}</b><p>{esc(note["text"])}</p></div>' for note in notes)
     shape = scope.get('render_config',{})
     return f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>{esc(title)}</title>
-<style>:root{{{''.join(css)}}}{(DESIGN/'styles.css').read_text()}</style><main id="board">
+<style>:root{{{''.join(css)}}}{(DESIGN/'styles.css').read_text()}{ROUTE_CSS}</style><main id="board">
 <header><div class="eyebrow">{esc(scope['source_namespace'])} · {esc(record['plan']['version'])} · {esc(record.get('status','DRAFT'))}</div><h1>{esc(title)}</h1>
 <p>{' → '.join(esc(s['visual']['title']) for s in record['segments'])}</p>
 <div class="notice">约{scope['duration_s']:.1f}秒 · {esc(shape.get('width','待定'))}×{esc(shape.get('height','待定'))} · {esc(scope['render_method'])}</div>
 <p class="status">{'全部为虚构测试素材，不是房源脚本，不授权采集。' if fixture else '真实源参考、动作示意与布局预览分别标注；本图不表示已完成视频或用户已接受。'}</p></header>
-<section class="cards">{cards}</section><section class="lower"><div class="panel"><h3>户型：整体布局参考</h3><img class="floorplan" src="{image(images[str(floorplan)])}" alt="{'合成测试户型' if fixture else '当前房源户型原图'}"><p>{esc(content.get('fact_caption','事实详见同版来源及合同'))}</p><p class="caption">{'合成测试素材' if fixture else '保留原图比例；不作为现实路径测绘'}</p></div>
+{route_view}<section class="cards">{cards}</section><section class="lower"><div class="panel"><h3>户型：整体布局参考</h3><img class="floorplan" src="{image(images[str(floorplan)])}" alt="{'合成测试户型' if fixture else '当前房源户型原图'}"><p>{esc(content.get('fact_caption','事实详见同版来源及合同'))}</p><p class="caption">{'合成测试素材' if fixture else '保留原图比例；不作为现实路径测绘'}</p></div>
 <div class="panel"><h3>整片设计与审核范围</h3>{changes}
 <div class="note"><b>首尾设计</b><p>{esc(scope['opening'])}</p><p>{esc(scope['ending'])}</p></div>
 <div class="note"><b>声音与字幕</b><p>{esc(scope.get('voiceover','按当前口播合同'))}</p><p>{esc(scope['bgm'])}</p><p>{esc(subtitle_mode)} / {esc(subtitle_delivery)}</p></div>
@@ -74,6 +76,16 @@ def render_markdown(record, floorplan):
             if field in v: lines.append(f'- {field}：{json.dumps(v[field],ensure_ascii=False)}')
     lines += ['', '## 来源与审核边界','', '- 真实源参考不等于成片；动作图示不证明真实路径；首尾预览是排版设计。',
               '- 本正文、方案板、图源与实际回读绑定后才能提交一次整包审核。机器检查不代替目视和用户接受。']
+    if record.get('review_route'):
+        lines.insert(4,'## 一、完整方案板\n')
+        pos=lines.index('## 制作范围')
+        lines[pos:pos]=['## 二、详细视频剧本','','## 户型运镜路线图（仅用于剧本审核）','','![完整路线方案板：逐章时码、动作与路径](route-board.png)','',record['review_route']['caption'],'']
+    previews=[a for a in record.get('assets',[]) if a.get('role')=='design_preview' and a.get('path','').endswith('.png')]
+    if previews:
+        pos=lines.index('## 制作范围')
+        extra=['## 首尾层次与字幕顺序','']
+        for asset in previews:extra.extend(['![首镜合成与尾镜顺序字幕]('+asset['path']+')',''])
+        lines[pos:pos]=extra
     return '\n'.join(lines)+'\n'
 
 

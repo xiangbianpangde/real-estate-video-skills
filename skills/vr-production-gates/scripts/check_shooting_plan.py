@@ -49,9 +49,12 @@ def check(record_path, phase, claim):
     if not isinstance(record, dict):
         raise ValueError("record must be an object")
     base = record_path.parent.resolve()
-    if record.get("design_system") is not None:
+    if record.get("design_system") is not None or record.get("scope", {}).get("shot_constraints") is not None:
         from storyboard.model import validate
         validate(record)
+        if phase in ("capture", "post") and record.get("scope", {}).get("shot_constraints") is not None:
+            if any(seg.get("framing_status") == "pending" for seg in record.get("segments", [])):
+                errors.append("shot_framing_pending")
 
     def local(name, inside=False):
         if not isinstance(name, str) or not name or Path(name).is_absolute() or "://" in name:
@@ -210,7 +213,8 @@ def check(record_path, phase, claim):
                 errors.append("invalid_png:" + name)
             if a.get("role") == "overview":
                 overview.append(name)
-    if not overview or not all(p in images for p in overview):
+    image_paths = {(plan_path.parent / url).resolve() for url in images}
+    if not overview or not all(local(p).resolve() in image_paths for p in overview):
         errors.append("missing_embedded_overview")
     for image in images:
         # Markdown URLs resolve from the Markdown, not from the record.
@@ -247,6 +251,41 @@ def check(record_path, phase, claim):
                             errors.append("layout_review_not_passed:" + key)
                     if not isinstance(evidence.get("review_basis"), str) or not evidence["review_basis"].strip():
                         errors.append("missing_layout_review_basis")
+    if record.get('design_system',{}).get('version') == '1.1.0':
+        route_layout=record.get('scope',{}).get('review_route_layout')
+        if not isinstance(route_layout,dict):
+            errors.append('missing_complete_route_layout')
+        else:
+            route_bound={}
+            for key,role in [('board','review_route'),('source','review_route_source')]:
+                name=route_layout.get(key);entry=assets.get(name,{})
+                if not name or entry.get('role')!=role:
+                    errors.append('unbound_complete_route_'+key)
+                else:
+                    asset_ok(name,entry.get('sha256'),'complete_route_'+key);route_bound[key]=name
+            if 'board' in route_bound:
+                route_image=local(route_bound['board'])
+                if route_image not in {(plan_path.parent/name).resolve() for name in images} or '## 户型运镜路线图' not in body:
+                    errors.append('complete_route_board_not_in_plan')
+            if 'source' in route_bound:
+                from html.parser import HTMLParser
+                class RouteRows(HTMLParser):
+                    def __init__(self):super().__init__();self.rows=[];self.complete=False
+                    def handle_starttag(self,tag,attrs):
+                        item=dict(attrs)
+                        if item.get('data-complete-route-board')=='true':self.complete=True
+                        if 'data-route-chapter' in item:self.rows.append(item)
+                source=RouteRows();source.feed(local(route_bound['source']).read_text())
+                expected=record['review_route']['chapters']
+                def row_matches(row,chapter):
+                    try:
+                        return (row.get('data-route-chapter')==chapter['id']
+                                and float(row.get('data-start','nan'))==chapter['start_s']
+                                and float(row.get('data-end','nan'))==chapter['end_s']
+                                and row.get('data-panos')=='→'.join(str(n) for n in chapter['pano_indices']))
+                    except ValueError:return False
+                if not source.complete or len(source.rows)!=len(expected) or not all(row_matches(a,b) for a,b in zip(source.rows,expected)):
+                    errors.append('complete_route_source_mismatch')
     segments = record.get("segments", [])
     ids = set()
     previous = 0.0

@@ -50,6 +50,30 @@ class RendererTests(unittest.TestCase):
         self.record['segments'][0]['visual']['layout'] = 'unknown'
         with self.assertRaises(ValueError): self.render()
 
+    def short_constraints(self):
+        self.record['scope']['shot_constraints']={'duration_range_s':[3,5],'excluded_spaces':['bathroom'],'avoid_wall_facing':True}
+        self.record['scope']['route_space_ids']=['living_dining']
+        self.record['segments'][0].update(space_ids=['living_dining'],framing_status='subject')
+
+    def test_short_constraints_valid_candidate(self):
+        self.short_constraints();self.assertIn('户型开场',self.render())
+
+    def test_short_constraints_reject_long_old_route(self):
+        self.short_constraints();self.record['scope']['duration_s']=106.5
+        with self.assertRaises(ValueError):self.render()
+
+    def test_excluded_space_in_return_route_rejected(self):
+        self.short_constraints();self.record['scope']['route_space_ids'].append('bathroom')
+        with self.assertRaises(ValueError):self.render()
+
+    def test_blank_wall_primary_rejected(self):
+        self.short_constraints();self.record['segments'][0]['framing_status']='blank_wall'
+        with self.assertRaises(ValueError):self.render()
+
+    def test_missing_space_classification_rejected(self):
+        self.short_constraints();self.record['segments'][0].pop('space_ids')
+        with self.assertRaises(ValueError):self.render()
+
     def test_user_text_escaped_and_output_preserved(self):
         self.record['segments'][0]['visual']['headline_lines'][0] = '<script>bad</script>'
         text = self.render()

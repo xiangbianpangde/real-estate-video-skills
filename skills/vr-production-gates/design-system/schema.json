@@ -1,20 +1,493 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
-  "title":"Real-estate storyboard design system v1.0 rendering contract",
-  "type":"object",
-  "required":["schema","design_system","plan","scope","assets","segments"],
-  "properties":{
-    "schema":{"const":"vr-production-plan/v3"},
-    "design_system":{"type":"object","required":["id","version"],"properties":{"id":{"const":"real-estate-storyboard"},"version":{"const":"1.0.0"}}},
-    "plan":{"type":"object","required":["version"],"properties":{"version":{"type":"string","minLength":1}}},
-    "scope":{"type":"object","required":["source_namespace","duration_s","opening","ending","render_method","bgm"],"properties":{"duration_s":{"type":"number","exclusiveMinimum":0}}},
-    "assets":{"type":"array","minItems":1,"items":{"type":"object","required":["path","sha256","origin"],"properties":{"path":{"type":"string","minLength":1},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},"origin":{"enum":["actual_source","synthetic_fixture","actual_render_review","rendered_board","actual_run","render_source","actual_review"]}}}},
-    "segments":{"type":"array","minItems":2,"items":{"$ref":"#/$defs/segment"}}
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Real-estate storyboard rendering contract v1.1 with v1.0 compatibility",
+  "type": "object",
+  "required": [
+    "schema",
+    "design_system",
+    "plan",
+    "scope",
+    "assets",
+    "segments"
+  ],
+  "properties": {
+    "schema": {
+      "const": "vr-production-plan/v3"
+    },
+    "design_system": {
+      "type": "object",
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "const": "real-estate-storyboard"
+        },
+        "version": {
+          "enum": [
+            "1.0.0",
+            "1.1.0"
+          ]
+        }
+      }
+    },
+    "plan": {
+      "type": "object",
+      "required": [
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "source_namespace",
+        "duration_s",
+        "opening",
+        "ending",
+        "render_method",
+        "bgm"
+      ],
+      "properties": {
+        "duration_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "shot_constraints": {
+          "$ref": "#/$defs/shot_constraints"
+        },
+        "route_space_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256",
+          "origin"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "origin": {
+            "enum": [
+              "actual_source",
+              "synthetic_fixture",
+              "actual_render_review",
+              "rendered_board",
+              "actual_run",
+              "render_source",
+              "actual_review"
+            ]
+          }
+        }
+      }
+    },
+    "segments": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/segment"
+      }
+    },
+    "review_route": {
+      "$ref": "#/$defs/review_route"
+    }
   },
-  "$defs":{
-    "step":{"type":"object","required":["kind","label"],"properties":{"kind":{"enum":["static","pan","travel","orbit","fov"]},"label":{"type":"string","minLength":1}}},
-    "motion":{"oneOf":[{"$ref":"#/$defs/step"},{"type":"object","required":["steps"],"properties":{"steps":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/step"}}},"not":{"required":["kind"]}}]},
-    "visual":{"type":"object","required":["role","title","layout","motion"],"properties":{"role":{"enum":["opening","chapter","ending"]},"title":{"type":"string","minLength":1},"layout":{"enum":["source_reference","opening_composite","ending_composite"]},"motion":{"$ref":"#/$defs/motion"},"risk_level":{"enum":["info","limitation","pending"]},"headline_lines":{"type":"array","minItems":2,"maxItems":2,"items":{"type":"string","minLength":1}},"cta":{"type":"string","minLength":1},"disclaimer":{"type":"string"}},"allOf":[{"if":{"properties":{"role":{"const":"opening"}}},"then":{"properties":{"layout":{"const":"opening_composite"}},"required":["headline_lines"]}},{"if":{"properties":{"role":{"const":"ending"}}},"then":{"properties":{"layout":{"const":"ending_composite"}},"required":["cta"]}}]},
-    "segment":{"type":"object","required":["id","start_s","end_s","reference_image","action","focus","text","risk","visual"],"properties":{"id":{"type":"string","pattern":"^S[0-9]{2,}$"},"start_s":{"type":"number","minimum":0},"end_s":{"type":"number","exclusiveMinimum":0},"reference_image":{"type":"string","minLength":1},"action":{"type":"string","minLength":1},"focus":{"type":"string","minLength":1},"text":{"type":"string","minLength":1},"risk":{"type":"string","minLength":1},"visual":{"$ref":"#/$defs/visual"}}}
-  }
+  "$defs": {
+    "shot_constraints": {
+      "type": "object",
+      "required": [
+        "duration_range_s",
+        "excluded_spaces",
+        "avoid_wall_facing"
+      ],
+      "properties": {
+        "duration_range_s": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "excluded_spaces": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "avoid_wall_facing": {
+          "type": "boolean"
+        }
+      }
+    },
+    "step": {
+      "type": "object",
+      "required": [
+        "kind",
+        "label"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "static",
+            "pan",
+            "travel",
+            "orbit",
+            "fov"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "motion": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/step"
+        },
+        {
+          "type": "object",
+          "required": [
+            "steps"
+          ],
+          "properties": {
+            "steps": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/step"
+              }
+            }
+          },
+          "not": {
+            "required": [
+              "kind"
+            ]
+          }
+        }
+      ]
+    },
+    "visual": {
+      "type": "object",
+      "required": [
+        "role",
+        "title",
+        "layout",
+        "motion"
+      ],
+      "properties": {
+        "role": {
+          "enum": [
+            "opening",
+            "chapter",
+            "ending"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "layout": {
+          "enum": [
+            "source_reference",
+            "opening_composite",
+            "ending_composite"
+          ]
+        },
+        "motion": {
+          "$ref": "#/$defs/motion"
+        },
+        "risk_level": {
+          "enum": [
+            "info",
+            "limitation",
+            "pending"
+          ]
+        },
+        "headline_lines": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "cta": {
+          "type": "string",
+          "minLength": 1
+        },
+        "disclaimer": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "const": "opening"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "layout": {
+                "const": "opening_composite"
+              }
+            },
+            "required": [
+              "headline_lines"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "const": "ending"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "layout": {
+                "const": "ending_composite"
+              }
+            },
+            "required": [
+              "cta"
+            ]
+          }
+        }
+      ]
+    },
+    "segment": {
+      "type": "object",
+      "required": [
+        "id",
+        "start_s",
+        "end_s",
+        "reference_image",
+        "action",
+        "focus",
+        "text",
+        "risk",
+        "visual"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^S[0-9]{2,}$"
+        },
+        "start_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "end_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "reference_image": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "focus": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk": {
+          "type": "string",
+          "minLength": 1
+        },
+        "visual": {
+          "$ref": "#/$defs/visual"
+        },
+        "space_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "framing_status": {
+          "enum": [
+            "subject",
+            "pending",
+            "blank_wall",
+            "cabinet_door"
+          ]
+        }
+      }
+    },
+    "review_route": {
+      "type": "object",
+      "required": [
+        "purpose",
+        "included_in_video",
+        "floorplan",
+        "route",
+        "nodes",
+        "chapters",
+        "caption"
+      ],
+      "properties": {
+        "purpose": {
+          "const": "script_review_only"
+        },
+        "included_in_video": {
+          "const": false
+        },
+        "floorplan": {
+          "type": "string",
+          "minLength": 1
+        },
+        "route": {
+          "type": "string",
+          "minLength": 1
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "pano_index",
+              "floorplan_xy"
+            ],
+            "properties": {
+              "pano_index": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "floorplan_xy": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "chapters": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "title",
+              "start_s",
+              "end_s",
+              "pano_indices",
+              "stop_pano",
+              "motion_kind"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^S[0-9]{2,}$"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "start_s": {
+                "type": "number",
+                "minimum": 0
+              },
+              "end_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "pano_indices": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "stop_pano": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "motion_kind": {
+                "enum": [
+                  "static",
+                  "pan",
+                  "travel",
+                  "orbit",
+                  "fov"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "design_system": {
+            "properties": {
+              "version": {
+                "const": "1.1.0"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "review_route"
+        ]
+      }
+    }
+  ]
 }

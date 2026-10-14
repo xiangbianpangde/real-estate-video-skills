@@ -95,3 +95,7 @@ python3 /path/to/vr-production-gates/scripts/check_shooting_plan.py \
 `presentation.mode=rendered_document`适用于用户已在浏览器审核完整文档。`document_path`绑定assets中integrated_review_source的自包含HTML；检查正文各行与全部嵌入PNG字节、原始Codex response_item展示/批准顺序、用户当前文档URL，以及展示之前真实review工具输出中的正文/范围摘要。用户直接请求“审核通过开始下一步”可作为明确批准；页面URL只绑定对象，授权来自请求原文。导出原始事件，不伪造parentId或向旧展示事件补正文/摘要。
 
 旧预检报告移出原审核目录时，可在presentation.precheck_bindings逐项列sources、evidence的旧字段到已绑定文件路径映射，各SHA/角色仍须匹配；报告和批准正文不重写。风险措辞缩写用limitations列表逐项保存report_text、segment_id、script_risk，核原报告条目与已获审段落完全对应。此映射记录人工语义核对，不自动认证相似度；原现象不能消除，改拍法/范围仍须新审。旧inline_cards分支保持原要求。
+
+## 完整路线板不能省略
+
+v1.1剧本按[设计系统规范](../design-system/SPEC.md)交总方案板、独立完整户型路线板和详细正文。路线板必须实际嵌入正文，包含所有本版S-ID/时码/动作/点位路径；缩略简图或旧版截图不能替代。独立图源/PNG分别绑定review_route_source/review_route资产；缺布局、源表或正文嵌图时入口拒绝，不靠“图片已加载”宣称结构完整。

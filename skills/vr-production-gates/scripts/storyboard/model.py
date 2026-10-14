@@ -60,14 +60,42 @@ def validate(record):
         for field in ('action', 'focus', 'text', 'risk', 'reference_image'):
             if not isinstance(seg.get(field), str) or not seg[field].strip():
                 raise ValueError('Missing chapter field: ' + field)
+    scope = record.get('scope', {})
+    constraints = scope.get('shot_constraints')
+    if constraints is not None:
+        bounds = constraints.get('duration_range_s', [])
+        if (len(bounds) != 2 or any(isinstance(x,bool) or not isinstance(x,(int,float)) or not math.isfinite(x) for x in bounds)
+                or not 0 < bounds[0] <= bounds[1]
+                or not bounds[0] <= scope.get('duration_s', -1) <= bounds[1]
+                or not bounds[0] <= previous <= bounds[1]):
+            raise ValueError('Shot duration outside current user range')
+        excluded = constraints.get('excluded_spaces', [])
+        route_spaces = scope.get('route_space_ids', [])
+        if not isinstance(excluded,list) or any(not isinstance(x,str) or not x for x in excluded):
+            raise ValueError('Explicit excluded space IDs required')
+        if not isinstance(route_spaces,list) or not route_spaces or any(not isinstance(x,str) or not x for x in route_spaces):
+            raise ValueError('Full route space classification required')
+        used = set(route_spaces)
+        for seg in segments:
+            spaces = seg.get('space_ids', [])
+            if not isinstance(spaces,list) or not spaces or any(not isinstance(x,str) or not x for x in spaces):
+                raise ValueError('Chapter space classification required')
+            used.update(spaces)
+            if constraints.get('avoid_wall_facing') is True and seg.get('framing_status') not in {'subject','pending'}:
+                raise ValueError('Blank wall or cabinet-door primary framing rejected')
+        if used.intersection(excluded):
+            raise ValueError('Excluded space appears in chapter or return route')
+        # Labels describe the plan; they cannot certify camera frames or new dynamics.
     ds = record.get('design_system')
     if ds is not None:
-        if ds.get('id') != 'real-estate-storyboard' or ds.get('version') != '1.0.0':
+        if ds.get('id') != 'real-estate-storyboard' or ds.get('version') not in {'1.0.0','1.1.0'}:
             raise ValueError('Unsupported design system version')
         if segments[0]['visual'].get('role') != 'opening' or segments[-1]['visual'].get('role') != 'ending':
             raise ValueError('Standard script requires explicit opening and ending roles')
         if abs(previous-record['scope']['duration_s']) > record['scope'].get('duration_tolerance_s', .001):
             raise ValueError('Chapter timeline and scope duration disagree')
+    from .route_board import validate_route
+    validate_route(record)
     return record
 
 

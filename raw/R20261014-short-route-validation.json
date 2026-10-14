@@ -1,0 +1,26 @@
+{
+  "skill_version": "3.7.0",
+  "strict": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "gate_and_document_tests": 80,
+  "renderer_and_short_constraints_tests": 10,
+  "media_batch_tests": 8,
+  "added_behavior_checks": 7,
+  "short_constraints_initial_red_failures": 4,
+  "pi_loader_diagnostics": [],
+  "actual_house_script": {
+    "duration_s": 30,
+    "chapters": 5,
+    "candidate_moves": 5,
+    "source_images_bound": true,
+    "board_motion_diagrams": 8,
+    "static_layout_review": true,
+    "current_dynamic_precheck": "PENDING",
+    "capture_gate_rejects_pending": true,
+    "capture_claim_created": false
+  },
+  "new_context_trigger_verified": false,
+  "human_motion_acceptance": false
+}

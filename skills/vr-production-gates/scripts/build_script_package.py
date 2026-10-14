@@ -14,6 +14,8 @@ def build_package(record_path, output_dir, floorplan):
     record_path=Path(record_path).resolve()
     record,images=load(record_path,floorplan)
     html=render_html(record,images,floorplan)
+    from storyboard.route_board import route_document
+    route_html=route_document(record,images,floorplan) if record.get("review_route") else None
     # Rebase file references for the new output directory, rather than duplicating data.
     output_dir=Path(output_dir).resolve()
     import copy
@@ -38,6 +40,9 @@ def build_package(record_path, output_dir, floorplan):
     output_dir.mkdir(parents=True,exist_ok=False)
     (output_dir/'storyboard.html').write_text(html)
     (output_dir/'plan.md').write_text(md)
+    if route_html is not None:
+        (output_dir/'route-board.html').write_text(route_html)
+        receipt['route_board_html_sha256']=hashlib.sha256(route_html.encode()).hexdigest()
     (output_dir/'generation.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
     return receipt
 

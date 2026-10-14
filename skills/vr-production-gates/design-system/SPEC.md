@@ -1,4 +1,4 @@
-# 房产图文剧本设计系统 v1.0
+# 房产图文剧本设计系统 v1.1
 
 这是设计与生成的唯一规范入口。生产授权、一次采集与来源证据仍由[图文提交协议](../references/illustrated-script.md)约束。设计系统不会启动拍摄。
 
@@ -78,3 +78,15 @@ python3 skills/vr-production-gates/scripts/build_script_package.py \
 4. 真实浏览器渲染＋导出PNG目视；范围、技术、用户接受分开记录。
 
 “字段齐全”“文件存在”“SHA通过”只证明相应机器条件。实际参考结构和图文对应需要目视；用户接受由用户决定。
+
+## 用户变更后的短片约束
+
+用户限制时长或禁拍空间时，在同一record的scope.shot_constraints/route_space_ids及章节space_ids/framing_status声明；生成器与生产入口核已知违规，动态真实性仍独立验证。规则和完成标准见[短片路线与运动](../references/short-route-motion.md)。兼容原v1.0数据，不把缺字段的旧记录追认新标准通过。
+
+## 完整路线方案板（v1.1必需）
+
+`review_route`是标准数据，不由案例临时拼接：左侧原户型＋导航箭头＋S-ID锚点，右侧每章S-ID/标题/时码/动作/完整点位路径。`chapters`逐项对应segments，动作从同份visual.motion读取；同一点对应多章须保留全部标签，不能用以点位为键的覆盖写法丢章。节点、时码或路径不一致拒绝生成。
+
+共享生成器同时输出`storyboard.html`、`route-board.html`、`plan.md`；渲染PNG后正文固定分为“一、完整方案板”“二、详细视频剧本”，后者另嵌独立`route-board.png`。只有总板里的缩小简图、仅P点顺序、外置路线图或旧章数截图都不满足此结构。
+
+`scope.review_route_layout`绑定board/source两个资产（role分别review_route/review_route_source）；生产入口核源图章节/时码/点位表及正文真实嵌图，文档批准检查继续核对应内嵌PNG字节。元数据声明不替图像目视，图只用于剧本审核、不进入成片；实际地图对齐和动态路线证据仍独立。旧v1.0兼容为历史，新建/修订模板用v1.1，不得降版本逃避必需路线板。
