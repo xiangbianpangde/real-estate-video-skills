@@ -1,0 +1,14 @@
+{
+  "base": "valid.json",
+  "edits": [
+    {
+      "op": "set",
+      "path": [
+        "segments",
+        1,
+        "subtitle_text"
+      ],
+      "value": "摘要替代完整口播"
+    }
+  ]
+}

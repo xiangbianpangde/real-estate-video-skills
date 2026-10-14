@@ -49,6 +49,9 @@ def check(record_path, phase, claim):
     if not isinstance(record, dict):
         raise ValueError("record must be an object")
     base = record_path.parent.resolve()
+    if record.get("design_system") is not None:
+        from storyboard.model import validate
+        validate(record)
 
     def local(name, inside=False):
         if not isinstance(name, str) or not name or Path(name).is_absolute() or "://" in name:

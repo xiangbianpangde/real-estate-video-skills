@@ -1,0 +1,14 @@
+{
+  "base": "valid.json",
+  "edits": [
+    {
+      "op": "remove",
+      "path": [
+        "segments",
+        2,
+        "visual",
+        "cta"
+      ]
+    }
+  ]
+}

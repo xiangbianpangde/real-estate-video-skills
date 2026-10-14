@@ -1,0 +1,15 @@
+{
+  "base": "valid.json",
+  "edits": [
+    {
+      "op": "set",
+      "path": [
+        "segments",
+        0,
+        "visual",
+        "layout"
+      ],
+      "value": "source_reference"
+    }
+  ]
+}

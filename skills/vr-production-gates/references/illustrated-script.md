@@ -28,7 +28,9 @@
 
 ## 版式与文件检查分开
 
-新包使用`vr-production-plan/v3`；`scope.storyboard_layout`绑定方案板、HTML图源与`vr-storyboard-layout-review/v1`回读记录，三者列入assets。实际渲染后核全部图片加载、文字/边界溢出和章节齐全，并目视对照用户参考的信息层次；未完成或不匹配不能提交整包批准。机器只核这份证据与SHA，不认证审美，也不把声明true当独立视觉证明。原截图不能充当整张排版卡。
+设计、组件和标准内容结构以[设计系统](../design-system/SPEC.md)为准，本协议只维护提交/批准证据。新包使用v3，scope.storyboard_layout绑定board/source/review路径，assets角色分别为overview/storyboard_source/layout_review。
+
+layout-review.json使用vr-storyboard-layout-review/v1，记录board_sha256、source_sha256、segment_ids、all_images_loaded、no_overflow、reference_structure_matches、motion_diagrams_reviewed、opening_composite_reviewed和review_basis。必须基于实际浏览器及PNG检查填写；尾镜预览有CTA时一并核验并在review_basis留证。机器核字段和SHA，不认证审美、身份或用户接受。
 
 ## 实际呈现
 

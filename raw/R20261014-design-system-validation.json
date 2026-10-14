@@ -1,0 +1,107 @@
+{
+  "schema": "design-system-validation/v1",
+  "date": "2026-10-14",
+  "skill_version": "3.5.0",
+  "design_system": "1.0.0",
+  "state": "implemented_and_tested; human acceptance pending",
+  "checks": {
+    "gate_cli_tests": 72,
+    "existing_renderer_tests": 5,
+    "strict": {
+      "validated": 1,
+      "errors": 0,
+      "warnings": 0,
+      "strict": true
+    },
+    "cli_e2e": [
+      {
+        "case": "valid",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "case": "missing-motion",
+        "passed": true,
+        "exit_code": 1
+      },
+      {
+        "case": "opening-without-floorplan",
+        "passed": true,
+        "exit_code": 1
+      },
+      {
+        "case": "missing-ending-cta",
+        "passed": true,
+        "exit_code": 1
+      },
+      {
+        "case": "summary-subtitles",
+        "passed": true,
+        "exit_code": 1
+      }
+    ]
+  },
+  "browser": {
+    "images_loaded": true,
+    "image_count": 5,
+    "chapter_ids": [
+      "S01",
+      "S02",
+      "S03"
+    ],
+    "motion_diagrams": [
+      "static",
+      "static",
+      "fov",
+      "travel"
+    ],
+    "opening_layers_visible": true,
+    "ending_cta_disclaimer_visible": true,
+    "horizontal_overflow": [],
+    "negative_example_cards": 3,
+    "full_pngs_visually_inspected": true
+  },
+  "loader": {
+    "reloads": 2,
+    "target_count": 1,
+    "diagnostics": []
+  },
+  "not_verified": [
+    "new-context model trigger stability",
+    "real-house production E2E",
+    "general-purpose JSON Schema engine execution"
+  ],
+  "cleanup": [
+    {
+      "path": "README.md",
+      "before_lines": 121,
+      "after_lines": 53
+    },
+    {
+      "path": "skills/vr-production-gates/HANDOFF.md",
+      "before_lines": 214,
+      "after_lines": 13
+    },
+    {
+      "path": "skills/vr-production-gates/references/storyboard-layout.md",
+      "before_lines": 61,
+      "after_lines": 7
+    },
+    {
+      "path": "skills/vr-production-gates/references/illustrated-script-template.md",
+      "before_lines": 58,
+      "after_lines": 11
+    },
+    {
+      "path": "skills/vr-production-gates/scripts/build_storyboard.py",
+      "before_lines": 134,
+      "after_lines": 24
+    }
+  ],
+  "content_sha256": {
+    "skills/vr-production-gates/design-system/examples/positive/overview.png": "791eccc91d18aae55831c011074a4199f1798d21ef8d3c732c8de6749d518865",
+    "skills/vr-production-gates/design-system/examples/negative.png": "5c5a06d14eb86afc04d8961f522dcb2d206b482a01a669c1d54079e3778c77a3",
+    "skills/vr-production-gates/design-system/examples/valid.json": "4b750b9c5b54d7f618f28099e5ff04b10dd5f82fe312504589aeb0f96c8114ca",
+    "skills/vr-production-gates/HANDOFF-history-through-3.4.0.md": "c0792646be013f16a68f9a0516210731881c37d6b4654c7a1bfcbf2fce302b52"
+  }
+}

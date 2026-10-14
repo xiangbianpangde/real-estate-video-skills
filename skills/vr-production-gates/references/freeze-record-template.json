@@ -108,7 +108,8 @@
         "headline_lines": [
           "待填已核证房源名",
           "待填已核证面积与户型"
-        ]
+        ],
+        "role": "opening"
       }
     },
     {
@@ -124,11 +125,14 @@
       "risk": "",
       "visual": {
         "title": "待填叙事角色标题",
-        "layout": "source_reference",
+        "layout": "ending_composite",
         "motion": {
           "kind": "travel",
           "label": "待填动作短说明"
-        }
+        },
+        "role": "ending",
+        "cta": "待填获审CTA",
+        "disclaimer": "待填完整必要提示"
       }
     }
   ],
@@ -210,5 +214,9 @@
   "approval": {
     "user_event_id": "",
     "explicit_text": ""
+  },
+  "design_system": {
+    "id": "real-estate-storyboard",
+    "version": "1.0.0"
   }
 }

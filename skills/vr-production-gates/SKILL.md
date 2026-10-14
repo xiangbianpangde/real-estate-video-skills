@@ -3,7 +3,7 @@ name: vr-production-gates
 description: 房产介绍视频（VR/全景/数字人）的制作与验收流程。用户要设计或审核图文拍摄脚本、先审脚本再让AI完整制作、按房源模型一镜到底拍摄、解决Model或全景跨点画面扭曲、控制探索次数、配音配BGM加字幕、优化首尾、按用户认可试片确定画面接受范围，或接受/退回/发布成片时使用。修复或验证本Skill时只改规则并测试，不自动操作房源或生成视频。默认有限探索与当前成像方法动态预检→实际提交图文脚本→一次拍前审核→一次正式采集及获批后期→按脚本审成片；风险集中澄清，不默认逐镜审批。硬切仅限明确批准的非连续例外。不用于查房源、房价、学区、仅写推广文案或无关视频的通用剪辑。
 compatibility: Pi coding agent; Python 3.10+, FFmpeg/ffprobe, local browser playback
 metadata:
-  version: "3.4.0"
+  version: "3.5.0"
   status: "active"
   layer: "task"
   priority: "40"
@@ -40,7 +40,7 @@ disable-model-invocation: false
 
 先读 [图文脚本与提交协议](references/illustrated-script.md)，复制 [脚本模板](references/illustrated-script-template.md) 和 [批准记录模板](references/freeze-record-template.json) 到私有项目新版本；不得覆盖历史脚本。
 
-1. **实际交付**：按[版式合同](references/storyboard-layout.md)生成方案板PNG：顶部说明、横向图文卡、底部户型/调整/待审范围；图与时间、动作、口播/字幕、黄标、音乐及风险同卡。附事实/权利/来源/证据正文。动作须图示；首镜须合成预览。原截图不算成图。
+1. **实际交付**：按[设计系统](design-system/SPEC.md)维护一份标准record，使用[生成入口](scripts/build_script_package.py)同时输出方案板与详细正文。真实源参考、动作图示和首尾布局预览分别呈现；实渲染PNG后核同版内容与来源。
 2. **成片方案**：首镜户型图、室内背景、尾镜室内收束/CTA、白黄字幕、BGM来源/授权池与零新增付费等均列清。当前明确文字要求优先于示例旧横扫、硬切或户型图收尾；示例只约束所选格式。
 3. **字幕**：独立声明`verbatim_voiceover`完整口播或`editorial_keywords`卖点压缩，以及`burned_in`/`selectable_track`/`both`。视觉样式不决定覆盖范围；无法从请求确定时集中澄清。标题不代替口播。
 4. **审稿**：逐句核证事实与可见性；读 [文案禁用清单](references/文案/文案中不能出现的内容.md)，公摊及同义解释只供内部核验，不进入旁白、字幕、标题、CTA或素材文字。冲突回审，不擅自删句/改音轨。

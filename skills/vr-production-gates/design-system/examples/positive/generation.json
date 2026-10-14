@@ -1,0 +1,13 @@
+{
+  "schema": "storyboard-generation/v1",
+  "source_record_sha256": "4b750b9c5b54d7f618f28099e5ff04b10dd5f82fe312504589aeb0f96c8114ca",
+  "board_html_sha256": "4ebd5329e702cf4bcd4a4dc87c37ebbe4246b1b199c10f311a10a6ad4a674388",
+  "script_markdown_sha256": "26073dd353ec91fa595855c60281dd93c3d4a85562dc0f82e9575b6eeb1ba6ab",
+  "segments": [
+    "S01",
+    "S02",
+    "S03"
+  ],
+  "visual_review": "PENDING",
+  "capture_authorized": false
+}

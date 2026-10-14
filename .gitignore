@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 .venv/
+
+# Local session exports and their identity-preserving organization receipt
+/local/

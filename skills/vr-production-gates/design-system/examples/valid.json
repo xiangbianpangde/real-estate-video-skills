@@ -1,0 +1,155 @@
+{
+  "fixture": true,
+  "board_width": 1680,
+  "storyboard_title": "设计系统 v1.0｜虚构剧本示例",
+  "plan": {
+    "version": "DS1.0-fixture"
+  },
+  "assets": [
+    {
+      "path": "scene.png",
+      "sha256": "a94e2e63596b1d9d2ad72a3d88c3534361624e5d23100b4c363245416917841b",
+      "origin": "synthetic_fixture"
+    },
+    {
+      "path": "floorplan.png",
+      "sha256": "435b746d9819e57c92c90f1239202af04f565c8816f0d41b06a1a0c3363da57c",
+      "origin": "synthetic_fixture"
+    }
+  ],
+  "segments": [
+    {
+      "id": "S01",
+      "start_s": 0,
+      "end_s": 4,
+      "reference_image": "scene.png",
+      "action": "静态锚点；图示只表达拍法",
+      "focus": "观察图文对应关系",
+      "text": "本图为虚构验证示例。",
+      "highlights": [
+        "测试"
+      ],
+      "risk": "合成素材不能用于房源生产",
+      "visual": {
+        "title": "户型开场",
+        "layout": "opening_composite",
+        "motion": {
+          "kind": "static",
+          "label": "静态锚点"
+        },
+        "headline_lines": [
+          "虚构示例房源",
+          "示例户型 · 非真实事实"
+        ],
+        "role": "opening",
+        "risk_level": "info"
+      }
+    },
+    {
+      "id": "S02",
+      "start_s": 4,
+      "end_s": 8,
+      "reference_image": "scene.png",
+      "action": "先静态建立观察，再作短FOV变化；示意不证明实测路径",
+      "focus": "观察图文对应关系",
+      "text": "本图为虚构验证示例。",
+      "highlights": [
+        "测试"
+      ],
+      "risk": "组合动作仅为设计示例，实际素材可用性待审",
+      "visual": {
+        "title": "公共区横扫",
+        "layout": "source_reference",
+        "motion": {
+          "steps": [
+            {
+              "kind": "static",
+              "label": "静态锚点"
+            },
+            {
+              "kind": "fov",
+              "label": "短FOV呼吸"
+            }
+          ]
+        },
+        "role": "chapter",
+        "risk_level": "pending"
+      }
+    },
+    {
+      "id": "S03",
+      "start_s": 8,
+      "end_s": 12,
+      "reference_image": "scene.png",
+      "action": "相机前进；图示只表达拍法",
+      "focus": "观察图文对应关系",
+      "text": "本图为虚构验证示例。",
+      "highlights": [
+        "测试"
+      ],
+      "risk": "合成素材不能用于房源生产",
+      "visual": {
+        "title": "室内引流",
+        "layout": "ending_composite",
+        "motion": {
+          "kind": "travel",
+          "label": "相机前进"
+        },
+        "role": "ending",
+        "cta": "欢迎留言了解更多",
+        "disclaimer": "虚构设计示例，不是实际房源",
+        "risk_level": "limitation"
+      }
+    }
+  ],
+  "scope": {
+    "coverage": [
+      "户型开场",
+      "横向观察",
+      "连续前进"
+    ],
+    "source_namespace": "SYNTHETIC-FIXTURE",
+    "duration_s": 12,
+    "render_config": {
+      "width": 720,
+      "height": 1280
+    },
+    "opening": "虚构室内背景＋测试户型浮层＋两行标题",
+    "ending": "虚构室内背景＋欢迎留言CTA＋测试免责声明",
+    "bgm": "无音频，本例仅验证版式",
+    "render_method": "fixture-only",
+    "validation_scope": "synthetic",
+    "duration_tolerance_s": 0.01,
+    "voiceover": "无音频生成；本例仅示范完整台词与版式",
+    "subtitle_content_mode": "verbatim_voiceover",
+    "subtitle_delivery": "burned_in",
+    "route": "合成测试叙事顺序，不是现实路线",
+    "facts_and_rights": "全部为合成测试素材，不得当作真实房源",
+    "authorized_actions": [],
+    "not_authorized": [
+      "capture",
+      "publish",
+      "paid_service"
+    ]
+  },
+  "board_content": {
+    "fact_caption": "合成测试户型，不含真实面积或房源事实",
+    "changes": [
+      {
+        "title": "图像用途分开",
+        "text": "真实源参考、动作图示、成片布局预览各自标注。"
+      },
+      {
+        "title": "一份数据，两种输出",
+        "text": "口播、动作及首尾文案只维护一次，同时生成方案板和详细正文。"
+      }
+    ],
+    "limitations": "全部素材为虚构。机器校验通过不表示用户接受，也不授权采集。"
+  },
+  "schema": "vr-production-plan/v3",
+  "design_system": {
+    "id": "real-estate-storyboard",
+    "version": "1.0.0"
+  },
+  "status": "DRAFT"
+}
