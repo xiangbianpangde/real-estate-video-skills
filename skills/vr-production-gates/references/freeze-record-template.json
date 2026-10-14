@@ -1,5 +1,5 @@
 {
-  "schema": "vr-production-plan/v2",
+  "schema": "vr-production-plan/v3",
   "status": "DRAFT",
   "plan": {
     "version": "v1",
@@ -7,32 +7,157 @@
     "sha256": ""
   },
   "assets": [
-    {"path": "overview.png", "sha256": "", "role": "overview", "origin": "schematic"},
-    {"path": "S01.png", "sha256": "", "role": "reference", "origin": "actual_source"},
-    {"path": "S02.png", "sha256": "", "role": "reference", "origin": "actual_source"},
-    {"path": "../source/model.at3d", "sha256": "", "role": "source", "origin": "actual_source"},
-    {"path": "precheck.json", "sha256": "", "role": "precheck_report", "origin": "actual_run"},
-    {"path": "precheck.webm", "sha256": "", "role": "precheck", "origin": "actual_run"},
-    {"path": "telemetry.json", "sha256": "", "role": "precheck", "origin": "actual_run"},
-    {"path": "visual-review.md", "sha256": "", "role": "precheck", "origin": "actual_run"},
-    {"path": "restore.json", "sha256": "", "role": "precheck", "origin": "actual_run"},
-    {"path": "accepted-reference.mp4", "sha256": "", "role": "acceptance_reference", "origin": "actual_source"},
-    {"path": "visual-decision.json", "sha256": "", "role": "acceptance_decision", "origin": "actual_user_event"}
+    {
+      "path": "overview.png",
+      "sha256": "",
+      "role": "overview",
+      "origin": "schematic"
+    },
+    {
+      "path": "S01.png",
+      "sha256": "",
+      "role": "reference",
+      "origin": "actual_source"
+    },
+    {
+      "path": "S02.png",
+      "sha256": "",
+      "role": "reference",
+      "origin": "actual_source"
+    },
+    {
+      "path": "../source/model.at3d",
+      "sha256": "",
+      "role": "source",
+      "origin": "actual_source"
+    },
+    {
+      "path": "precheck.json",
+      "sha256": "",
+      "role": "precheck_report",
+      "origin": "actual_run"
+    },
+    {
+      "path": "precheck.webm",
+      "sha256": "",
+      "role": "precheck",
+      "origin": "actual_run"
+    },
+    {
+      "path": "telemetry.json",
+      "sha256": "",
+      "role": "precheck",
+      "origin": "actual_run"
+    },
+    {
+      "path": "visual-review.md",
+      "sha256": "",
+      "role": "precheck",
+      "origin": "actual_run"
+    },
+    {
+      "path": "restore.json",
+      "sha256": "",
+      "role": "precheck",
+      "origin": "actual_run"
+    },
+    {
+      "path": "accepted-reference.mp4",
+      "sha256": "",
+      "role": "acceptance_reference",
+      "origin": "actual_source"
+    },
+    {
+      "path": "visual-decision.json",
+      "sha256": "",
+      "role": "acceptance_decision",
+      "origin": "actual_user_event"
+    },
+    {
+      "path": "storyboard.html",
+      "sha256": "",
+      "role": "storyboard_source",
+      "origin": "render_source"
+    },
+    {
+      "path": "layout-review.json",
+      "sha256": "",
+      "role": "layout_review",
+      "origin": "actual_review"
+    }
   ],
   "segments": [
-    {"id": "S01", "start_s": 0, "end_s": 3, "reference_image": "S01.png", "action": "", "focus": "", "text": "", "highlights": [], "music": "", "risk": ""},
-    {"id": "S02", "start_s": 3, "end_s": 60, "reference_image": "S02.png", "action": "", "focus": "", "text": "", "highlights": [], "music": "", "risk": ""}
+    {
+      "id": "S01",
+      "start_s": 0,
+      "end_s": 3,
+      "reference_image": "S01.png",
+      "action": "",
+      "focus": "",
+      "text": "",
+      "highlights": [],
+      "music": "",
+      "risk": "",
+      "visual": {
+        "title": "待填叙事角色标题",
+        "layout": "opening_composite",
+        "motion": {
+          "kind": "static",
+          "label": "待填动作短说明"
+        },
+        "headline_lines": [
+          "待填已核证房源名",
+          "待填已核证面积与户型"
+        ]
+      }
+    },
+    {
+      "id": "S02",
+      "start_s": 3,
+      "end_s": 60,
+      "reference_image": "S02.png",
+      "action": "",
+      "focus": "",
+      "text": "",
+      "highlights": [],
+      "music": "",
+      "risk": "",
+      "visual": {
+        "title": "待填叙事角色标题",
+        "layout": "source_reference",
+        "motion": {
+          "kind": "travel",
+          "label": "待填动作短说明"
+        }
+      }
+    }
   ],
   "scope": {
     "execution_mode": "capture_and_post",
     "capture_medium": "model_render",
     "source_namespace": "",
     "render_method": "model_mesh",
-    "render_config": {"renderer": "", "width": 720, "height": 1280, "dpr": 1, "fov_axis": "vertical", "fov_deg": 85.57},
-    "render_validation": {"path": "precheck.json", "sha256": ""},
+    "render_config": {
+      "renderer": "",
+      "width": 720,
+      "height": 1280,
+      "dpr": 1,
+      "fov_axis": "vertical",
+      "fov_deg": 85.57
+    },
+    "render_validation": {
+      "path": "precheck.json",
+      "sha256": ""
+    },
     "visual_acceptance": {
-      "reference": {"path": "accepted-reference.mp4", "sha256": ""},
-      "decision": {"path": "visual-decision.json", "sha256": ""}
+      "reference": {
+        "path": "accepted-reference.mp4",
+        "sha256": ""
+      },
+      "decision": {
+        "path": "visual-decision.json",
+        "sha256": ""
+      }
     },
     "validation_scope": "model_only",
     "continuity_class": "cross_room_travel",
@@ -40,7 +165,15 @@
     "duration_s": 60,
     "duration_tolerance_s": 0.5,
     "output_dir": "take01",
-    "authorized_actions": ["capture", "opening", "ending", "subtitles", "bgm", "encode", "qc"],
+    "authorized_actions": [
+      "capture",
+      "opening",
+      "ending",
+      "subtitles",
+      "bgm",
+      "encode",
+      "qc"
+    ],
     "subtitle_content_mode": "editorial_keywords",
     "subtitle_delivery": "burned_in",
     "opening": "",
@@ -49,7 +182,18 @@
     "coverage": [],
     "route": "",
     "facts_and_rights": "",
-    "not_authorized": ["publish", "paid_service", "new_facts_or_cta", "reshoot"]
+    "not_authorized": [
+      "publish",
+      "paid_service",
+      "new_facts_or_cta",
+      "reshoot"
+    ],
+    "storyboard_layout": {
+      "kind": "overview_board",
+      "board": "overview.png",
+      "source": "storyboard.html",
+      "review": "layout-review.json"
+    }
   },
   "exploration": {
     "key_prechecks": 0,

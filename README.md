@@ -115,3 +115,7 @@ python3 tools/make_example_figures.py
 3. 改动 Skill 后对照 `wiki/skill-impact.md` 做回归检查。
 4. `raw/` 只追加、不修改、不放媒体。
 5. 行为变更才递增 Skill 版本号，纯文档修正记 patch。
+
+## 图文脚本版式（3.3.0）
+
+新脚本按用户参考生成整张方案板，图与文字同卡排版；原截图＋长文不算成图。见[版式合同](skills/vr-production-gates/references/storyboard-layout.md)。新包v3绑定方案板/HTML/实际回读，旧v2历史兼容；实际渲染和目视不能由SHA校验替代。生成器仅生成HTML，不拍摄视频。

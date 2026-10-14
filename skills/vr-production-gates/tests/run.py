@@ -567,6 +567,69 @@ class GateTests(unittest.TestCase):
         self.record["scope"]["visual_acceptance"]["reference"]["sha256"] = "0" * 64
         self.rejected("bundle_not_actually_presented")
 
+    def layout_record(self):
+        self.record["schema"] = "vr-production-plan/v3"
+        (self.root / "storyboard.html").write_text("<main>synthetic layout fixture</main>")
+        self.record["scope"]["storyboard_layout"] = {"kind": "overview_board", "board": "overview.png",
+                                                       "source": "storyboard.html", "review": "layout-review.json"}
+        self.layout = {"schema": "vr-storyboard-layout-review/v1", "board_sha256": sha(self.root / "overview.png"),
+                       "source_sha256": sha(self.root / "storyboard.html"), "segment_ids": ["S01", "S02"],
+                       "all_images_loaded": True, "no_overflow": True, "reference_structure_matches": True,
+                       "motion_diagrams_reviewed": True, "opening_composite_reviewed": True,
+                       "review_basis": "Synthetic gate evidence; does not establish layout quality"}
+        self.save_layout()
+
+    def save_layout(self):
+        (self.root / "layout-review.json").write_text(json.dumps(self.layout))
+        self.record["assets"] = [a for a in self.record["assets"] if a['role'] not in ('storyboard_source', 'layout_review')]
+        for name, role in (("storyboard.html", "storyboard_source"), ("layout-review.json", "layout_review")):
+            self.record["assets"].append({"path": name, "sha256": sha(self.root / name), "role": role})
+
+    def test_v3_raw_images_without_board_evidence_rejected(self):
+        self.record['schema'] = 'vr-production-plan/v3'
+        self.rejected('missing_storyboard_layout', phase='review')
+
+    def test_v3_layout_binding_valid(self):
+        self.layout_record()
+        code, result = self.run_gate('review')
+        self.assertEqual(code, 0, result)
+
+    def test_v3_layout_cannot_omit_section(self):
+        self.layout_record()
+        self.layout['segment_ids'] = ['S01']
+        self.save_layout()
+        self.rejected('layout_review_segments_mismatch', phase='review')
+
+    def test_v3_overflow_blocks_submission(self):
+        self.layout_record()
+        self.layout['no_overflow'] = False
+        self.save_layout()
+        self.rejected('layout_review_not_passed:no_overflow', phase='review')
+
+    def test_v3_changed_board_needs_new_layout_review(self):
+        self.layout_record()
+        (self.root / 'overview.png').write_bytes((self.root / 'overview.png').read_bytes() + b'changed')
+        self.record['assets'][0]['sha256'] = sha(self.root / 'overview.png')
+        self.rejected('layout_review_sha_mismatch', phase='review')
+
+    def test_v3_layout_requires_reference_comparison(self):
+        self.layout_record()
+        self.layout['reference_structure_matches'] = False
+        self.save_layout()
+        self.rejected('layout_review_not_passed:reference_structure_matches', phase='review')
+
+    def test_v3_missing_motion_visual_review_rejected(self):
+        self.layout_record()
+        self.layout.pop('motion_diagrams_reviewed')
+        self.save_layout()
+        self.rejected('layout_review_not_passed:motion_diagrams_reviewed', phase='review')
+
+    def test_v3_unreviewed_opening_composite_rejected(self):
+        self.layout_record()
+        self.layout['opening_composite_reviewed'] = False
+        self.save_layout()
+        self.rejected('layout_review_not_passed:opening_composite_reviewed', phase='review')
+
     def test_malformed_json_fails_closed(self):
         (self.root / "broken.json").write_text("{")
         r = subprocess.run([sys.executable, str(SCRIPT), "--record", str(self.root / "broken.json"), "--phase", "capture"], capture_output=True, text=True)

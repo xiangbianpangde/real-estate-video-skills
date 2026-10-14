@@ -42,6 +42,22 @@
 | [ISSUE-20261013-014](#issue-20261013-014) | 单次异步实播表达式超时，媒体仍停在0秒 | medium | environment | verified | 短初始化＋真实点击后0→ended4.512s实际回读；不声称工具内部超时根因已修 |
 | [ISSUE-20261013-015](#issue-20261013-015) | Agent用零伪影硬门槛替用户已认可试片的接受范围 | high | contract | verified | 3.2.0规范/CLI/指定新会话已纠正；不称旧媒体已修或当前新片已接受 |
 
+| [ISSUE-20261013-016](#issue-20261013-016) | 核音乐许可时Google grounding拒绝当前用户地区 | medium | environment | triaged | 当前搜索API不可用，改直接读取官方许可；未修服务地区限制 |
+
+| [ISSUE-20261013-017](#issue-20261013-017) | browser code内层另选session被工具拒绝 | low | behavior | verified | 改outer session后只读核查成功，未录制 |
+| [ISSUE-20261013-018](#issue-20261013-018) | browser viewport已改但SDK画布仍保留横屏尺寸 | medium | environment | verified | 原生720×1280/无view核回，结束恢复1280×633；仅本次流程 |
+
+| [ISSUE-20261013-019](#issue-20261013-019) | HTTPS页面读取本地transport脚本抛Failed to fetch | medium | behavior | verified | 自建handler方法与headers字段同名；已修HTTP200及媒体SHA，不证跨源上传 |
+
+| [ISSUE-20261013-020](#issue-20261013-020) | 大媒体blob导出遇不可见锚点超时和code IPC上限 | medium | environment | verified | 显示原blob链接后native下载，字节/SHA匹配；仅本次导出修复 |
+
+| [ISSUE-20261014-021](#issue-20261014-021) | 拍前口播超时与逐字字幕/摘要矛盾 | medium | contract | fixed | v2文案修正；实际TTS/成片未验证 |
+| [ISSUE-20261014-022](#issue-20261014-022) | 室内引流及音乐/配音合同漏项 | medium | contract | fixed | v2范围补齐；待整包审核 |
+
+| [ISSUE-20261014-023](#issue-20261014-023) | 原截图＋长文被当成参考版式的整体方案板 | high | contract | verified | 3.3.0规则/70项CLI/当前v3实际成图；非用户接受 |
+
+| [ISSUE-20261014-024](#issue-20261014-024) | 动作无图示、首镜无实际合成布局 | high | contract | verified | 3.4.0＋合成渲染验证；非房源制作验收 |
+
 ## ISSUE-20261013-001
 
 **现象：只给脚本路径的批准被当成实际内容审核。**
@@ -229,6 +245,65 @@
 - 状态历史：2026-10-13 `open→triaged→fixing→fixed→verified`（规范/检查器/指定规则场景）；合成测试不证画质、真人身份、原片已修或新片用户已接受。
 - 下一步 / 关闭条件：后续制作复用媒体按用户基准比较，旧FAIL/raw保留、新评审另存，不因标准修订自动重拍/扩预算/发布；再次擅自收紧则重开本ID。
 
+## ISSUE-20261013-016
+
+**现象：制作案例核音乐许可时，Google grounding返回用户地区不支持。**
+
+- 首次观察 / 登记：2026-10-13，CASE-20261013-002。
+- 状态 / 严重度 / 类型：triaged / medium / environment。
+- 预期 / 实际：只读查官方许可，实际`User location is not supported for the API use.`；没有授权推断或新付费调用。
+- 证据：本次原工具错误留会话；私有归档`Skill320完整制作_20261013/权利搜索服务失败_保留.json`，SHA `c59c8c1b4ff6b1b55dba9cbc72c647849ff8fefded7928b61f3f65eac88a88f5`。
+- 当前处理：不重试同服务、不安装搜索器；直接fetch官方Mixkit许可并核已有素材来源。该调用已成功取得官方页，不等于原Google服务被修复。
+- 状态历史：2026-10-13 open→triaged；仅定位当前调用环境拒绝。
+- 下一步：用直接官方证据继续制作；服务地区问题不阻塞全部任务，不标verified或伪称搜索成功。
+
+## ISSUE-20261013-017
+
+**现象：agent_browser_code内层浏览器命令重复选择session，工具拒绝。**
+
+- 首次观察 / 登记：2026-10-13，CASE-20261013-002，low/behavior。
+- 原错误：`A code call uses one browser identity. Set session/namespace on agent_browser_code to choose another browser.`
+- 原因 / 处理：session属于outer code工具参数，不应放inner native argv；修正后一条只读同Work检查成功，无录制/预算重开。
+- 证据：真实工具失败/随后成功原事件留私有；异常摘要SHA `2dd8e1c4ca29191f4d81b436b4624a7c863e8a1e889a860930ede7d50c924570`。
+- 状态历史：open→triaged→fixed→verified，仅本次调用式修复，不称工具内部改动。
+
+## ISSUE-20261013-018
+
+**现象：native viewport设置720×1280成功，SDK renderer仍1280×633。**
+
+- 首次观察 / 登记：2026-10-13，CASE-20261013-002，medium/environment。
+- 原始回读：innerWidth/Height=720/1280，canvas=1280/633、aspect=2.0221169，SDK画布CSS仍旧横屏；未运行预检或裁切采样。
+- 证据：私有`视口设置与画布异步核查.json`及工具原结果；异常摘要SHA同017。
+- 当前处理：原会话状态已存，当前视口重载原页面，复核viewport/canvas/DPR/aspect/view后再开始唯一全路线预检。具体页面resize机制未隔离。
+- 状态历史：open→triaged→fixing；没有录制重试/预算消费，不冒称已恢复。
+- 下一步：核原生720×1280主相机及结束时恢复旧1280×633；实际回核前不标verified。
+
+- 2026-10-13追加验证：重载后实际720×1280、DPR1、aspect0.5625/view=null且预检未消费；录制后恢复原1280×633/P0/FOV96/主投影/pose逐项一致。状态fixing→fixed→verified，只指本次控制操作。
+
+## ISSUE-20261013-019
+
+**现象：官方HTTPS房源页fetch本地HTTP脚本失败，未启动预检。**
+
+- 首次观察 / 登记：2026-10-13，CASE-20261013-002，medium/environment/triaged。
+- 原错误：`TypeError: Failed to fetch`，发生于第一个script fetch，尚未定义/调用录制函数，不消费录制预算。精确CORS/Private Network等机制未隔离。
+- 处理：复用已存执行JS由native eval stdin安装；随后同原完整路线仅启动一次。原transport失败留档，不重试录制、不声称服务限制修复。
+- 证据：原工具错误，私有摘要`本地transport未开始_失败证据.json` SHA `02eef33cdd2264870359271f9ec0e562248722099166972e2d7f9beccd630657`；确切已执行表达式与存档脚本逐字回核。
+- 状态历史：open→triaged；无需本轮解决内部网络机制。
+- 下一步：原始媒体通过blob下载保存，遥测独立读取；不据服务器进程存在判上传成功。
+
+- 2026-10-13追加定位 / 修复 / 回归：本地实播同报`ERR_EMPTY_RESPONSE`；原服务stderr实际`TypeError: HTTPMessage object is not callable`，自建handler方法`headers`被BaseHTTPRequestHandler同名字段遮蔽。不是已证浏览器网络隔离。改名`respond`后新的task-owned服务/play与/media真实HTTP200，媒体SHA与原件一致；修复回归SHA `e1994403eb55bbd54878e26ff0f352f11e0d8f66516fd67ecc75a2dd3cd626e4`。状态triaged→fixing→fixed→verified，仅HTTP服务，不称跨源上传验证；初次错误日志/预检均保留。
+
+## ISSUE-20261013-020
+
+**现象：已录原blob第一次native下载超时，code分块提取又撞IPC返回上限。**
+
+- 首次观察 / 登记：2026-10-13，CASE-20261013-002，medium/environment。
+- 预期 / 实际：下载已录媒体，不新增采集。原锚点附在长页面末端，native下载30s超时、磁盘文件不存在；code尝试4MiB数据URL首块超过IPC结果上限，0 emit，无完整媒体落盘。
+- 当前处理：原blob保留，链接显示成可见控件，再一次native下载并延长传输等待；只有导出，不重录、不重开预检预算。
+- 实際回核：62441347字节，与浏览器原blob SHA `bce9c662a51959453f44fa212f6a5b392e119768f191ab71a87cd9b2e840efba`一致；3083原VFR帧/末PTS103.073，全解码0。
+- 证据：原工具失败及成功；私有追加异常SHA `139cd96cd0ae5849bac56431947d5e97c46733d3f934c8ade3f74169076b7288`，媒体与实际时间轴报告留完整命令。
+- 状态历史：open→triaged→fixed→verified，仅本媒体成功导出，工具IPC/网络限制没有被修改。
+
 ## 新条目模板
 
 复制下列块，替换占位ID，并在总表补对应行；模板不是已登记bug。
@@ -250,3 +325,52 @@
 - 状态历史：日期、旧→新状态、依据（只追加）
 - 下一步 / 关闭条件：
 ```
+
+
+## ISSUE-20261014-021
+
+**现象：拍前脚本声明逐字字幕，但各段烧录字幕只列摘要；开场口播长度超过3.5秒规划。**
+
+- 首次材料：2026-10-14会话导出末尾的v1脚本；本次发现/登记：2026-10-14。
+- 状态 / 严重度 / 类型：fixed / medium / contract。
+- 影响：CASE-20261013-002拍前包v1；结构门禁通过不代表口播时间或字幕覆盖正确。
+- 证据：v1正文SHA `ebd06c425460efde4368bba32e21b27790b368993e0b33d939439d69645f04b6`；S01时间0.001–3.503秒，原口播含完整面积介绍；字幕摘要与口播不一致。
+- 处理：私有独立v2保留路线与源图，缩短九段口播，字幕明确逐字覆盖同一口播。正文SHA `8ca2421c65acbe2ead326b8ce84594e48a9db868d9825c42565100d97edf9bcb`。
+- 实际验证：按240汉字/分钟估计九段均在时间窗内，结构检查另存私有回执；配音未生成，实听/实帧字幕未验证，故不标运行verified。
+- 状态历史：2026-10-14 open→triaged→fixed，限审核包文案一致性。
+- 下一步：一次整包批准后验证实际TTS时长和逐字字幕。
+
+## ISSUE-20261014-022
+
+**现象：拍前包v1漏掉已要求的室内引流，且声称音乐字节/许可绑定但record未列音乐资产。**
+
+- 本次发现/登记：2026-10-14；状态 / 严重度 / 类型：fixed / medium / contract。
+- 观察：v1 scope.ending只含免责；assets缺实际BGM和许可证据，authorized_actions漏voiceover。
+- 处理：新v2列“想了解这套房的更多细节，欢迎留言”及免责；明确配音动作；实际音乐文件、来源核验、既有官方许可快照逐个SHA绑定。CTA作为本次待审核内容，不声称已批准。
+- 证据：v2正文SHA同021，BUNDLE_SHA256 `2c5f7995f6a6c5355e2b93d882188998bce95fcfb5787e41008de4e6ebdbc423`；真实房源/音频路径仅保留私有审核包。
+- 实际验证：原v1全部绑定文件SHA重新匹配，补绑文件实际存在并散列。没有新音乐采购、配音、正式录制或发布。
+- 状态历史：2026-10-14 open→triaged→fixed；仅拍前合同补齐，尚待本次整包审核及成片检查。
+
+## ISSUE-20261014-023
+
+**现象：用户要求参考图的整体方案板，实际交付却是原始截图加分段长文。**
+
+- 首次观察 / 登记：2026-10-14用户退回v2；high / contract。
+- 预期：顶部整片说明，中部横向章节图文卡，下部户型/变化/待审范围；图和文字同卡，可横向比较节奏。
+- 根因：模板只要求标题下嵌源PNG；生成器把原截图当章节卡；文件/SHA结构检查没有版式证据，Agent未做参考结构对照。
+- 修复：3.3.0入口、版式合同、模板、v3记录、结构门禁、抽象示例及HTML生成器同步；旧v2仅历史兼容，不追认用户退回的包。
+- 实际验证：70项CLI通过，其中6项新版式正负场景；官方strict 1项/0错误/0警告；实际资源加载目标唯一、diagnostics为空。新v3在Chrome加载十张真实图片、S01–S09顺序正确；一次路线文字溢出修正后横向溢出集合为空；完整PNG已独立目视。
+- 成图SHA：`6b26bd192c12591b249d785f6813b68d06464689317b66cf936ada2a41eb45df`；原始图片/房源信息与完整回读证据仅留私有审核包。
+- 状态历史：open→triaged→fixed→verified，验证限规则拒绝与当前排版输出；不代表用户已接受格式、全模型自动触发稳定或视频完成。
+- 下一步：展示新方案板；一次整包批准后才制作视频，不重开探索或自动采集。
+
+## ISSUE-20261014-024
+
+**现象：整体方案板修复后动作区仍只有文字，首镜仍是室内源图而非户型/标题合成预览。**
+
+- 发现/登记：2026-10-14，用户退回v3；high / contract。
+- 根因：真实源参考、动作示意和成片布局预览未分用途；生成器只输出action段落，卡片标题按coverage索引生成；回读只验整体结构。
+- 修复：Skill 3.4.0、版式/模板及生成器明确visual.title/layout/motion；五类SVG动作图示＋短标签；首镜实际合成背景/户型/两行标题并标为设计预览。v3回读新增两个独立图像语义检查。
+- 实际验证：72项门禁CLI、5项生成器测试通过；官方strict 0错误/0警告。隔离合成素材浏览器渲染：三动作图示、首镜四个图层元素均可见、图片全部加载、无横向溢出；完整PNG目视并保留为公开07示例。
+- 状态历史：open→triaged→fixed→verified；只验证技能和合成渲染，不证明当前房源首镜已修、用户接受或视频完成。
+- 范围：本轮不改当前房源审核包，不操作房源、不生成配音或视频；后续制作须用当前房源实际来源按新规范另版提交。

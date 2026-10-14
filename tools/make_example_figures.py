@@ -11,16 +11,20 @@ import argparse
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
-
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "skills/vr-production-gates/references/examples"
 
-plt.rcParams["font.sans-serif"] = ["Hiragino Sans GB", "Heiti TC", "PingFang HK", "Songti SC"]
-plt.rcParams["axes.unicode_minus"] = False
+
+def load_matplotlib():
+    # Pillow-only board generation should not depend on plotting libraries.
+    global plt, FancyArrowPatch, FancyBboxPatch
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+    plt.rcParams["font.sans-serif"] = ["Hiragino Sans GB", "Heiti TC", "PingFang HK", "Songti SC"]
+    plt.rcParams["axes.unicode_minus"] = False
+
 
 INK = "#1f2933"
 MUTED = "#7b8794"
@@ -262,54 +266,41 @@ def fig_subtitle_style():
 
 
 def fig_storyboard():
-    """图文脚本结构示意；没有真实房况，不可用于批准拍摄。"""
-    w, h = 1560, 1400
-    im = Image.new("RGB", (w, h), "#f4f6f8")
+    """Public format sketch; placeholders are not actual source evidence."""
+    w, h = 1800, 1880
+    im = Image.new("RGB", (w, h), "#f7faf9")
     d = ImageDraw.Draw(im)
     font_path = "/System/Library/Fonts/STHeiti Medium.ttc"
-    title = ImageFont.truetype(font_path, 48)
-    heading = ImageFont.truetype(font_path, 33)
+    title = ImageFont.truetype(font_path, 45)
+    heading = ImageFont.truetype(font_path, 31)
     body = ImageFont.truetype(font_path, 27)
-    small = ImageFont.truetype(font_path, 22)
-    d.text((55, 35), "图文脚本结构示意｜不是实际房源脚本", font=title, fill=INK)
-    d.rounded_rectangle((45, 120, 1515, 420), radius=24, fill="white", outline=LINE, width=3)
-    d.text((80, 145), "总体方案：一次正式拍摄 · 一镜到底 · 推进式 · 首户型 / 尾室内", font=heading, fill=INK)
-    nodes = ["S01 开场", "S02 公共区", "S03 房间段", "S04 室内尾镜"]
-    for i, label in enumerate(nodes):
-        x = 90 + i * 360
-        d.rounded_rectangle((x, 220, x+290, 305), radius=14, fill="#edf5fa", outline=ACCENT, width=3)
-        d.text((x+25, 243), label, font=body, fill=INK)
-        if i < 3:
-            d.line((x+300, 263, x+345, 263), fill=ACCENT, width=5)
-            d.polygon([(x+345, 263), (x+331, 253), (x+331, 273)], fill=ACCENT)
-    d.text((80, 340), "章节不是切点；绑定正文 / PNG / 输入 / 制作范围SHA，实际呈现后一次批准", font=body, fill=MUTED)
-    cards = [("S01｜首镜 0–3秒", "户型图浮层进出；连续室内背景", "白字 + 黄标；户型图保持原比例", "素材库潮流BGM；已列权利范围"),
-             ("S02｜空间段 3–N秒", "平稳推进；展示空间关系", "按口播模式写全文或卖点关键词", "注明源缺陷 / 遮挡 / 连续性证据"),
-             ("S04｜室内收尾 N–结束", "在批准房间内收束，不切户型图", "单行白黄CTA；文案需本房源批准", "BGM淡出；按S-ID审核完整成片")]
-    for i, (label, action, subtitle, risk) in enumerate(cards):
-        x = 45 + i*500
-        d.rounded_rectangle((x, 460, x+470, 1260), radius=22, fill="white", outline=LINE, width=3)
-        d.text((x+22, 488), label, font=heading, fill=INK)
-        d.rectangle((x+22, 555, x+448, 825), fill="#e9eef1", outline=ACCENT, width=3)
-        d.line((x+25, 558, x+445, 822), fill=LINE, width=3)
-        d.line((x+445, 558, x+25, 822), fill=LINE, width=3)
-        d.rectangle((x+65, 636, x+405, 744), fill="#e9eef1")
-        d.text((x+80, 650), "生产时嵌真实源PNG", font=body, fill=INK)
-        d.text((x+97, 695), "此处只有结构占位", font=small, fill=BAD)
-        y = 860
-        for line in ["动作："+action, "字幕："+subtitle, "音乐/风险："+risk, "证据：源图 / SHA / 事实索引"]:
-            current = ""
-            for character in line:
-                candidate = current + character
-                if current and d.textlength(candidate, font=body) > 426:
-                    d.text((x+22, y), current, font=body, fill=INK)
-                    y += 36
-                    current = character
-                else:
-                    current = candidate
-            d.text((x+22, y), current, font=body, fill=INK)
-            y += 62
-    d.text((55, 1310), "公开示意不可冒充真实参考图；私有脚本缺图、路径-only、版本漂移都不能开拍。", font=body, fill=BAD)
+    d.text((45, 30), "整体图文方案板｜公开结构示意，不是真实房源脚本", font=title, fill=INK)
+    d.text((45, 100), "顶部：整片目标 / 版本 / 章节顺序 / 一次制作范围", font=heading, fill=MUTED)
+    d.rounded_rectangle((45, 165, 1755, 255), radius=15, fill="#e4f2ee")
+    d.text((75, 188), "S01首镜 → S02公共区 → S03房间 → S04室内收尾；章节不是切点", font=heading, fill=INK)
+    labels = ["S01 首镜", "S02 公共区", "S03 房间", "S04 室内收尾"]
+    for i, label in enumerate(labels):
+        x = 45 + i*430
+        d.rounded_rectangle((x, 290, x+420, 1220), radius=18, fill="white", outline=LINE, width=3)
+        d.rounded_rectangle((x, 290, x+420, 370), radius=15, fill="#254f5e")
+        d.text((x+24, 313), label+" · 时长", font=heading, fill="white")
+        d.rectangle((x+25, 400, x+395, 690), fill="#edf4f3", outline=LINE, width=2)
+        d.text((x+45, 490), "真实源PNG的位置", font=body, fill=INK)
+        d.text((x+45, 545), "此处仅为占位", font=body, fill=BAD)
+        for j, line in enumerate(["方法 / 动作：同卡说明", "重点：要读懂的空间关系", "口播：本段完整台词", "字幕：全文或关键词模式", "黄标 / BGM：明确口径", "限制：现象及证据来源"]):
+            d.text((x+25, 740+j*65), line, font=body, fill=INK)
+    d.rounded_rectangle((45, 1250, 650, 1660), radius=18, fill="white", outline=LINE, width=3)
+    d.text((75, 1280), "下部左侧：本房源真实户型", font=heading, fill=INK)
+    d.rectangle((100, 1350, 590, 1540), fill="#edf4f3", outline=LINE, width=2)
+    d.text((145, 1420), "原户型图位置，非示意房况", font=body, fill=BAD)
+    d.text((75, 1580), "标明用途 / 事实来源 / 范围", font=body, fill=MUTED)
+    d.rounded_rectangle((680, 1250, 1755, 1660), radius=18, fill="white", outline=LINE, width=3)
+    d.text((710, 1280), "下部右侧：调整 / 差异 / 待审核范围", font=heading, fill=INK)
+    for j, line in enumerate(["整片节奏与镜头语言：按当前需求重建", "首尾 / 配音 / 字幕 / 音乐：列明一次制作范围", "已知限制：随整包披露，不代用户接受", "附完整正文与来源摘要：不以长文替代成图"]):
+        d.text((710, 1370+j*63), line, font=body, fill=INK)
+    d.rounded_rectangle((45, 1690, 1755, 1810), radius=15, fill="#254f5e")
+    d.text((75, 1725), "一次图文整包审核 → 一次正式采集及获批后期 → 按S-ID审成片", font=heading, fill="white")
+    d.text((45, 1830), "原截图不等于排版卡；示意占位不能通过真实生产检查。", font=body, fill=BAD)
     out = OUT / "06-illustrated-script.png"
     OUT.mkdir(parents=True, exist_ok=True)
     im.save(out)
@@ -323,5 +314,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--only", nargs="+", choices=list(functions))
     args = parser.parse_args()
-    for name in args.only or functions:
+    selected = args.only or functions
+    if any(name != "storyboard" for name in selected):
+        load_matplotlib()
+    for name in selected:
         functions[name]()

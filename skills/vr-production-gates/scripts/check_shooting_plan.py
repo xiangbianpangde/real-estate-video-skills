@@ -164,7 +164,7 @@ def check(record_path, phase, claim):
                 errors.append("unbound_render_precheck_evidence:" + key)
             asset_ok(entry["path"], entry.get("sha256"), "render_precheck_" + key)
 
-    if record.get("schema") != "vr-production-plan/v2":
+    if record.get("schema") not in ("vr-production-plan/v2", "vr-production-plan/v3"):
         errors.append("unsupported_schema")
     plan = record.get("plan", {})
     plan_path = local(plan.get("path"))
@@ -198,6 +198,36 @@ def check(record_path, phase, claim):
         path = (plan_path.parent / image).resolve()
         if not any(local(a) == path for a in assets):
             errors.append("unbound_embedded_image:" + image)
+    # New illustrated boards bind actual render/review evidence. v2 stays historical.
+    if record.get("schema") == "vr-production-plan/v3":
+        layout = record.get("scope", {}).get("storyboard_layout")
+        if not isinstance(layout, dict) or layout.get("kind") != "overview_board":
+            errors.append("missing_storyboard_layout")
+        else:
+            bound = {}
+            for key, role in (("board", "overview"), ("source", "storyboard_source"), ("review", "layout_review")):
+                name = layout.get(key)
+                entry = assets.get(name, {})
+                if not name or entry.get("role") != role:
+                    errors.append("unbound_storyboard_layout:" + key)
+                else:
+                    bound[key] = entry
+            if len(bound) == 3:
+                evidence = json.loads(local(layout["review"]).read_text())
+                if not isinstance(evidence, dict) or evidence.get("schema") != "vr-storyboard-layout-review/v1":
+                    errors.append("invalid_layout_review")
+                else:
+                    if (evidence.get("board_sha256") != bound["board"].get("sha256")
+                            or evidence.get("source_sha256") != bound["source"].get("sha256")):
+                        errors.append("layout_review_sha_mismatch")
+                    expected_ids = [seg.get("id") for seg in record.get("segments", [])]
+                    if evidence.get("segment_ids") != expected_ids:
+                        errors.append("layout_review_segments_mismatch")
+                    for key in ("all_images_loaded", "no_overflow", "reference_structure_matches", "motion_diagrams_reviewed", "opening_composite_reviewed"):
+                        if evidence.get(key) is not True:
+                            errors.append("layout_review_not_passed:" + key)
+                    if not isinstance(evidence.get("review_basis"), str) or not evidence["review_basis"].strip():
+                        errors.append("missing_layout_review_basis")
     segments = record.get("segments", [])
     ids = set()
     previous = 0.0

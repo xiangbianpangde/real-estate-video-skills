@@ -4,6 +4,8 @@
 |---|---|---|
 | Copy exclusions | 按[文案禁用清单](文案/文案中不能出现的内容.md)隔离内部面积说明与视频稿；旁白/字幕/标题/CTA/素材文字无公摊提及、数值或同义解释；生成前审稿，成片实听并核字幕轨及编码画面，已批准台本冲突回审 | 配音/字幕/渲染及成片接受 |
 | Script approval | [真实源图文包](illustrated-script.md)：总览PNG+S-ID源图/动作/字幕/黄标/BGM/风险；完整事实/台本/时间轴与制作范围，正文/PNG/输入SHA、BUNDLE_SHA256；显式 `SCRIPT_APPROVED_ONCE` | 正式采集及完整制作 |
+| Visual semantics | 动作图示与短说明一致；首镜背景/真实户型/两行标题合成预览实际可见；源参考与布局预览分标，不把原截图当成片设计 | 整包提交 |
+| Storyboard layout | v3方案板PNG＋HTML图源＋绑定SHA的实际回读记录；顶部目标、横向章节卡、下部户型/调整/审核范围；图片全加载、无溢出、S-ID齐全及参考结构目视匹配。原截图＋长文不算成图；机器证据校验不代替视觉判断 | 新整包提交/采集 |
 | Actual presentation | 完整图文正文及两个摘要已在实际提交事件呈现；真实用户随后回复绑定该事件；纯文字表、路径-only、未解析附件不算提交 | 沿用任何拍前批准 |
 | Integrated execution | 获批脚本/范围/输入SHA、按段QC索引、原件保护；同次许可覆盖列明首尾/字幕/BGM/导出，不再逐层索权 | 成片审看 |
 | Contract | `DRAFT/IN_REVIEW` → `SCRIPT_APPROVED_ONCE`（含采集`APPROVED_ONCE`含义），`max_capture_attempts=1`；仅设计冻结不执行 | 正式采集 |
