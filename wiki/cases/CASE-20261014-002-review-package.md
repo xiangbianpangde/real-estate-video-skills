@@ -90,3 +90,11 @@ Tingting配音素材已按完整原文生成并测量各cue时长，尚未实听
 ## 2026-10-14 新路线预检01启动失败
 
 Skills修复5fc8c16已推送且远程SHA一致。新路线预检在录制前因画布DPR未同步失败；未生成媒体、未执行路线，原失败保留。就绪后DPR设置静态两次尺寸回读通过，页面/相机/SDK恢复；准备修正启动稿，追加一次预算待用户许可。动态画面/速度/连贯性仍未验证，未正式拍摄。私有证据v7/precheck-route01/failure-review.json、precheck-telemetry.json及预检结果.md。
+
+## 2026-10-14 追加预检02及v8整包草案
+
+用户明确“追加一次预检，继续”，仅追加预检、不授权正式拍摄。预检02连续原件30.004秒/892帧、最大PTS间隔60ms、无>100ms间隔；5次启动等待27–42ms，五章边界3.005/9.003/21.000/26.003/30.004秒，控制无错误。完整浏览器播放到29.969秒ended，无媒体错误；SDK实际相机待稳定后回读原pose/位置、原状态、viewport与DPR均恢复。逐秒30格接触表可辨厨房台面/餐区/客厅/阳台，无卫生间/近冰箱门主画面；跨点叠层重影和边线变形仍可见。机器播放与静帧不代替完整独立动态观感判断，visual=PENDING，不宣称丝滑通过。
+
+v8整包保留总板、独立完整路线板、五章正文与首尾预览，新增预检视频；首镜/正文采用本次真实预检抽帧。S02改为“厨房连着餐区，顺着台面走向客餐厅。”，逐字字幕同步更新，避免未展示水槽的口播。最终record再生成三份输出字节一致，实际浏览器8张图片/路线/五章/无溢出通过。当前DRAFT，无本版批准，无formal claim。唯一下一步：用户整包审看v8与预检02，确认动态观感及修订内容；不自动追加路线尝试。
+
+私有证据：v7/precheck-route02/technical-review.json、restore-tool.json、playback-tool.json、precheck-original.webm；v8/precheck-report.json、precheck-visual-review.json、package/generation.json与整合正文检查.json。

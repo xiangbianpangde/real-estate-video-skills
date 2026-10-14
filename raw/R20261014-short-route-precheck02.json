@@ -1,0 +1,25 @@
+{
+  "type": "actual_runtime_precheck",
+  "duration_s": 30.004399999976158,
+  "frames": 892,
+  "max_pts_gap_ms": 60,
+  "pts_gaps_over_100ms": 0,
+  "movement_start_delay_ms": [
+    35.5,
+    27.4,
+    27.5,
+    33.6,
+    41.5
+  ],
+  "control_errors": [],
+  "browser_playback_ended": true,
+  "media_errors": null,
+  "actual_pose_restore_readback": true,
+  "media_sha256": "5283bc349edfd7b1da84328a3eef51770205413ec8e406e0c8387c250ffb592c",
+  "visual_review": "PENDING",
+  "independent_complete_dynamic_visual_review": false,
+  "static_contact_sheet_reviewed": true,
+  "user_acceptance": "PENDING",
+  "formal_capture": false,
+  "v8_package_rendered": true
+}
