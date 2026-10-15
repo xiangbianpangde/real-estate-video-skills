@@ -19,3 +19,5 @@ scope.editing_policy记录是否单原件、是否允许切镜/删段/变速。�
 连续后期回执continuous-edit.json绑定源SHA、实际时长与映射。capture_and_post存于采集目录；post_only可用scope.continuous_edit_evidence绑定现有输入。已有后期目录可恢复，保留成功素材、修改结果写新文件。
 
 完成标准是本次时长/空间/主体/连贯性与声音字幕要求成立，并实际检查成片；CFR、全解码和静态箭头不能替代。只有用户允许切镜时才使用approved_cut_exception及路线板cuts，不能将剪辑跳转画成行走。
+
+实现参考：[可运行技术示范：完整时间线局部变速](examples/technical-examples.md)。输入、输出与本次未验证项见示范对应章节；不增加审批或次数规则。

@@ -3,7 +3,7 @@ name: vr-production-gates
 description: 房产视频的图文剧本、VR/模型采集、配音字幕与成片检查。用户要求先审剧本再制作、修复房产视频或维护本技能时使用；按当前要求自主推进验证和纠错。技能维护不自动执行视频制作。
 compatibility: Pi coding agent; Python 3.10+, FFmpeg/ffprobe, local browser playback
 metadata:
-  version: "4.0.1"
+  version: "4.1.0"
   status: "active"
   layer: "task"
   priority: "40"
@@ -51,3 +51,5 @@ disable-model-invocation: false
 检查最终文件的画面、字幕、音轨、尺寸/时长与实际播放；按章节说明结果和剩余问题，交用户接受或退回。更新项目现有状态和问题记录。检查器核结构、来源及范围，不认证画质或替代真实审看。
 
 工具入口、格式和示例见[提交协议](references/illustrated-script.md)、[验收场景](references/acceptance-matrix.md)与[示例](design-system/examples/README.md)。规则审计的逐项取舍留在项目Wiki，不作为新的执行门槛。
+
+实现时按需读[可运行技术示范](references/examples/technical-examples.md)：SDK生命周期、单源变速、mcode入口与音频字幕后期。示范不新增执行门槛，验证范围分别标明。

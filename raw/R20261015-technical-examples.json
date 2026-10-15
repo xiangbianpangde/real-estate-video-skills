@@ -1,0 +1,52 @@
+{
+  "schema": "skill-technical-examples-validation/v1",
+  "version": "4.1.0",
+  "date": "2026-10-15",
+  "checks": {
+    "production_gate_regressions": 72,
+    "policy_simplification": 19,
+    "document_review": 89,
+    "route_board": 13,
+    "storyboard": 10,
+    "media_batch": 8,
+    "sdk_mock_lifecycle": 4,
+    "real_ffmpeg_pillow_media": 5,
+    "design_system_cli_scenarios": 5,
+    "strict_validator_errors": 0,
+    "strict_validator_warnings": 0,
+    "pi_loader_diagnostics": 0,
+    "project_markdown_documents": 45,
+    "project_image_references": 16,
+    "git_diff_check": "PASS",
+    "mcode_exec_help": "PASS"
+  },
+  "demo": {
+    "kind": "synthetic video and sine tones; manual fixture word timings",
+    "source_duration_s": 6,
+    "output_duration_s": 5,
+    "output_frames": 60,
+    "source_unchanged": true
+  },
+  "unverified": [
+    "real SDK execution of extracted adapter",
+    "mcode service discovery/generation",
+    "local mlx-whisper model inference",
+    "human audio listening",
+    "browser playback/visual inspection",
+    "fresh model positive/negative trigger behavior"
+  ],
+  "browser_block": {
+    "action": "open local synthetic review page",
+    "executed": false,
+    "reason": "automatic approval review could not complete due to usage limit; no bypass attempted"
+  },
+  "files": {
+    "skills/vr-production-gates/scripts/technical_examples/align_voice.py": "8ee660fbb6a88d83cb86a6c9e318a134c87d058fc19dbb17f99392153ed7e832",
+    "skills/vr-production-gates/scripts/technical_examples/media.py": "290bfd4a9d7ca4cd27431a9ffb6b3cd2cb38c106c44da6b3de248bf87af139b5",
+    "skills/vr-production-gates/scripts/technical_examples/postprocess.py": "0ced1462a3b4d94c070da126e5d56253a3c43b6c8930acf2e0d3394dc30a8160",
+    "skills/vr-production-gates/scripts/technical_examples/demo.py": "c353f7b9334669398f7b481a359fc879e58492e93cf854cd4a7299fd9cae905d",
+    "skills/vr-production-gates/scripts/technical_examples/retime.py": "a23564c775820edc25403910921a5f3835d6efa860fd2451abcc069d682d44ad",
+    "skills/vr-production-gates/scripts/technical_examples/panorama.mjs": "f39d1d1f106e002d5644cbcc411d03973a8127c280a4b81461f53e2ac1a2e841",
+    "skills/vr-production-gates/references/examples/technical-examples.md": "7b2e8adb306113191f502b682f0db967e5622c97fa16083d66eda968b690e17c"
+  }
+}
