@@ -32,9 +32,10 @@ def preview(seg, images, floorplan, fixture=False):
     background = f'<img class="opening-background" src="{src}" alt="{alt}背景">'
     if layout == 'opening_composite':
         lines = v['headline_lines']
-        layers = f'<div class="opening-headlines"><b>{esc(lines[0])}</b><strong>{esc(lines[1])}</strong></div><div class="opening-floorplan"><img src="{image(images[str(floorplan)])}" alt="户型图浮层"></div>'
+        headlines = ''.join(f'<{"b" if i == 0 else "strong"}>{esc(line)}</{"b" if i == 0 else "strong"}>' for i, line in enumerate(lines))
+        layers = f'<div class="opening-headlines">{headlines}</div><div class="opening-floorplan"><img src="{image(images[str(floorplan)])}" alt="户型图浮层"></div>'
     else:
-        layers = f'<div class="ending-cta">{esc(v["cta"])}</div><div class="ending-disclaimer">{esc(v.get("disclaimer", ""))}</div>'
+        layers = f'<div class="ending-cta">{esc(v.get("cta", ""))}</div><div class="ending-disclaimer">{esc(v.get("disclaimer", ""))}</div>'
     return f'<div class="preview"><div class="composite" data-preview="{layout}">{background}{layers}</div></div><p class="caption">{"虚构测试" if fixture else "源图合成"}布局预览 · 非已录成片</p>'
 
 
@@ -54,6 +55,6 @@ def chapter_card(seg, images, floorplan, fixture=False):
 {preview(seg, images, floorplan, fixture)}{motion_component(v)}
 <div class="field"><b>镜头动作</b><p>{esc(seg['action'])}</p></div>
 <div class="field"><b>观看重点</b><p>{esc(seg['focus'])}</p></div>
-<div class="field"><b>口播</b><p>{esc(seg['text'])}</p></div>
+<div class="field"><b>口播</b><p>{esc(seg.get('text', '') or '无旁白')}</p></div>
 <p class="caption">黄标：{esc('、'.join(seg.get('highlights', []))) or '无'}</p>
-{risk_tag(v.get('risk_level','limitation'),seg['risk'])}</div></article>'''
+{risk_tag(v.get('risk_level','limitation'),seg['risk']) if seg.get('risk') else ''}</div></article>'''

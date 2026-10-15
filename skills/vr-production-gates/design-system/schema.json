@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Real-estate storyboard rendering contract v1.1 with v1.0 compatibility",
+  "title": "Real-estate storyboard content structure; style defaults are recommendations",
   "type": "object",
   "required": [
     "schema",
@@ -51,8 +51,7 @@
         "duration_s",
         "opening",
         "ending",
-        "render_method",
-        "bgm"
+        "render_method"
       ],
       "properties": {
         "duration_s": {
@@ -120,6 +119,23 @@
                 "type": "number",
                 "exclusiveMinimum": 0
               }
+            }
+          }
+        },
+        "continuous_edit_evidence": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
             }
           }
         }
@@ -287,16 +303,14 @@
         },
         "headline_lines": {
           "type": "array",
-          "minItems": 2,
-          "maxItems": 2,
+          "minItems": 1,
           "items": {
             "type": "string",
             "minLength": 1
           }
         },
         "cta": {
-          "type": "string",
-          "minLength": 1
+          "type": "string"
         },
         "disclaimer": {
           "type": "string"
@@ -321,25 +335,6 @@
               "headline_lines"
             ]
           }
-        },
-        {
-          "if": {
-            "properties": {
-              "role": {
-                "const": "ending"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "layout": {
-                "const": "ending_composite"
-              }
-            },
-            "required": [
-              "cta"
-            ]
-          }
         }
       ]
     },
@@ -352,8 +347,6 @@
         "reference_image",
         "action",
         "focus",
-        "text",
-        "risk",
         "visual"
       ],
       "properties": {
@@ -382,12 +375,10 @@
           "minLength": 1
         },
         "text": {
-          "type": "string",
-          "minLength": 1
+          "type": "string"
         },
         "risk": {
-          "type": "string",
-          "minLength": 1
+          "type": "string"
         },
         "visual": {
           "$ref": "#/$defs/visual"

@@ -15,8 +15,8 @@ def render_html(record, images, floorplan):
         for name, value in values.items():
             css.append(f'--{group}-{name}:{value}{"px" if isinstance(value,(float,int)) else ""};')
     count = len(record['segments'])
-    width = int(record.get('board_width', min(2880,max(1280,count*330+96))))
-    if not 960 <= width <= 6000: raise ValueError('Board width must be 960..6000 CSS pixels')
+    width = record.get('board_width', min(2880,max(1280,count*330+96)))
+    if type(width) is not int or width <= 0: raise ValueError('Board width must be a positive integer')
     columns = min(count,tokens['layout']['max_columns'],max(1,(width-2*tokens['space']['page'])//tokens['layout']['card_min_width']))
     css.extend([f'--board-width:{width}px;',f'--columns:{columns};'])
     scope, content = record['scope'], record.get('board_content',{})
@@ -31,6 +31,7 @@ def render_html(record, images, floorplan):
     if not isinstance(notes,list): raise ValueError('board_content.changes must be a list')
     changes = ''.join(f'<div class="note"><b>{esc(note["title"])}</b><p>{esc(note["text"])}</p></div>' for note in notes)
     shape = scope.get('render_config',{})
+    workflow = '整包审核 → 复用原件完成后期 → 按S-ID审成片' if scope.get('execution_mode')=='post_only' else '整包审核 → 完成采集与后期 → 按S-ID审成片'
     return f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>{esc(title)}</title>
 <style>:root{{{''.join(css)}}}{(DESIGN/'styles.css').read_text()}{ROUTE_CSS}</style><main id="board">
 <header><div class="eyebrow">{esc(scope['source_namespace'])} · {esc(record['plan']['version'])} · {esc(record.get('status','DRAFT'))}</div><h1>{esc(title)}</h1>
@@ -40,9 +41,9 @@ def render_html(record, images, floorplan):
 {route_view}<section class="cards">{cards}</section><section class="lower"><div class="panel"><h3>户型：整体布局参考</h3><img class="floorplan" src="{image(images[str(floorplan)])}" alt="{'合成测试户型' if fixture else '当前房源户型原图'}"><p>{esc(content.get('fact_caption','事实详见同版来源及合同'))}</p><p class="caption">{'合成测试素材' if fixture else '保留原图比例；不作为现实路径测绘'}</p></div>
 <div class="panel"><h3>整片设计与审核范围</h3>{changes}
 <div class="note"><b>首尾设计</b><p>{esc(scope['opening'])}</p><p>{esc(scope['ending'])}</p></div>
-<div class="note"><b>声音与字幕</b><p>{esc(scope.get('voiceover','按当前口播合同'))}</p><p>{esc(scope['bgm'])}</p><p>{esc(subtitle_mode)} / {esc(subtitle_delivery)}</p></div>
+<div class="note"><b>声音与字幕</b><p>{esc(scope.get('voiceover','按当前口播合同'))}</p><p>{esc(scope.get('bgm','无配乐'))}</p><p>{esc(subtitle_mode)} / {esc(subtitle_delivery)}</p></div>
 <div class="note"><b>已知限制与待确认项</b><p>{esc(content.get('limitations','逐卡核对标注的限制和待确认项。'))}</p></div></div></section>
-<footer class="footer"><b>一次整包审核 → 一次正式采集及获批后期 → 按S-ID审成片</b><p>{esc(scope.get('facts_and_rights','事实及权利以同版合同为准'))}</p><p>发布与最终接受独立。本设计图不授予生产权限。</p></footer></main></html>'''
+<footer class="footer"><b>{workflow}</b><p>{esc(scope.get('facts_and_rights','事实及权利以同版合同为准'))}</p><p>发布与最终接受独立。本设计图不授予生产权限。</p></footer></main></html>'''
 
 
 def render_markdown(record, floorplan):

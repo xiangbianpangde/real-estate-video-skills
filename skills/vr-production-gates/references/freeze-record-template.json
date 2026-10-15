@@ -62,18 +62,6 @@
       "origin": "actual_run"
     },
     {
-      "path": "accepted-reference.mp4",
-      "sha256": "",
-      "role": "acceptance_reference",
-      "origin": "actual_source"
-    },
-    {
-      "path": "visual-decision.json",
-      "sha256": "",
-      "role": "acceptance_decision",
-      "origin": "actual_user_event"
-    },
-    {
       "path": "storyboard.html",
       "sha256": "",
       "role": "storyboard_source",
@@ -153,19 +141,8 @@
       "path": "precheck.json",
       "sha256": ""
     },
-    "visual_acceptance": {
-      "reference": {
-        "path": "accepted-reference.mp4",
-        "sha256": ""
-      },
-      "decision": {
-        "path": "visual-decision.json",
-        "sha256": ""
-      }
-    },
     "validation_scope": "model_only",
     "continuity_class": "cross_room_travel",
-    "max_capture_attempts": 1,
     "duration_s": 60,
     "duration_tolerance_s": 0.5,
     "output_dir": "take01",
@@ -188,9 +165,8 @@
     "facts_and_rights": "",
     "not_authorized": [
       "publish",
-      "paid_service",
-      "new_facts_or_cta",
-      "reshoot"
+      "unlisted_paid_service",
+      "new_factual_claims"
     ],
     "storyboard_layout": {
       "kind": "overview_board",
@@ -209,21 +185,19 @@
       "allow_speed_changes": false
     }
   },
-  "exploration": {
-    "key_prechecks": 0,
-    "full_route_prechecks": 0,
-    "comparisons_by_issue": {},
-    "stop_reason": ""
-  },
+  "exploration": {},
   "presentation": {
-    "mode": "inline_cards",
+    "mode": "linked_document",
+    "document_path": "plan_v1.md",
     "transcript_path": "review.jsonl",
     "transcript_sha256": "",
     "assistant_event_id": ""
   },
   "approval": {
     "user_event_id": "",
-    "explicit_text": ""
+    "explicit_text": "",
+    "plan_sha256": "",
+    "bundle_sha256": ""
   },
   "design_system": {
     "id": "real-estate-storyboard",

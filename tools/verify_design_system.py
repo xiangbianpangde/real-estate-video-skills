@@ -34,11 +34,10 @@ def verify():
             materialized=inputs/'record.json';materialized.write_text(json.dumps(record,ensure_ascii=False))
             cmd=[sys.executable,str(SKILL/'scripts/build_script_package.py'),'--record',str(materialized),'--floorplan','floorplan.png','--output-dir',str(out)]
             run=subprocess.run(cmd,capture_output=True,text=True)
-            expected=name=='valid'
+            expected=name in {'valid','missing-ending-cta'}
             ok=(run.returncode==0 and out.is_dir()) if expected else (run.returncode!=0 and not out.exists())
             row={'case':name,'expected':'generated_pair' if expected else 'rejected_without_output','exit_code':run.returncode,'passed':ok,'argv':cmd}
             if expected and ok:
-                record=json.loads((EXAMPLES/'valid.json').read_text())
                 md=(out/'plan.md').read_text();html=(out/'storyboard.html').read_text();receipt=json.loads((out/'generation.json').read_text())
                 for seg in record['segments']:
                     if seg['text'] not in md or seg['text'] not in html or seg['visual']['title'] not in md or seg['visual']['title'] not in html: row['passed']=False

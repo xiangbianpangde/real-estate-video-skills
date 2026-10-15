@@ -8,17 +8,19 @@
 
 输入为[valid.json](valid.json)；可放大[方案板图源](positive/storyboard.html)和阅读[详细正文](positive/plan.md)。首尾、完整口播和动作均读取同一record；正例默认DRAFT，不冒充生产批准。
 
-## 反例及实际拒绝条件
+## 反例与无CTA变体
 
-![故意错误的截图加文字、缺户型首镜和缺CTA尾镜](negative.png)
+![故意错误的截图加文字、缺户型首镜和未兑现已声明引流的尾镜](negative.png)
 
 
 | 反例输入 | 为什么不算完成 | 应有结果 |
 |---|---|---|
 | [missing-motion.json](missing-motion.json) | 只有截图＋action长文，没有动作图示数据 | 输入校验拒绝，无输出目录 |
 | [opening-without-floorplan.json](opening-without-floorplan.json) | 户型开场角色退化为室内源截图，下方户型不能替代浮层 | 角色与预览不一致，拒绝 |
-| [missing-ending-cta.json](missing-ending-cta.json) | 室内收尾设计没有CTA | 拒绝 |
+| [missing-ending-cta.json](missing-ending-cta.json) | 不需要引流的室内收束变体 | 允许；不是通用反例 |
 | [summary-subtitles.json](summary-subtitles.json) | 声明完整逐字字幕，却另写摘要替代口播 | 拒绝 |
+
+图中尾镜反例只针对已声明需要引流却未实际绘出的情形。没有引流需求不要求CTA。
 
 截图＋长文不是方案板；首镜写了户型但没实际画出户型也不是首镜预览。以上判断同时体现在输入约束、生成器和实际成图检查，不只靠说明文字。
 

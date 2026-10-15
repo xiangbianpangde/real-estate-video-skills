@@ -9,6 +9,24 @@
         "visual",
         "cta"
       ]
+    },
+    {
+      "op": "set",
+      "path": [
+        "scope",
+        "ending"
+      ],
+      "value": "室内测试背景收束，无引流"
+    },
+    {
+      "op": "set",
+      "path": [
+        "segments",
+        2,
+        "visual",
+        "title"
+      ],
+      "value": "室内收束"
     }
   ]
 }

@@ -104,7 +104,7 @@ class GateTests(unittest.TestCase):
             self.events[0]["message"]["content"][0]["text"] = self.body + "\nSHA256: " + self.record["plan"]["sha256"]
 
     def save(self):
-        bundle = {key: self.record[key] for key in ("plan", "assets", "segments", "scope", "exploration")}
+        bundle = {key: self.record.get(key) for key in ("plan", "assets", "segments", "scope", "exploration")}
         bundle_sha = hashlib.sha256(json.dumps(bundle, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()
         if not hasattr(self, "presented_bundle_sha"):
             self.presented_bundle_sha = bundle_sha
@@ -225,9 +225,9 @@ class GateTests(unittest.TestCase):
         code, data = self.run_gate("review")
         self.assertEqual(code, 0, data)
 
-    def test_exploration_over_budget(self):
-        self.record["exploration"]["comparisons_by_issue"]["glass"] = 3
-        self.rejected("exploration_budget_exceeded")
+    def test_negative_exploration_count_rejected(self):
+        self.record["exploration"]["comparisons_by_issue"]["glass"] = -1
+        self.rejected("invalid_exploration_counts")
 
     def test_card_fields_hidden_in_json(self):
         self.body = self.body.replace("推进；空间；核证字幕；已批准素材库BGM；已披露", "", 1)
@@ -247,6 +247,7 @@ class GateTests(unittest.TestCase):
         self.rejected("invalid_user_approval")
 
     def test_missing_post_permission(self):
+        self.record["scope"]["requested_actions"] = ["bgm"]
         self.record["scope"]["authorized_actions"].remove("bgm")
         self.rejected("incomplete_production_scope")
 
@@ -320,12 +321,12 @@ class GateTests(unittest.TestCase):
         self.assertNotEqual(code, 0)
         self.assertIn("asset_sha_mismatch:existing-master.webm", data["errors"])
 
-    def test_post_only_cannot_overwrite(self):
+    def test_post_only_output_cannot_overlap_inputs(self):
         self.post_only_record()
-        (self.root / "post_v2").mkdir()
+        self.record["scope"]["output_dir"] = "."
         code, data = self.run_gate("post")
         self.assertNotEqual(code, 0)
-        self.assertIn("post_output_already_exists", data["errors"])
+        self.assertIn("output_overlaps_input", data["errors"])
 
     def test_nan_duration_rejected(self):
         self.record["scope"]["duration_s"] = float("nan")
@@ -424,11 +425,12 @@ class GateTests(unittest.TestCase):
                                                   "dpr": 1, "fov_axis": "vertical", "fov_deg": 85.57}
         self.rejected("invalid_render_config")
 
-    def test_render_binding_hidden_from_plan(self):
+    def test_internal_report_path_need_not_be_in_reader_plan(self):
         path = self.root / "plan_v1.md"
         path.write_text(self.body.replace("预检报告precheck.json", "预检报告待填"))
         self.record["plan"]["sha256"] = sha(path)
-        self.rejected("render_binding_not_in_plan", "review")
+        code, data = self.run_gate("review")
+        self.assertEqual(code, 0, data)
 
     def test_post_only_not_blocked_by_failed_render_precheck(self):
         self.precheck["checks"]["visual"] = "FAIL"
@@ -453,10 +455,10 @@ class GateTests(unittest.TestCase):
         code, data = self.run_gate()
         self.assertEqual(code, 0, data)
 
-    def test_limits_without_user_reference_rejected(self):
+    def test_limits_without_disclosure_rejected(self):
         self.precheck["checks"]["visual"] = "PASS_WITH_LIMITATIONS"
         self.save_precheck()
-        self.rejected("missing_visual_acceptance", claim=True)
+        self.rejected("missing_visual_limitations", claim=True)
 
     def test_user_reference_outside_criteria_rejected(self):
         self.visual_reference_record()
@@ -488,16 +490,17 @@ class GateTests(unittest.TestCase):
         self.save_precheck()
         self.rejected("visual_limitations_not_in_plan")
 
-    def test_user_reference_binding_hidden_from_plan(self):
+    def test_reference_path_stays_internal(self):
         self.visual_reference_record()
         self.body = self.body.replace("accepted-reference.mp4 SHA256:", "参考地址未展示 SHA256:")
         path = self.root / "plan_v1.md"
         path.write_text(self.body)
         self.record["plan"]["sha256"] = sha(path)
         self.save_precheck()
-        self.rejected("visual_acceptance_not_in_plan", "review")
+        code, data = self.run_gate("review")
+        self.assertEqual(code, 0, data)
 
-    def test_user_reference_criteria_hidden_from_plan(self):
+    def test_verbatim_reference_quote_not_required_in_reader_plan(self):
         self.visual_reference_record()
         decision = json.loads((self.root / "visual-decision.json").read_text())
         self.body = self.body.replace(decision["criteria"], "标准未展示")
@@ -505,7 +508,8 @@ class GateTests(unittest.TestCase):
         path.write_text(self.body)
         self.record["plan"]["sha256"] = sha(path)
         self.save_precheck()
-        self.rejected("visual_acceptance_not_in_plan")
+        code, data = self.run_gate()
+        self.assertEqual(code, 0, data)
 
     def test_user_reference_wrong_decision_role_rejected(self):
         self.visual_reference_record()

@@ -1,0 +1,19 @@
+{
+  "user_accept_event": "msg_01a13cd9-9962-76b0-838e-b86e63a775f8",
+  "full_route_duration_s": 38.642900000035766,
+  "frames": 1144,
+  "max_pts_gap_ms": 77,
+  "p6_start_delay_ms": 3882.5,
+  "control": "PASS",
+  "full_visual": "FAIL",
+  "browser_playback_ended": true,
+  "warm_p6_local_start_delay_ms": 59.8,
+  "bedroom_local_camera": [
+    3.0,
+    2.85
+  ],
+  "full_corrected_route": "NOT_RUN",
+  "budget_extension": "WAITING_USER",
+  "formal_capture": false,
+  "full_media_sha256": "1273446d9340c4cf939f56368987f9e0673584e40f4e0d7a5984e9f2717a4ec2"
+}

@@ -1,62 +1,31 @@
 # 房产图文剧本设计系统 v1.1
 
-这是设计与生成的唯一规范入口。生产授权、一次采集与来源证据仍由[图文提交协议](../references/illustrated-script.md)约束。设计系统不会启动拍摄。
+同一份record生成可审阅的总板、独立完整户型路线板和详细正文；组件不授生产权限。审核入口见[提交协议](../references/illustrated-script.md)。
 
-## 信息层次
+## 层次与样式
 
-![同一标准数据生成的方案板，展示首尾布局、组合动作及风险层级](examples/positive/overview.png)
+![总板示例：全部为合成测试素材](examples/positive/overview.png)
 
+顶部说明房源/版本、观看顺序与时长；中部章节卡连接真实参考、动作图示、主体与文案；下部给户型、改动和限制。S-ID连接卡片、正文与成片意见。
 
-| 区域 | 用户要回答的问题 | 组件 |
-|---|---|---|
-| 顶部 | 整片讲什么，覆盖顺序与时长是什么 | 名称、版本、状态、叙事顺序、制作概况 |
-| 中部 | 每章看什么、怎么拍、说什么 | 横向章节卡；较多章节换行并保持S-ID顺序 |
-| 下部 | 户型依据是什么，方案变了什么，哪些待确认 | 原户型、变化说明、首尾/声音合同、限制 |
-| 页尾 | 本次审核覆盖什么 | 一次整包审核范围；用户接受和发布独立 |
+颜色与间距复用[tokens](tokens.json)和[样式](styles.css)。深青标题、绿色动作、琥珀风险是默认样式，可按阅读宽度与当前目标调整。状态有文字，图片保比例；卡片数量/标题行数/高亮数量不设通用上限。首尾按本次要求实际合成预览。
 
-卡片内部固定顺序：时码/角色标题 → 图像预览 → 图像用途标注 → 动作图示与短标签 → 动作说明 → 观看重点 → 口播 → 黄标 → 风险。标题来自visual.title，不从覆盖空间清单推测。
+## 图像与组件
 
-## 视觉样式
+| 组件 | 用途 |
+|---|---|
+| chapter_card | 时窗、标题、画面/动作、主体、口播与存在的风险同卡 |
+| motion_component | static/pan/travel/orbit/fov图示，支持有序steps |
+| preview | 源图参考，或室内背景叠标题/户型的首镜，或收束/CTA/声明尾镜 |
+| risk_tag | info/limitation/pending，不能代签用户接受 |
 
-数值以[tokens.json](tokens.json)为准，[styles.css](styles.css)消费同一组变量。规范描述用途，不再抄一套数值。
+源图只证明当前素材，动作图只表达计划，布局预览不是已录成片。当前用户要求首镜实际户型或尾镜引流时，预览中对应内容可见，下部原户型不能替代首镜浮层。无引流需求时CTA可空，无旁白/音乐/额外风险时允许空值。
 
-- 深青用于标题和章节条；绿色用于动作方法；琥珀色用于限制/待确认；正文与说明有清楚层次。状态始终有文字，不能只靠颜色。
-- 卡片等列宽、内容自然增高；预览区固定高度，原图contain保持比例。章节数不固定；按最小可读卡宽自动分行，不将九卡缩成接触表。
-- 首尾设计预览采用9:16画框，标题、户型卡和CTA各有独立层；户型保比例、不裁墙线。视频实际位置仍以[首尾合同](../references/opening-ending-layout.md)及最终编码画布核验。
-- 源图与设计预览可以同卡或通过附文索引对照；首尾必须展示设计预览。HTML可放大，另导出整张PNG及必要局部图。
+## 数据与生成
 
-## 三类图像语义
+[Schema](schema.json)描述vr-production-plan/v3与设计系统1.0/1.1结构；语义校验在scripts/storyboard/model.py。plan/scope存一次内容与范围，assets存来源/字节身份，segments存章节，visual存标题、图像角色与动作，board_content存实际变更，不维护重复台本。
 
-| 类型 | 能说明什么 | 呈现要求 |
-|---|---|---|
-| source_reference | 当前素材和取景参考 | 真实来源/SHA或明确的合成测试来源；不能称成片 |
-| motion diagram | 计划如何运动 | 相机/视锥/方向/FOV图形＋短标签；不作现实路径证明 |
-| opening/ending_composite | 计划中的画面层次 | 将源背景与标题/户型或CTA实际合成；标为布局预览，非已录成片 |
-
-首镜“先看户型”必须能在预览中看到户型；尾镜引流必须能看到明确CTA。下部原户型资料不能替代首镜户型浮层。每一处未核证事实保持待确认，不为补齐设计猜数值。
-
-## 可复用组件
-
-实现位于[scripts/storyboard](../scripts/storyboard)。外部调用只需标准record与图像来源，不需要复制HTML。
-
-- chapter_card：叙事标题与字段同卡；S-ID连接正文、图卡与验收意见。
-- motion_component：static静态、pan横扫、travel前进、orbit回转、fov视场变化；motion.steps可顺序组合，例如静态锚点→短FOV呼吸。
-- preview：真实源参考、opening_composite背景/两标题/户型浮层、ending_composite室内背景/CTA/免责声明。
-- risk_tag：info说明、limitation已披露限制、pending待确认。标签不自动表示用户已接受或房况已核证。
-
-## 标准剧本数据
-
-唯一内容源沿用record.json，格式仍为vr-production-plan/v3；增加design_system标识v1.0，不另建一套平行台本。结构见[schema.json](schema.json)，可运行样例见[examples/valid.json](examples/valid.json)。运行时语义校验由model.py完成；JSON Schema用于编辑器及外部形状校验，不宣称当前运行环境执行了通用JSON Schema引擎。
-
-- plan/scope：版本、来源、覆盖、时长、成像/声音/字幕与制作范围。
-- assets：图片路径、真实/合成来源及SHA。组件核身份与字节，不能证明房源事实。
-- segments：时间、完整口播、动作、主体、限制、highlights；visual只存呈现角色与方法，不复制口播。
-- visual.role/title/layout：opening/chapter/ending、叙事标题、对应预览。首尾角色与布局相符。
-- visual.motion：单kind/label，或steps有序数组。图形由组件绘制，不接受只有action文字的替代。
-- visual.headline_lines/cta/disclaimer：首尾叠加内容，必须来自同版获审事实/文案。
-- board_content.changes：本次实际调整；不由生成器编造“修正了什么”。
-
-命令：
+渲染器当前输入为PNG、有限动作/版式类型和S编号等结构，这是工具格式，不是新审批要求。来源缺失/字节漂移、时间轴不合法、图文对象不一致会失败；字段齐全不证明画面好看。
 
 ```bash
 python3 skills/vr-production-gates/scripts/build_script_package.py \
@@ -64,33 +33,14 @@ python3 skills/vr-production-gates/scripts/build_script_package.py \
   --output-dir /private/version/generated
 ```
 
-生成storyboard.html、plan.md及generation.json，全部来自同一份record。输出目录须不存在；输入缺字段/源漂移先失败，不覆盖旧包。generation回执绑定输入与两种输出摘要，默认visual_review=PENDING、capture_authorized=false。浏览器导出的overview.png与实际回读通过后，另按现有协议绑定提交；生成成功不等于批准。
+生成storyboard.html、route-board.html（有review_route时）、plan.md和generation.json。生成包使用新输出目录以保护旧文件，实际导出PNG后看图片/图示/文字是否可读。草案可编辑；已批准内容保留，范围内迭代不重复索权。
 
-旧build_storyboard.py命令仍可生成仅HTML；它与新命令共用组件。已有v2/v3历史记录不静默迁移批准，新增设计字段需新版本审核。
+## 完整路线板与完成标准
 
-## 正反示例与完成判据
+设计系统1.1用review_route描述左户型＋箭头/S-ID，右每章标题/时码/动作/路径。chapters与segments逐项对应，同点多章保留全部标签；共享组件生成独立板并嵌入正文。只有总板缩图、P点顺序或旧版截图不满足本项目完整路线板要求。
 
-[示例索引](examples/README.md)给出成功样例及可执行失败变体。完整交付必须同时有：
+scope.review_route_layout绑定板与图源；当前版本、时码、点位表及正文嵌图一致。图只用于剧本审核，不进入成片；真实动态仍另核。切镜仅在用户允许时以cuts标明，不画成行走。
 
-1. 同版标准数据、整张方案板、详细正文；两种输出S-ID/口播/动作/首尾一致。
-2. 动作图示可见且与短标签对应；首镜三层和尾镜CTA可见。
-3. 来源图片全部加载；章节顺序正确；卡片/首尾文字无溢出、无不可读缩小。
-4. 真实浏览器渲染＋导出PNG目视；范围、技术、用户接受分开记录。
+交付核同版数据、两板/正文、动作图示、要求的首尾层次、来源图片加载与可读性。用户时长/禁拍空间用shot_constraints及空间分类表达，连续后期用editing_policy/speed_map；见[路线规范](../references/short-route-motion.md)。
 
-“字段齐全”“文件存在”“SHA通过”只证明相应机器条件。实际参考结构和图文对应需要目视；用户接受由用户决定。
-
-## 用户变更后的短片约束
-
-用户限制时长或禁拍空间时，在同一record的scope.shot_constraints/route_space_ids及章节space_ids/framing_status声明；生成器与生产入口核已知违规，动态真实性仍独立验证。规则和完成标准见[短片路线与运动](../references/short-route-motion.md)。兼容原v1.0数据，不把缺字段的旧记录追认新标准通过。
-
-## 完整路线方案板（v1.1必需）
-
-`review_route`是标准数据，不由案例临时拼接：左侧原户型＋导航箭头＋S-ID锚点，右侧每章S-ID/标题/时码/动作/完整点位路径。`chapters`逐项对应segments，动作从同份visual.motion读取；同一点对应多章须保留全部标签，不能用以点位为键的覆盖写法丢章。节点、时码或路径不一致拒绝生成。
-
-共享生成器同时输出`storyboard.html`、`route-board.html`、`plan.md`；渲染PNG后正文固定分为“一、完整方案板”“二、详细视频剧本”，后者另嵌独立`route-board.png`。只有总板里的缩小简图、仅P点顺序、外置路线图或旧章数截图都不满足此结构。
-
-`scope.review_route_layout`绑定board/source两个资产（role分别review_route/review_route_source）；生产入口核源图章节/时码/点位表及正文真实嵌图，文档批准检查继续核对应内嵌PNG字节。元数据声明不替图像目视，图只用于剧本审核、不进入成片；实际地图对齐和动态路线证据仍独立。旧v1.0兼容为历史，新建/修订模板用v1.1，不得降版本逃避必需路线板。
-
-用户明确许可切镜时，`continuity_class=approved_cut_exception`，`review_route.cuts`逐项写from_pano/to_pano/label。路线板棕虚线是剪辑切换，不绘成导航箭头，不证明空间行走。先删除无信息等待，再局部变速；必须保留原时码/切点/倍率与新PTS，动态比较后才能称节奏已改善。源缺陷或未展示内容不能靠加速掩盖。
-
-一镜到底新稿绑定scope.editing_policy；切镜/删除源间隔与连续模式矛盾时拒绝生成。局部变速不改变单原件、全时间线要求；正式后期提供完整speed_map。用户改回连续后，旧cuts与局部拼接试片仅保留历史。
+[正反示例](examples/README.md)只验证结构。实际浏览器和成片检查、用户接受各自如实记录。

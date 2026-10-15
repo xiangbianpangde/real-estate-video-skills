@@ -79,17 +79,20 @@ def validate(record):
             raise ValueError('Ending role requires composed preview')
         if layout == 'opening_composite':
             lines = visual.get('headline_lines')
-            if not isinstance(lines, list) or len(lines) != 2 or not all(isinstance(t, str) and t.strip() for t in lines):
-                raise ValueError('Opening composite requires two headline lines')
-        if layout == 'ending_composite' and not str(visual.get('cta', '')).strip():
-            raise ValueError('Ending composite requires explicit CTA')
+            if not isinstance(lines, list) or not lines or not all(isinstance(t, str) and t.strip() for t in lines):
+                raise ValueError('Opening composite requires headline text')
+        if any(not isinstance(visual.get(k, ''), str) for k in ('cta', 'disclaimer')):
+            raise ValueError('Ending text fields must be strings')
         if visual.get('risk_level', 'limitation') not in {'limitation', 'pending', 'info'}:
             raise ValueError('Unknown risk label')
         if record.get('scope', {}).get('subtitle_content_mode') == 'verbatim_voiceover' and seg.get('subtitle_text', seg.get('text')) != seg.get('text'):
             raise ValueError('Verbatim subtitles must use the complete voiceover text')
-        for field in ('action', 'focus', 'text', 'risk', 'reference_image'):
+        for field in ('action', 'focus', 'reference_image'):
             if not isinstance(seg.get(field), str) or not seg[field].strip():
                 raise ValueError('Missing chapter field: ' + field)
+        for field in ('text', 'risk', 'music'):
+            if not isinstance(seg.get(field, ''), str):
+                raise ValueError('Chapter text field must be a string: ' + field)
     scope = record.get('scope', {})
     constraints = scope.get('shot_constraints')
     if constraints is not None:

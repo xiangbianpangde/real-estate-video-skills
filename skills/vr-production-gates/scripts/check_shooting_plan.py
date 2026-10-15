@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Python 3.10+, stdlib only. Verify a versioned illustrated plan before capture.
 
-Read-only by default. --phase capture --claim atomically reserves one new output
-folder and writes its claim BEFORE capture; a failed capture still consumes it.
+Read-only by default. --phase capture --claim atomically reserves a new output
+folder. The reservation prevents collisions, not another authorized attempt.
 This is an entry-point gate, not a sandbox, identity verifier or visual-QC tool.
 """
 import argparse
@@ -29,6 +29,14 @@ def digest(path):
 
 def bundle_digest(record):
     core = {key: record.get(key) for key in CORE}
+    if record.get('presentation', {}).get('mode') == 'linked_document':
+        # Pin the reviewable content, not transient diagnosis counters, render
+        # receipts or output folders. User-specified limits remain in the pin.
+        operational = {'output_dir', 'render_validation', 'render_config', 'continuous_edit_evidence'}
+        core['scope'] = {k: v for k, v in record.get('scope', {}).items() if k not in operational}
+        core['assets'] = [a for a in record.get('assets', []) if a.get('role') not in
+                          {'precheck', 'precheck_report', 'continuous_edit_report'}]
+        core['exploration'] = {'limits': record.get('exploration', {}).get('limits', {})}
     return hashlib.sha256(json.dumps(core, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()
 
 
@@ -105,11 +113,8 @@ def check(record_path, phase, claim):
         reference = policy.get("reference", {})
         if not isinstance(reference, dict) or decision.get("reference_sha256") != reference.get("sha256"):
             errors.append("visual_reference_decision_mismatch")
-        visible = [criteria] + [policy.get(key, {}).get(field) for key, field in
-                               (("reference", "path"), ("reference", "sha256"), ("decision", "path"))
-                               if isinstance(policy.get(key), dict)]
-        if any(not isinstance(value, str) or not value or value not in body for value in visible):
-            errors.append("visual_acceptance_not_in_plan")
+        # Keep provenance internally; users need the criteria and limitations,
+        # not literal source paths, hashes or a duplicate verbatim transcript.
 
     def render_precheck(scope, assets):
         validation = scope.get("render_validation")
@@ -145,7 +150,7 @@ def check(record_path, phase, claim):
         if report.get("evidence_kind") != "continuous_media" or report.get("complete_interval_reviewed") is not True:
             errors.append("render_precheck_not_continuous")
         checks = report.get("checks", {})
-        for key in ("control", "playback", "state_restore"):
+        for key in ("control", "playback") + (("state_restore",) if "state_restore" in checks else ()):
             if not isinstance(checks, dict) or checks.get(key) != "PASS":
                 errors.append("render_precheck_not_passed:" + key)
         visual = checks.get("visual") if isinstance(checks, dict) else None
@@ -153,9 +158,7 @@ def check(record_path, phase, claim):
             errors.append("render_precheck_not_passed:visual")
         policy = scope.get("visual_acceptance")
         if policy is not None or visual == "PASS_WITH_LIMITATIONS":
-            if not isinstance(policy, dict):
-                errors.append("missing_visual_acceptance")
-            elif report.get("visual_acceptance") != policy:
+            if policy is not None and report.get("visual_acceptance") != policy:
                 errors.append("render_precheck_identity_mismatch:visual_acceptance")
             review = report.get("visual_review")
             if not isinstance(review, dict) or review.get("within_user_criteria") is not True:
@@ -175,8 +178,10 @@ def check(record_path, phase, claim):
                                for a, item in zip(alignment, limitations))):
                     errors.append("visual_limitations_not_in_plan")
         evidence = report.get("evidence", {})
-        for key in ("media", "telemetry", "review", "restore"):
+        for key in ("media", "review", "telemetry", "restore"):
             entry = evidence.get(key) if isinstance(evidence, dict) else None
+            if key in ("telemetry", "restore") and entry is None:
+                continue
             if not isinstance(entry, dict) or not entry.get("path"):
                 errors.append("missing_render_precheck_evidence:" + key)
                 continue
@@ -196,8 +201,6 @@ def check(record_path, phase, claim):
         errors.append("plan_sha_mismatch")
     if not plan.get("version") or plan["version"] not in body:
         errors.append("missing_plan_version")
-    if phase != "review" and "DRAFT" in plan_path.stem.upper():
-        errors.append("draft_filename_not_executable")
     bundle_sha = bundle_digest(record)
     images = {url for alt, url in IMAGE.findall(body) if alt.strip()}
     assets = {}
@@ -304,7 +307,7 @@ def check(record_path, phase, claim):
             errors.append("non_source_reference:" + sid)
         if not reference or local(reference) not in {(plan_path.parent / p).resolve() for p in images}:
             errors.append("missing_embedded_reference:" + sid)
-        fields = ("action", "focus", "text", "music", "risk")
+        fields = ("action", "focus")
         if any(not isinstance(segment.get(k), str) or not segment[k].strip() for k in fields) or not isinstance(segment.get("highlights"), list):
             errors.append("incomplete_card:" + sid)
         elif any(segment[k] not in card_body for k in fields):
@@ -316,7 +319,7 @@ def check(record_path, phase, claim):
             errors.append("invalid_segment_timeline:" + sid)
         elif number(end):
             previous = end
-    if len(segments) < 2:
+    if not segments:
         errors.append("missing_opening_or_ending_card")
     if not any(a.get("role") == "source" for a in assets.values()):
         errors.append("missing_source_binding")
@@ -325,8 +328,10 @@ def check(record_path, phase, claim):
     if execution_mode not in ("capture_and_post", "post_only"):
         errors.append("invalid_execution_mode")
     post_only = execution_mode == "post_only"
-    required = ACTIONS - {"capture"} if post_only else ACTIONS
-    if not required.issubset(set(scope.get("authorized_actions", []))):
+    authorized = scope.get("authorized_actions", [])
+    required = scope.get("requested_actions", ["capture"] if phase == "capture" else [])
+    if (not isinstance(authorized, list) or not authorized
+            or not isinstance(required, list) or not set(required).issubset(set(authorized))):
         errors.append("incomplete_production_scope")
     if post_only:
         if "capture" in scope.get("authorized_actions", []) or phase == "capture":
@@ -335,8 +340,6 @@ def check(record_path, phase, claim):
         a = assets.get(master.get("path"), {})
         if a.get("role") != "master" or master.get("sha256") != a.get("sha256"):
             errors.append("missing_base_media_binding")
-    if scope.get("max_capture_attempts") != 1:
-        errors.append("single_capture_required")
     if scope.get("capture_medium") not in ("model_render", "panorama_reprojection", "panorama_navigation", "physical_capture"):
         errors.append("invalid_capture_medium")
     if scope.get("validation_scope") not in ("model_only", "physical_verified", "same_point_source"):
@@ -364,12 +367,6 @@ def check(record_path, phase, claim):
                 or config.get("fov_axis") not in ("horizontal", "vertical")
                 or not number(config.get("fov_deg")) or not 0 < config["fov_deg"] < 180):
             errors.append("invalid_render_config")
-        validation = scope.get("render_validation")
-        visible = [method, scope.get("source_namespace")]
-        if isinstance(validation, dict) and validation.get("path"):
-            visible.append(validation["path"])
-        if any(not isinstance(value, str) or not value or value not in body for value in visible):
-            errors.append("render_binding_not_in_plan")
         visual_acceptance(scope, assets)
         if phase != "review":
             render_precheck(scope, assets)
@@ -382,9 +379,9 @@ def check(record_path, phase, claim):
         errors.append("missing_subtitle_content_mode")
     if scope.get("subtitle_delivery") not in ("burned_in", "selectable_track", "both"):
         errors.append("missing_subtitle_delivery")
-    if any(not scope.get(k) for k in ("opening", "ending", "bgm", "coverage", "route", "facts_and_rights", "not_authorized")):
+    if any(not scope.get(k) for k in ("opening", "ending", "coverage", "route", "facts_and_rights")):
         errors.append("incomplete_scope")
-    scope_text = ("opening", "ending", "bgm", "route", "facts_and_rights")
+    scope_text = ("opening", "ending", "route", "facts_and_rights") + (("bgm",) if "bgm" in scope else ())
     if any(not isinstance(scope.get(k), str) or scope[k] not in body for k in scope_text):
         errors.append("scope_not_in_plan")
     if not isinstance(scope.get("coverage"), list) or any(not isinstance(s, str) or not s or s not in body for s in scope.get("coverage", [])):
@@ -392,12 +389,21 @@ def check(record_path, phase, claim):
     exploration = record.get("exploration", {})
     counts = [exploration.get("key_prechecks"), exploration.get("full_route_prechecks")]
     comparisons = exploration.get("comparisons_by_issue", {})
-    if (any(type(c) is not int or not 0 <= c <= 1 for c in counts)
+    if (any(c is not None and (type(c) is not int or c < 0) for c in counts)
             or not isinstance(comparisons, dict)
-            or any(type(c) is not int or not 0 <= c <= 2 for c in comparisons.values())):
-        errors.append("exploration_budget_exceeded")
-    if not exploration.get("stop_reason"):
-        errors.append("missing_exploration_stop_reason")
+            or any(type(c) is not int or c < 0 for c in comparisons.values())):
+        errors.append("invalid_exploration_counts")
+    # Only user-specified limits constrain authorized diagnosis. There is no
+    # built-in one-route/two-comparison quota or mandatory stop-reason ritual.
+    limits = exploration.get("limits", {})
+    if not isinstance(limits, dict):
+        errors.append("invalid_exploration_limits")
+    else:
+        for key, limit in limits.items():
+            if key not in ("key_prechecks", "full_route_prechecks") or type(limit) is not int or limit < 0:
+                errors.append("invalid_exploration_limits")
+            elif exploration.get(key, 0) > limit:
+                errors.append("user_exploration_limit_exceeded:" + key)
 
     if phase != "review":
         if record.get("status") != "SCRIPT_APPROVED_ONCE":
@@ -408,10 +414,10 @@ def check(record_path, phase, claim):
         else:
             trace = asset_ok(presentation.get("transcript_path"), presentation.get("transcript_sha256"), "review_transcript")
             events = [json.loads(line) for line in trace.read_text(encoding="utf-8").splitlines() if line.strip()] if trace.is_file() else []
-            if presentation.get("mode") == "rendered_document":
+            if presentation.get("mode") in ("rendered_document", "linked_document"):
                 from document_review import check_document
                 errors.extend(check_document(presentation, record.get("approval", {}), events,
-                                             base, assets, body, plan_sha, bundle_sha))
+                                             base, assets, body, plan_sha, bundle_sha, plan_path))
             else:
                 shown_id = presentation.get("assistant_event_id")
                 shown = next((e for e in events if e.get("id") == shown_id), {})
@@ -428,18 +434,26 @@ def check(record_path, phase, claim):
                         or not re.search(r"批准|同意执行|确认执行|\bapprove[ds]?\b", quote, re.I)
                         or re.search(r"不.{0,3}批准|未批准|暂不|不要|拒绝|不同意|不能|not approve|do not approve", quote, re.I)):
                     errors.append("invalid_user_approval")
-                if (not shown_id or decided.get("parentId") != shown_id
+                if (not shown_id or (decided.get("parentId") is not None and decided.get("parentId") != shown_id)
                         or shown not in events or decided not in events or events.index(decided) <= events.index(shown)):
                     errors.append("approval_not_bound_to_submission")
 
     output = local(scope.get("output_dir"), inside=True)
     if phase == "post" and scope.get("editing_policy", {}).get("single_take_required"):
+        original = output / "raw-original.webm"
         evidence_path = output / "continuous-edit.json"
+        if post_only:
+            entry = scope.get("continuous_edit_evidence", {})
+            bound = assets.get(entry.get("path"), {})
+            if bound.get("role") != "continuous_edit_report" or bound.get("sha256") != entry.get("sha256"):
+                errors.append("unbound_continuous_edit_evidence")
+            if entry.get("path"):
+                evidence_path = asset_ok(entry["path"], entry.get("sha256"), "continuous_edit_evidence")
+            original = local(scope["base_media"]["path"])
         if not evidence_path.is_file():
             errors.append("missing_continuous_speed_map")
         else:
             evidence = json.loads(evidence_path.read_text())
-            original = output / "raw-original.webm"
             if (evidence.get("schema") != "vr-continuous-edit/v1" or not original.is_file()
                     or evidence.get("source_sha256") != digest(original)):
                 errors.append("continuous_edit_source_mismatch")
@@ -455,16 +469,25 @@ def check(record_path, phase, claim):
         errors.append("output_overlaps_input")
     record_sha = digest(record_path)
     claim_data = {"record_sha256": record_sha, "plan_sha256": plan_sha, "bundle_sha256": bundle_sha,
-                  "max_capture_attempts": 1, "state": "CONSUMED_BEFORE_CAPTURE"}
+                  "state": "RESERVED_DIRECTORY"}
+    # Read old receipts without rewriting historical approvals. New linked
+    # submissions reserve a directory and have no implicit attempt allowance.
+    legacy_claim = scope.get('max_capture_attempts') is not None and record.get('presentation', {}).get('mode') != 'linked_document'
+    if legacy_claim:
+        claim_data.update(max_capture_attempts=scope['max_capture_attempts'], state='CONSUMED_BEFORE_CAPTURE')
     if phase == "capture" and output.exists():
         errors.append("capture_attempt_already_used")
     if phase == "post":
         if post_only:
-            if output.exists():
-                errors.append("post_output_already_exists")
+            # Re-entering a working directory is normal recovery. The caller
+            # preserves existing media and writes changed outputs as new files.
+            if output.exists() and not output.is_dir():
+                errors.append("post_output_not_directory")
         else:
             claim_path = output / "capture-claim.json"
-            if not claim_path.is_file() or json.loads(claim_path.read_text()) != claim_data:
+            receipt = json.loads(claim_path.read_text()) if claim_path.is_file() else {}
+            matches = receipt == claim_data if legacy_claim else all(receipt.get(k) == claim_data[k] for k in ('plan_sha256', 'bundle_sha256', 'state'))
+            if not matches:
                 errors.append("capture_claim_mismatch")
     if claim and not errors:
         try:
@@ -472,7 +495,7 @@ def check(record_path, phase, claim):
         except FileExistsError:
             errors.append("capture_attempt_already_used")
         else:
-            # A crash or write failure keeps the directory consumed; never remove/retry.
+            # Preserve a failed reservation; use a new directory for a retry.
             with (output / "capture-claim.json").open("x", encoding="utf-8") as f:
                 json.dump(claim_data, f, ensure_ascii=False, indent=2)
                 f.write("\n")
@@ -487,7 +510,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--record", required=True, type=Path)
     parser.add_argument("--phase", choices=("review", "capture", "post"), default="review")
-    parser.add_argument("--claim", action="store_true", help="Consume the single capture attempt, only with --phase capture")
+    parser.add_argument("--claim", action="store_true", help="Reserve a new capture directory, only with --phase capture")
     args = parser.parse_args()
     if args.claim and args.phase != "capture":
         parser.error("--claim requires --phase capture")

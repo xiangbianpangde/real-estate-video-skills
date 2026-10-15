@@ -1,12 +1,13 @@
 # 房产介绍视频 Skills
 
-面向真实房产素材的图文剧本、一次完整制作和成片验收。当前技能版本以[SKILL.md](skills/vr-production-gates/SKILL.md)为准。
+面向真实房产素材的图文剧本、完整制作和成片验收。当前技能版本以[SKILL.md](skills/vr-production-gates/SKILL.md)为准。
 
 ## 从哪里开始
 
 | 需要做什么 | 唯一入口 |
 |---|---|
 | 继续当前项目 | [交接导航](skills/vr-production-gates/HANDOFF.md) |
+| 约束逐项审计 | [4.0约束审计](wiki/cases/CASE-20261015-003-constraint-audit.md) |
 | 执行制作流程 | [制作技能](skills/vr-production-gates/SKILL.md) |
 | 设计图文剧本 | [设计系统 v1.1](skills/vr-production-gates/design-system/SPEC.md) |
 | 看完整正反示例 | [设计系统示例](skills/vr-production-gates/design-system/examples/README.md) |
@@ -21,7 +22,7 @@ skills/vr-production-gates/
   design-system/           设计规范、tokens/CSS、标准结构、正反示例
   scripts/storyboard/       共享数据校验、组件和两种输出
   scripts/build_script_package.py  record -> 总板HTML + 独立路线板HTML + 正文
-  scripts/check_shooting_plan.py   审核/来源/一次采集门禁
+  scripts/check_shooting_plan.py   审核/来源/输出目录保护
   references/              提交、成像、字幕和首尾的专项合同
   tests/                   现有门禁与生成器回归
 wiki/                      脱敏问题、模式、案例与演化日志
@@ -44,7 +45,7 @@ python3 tools/verify_design_system.py --evidence-out /path/to/evidence.json
 python3 tools/check_project.py
 ```
 
-生成命令不导出PNG、不授生产权限。需真实浏览器加载、导出PNG和目视，再按提交协议绑定来源与批准。通用JSON Schema引擎、新上下文模型触发和真实房源端到端制作的验证状态见交接记录。
+生成命令不导出PNG、不授生产权限。需真实浏览器加载、导出PNG和目视，再按提交协议记录审核对象；用户通过完整文档链接自然批准，无需读技术摘要。通用JSON Schema引擎、新上下文模型触发和真实房源端到端制作的验证状态见交接记录。
 
 Pi安装：沿用一个canonical目录，使用项目`.pi/skills`符号链接，或`pi --skill /path/to/skills/vr-production-gates`加载；不要维护同名副本。
 

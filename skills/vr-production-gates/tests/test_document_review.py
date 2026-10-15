@@ -110,6 +110,24 @@ class DocumentReviewTests(unittest.TestCase):
         (take/'continuous-edit.json').write_text(json.dumps(receipt))
         self.assertIn('continuous_edit_source_mismatch',self.run_gate('post')['errors'])
 
+    def continuous_post_only_record(self):
+        self.add_complete_route();self.fixture.post_only_record()
+        self.record['scope']['editing_policy']={'single_take_required':True,'allow_cuts':False,'allow_remove_intervals':False,'allow_speed_changes':True}
+        name='continuous-edit.json';receipt={'schema':'vr-continuous-edit/v1','source_sha256':self.record['scope']['base_media']['sha256'],'source_duration_s':10,'speed_map':[{'source_start_s':0,'source_end_s':10,'speed':1}]}
+        (self.root/name).write_text(json.dumps(receipt));entry={'path':name,'sha256':sha(self.root/name)}
+        self.record['scope']['continuous_edit_evidence']=entry
+        self.record['assets'].append({**entry,'role':'continuous_edit_report'})
+        self.refresh_digest()
+
+    def test_continuous_post_only_uses_bound_input_receipt(self):
+        self.continuous_post_only_record()
+        self.assertTrue(self.run_gate('post')['passed'])
+        self.assertFalse((self.root/'post_v2').exists())
+
+    def test_continuous_post_only_rejects_unbound_receipt(self):
+        self.continuous_post_only_record();self.record['assets']=[a for a in self.record['assets'] if a['role']!='continuous_edit_report'];self.refresh_digest()
+        self.assertIn('unbound_continuous_edit_evidence',self.run_gate('post')['errors'])
+
     def test_complete_route_document_passes(self):
         self.add_complete_route();self.assertTrue(self.run_gate()['passed'])
 
@@ -136,7 +154,7 @@ class DocumentReviewTests(unittest.TestCase):
         self.assertTrue(self.run_gate()['passed'])
 
     def test_other_document_rejected(self):
-        self.items[-1]['payload']['content'][0]['text']=self.items[-1]['payload']['content'][0]['text'].replace('script.html','other.html')
+        self.record['approval']['document_path']='other.html'
         self.assertFalse(self.run_gate()['passed'])
 
     def test_no_prior_digest_rejected(self):

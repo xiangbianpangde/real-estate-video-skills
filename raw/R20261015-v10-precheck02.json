@@ -1,0 +1,23 @@
+{
+  "duration_s": 33.5935,
+  "frames": 990,
+  "max_pts_gap_ms": 86,
+  "start_delay_ms_range": [
+    31,
+    48.7
+  ],
+  "p6_start_delay_ms": 37.4,
+  "control": "PASS",
+  "playback": "PASS",
+  "user_visual_acceptance": "PENDING",
+  "continuous_original": true,
+  "cuts_or_deleted_intervals": false,
+  "formal_capture": false,
+  "post_production": "NOT_APPROVED",
+  "media_sha256": "838b4b1be553d7aa9b648764a64a84b79aee7d075e97d99809d8ac842fb5403d",
+  "skill_version": "3.9.1",
+  "tests": 120,
+  "strict": "PASS",
+  "loader": "PASS",
+  "v11_review": "PASS"
+}
