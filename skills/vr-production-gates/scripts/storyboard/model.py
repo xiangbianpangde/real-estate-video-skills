@@ -49,7 +49,26 @@ def validate_editing(record):
         raise ValueError('Speed map must cover the complete original')
 
 
+def validate_production_profile(record):
+    scope=record.get('scope',{})
+    if scope.get('production_profile')!='house-short-v1':return
+    duration=scope.get('duration_s')
+    if type(duration) not in (int,float) or not 25<=duration<=35:
+        raise ValueError('Fixed production requires 25-35 seconds')
+    config=scope.get('render_config',{})
+    if (config.get('width'),config.get('height'))!=(720,1280):
+        raise ValueError('Fixed production requires 720x1280 portrait')
+    policy=scope.get('editing_policy',{})
+    if policy.get('single_take_required') is not True or policy.get('allow_cuts') is not False or policy.get('allow_remove_intervals') is not False:
+        raise ValueError('Fixed production requires complete single take without cuts')
+    if scope.get('voiceover_provider')!='mcode' or scope.get('bgm_source')!='specified_library':
+        raise ValueError('Fixed production requires mcode voiceover and specified BGM library')
+    if 'bathroom' not in scope.get('shot_constraints',{}).get('excluded_spaces',[]):
+        raise ValueError('Fixed production excludes bathroom')
+
+
 def validate(record):
+    validate_production_profile(record)
     validate_editing(record)
     segments = record.get('segments', [])
     if not segments:

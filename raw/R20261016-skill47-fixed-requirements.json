@@ -1,0 +1,41 @@
+{
+  "version": "4.7.0",
+  "base_commit": "f51e49e645c61b4d03041cc71bc3897a2685d9ac",
+  "requirements": {
+    "duration_s": [
+      25,
+      35
+    ],
+    "size": [
+      720,
+      1280
+    ],
+    "single_take": true,
+    "cuts": false,
+    "removed_intervals": false,
+    "local_speed_changes": true,
+    "voiceover": "mcode",
+    "bgm": "specified_library"
+  },
+  "validation": {
+    "regressions": 171,
+    "design_cli": 5,
+    "strict_errors": 0,
+    "strict_warnings": 0,
+    "loader_repeat_same": true,
+    "loader_diagnostics": 0
+  },
+  "evidence_sha256": {
+    "local/validation/skill-4.7.0/design-cli.json": "c66c157651521f4573ed2fecad8f94d6ed8966a13a906f5e396b90b0d6eef033",
+    "local/validation/skill-4.7.0/strict.log": "c62de7548588c739d83ec5cceb0f41f9cc22c6b33cb9165966353513cc7a1d96",
+    "local/validation/skill-4.7.0/design-cli.log": "c66c157651521f4573ed2fecad8f94d6ed8966a13a906f5e396b90b0d6eef033",
+    "local/validation/skill-4.7.0/loader.json": "a07d18ac3e10843d93ee4bdfbc81a8f09f014ef899eda2e01b1b02d95228bc53",
+    "local/validation/skill-4.7.0/tests.log": "c0d712714d1621b5c0a18f4f81e836b7869320d1583a104dfe2c52c0ef66c607"
+  },
+  "unverified": [
+    "fresh model dialogue adherence",
+    "actual media production"
+  ],
+  "no_property_operations": true,
+  "not_committed_or_pushed": true
+}

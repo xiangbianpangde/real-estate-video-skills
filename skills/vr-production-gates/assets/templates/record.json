@@ -98,12 +98,14 @@
           "待填已核证面积与户型"
         ],
         "role": "opening"
-      }
+      },
+      "space_ids": [],
+      "framing_status": "pending"
     },
     {
       "id": "S02",
       "start_s": 3,
-      "end_s": 60,
+      "end_s": 30,
       "reference_image": "S02.png",
       "action": "",
       "focus": "",
@@ -121,7 +123,9 @@
         "role": "ending",
         "cta": "待填获审CTA",
         "disclaimer": "待填完整必要提示"
-      }
+      },
+      "space_ids": [],
+      "framing_status": "pending"
     }
   ],
   "scope": {
@@ -143,7 +147,7 @@
     },
     "validation_scope": "model_only",
     "continuity_class": "cross_room_travel",
-    "duration_s": 60,
+    "duration_s": 30,
     "duration_tolerance_s": 0.5,
     "output_dir": "take01",
     "authorized_actions": [
@@ -159,7 +163,7 @@
     "subtitle_delivery": "burned_in",
     "opening": "",
     "ending": "",
-    "bgm": "",
+    "bgm": "用户指定现成BGM库内选符合版本的曲目，不新生成音乐",
     "coverage": [],
     "route": "",
     "facts_and_rights": "",
@@ -181,8 +185,23 @@
       "single_take_required": true,
       "allow_cuts": false,
       "allow_remove_intervals": false,
-      "allow_speed_changes": false
-    }
+      "allow_speed_changes": true
+    },
+    "production_profile": "house-short-v1",
+    "voiceover_provider": "mcode",
+    "bgm_source": "specified_library",
+    "voiceover": "mcode生成本版口播",
+    "shot_constraints": {
+      "duration_range_s": [
+        25,
+        35
+      ],
+      "excluded_spaces": [
+        "bathroom"
+      ],
+      "avoid_wall_facing": true
+    },
+    "route_space_ids": []
   },
   "exploration": {},
   "presentation": {
