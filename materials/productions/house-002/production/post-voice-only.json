@@ -1,0 +1,57 @@
+{
+  "video": "edited/retimed.mp4",
+  "font": "/System/Library/Fonts/STHeiti Medium.ttc",
+  "fps": 30,
+  "narration": [
+    {
+      "id": "S01",
+      "text": "招商愉樾，三室两厅。",
+      "audio": "speech/S01.mp3",
+      "alignment": "alignment/S01.json",
+      "start_s": 0.12
+    },
+    {
+      "id": "S02",
+      "text": "沿着客厅，走向相连的阳台。",
+      "audio": "speech/S02.mp3",
+      "alignment": "alignment/S02.json",
+      "start_s": 3.126
+    },
+    {
+      "id": "S03",
+      "text": "到窗边，看看真实外景。",
+      "audio": "speech/S03.mp3",
+      "alignment": "alignment/S03.json",
+      "start_s": 9.423
+    },
+    {
+      "id": "S04",
+      "text": "转过身，回到室内。",
+      "audio": "speech/S04.mp3",
+      "alignment": "alignment/S04.json",
+      "start_s": 11.975
+    },
+    {
+      "id": "S05",
+      "text": "沿着室内通道，来到卧室B门口。",
+      "audio": "speech/S05.mp3",
+      "alignment": "alignment/S05.json",
+      "start_s": 14.603
+    },
+    {
+      "id": "S06",
+      "text": "站在门口，看看床铺与窗边。",
+      "audio": "speech/S06.mp3",
+      "alignment": "alignment/S06.json",
+      "start_s": 22.887
+    },
+    {
+      "id": "S07",
+      "text": "房况以现场为准，欢迎留言。",
+      "audio": "speech/S07.mp3",
+      "alignment": "alignment/S07.json",
+      "start_s": 26.118
+    }
+  ],
+  "music_requirement": "Only named six tracks permitted; pending actual asset, voice-only review output not final BGM acceptance"
+}

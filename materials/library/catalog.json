@@ -1,0 +1,19 @@
+{
+  "schema": "local-material-library/v1",
+  "libraries": [
+    {
+      "id": "bgm",
+      "root": "bgm",
+      "originals": "bgm/原曲",
+      "excerpt_manifest": "bgm/可用开头片段/清单.json",
+      "listening_index": "bgm/可用开头片段/试听索引.html",
+      "formats": [
+        "original",
+        "wav_48k_24bit",
+        "m4a_aac"
+      ],
+      "master_is_full_length": true
+    }
+  ],
+  "note": "Catalog points to asset manifests; source identity and measurements remain in each manifest."
+}

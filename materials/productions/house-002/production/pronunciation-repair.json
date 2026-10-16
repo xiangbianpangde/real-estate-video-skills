@@ -1,0 +1,62 @@
+{
+  "task": "S01 proper-noun pronunciation repair for approved v14 video",
+  "generated_at": "2026-10-16T07:45:00+08:00",
+  "scope": {
+    "new_audio_generated": 1,
+    "existing_7_sentences_resent": false,
+    "subtitles_modified": false,
+    "other_generation_or_music_operations": false,
+    "note": "Pronunciation-only repair. Display name, subtitles and listing facts remain unchanged."
+  },
+  "reason": "No-hint ASR rendered '招商愉樾，三室两厅。' as '招商余乐三室两厅'; the proper-noun reading was ambiguous.",
+  "text": {
+    "requested_pronunciation_text": "招商愉悦，三室两厅。",
+    "display_text": "招商愉樾",
+    "subtitle_text_unchanged": "招商愉樾，三室两厅。",
+    "rationale": "Same-hanzi homophone 愉悦 pins the yú-yuè reading without altering the displayed property name 招商愉樾."
+  },
+  "parameters": {
+    "voice_id": "Chinese (Mandarin)_Warm_Girl",
+    "speed": 1.05,
+    "emotion": "neutral",
+    "volume": 1,
+    "pitch": 0,
+    "output_file": "S01-pronunciation.mp3"
+  },
+  "tool": {
+    "tool_name": "connector__matrix__batch_text_to_audio",
+    "schema_source": "batch-schema-current.json",
+    "request_file": "pronunciation-request.json",
+    "raw_response_file": "pronunciation-response.json"
+  },
+  "result": {
+    "code": 0,
+    "message": "ok",
+    "total_requested": 1,
+    "total_success": 1,
+    "total_failed": 0,
+    "failed_items": [],
+    "node_id": "452833847993025",
+    "file_name": "S01-pronunciation.mp3"
+  },
+  "download": {
+    "method": "get_asset_url + curl",
+    "url_receipt_file": "pronunciation-asset-url.json",
+    "node_id": "452833847993025",
+    "local_path": "speech/S01-pronunciation.mp3",
+    "status": "ok",
+    "curl_exit": 0,
+    "http_code": 200,
+    "bytes": 40518,
+    "mp3_magic": "ID3",
+    "ffprobe_desc": "Audio file with ID3 version 2.4.0, MPEG ADTS, layer III, v1, 128 kbps, 32 kHz, Monaural"
+  },
+  "original_untouched": {
+    "file": "speech/S01.mp3",
+    "bytes": 43974,
+    "sha256_before": "03987b60a5908b43abd68c4be7756df4a1c7ffedb19e0052a5912a0ce13a88ed",
+    "sha256_after": "03987b60a5908b43abd68c4be7756df4a1c7ffedb19e0052a5912a0ce13a88ed",
+    "modified": false
+  },
+  "integration_status": "Audio generated and downloaded. NOT yet swapped into the cut; subtitle/display text still 招商愉樾. Awaiting explicit go-ahead to replace S01 in the timeline, since that step requires re-alignment of the repaired clip."
+}

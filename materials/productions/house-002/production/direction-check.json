@@ -1,0 +1,44 @@
+[
+  {
+    "step": 1,
+    "target": 4,
+    "min_forward_dot": 0.9999980639458369,
+    "samples": 126
+  },
+  {
+    "step": 2,
+    "target": 5,
+    "min_forward_dot": 0.9835098955632278,
+    "samples": 60
+  },
+  {
+    "step": 3,
+    "target": 6,
+    "min_forward_dot": 0.9998194635342761,
+    "samples": 39
+  },
+  {
+    "step": 7,
+    "target": 5,
+    "min_forward_dot": 0.9999907035881572,
+    "samples": 35
+  },
+  {
+    "step": 8,
+    "target": 4,
+    "min_forward_dot": 0.9994267013191827,
+    "samples": 51
+  },
+  {
+    "step": 10,
+    "target": 14,
+    "min_forward_dot": 0.25628233683259155,
+    "samples": 97
+  },
+  {
+    "step": 11,
+    "target": 15,
+    "min_forward_dot": 0.9959860551649838,
+    "samples": 42
+  }
+]

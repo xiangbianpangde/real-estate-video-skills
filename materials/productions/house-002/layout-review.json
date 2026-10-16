@@ -1,0 +1,113 @@
+{
+  "schema": "storyboard-actual-layout-review/v1",
+  "version": "v14",
+  "kind": "actual Chrome rendering and PNG visual review",
+  "checks": {
+    "overview_present": true,
+    "route_board_present": true,
+    "seven_chapters": true,
+    "motion_diagrams": 7,
+    "opening_real_interior_floorplan_title": true,
+    "ending_real_interior_cta": true,
+    "all_images_loaded": true,
+    "desktop_no_overflow": true,
+    "mobile_430px_no_overflow": true,
+    "new_forward_exit_dynamics": "PENDING",
+    "video_capture_authorized": false
+  },
+  "readback": {
+    "title": "v14完整图文剧本 · 正向离开阳台",
+    "chapters": [
+      {
+        "id": "S01",
+        "overflow": false
+      },
+      {
+        "id": "S02",
+        "overflow": false
+      },
+      {
+        "id": "S03",
+        "overflow": false
+      },
+      {
+        "id": "S04",
+        "overflow": false
+      },
+      {
+        "id": "S05",
+        "overflow": false
+      },
+      {
+        "id": "S06",
+        "overflow": false
+      },
+      {
+        "id": "S07",
+        "overflow": false
+      }
+    ],
+    "images": [
+      {
+        "alt": "v14完整方案板：七章与首尾预览",
+        "loaded": true
+      },
+      {
+        "alt": "v14完整路线方案板：先转身再正向离开阳台",
+        "loaded": true
+      },
+      {
+        "alt": "首镜客厅背景、户型浮层和标题；尾镜卧室背景与留言",
+        "loaded": true
+      },
+      {
+        "alt": "真实源参考背景",
+        "loaded": true
+      },
+      {
+        "alt": "户型图浮层",
+        "loaded": true
+      },
+      {
+        "alt": "真实源参考",
+        "loaded": true
+      },
+      {
+        "alt": "真实源参考",
+        "loaded": true
+      },
+      {
+        "alt": "真实源参考",
+        "loaded": true
+      },
+      {
+        "alt": "真实源参考",
+        "loaded": true
+      },
+      {
+        "alt": "真实源参考",
+        "loaded": true
+      },
+      {
+        "alt": "真实源参考背景",
+        "loaded": true
+      }
+    ],
+    "motionDiagrams": 7,
+    "openingFloorplan": true,
+    "ending": "欢迎留言",
+    "overflow": false,
+    "turn": "S04 · 先转身，面向室内\n\n计划 12–15秒 · 3秒\n\n真实源参考 · 非最终成片\n\nP6原地转向 · 先对准室内\n镜头动作\n\n保持P6位置，连续转向客厅门洞；转向完成、视线对准前进方向后才移动。转向不在柜面停住，不边看窗外边退行。\n\n画面主体\n\n窗边→室内门洞的方向转换\n\n口播 / 完整字幕\n\n转过身，回到室内。\n\n配乐\n\n复用既有mcode生成的无人声轻吉他/电钢琴BGM；随旁白平滑降低音量，收尾淡出。\n\n限制与待验证\n\n转向途中生活阳台柜台或墙边可能进入边缘；端点参考可读，转向动态及近墙占比待核。",
+    "forward": "S05 · 正向回到卧室门口\n\n计划 15–23秒 · 8秒\n\n真实源参考 · 非最终成片\n\n面向前进方向 · P6→P5→P4→P14→P15\n镜头动作\n\n面对室内，P6→P5→P4正向离开阳台；再沿P4→P14→P15进入卧室B门口，转向随行进提前衔接。仅过渡段候选1.15–1.3倍，实际映射按新原件确定。\n\n画面主体\n\n客厅门洞、通道与卧室B入口\n\n口播 / 完整字幕\n\n沿着室内通道，来到卧室B门口。\n\n配乐\n\n复用既有mcode生成的无人声轻吉他/电钢琴BGM；随旁白平滑降低音量，收尾淡出。\n\n限制与待验证\n\n必须核相机朝向与移动方向一致，禁止复用v13倒退段；门框重影和回程禁拍空间显露待动态检查。"
+  },
+  "artifacts": {
+    "record.json": "36b1bf03674a8d56ce53e6d798b568ddebb0d3492da8e3b8b77b60f267bfb40d",
+    "package/storyboard.html": "ed26e19981559f658b142da071fb1aae6e87da9f0d7be77e75c8ecbe1e3bb2c3",
+    "package/route-board.html": "84d4fa5db6c7ae747b91940a141391e604bd223227dc12bd7ec80a5e0572f19c",
+    "package/plan.md": "4a31e3cde1b0cb53f4df475d396060ec3ab901d3a6624c254d58c93f1d8677f0",
+    "package/overview.png": "9a1f006f5bbf89fbf941156514f5eabd543715b53d9915dbc893c52426cc4bc7",
+    "package/route-board.png": "f92199f63818ff02a0a88da3830fc752296de5b86289e2d507dbcda456dcc3fa",
+    "首尾预览.png": "7f6f8ffe69ad78787b3a35e42e2973de7321c98d8eb2364cb6c9fd0ff6ea7653",
+    "视频剧本_v14_30秒_正向离开阳台.html": "8d62db2e4ef0723480d6a093b0c9eb3f4a97655067988f72af244349cedd2ebc"
+  }
+}

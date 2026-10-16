@@ -1,0 +1,89 @@
+{
+  "schema": "vr-voice-alignment/v1",
+  "audio_sha256": "492f1e5913b32e521ee433cbfa1afd523bda8c2145637c52e561a7154981f0c1",
+  "text": "沿着室内通道，来到卧室B门口。",
+  "independent_asr_text": "沿着室内通道,来到卧室闭门口",
+  "timing_origin": "Whisper-small cross-attention DTW forced alignment with independent no-prompt ASR; zero-duration tokens merged into adjacent timed word",
+  "words": [
+    {
+      "text": "沿",
+      "start_s": 0.0,
+      "end_s": 0.4,
+      "probability": 0.970703125
+    },
+    {
+      "text": "着",
+      "start_s": 0.4,
+      "end_s": 0.52,
+      "probability": 0.828125
+    },
+    {
+      "text": "室",
+      "start_s": 0.52,
+      "end_s": 0.68,
+      "probability": 0.9951171875
+    },
+    {
+      "text": "内",
+      "start_s": 0.68,
+      "end_s": 0.82,
+      "probability": 0.97802734375
+    },
+    {
+      "text": "通",
+      "start_s": 0.82,
+      "end_s": 0.98,
+      "probability": 0.99951171875
+    },
+    {
+      "text": "道，",
+      "start_s": 0.98,
+      "end_s": 1.2,
+      "probability": 0.99951171875
+    },
+    {
+      "text": "来",
+      "start_s": 1.52,
+      "end_s": 1.66,
+      "probability": 0.1915283203125
+    },
+    {
+      "text": "到",
+      "start_s": 1.66,
+      "end_s": 1.82,
+      "probability": 0.96875
+    },
+    {
+      "text": "卧",
+      "start_s": 1.82,
+      "end_s": 1.94,
+      "probability": 0.95751953125
+    },
+    {
+      "text": "室",
+      "start_s": 1.94,
+      "end_s": 2.16,
+      "probability": 0.99853515625
+    },
+    {
+      "text": "B",
+      "start_s": 2.16,
+      "end_s": 2.28,
+      "probability": 0.002315521240234375
+    },
+    {
+      "text": "门",
+      "start_s": 2.28,
+      "end_s": 2.48,
+      "probability": 0.99609375
+    },
+    {
+      "text": "口。",
+      "start_s": 2.48,
+      "end_s": 2.7,
+      "probability": 0.99951171875
+    }
+  ],
+  "content_listening_verified": false,
+  "model_directory": "/private/tmp/v14-whisper-cache/models--mlx-community--whisper-small-mlx/snapshots/45f3915923c7a79a5a5b5a7d909d39aeb0e5630e"
+}

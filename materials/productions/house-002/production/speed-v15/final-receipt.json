@@ -1,0 +1,39 @@
+{
+  "file": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/speed-v15/招商愉樾_v15_推进加快_25秒.mp4",
+  "sha256": "9070feadada8fa881f6ced083efde02b543cca53077f268fa8d7b6198f197477",
+  "music": "/Users/xbpd/Music/QQ音乐/郭腾腾-喜剧之王 (剪辑版).ogg",
+  "music_sha256": "a42a04d32dbb7e3ee33d073f5257f59835cf39f08cafc89583e083a7942dae84",
+  "mix_filter": "[0:a]asplit=2[voice][key];[1:a]atrim=end=25.333333333333,asetpts=PTS-STARTPTS,aresample=48000,volume=-6.82dB,afade=t=in:d=0.4,afade=t=out:st=24.033333333333:d=1.3[bed];[bed][key]sidechaincompress=threshold=0.025:ratio=6:attack=35:release=400[duck];[voice][duck]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.84:level=false:latency=true[a]",
+  "full_decode_passed": true,
+  "audio_summary": "Summary:\n\n  Integrated loudness:\n    I:         -17.4 LUFS\n    Threshold: -27.6 LUFS\n\n  Loudness range:\n    LRA:         3.6 LU\n    Threshold: -37.7 LUFS\n    LRA low:   -19.9 LUFS\n    LRA high:  -16.3 LUFS\n\n  True peak:\n    Peak:       -5.6 dBFS\n[out#0/null @ 0x7c82c50300] video:315KiB audio:4752KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nframe=  760 fps=0.0 q=-0.0 Lsize=N/A time=00:00:25.33 bitrate=N/A speed=56.1x elapsed=0:00:00.45    \n",
+  "human_listening_verified": false,
+  "human_accepted": false,
+  "browser_playback": {
+    "ended": true,
+    "duration_s": 25.333333,
+    "current_time_s": 25.333333,
+    "media_error": null,
+    "frames_observed": 759,
+    "encoded_frames": 760,
+    "max_media_gap_s": 0.03333400000000353,
+    "unmuted_playback": true,
+    "all_images_loaded": true,
+    "page_overflow": false,
+    "human_listening_verified": false,
+    "human_accepted": false
+  },
+  "artifacts": {
+    "record.json": "b471b66a468167a59b34f3a84c7dccda4a490afda78ea68d5f12f44e8a2cbeef",
+    "package/overview.png": "910b60c1d6cfd4e4f265b9b0010fa959968403920a65657bfa3747eda2fd5055",
+    "package/route-board.png": "d96442efa6a0d4a3cf34152218c669cd433e88df9fa93c40cfc6a4cb4812bdec",
+    "首尾预览.png": "98c7e02bd9dd359279cba28dd5baa782b4ecf6f33210fbe3c193c85f4ab90d64",
+    "成片与完整剧本_v15_推进加快.html": "ccbfb128ca53a8b1ae1154acaae883d95596b6c6b42a10eeafc8c7876b8a49a0",
+    "packaged/subtitles.srt": "947427f8e9bf411b40fceedcc06f37687d7a60839e89821bc7126134cf802cf2"
+  },
+  "reference_review": {
+    "path": "/Users/xbpd/Downloads/80ec73e744919854660c92ce74f4a6c2.mp4",
+    "duration_s": 28.966667,
+    "browser_playback_ended": true,
+    "comparison": "different house; compare pacing and earlier movement, no asserted physical m/s equivalence"
+  }
+}

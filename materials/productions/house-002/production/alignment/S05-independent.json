@@ -1,0 +1,121 @@
+{
+  "text": "沿着室内通道,来到卧室闭门口",
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 0.0,
+      "end": 2.7,
+      "text": "沿着室内通道,来到卧室闭门口",
+      "tokens": [
+        50364,
+        3308,
+        123,
+        20708,
+        2415,
+        97,
+        34742,
+        19550,
+        6025,
+        11,
+        6912,
+        4511,
+        5322,
+        100,
+        2415,
+        97,
+        8259,
+        255,
+        8259,
+        101,
+        18144,
+        50514
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.15522021832673447,
+      "compression_ratio": 0.7843137254901961,
+      "no_speech_prob": 0.01995767466723919,
+      "words": [
+        {
+          "word": "沿",
+          "start": 0.0,
+          "end": 0.4,
+          "probability": 0.970703125
+        },
+        {
+          "word": "着",
+          "start": 0.4,
+          "end": 0.52,
+          "probability": 0.828125
+        },
+        {
+          "word": "室",
+          "start": 0.52,
+          "end": 0.68,
+          "probability": 0.9951171875
+        },
+        {
+          "word": "内",
+          "start": 0.68,
+          "end": 0.82,
+          "probability": 0.97802734375
+        },
+        {
+          "word": "通",
+          "start": 0.82,
+          "end": 0.98,
+          "probability": 0.99951171875
+        },
+        {
+          "word": "道,",
+          "start": 0.98,
+          "end": 1.22,
+          "probability": 0.99951171875
+        },
+        {
+          "word": "来",
+          "start": 1.58,
+          "end": 1.66,
+          "probability": 0.8603515625
+        },
+        {
+          "word": "到",
+          "start": 1.66,
+          "end": 1.82,
+          "probability": 0.95556640625
+        },
+        {
+          "word": "卧",
+          "start": 1.82,
+          "end": 1.94,
+          "probability": 0.955078125
+        },
+        {
+          "word": "室",
+          "start": 1.94,
+          "end": 2.16,
+          "probability": 0.998046875
+        },
+        {
+          "word": "闭",
+          "start": 2.16,
+          "end": 2.32,
+          "probability": 0.984375
+        },
+        {
+          "word": "门",
+          "start": 2.32,
+          "end": 2.48,
+          "probability": 1.0
+        },
+        {
+          "word": "口",
+          "start": 2.48,
+          "end": 2.7,
+          "probability": 0.9990234375
+        }
+      ]
+    }
+  ],
+  "language": "zh"
+}

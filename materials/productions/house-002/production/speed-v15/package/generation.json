@@ -1,0 +1,18 @@
+{
+  "schema": "storyboard-generation/v1",
+  "source_record_sha256": "b471b66a468167a59b34f3a84c7dccda4a490afda78ea68d5f12f44e8a2cbeef",
+  "board_html_sha256": "860c8694e8745f5c22e9281eb00caab97cbfc9ce54476a76029a832ec126cba4",
+  "script_markdown_sha256": "9daefd651182dd11a93c281dbba1cc5b176bb5dcf9f55b2c58f1938ad726cd4a",
+  "segments": [
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07"
+  ],
+  "visual_review": "PENDING",
+  "capture_authorized": false,
+  "route_board_html_sha256": "427796631bb6354d2a5320897bf72e35a92b2a019bc29f6da8206f42c0adc395"
+}

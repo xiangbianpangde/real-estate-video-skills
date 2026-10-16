@@ -1,0 +1,456 @@
+{
+  "cues": [
+    {
+      "text": "招商愉樾，三室两厅。",
+      "start_s": 0.08,
+      "end_s": 2.34,
+      "words": [
+        {
+          "text": "招",
+          "start_s": 0.08,
+          "end_s": 0.5,
+          "probability": 0.857421875
+        },
+        {
+          "text": "商",
+          "start_s": 0.5,
+          "end_s": 0.7,
+          "probability": 0.99462890625
+        },
+        {
+          "text": "愉",
+          "start_s": 0.7,
+          "end_s": 0.9199999999999999,
+          "probability": 0.358642578125
+        },
+        {
+          "text": "樾，",
+          "start_s": 0.9199999999999999,
+          "end_s": 1.1600000000000001,
+          "probability": 8.0108642578125e-05
+        },
+        {
+          "text": "三",
+          "start_s": 1.5,
+          "end_s": 1.6600000000000001,
+          "probability": 0.89697265625
+        },
+        {
+          "text": "室",
+          "start_s": 1.6600000000000001,
+          "end_s": 1.8800000000000001,
+          "probability": 0.6572265625
+        },
+        {
+          "text": "两",
+          "start_s": 1.8800000000000001,
+          "end_s": 2.02,
+          "probability": 0.6357421875
+        },
+        {
+          "text": "厅。",
+          "start_s": 2.02,
+          "end_s": 2.34,
+          "probability": 0.9248046875
+        }
+      ]
+    },
+    {
+      "text": "沿着客厅，走向相连的阳台。",
+      "start_s": 2.85,
+      "end_s": 5.1899999999999995,
+      "words": [
+        {
+          "text": "沿",
+          "start_s": 2.85,
+          "end_s": 3.23,
+          "probability": 0.9609375
+        },
+        {
+          "text": "着",
+          "start_s": 3.23,
+          "end_s": 3.35,
+          "probability": 0.96044921875
+        },
+        {
+          "text": "客",
+          "start_s": 3.35,
+          "end_s": 3.5100000000000002,
+          "probability": 0.9833984375
+        },
+        {
+          "text": "厅，",
+          "start_s": 3.5100000000000002,
+          "end_s": 3.77,
+          "probability": 0.99609375
+        },
+        {
+          "text": "走",
+          "start_s": 4.01,
+          "end_s": 4.15,
+          "probability": 0.301513671875
+        },
+        {
+          "text": "向",
+          "start_s": 4.15,
+          "end_s": 4.33,
+          "probability": 0.9970703125
+        },
+        {
+          "text": "相",
+          "start_s": 4.33,
+          "end_s": 4.51,
+          "probability": 0.78466796875
+        },
+        {
+          "text": "连",
+          "start_s": 4.51,
+          "end_s": 4.71,
+          "probability": 0.9111328125
+        },
+        {
+          "text": "的",
+          "start_s": 4.71,
+          "end_s": 4.79,
+          "probability": 0.9970703125
+        },
+        {
+          "text": "阳",
+          "start_s": 4.79,
+          "end_s": 4.95,
+          "probability": 0.9072265625
+        },
+        {
+          "text": "台。",
+          "start_s": 4.95,
+          "end_s": 5.1899999999999995,
+          "probability": 0.98291015625
+        }
+      ]
+    },
+    {
+      "text": "到窗边，看看真实外景。",
+      "start_s": 6.42,
+      "end_s": 8.46,
+      "words": [
+        {
+          "text": "到",
+          "start_s": 6.42,
+          "end_s": 6.76,
+          "probability": 0.98046875
+        },
+        {
+          "text": "窗",
+          "start_s": 6.76,
+          "end_s": 6.98,
+          "probability": 0.99658203125
+        },
+        {
+          "text": "边，",
+          "start_s": 6.98,
+          "end_s": 7.16,
+          "probability": 0.84423828125
+        },
+        {
+          "text": "看看",
+          "start_s": 7.46,
+          "end_s": 7.66,
+          "probability": 0.84716796875
+        },
+        {
+          "text": "真",
+          "start_s": 7.66,
+          "end_s": 7.88,
+          "probability": 0.98046875
+        },
+        {
+          "text": "实",
+          "start_s": 7.88,
+          "end_s": 8.08,
+          "probability": 0.98876953125
+        },
+        {
+          "text": "外",
+          "start_s": 8.08,
+          "end_s": 8.26,
+          "probability": 0.9794921875
+        },
+        {
+          "text": "景。",
+          "start_s": 8.26,
+          "end_s": 8.46,
+          "probability": 0.9921875
+        }
+      ]
+    },
+    {
+      "text": "转过身，回到室内。",
+      "start_s": 9.62,
+      "end_s": 11.44,
+      "words": [
+        {
+          "text": "转",
+          "start_s": 9.62,
+          "end_s": 10.02,
+          "probability": 0.58740234375
+        },
+        {
+          "text": "过",
+          "start_s": 10.02,
+          "end_s": 10.16,
+          "probability": 0.9736328125
+        },
+        {
+          "text": "身，",
+          "start_s": 10.16,
+          "end_s": 10.379999999999999,
+          "probability": 0.79345703125
+        },
+        {
+          "text": "回",
+          "start_s": 10.78,
+          "end_s": 10.94,
+          "probability": 0.7265625
+        },
+        {
+          "text": "到",
+          "start_s": 10.94,
+          "end_s": 11.079999999999998,
+          "probability": 0.9912109375
+        },
+        {
+          "text": "室",
+          "start_s": 11.079999999999998,
+          "end_s": 11.28,
+          "probability": 0.9814453125
+        },
+        {
+          "text": "内。",
+          "start_s": 11.28,
+          "end_s": 11.44,
+          "probability": 0.984375
+        }
+      ]
+    },
+    {
+      "text": "沿着室内通道，来到卧室B门口。",
+      "start_s": 12.248,
+      "end_s": 14.948,
+      "words": [
+        {
+          "text": "沿",
+          "start_s": 12.248,
+          "end_s": 12.648,
+          "probability": 0.970703125
+        },
+        {
+          "text": "着",
+          "start_s": 12.648,
+          "end_s": 12.767999999999999,
+          "probability": 0.828125
+        },
+        {
+          "text": "室",
+          "start_s": 12.767999999999999,
+          "end_s": 12.927999999999999,
+          "probability": 0.9951171875
+        },
+        {
+          "text": "内",
+          "start_s": 12.927999999999999,
+          "end_s": 13.068,
+          "probability": 0.97802734375
+        },
+        {
+          "text": "通",
+          "start_s": 13.068,
+          "end_s": 13.228,
+          "probability": 0.99951171875
+        },
+        {
+          "text": "道，",
+          "start_s": 13.228,
+          "end_s": 13.447999999999999,
+          "probability": 0.99951171875
+        },
+        {
+          "text": "来",
+          "start_s": 13.767999999999999,
+          "end_s": 13.908,
+          "probability": 0.1915283203125
+        },
+        {
+          "text": "到",
+          "start_s": 13.908,
+          "end_s": 14.068,
+          "probability": 0.96875
+        },
+        {
+          "text": "卧",
+          "start_s": 14.068,
+          "end_s": 14.187999999999999,
+          "probability": 0.95751953125
+        },
+        {
+          "text": "室",
+          "start_s": 14.187999999999999,
+          "end_s": 14.408,
+          "probability": 0.99853515625
+        },
+        {
+          "text": "B",
+          "start_s": 14.408,
+          "end_s": 14.527999999999999,
+          "probability": 0.002315521240234375
+        },
+        {
+          "text": "门",
+          "start_s": 14.527999999999999,
+          "end_s": 14.728,
+          "probability": 0.99609375
+        },
+        {
+          "text": "口。",
+          "start_s": 14.728,
+          "end_s": 14.948,
+          "probability": 0.99951171875
+        }
+      ]
+    },
+    {
+      "text": "站在门口，看看床铺与窗边。",
+      "start_s": 18.348,
+      "end_s": 20.788,
+      "words": [
+        {
+          "text": "站",
+          "start_s": 18.348,
+          "end_s": 18.708,
+          "probability": 0.9921875
+        },
+        {
+          "text": "在",
+          "start_s": 18.708,
+          "end_s": 18.848,
+          "probability": 0.998046875
+        },
+        {
+          "text": "门",
+          "start_s": 18.848,
+          "end_s": 19.008,
+          "probability": 0.8271484375
+        },
+        {
+          "text": "口，",
+          "start_s": 19.008,
+          "end_s": 19.268,
+          "probability": 0.9990234375
+        },
+        {
+          "text": "看看",
+          "start_s": 19.587999999999997,
+          "end_s": 19.828,
+          "probability": 0.7841796875
+        },
+        {
+          "text": "床",
+          "start_s": 19.828,
+          "end_s": 20.108,
+          "probability": 0.9580078125
+        },
+        {
+          "text": "铺",
+          "start_s": 20.108,
+          "end_s": 20.308,
+          "probability": 0.68212890625
+        },
+        {
+          "text": "与",
+          "start_s": 20.308,
+          "end_s": 20.427999999999997,
+          "probability": 0.9326171875
+        },
+        {
+          "text": "窗",
+          "start_s": 20.427999999999997,
+          "end_s": 20.628,
+          "probability": 0.9921875
+        },
+        {
+          "text": "边。",
+          "start_s": 20.628,
+          "end_s": 20.788,
+          "probability": 0.95703125
+        }
+      ]
+    },
+    {
+      "text": "房况以现场为准，欢迎留言。",
+      "start_s": 22.18,
+      "end_s": 24.68,
+      "words": [
+        {
+          "text": "房",
+          "start_s": 22.18,
+          "end_s": 22.6,
+          "probability": 0.0933837890625
+        },
+        {
+          "text": "况",
+          "start_s": 22.6,
+          "end_s": 22.8,
+          "probability": 0.08868408203125
+        },
+        {
+          "text": "以",
+          "start_s": 22.8,
+          "end_s": 23.1,
+          "probability": 0.79736328125
+        },
+        {
+          "text": "现",
+          "start_s": 23.1,
+          "end_s": 23.259999999999998,
+          "probability": 0.6982421875
+        },
+        {
+          "text": "场",
+          "start_s": 23.259999999999998,
+          "end_s": 23.46,
+          "probability": 0.99072265625
+        },
+        {
+          "text": "为",
+          "start_s": 23.46,
+          "end_s": 23.6,
+          "probability": 0.9921875
+        },
+        {
+          "text": "准，",
+          "start_s": 23.6,
+          "end_s": 23.84,
+          "probability": 0.99951171875
+        },
+        {
+          "text": "欢",
+          "start_s": 24.14,
+          "end_s": 24.3,
+          "probability": 0.876953125
+        },
+        {
+          "text": "迎",
+          "start_s": 24.3,
+          "end_s": 24.46,
+          "probability": 0.99951171875
+        },
+        {
+          "text": "留言。",
+          "start_s": 24.46,
+          "end_s": 24.68,
+          "probability": 0.99267578125
+        }
+      ]
+    }
+  ],
+  "method": "reuse SHA-bound original actual word alignment; no audio speed changes"
+}

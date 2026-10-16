@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-16",
+  "purpose": "archive full BGM masters for future lengths beyond 35 seconds",
+  "moves": [
+    {
+      "from": "/Users/xbpd/Downloads/BGM/404Hz,DJ铁柱-RM进行曲(高燃进行曲).flac",
+      "to": "/Users/xbpd/Downloads/BGM/原曲/404Hz,DJ铁柱-RM进行曲(高燃进行曲).flac",
+      "sha256": "0226d654cfb3209f601179f31334f9cac72b1afee3adfe8ab872ef51972991bb",
+      "duration_s": 143.69102
+    },
+    {
+      "from": "/Users/xbpd/Downloads/BGM/DJ阿狸-天真的橡皮 (DJ版).mp3",
+      "to": "/Users/xbpd/Downloads/BGM/原曲/DJ阿狸-天真的橡皮 (DJ版).mp3",
+      "sha256": "8d34694d30fefa499055b4c6eb9fdd4d525f5933336baae0ee26590a19f986e5",
+      "duration_s": 321.792993
+    },
+    {
+      "from": "/Users/xbpd/Downloads/BGM/海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》.ogg",
+      "to": "/Users/xbpd/Downloads/BGM/原曲/海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》.ogg",
+      "sha256": "863d362af7171247044965036331b0cecba4817803fe75ede2def8383c16befe",
+      "duration_s": 379.312993
+    },
+    {
+      "from": "/Users/xbpd/Downloads/BGM/郭腾腾-喜剧之王 (剪辑版).ogg",
+      "to": "/Users/xbpd/Downloads/BGM/原曲/郭腾腾-喜剧之王 (剪辑版).ogg",
+      "sha256": "a42a04d32dbb7e3ee33d073f5257f59835cf39f08cafc89583e083a7942dae84",
+      "duration_s": 61.41678
+    },
+    {
+      "from": "/Users/xbpd/Downloads/BGM/金6-气质出场 (DJ版).mp3",
+      "to": "/Users/xbpd/Downloads/BGM/原曲/金6-气质出场 (DJ版).mp3",
+      "sha256": "716f3554b40569e5124dc7f01030d81a30d0ee1ce5d296ff5afac8a8b66cfa52",
+      "duration_s": 98.950975
+    }
+  ],
+  "original_bytes_unchanged": true,
+  "short_excerpt_files_unchanged": true,
+  "manifest": "/Users/xbpd/Downloads/BGM/可用开头片段/清单.json",
+  "historical_receipts_preserved": true
+}

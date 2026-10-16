@@ -1,0 +1,14 @@
+{
+  "ended": true,
+  "duration_s": 25.333333,
+  "current_time_s": 25.333333,
+  "media_error": null,
+  "frames_observed": 759,
+  "encoded_frames": 760,
+  "max_media_gap_s": 0.03333400000000353,
+  "unmuted_playback": true,
+  "all_images_loaded": true,
+  "page_overflow": false,
+  "human_listening_verified": false,
+  "human_accepted": false
+}

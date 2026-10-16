@@ -15,7 +15,9 @@
 | 图文正反示例 | [示例](skills/vr-production-gates/design-system/examples/README.md) |
 | 问题与过程记录 | [Wiki](wiki/index.md)、[Bug台账](wiki/issues.md)、[约束审计](wiki/cases/CASE-20261015-003-constraint-audit.md) |
 
-本机打开 `local/index.html` 可进入素材库及当前成片；完整BGM、开头片段与来源清单位于 `local/material-library/bgm/`。该私有工作区被Git忽略，不随公开仓库分发；其他机器使用自己的素材根，不假定本机路径存在。原Downloads/BGM是当前素材库的兼容入口，只有一份媒体实体。
+完整素材已按用户本轮明确要求纳入[materials素材包](materials/index.html)：BGM完整原曲与全部片段、当前房源剧本/成片/连续原件/配音对齐素材及参考片。克隆仓库后直接打开materials/index.html，不依赖原机器路径。素材位于Skill包之外，不改变独立安装包的职责。
+
+本机 `local/index.html` 继续可用；local/material-library与旧Downloads/BGM只指向materials/library，current交付也指向已提交素材。local中的会话、验证日志和缓存仍忽略。该次上传来自用户明确授权，不把未来所有私人素材默认公开。
 
 ## 定版目录
 
@@ -39,14 +41,18 @@ skills/vr-production-gates/
   tests/                           行为与真实媒体回归
 wiki/                              问题、案例和演化日志
 raw/                               不可变原始回执
+materials/                         本轮用户授权提交的真实资料
+  library/bgm/                     完整BGM、开头片段与清单
+  productions/house-002/            剧本、连续原件、配音及后期版本
+  references/                      用户提供的推进参考片
 local/                             私有素材、制作入口、会话与验证证据
-  material-library/bgm/            完整原曲＋开头片段＋清单/试听索引
+  material-library/                兼容链接至materials/library
   productions/                     当前成片/剧本入口，原媒体不搬动
   validation/                      验证证据与本轮迁移备份
   session-exports/                  既有会话导出
 ```
 
-章节卡、动作图示、首尾组件和风险标签仍由设计系统与生成器维护；方案板、路线板及正文使用同一record。真实房源及音乐不复制进通用Skill资产。目录定版不冻结素材时长、拍法参数或后续正常迭代。
+章节卡、动作图示、首尾组件和风险标签仍由设计系统与生成器维护；方案板、路线板及正文使用同一record。真实房源及音乐保持在独立materials包，不复制进通用Skill资产。目录定版不冻结素材时长、拍法参数或后续正常迭代。
 
 ## 生成与检查
 

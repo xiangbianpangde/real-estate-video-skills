@@ -1,0 +1,80 @@
+{
+  "text": "到窗边看看真实外景",
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 0.0,
+      "end": 2.04,
+      "text": "到窗边看看真实外景",
+      "tokens": [
+        50364,
+        4511,
+        30771,
+        245,
+        40503,
+        22884,
+        6303,
+        24726,
+        12022,
+        50218,
+        50480
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.2350741227467855,
+      "compression_ratio": 0.7941176470588235,
+      "no_speech_prob": 0.010975522920489311,
+      "words": [
+        {
+          "word": "到",
+          "start": 0.0,
+          "end": 0.34,
+          "probability": 0.98046875
+        },
+        {
+          "word": "窗",
+          "start": 0.34,
+          "end": 0.56,
+          "probability": 0.99658203125
+        },
+        {
+          "word": "边",
+          "start": 0.56,
+          "end": 0.76,
+          "probability": 0.84423828125
+        },
+        {
+          "word": "看看",
+          "start": 0.76,
+          "end": 1.18,
+          "probability": 0.828125
+        },
+        {
+          "word": "真",
+          "start": 1.18,
+          "end": 1.46,
+          "probability": 0.9833984375
+        },
+        {
+          "word": "实",
+          "start": 1.46,
+          "end": 1.66,
+          "probability": 0.98974609375
+        },
+        {
+          "word": "外",
+          "start": 1.66,
+          "end": 1.84,
+          "probability": 0.9765625
+        },
+        {
+          "word": "景",
+          "start": 1.84,
+          "end": 2.04,
+          "probability": 0.9931640625
+        }
+      ]
+    }
+  ],
+  "language": "zh"
+}

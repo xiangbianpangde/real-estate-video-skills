@@ -1,0 +1,27 @@
+{
+  "schema": "direct-user-package-approval/v1",
+  "version": "v14",
+  "status": "SCRIPT_APPROVED_ONCE",
+  "source": "direct user message in current conversation",
+  "source_message_id": null,
+  "source_message_id_note": "Platform event ID was not supplied; not fabricated.",
+  "explicit_text": "出现的问题请整合进入skills中，现在审核通过；\n1.禁止倒着拍摄；\n2.展示房间建议站在门口展示",
+  "approved_scope": "v14完整图文剧本列明的验证、单原件正向采集与配音/字幕/BGM/首尾包装/导出/检查；不含发布或新增未批准费用",
+  "confirmed_requirements": {
+    "backward_moving_capture": "FORBIDDEN",
+    "room_presentation": "DOORWAY_SCAN_RECOMMENDED"
+  },
+  "artifacts": {
+    "record.json": "36b1bf03674a8d56ce53e6d798b568ddebb0d3492da8e3b8b77b60f267bfb40d",
+    "视频剧本_v14_30秒_正向离开阳台.html": "8d62db2e4ef0723480d6a093b0c9eb3f4a97655067988f72af244349cedd2ebc",
+    "package/plan.md": "4a31e3cde1b0cb53f4df475d396060ec3ab901d3a6624c254d58c93f1d8677f0",
+    "package/overview.png": "9a1f006f5bbf89fbf941156514f5eabd543715b53d9915dbc893c52426cc4bc7",
+    "package/route-board.png": "f92199f63818ff02a0a88da3830fc752296de5b86289e2d507dbcda456dcc3fa",
+    "首尾预览.png": "7f6f8ffe69ad78787b3a35e42e2973de7321c98d8eb2364cb6c9fd0ff6ea7653"
+  },
+  "pending_dynamic_validation": [
+    "S04原地转向室内",
+    "S05正向离开阳台及卧室回程"
+  ],
+  "note": "Approval binds the reviewed artifacts; DRAFT labels in the frozen reviewed files are preserved. It is not evidence that the planned new movement has been recorded or accepted as final video."
+}

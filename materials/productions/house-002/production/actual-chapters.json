@@ -1,0 +1,51 @@
+[
+  {
+    "id": "S01",
+    "start_s": 0.0,
+    "end_s": 3.006,
+    "source_start_s": 0,
+    "source_end_s": 3.006
+  },
+  {
+    "id": "S02",
+    "start_s": 3.006,
+    "end_s": 9.303,
+    "source_start_s": 3.006,
+    "source_end_s": 9.303
+  },
+  {
+    "id": "S03",
+    "start_s": 9.303,
+    "end_s": 11.854800000000001,
+    "source_start_s": 9.303,
+    "source_end_s": 12.155
+  },
+  {
+    "id": "S04",
+    "start_s": 11.854800000000001,
+    "end_s": 14.482800000000001,
+    "source_start_s": 12.155,
+    "source_end_s": 14.783
+  },
+  {
+    "id": "S05",
+    "start_s": 14.482800000000001,
+    "end_s": 22.76734347826087,
+    "source_start_s": 14.783,
+    "source_end_s": 24.002
+  },
+  {
+    "id": "S06",
+    "start_s": 22.76734347826087,
+    "end_s": 26.28134347826087,
+    "source_start_s": 24.002,
+    "source_end_s": 27.516
+  },
+  {
+    "id": "S07",
+    "start_s": 26.28134347826087,
+    "end_s": 29.26334347826087,
+    "source_start_s": 27.516,
+    "source_end_s": 30.498
+  }
+]

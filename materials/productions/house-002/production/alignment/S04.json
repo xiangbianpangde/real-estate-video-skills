@@ -1,0 +1,53 @@
+{
+  "schema": "vr-voice-alignment/v1",
+  "audio_sha256": "a8c1f46d445bda624dfa9f356379b86b157fc7ff9cbf2f4e1c164cccb3507265",
+  "text": "转过身，回到室内。",
+  "independent_asr_text": "轉過身,回到室內。",
+  "timing_origin": "Whisper-small cross-attention DTW forced alignment with independent no-prompt ASR; zero-duration tokens merged into adjacent timed word",
+  "words": [
+    {
+      "text": "转",
+      "start_s": 0.0,
+      "end_s": 0.4,
+      "probability": 0.58740234375
+    },
+    {
+      "text": "过",
+      "start_s": 0.4,
+      "end_s": 0.54,
+      "probability": 0.9736328125
+    },
+    {
+      "text": "身，",
+      "start_s": 0.54,
+      "end_s": 0.76,
+      "probability": 0.79345703125
+    },
+    {
+      "text": "回",
+      "start_s": 1.16,
+      "end_s": 1.32,
+      "probability": 0.7265625
+    },
+    {
+      "text": "到",
+      "start_s": 1.32,
+      "end_s": 1.46,
+      "probability": 0.9912109375
+    },
+    {
+      "text": "室",
+      "start_s": 1.46,
+      "end_s": 1.66,
+      "probability": 0.9814453125
+    },
+    {
+      "text": "内。",
+      "start_s": 1.66,
+      "end_s": 1.82,
+      "probability": 0.984375
+    }
+  ],
+  "content_listening_verified": false,
+  "model_directory": "/private/tmp/v14-whisper-cache/models--mlx-community--whisper-small-mlx/snapshots/45f3915923c7a79a5a5b5a7d909d39aeb0e5630e"
+}

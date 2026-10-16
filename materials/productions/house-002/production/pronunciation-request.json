@@ -1,0 +1,13 @@
+{
+  "requests": [
+    {
+      "text": "招商愉悦，三室两厅。",
+      "voice_id": "Chinese (Mandarin)_Warm_Girl",
+      "speed": 1.05,
+      "emotion": "neutral",
+      "volume": 1,
+      "pitch": 0,
+      "output_file": "S01-pronunciation.mp3"
+    }
+  ]
+}

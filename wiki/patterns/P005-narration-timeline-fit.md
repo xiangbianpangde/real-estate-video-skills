@@ -30,3 +30,7 @@
 
 - `skills/vr-production-gates/SKILL.md` 第 B 步 9 · 后期单 take
 - `wiki/patterns/P003-music-bed-length-and-level.md` 同属时长治理
+
+## 2026-10-16 · 画面提速后的复用
+
+v15沿用mcode七句原声和SHA绑定的相对词时码，先定画面最终时间映射，再重排语句/字幕，不把画面速度直接套到人声。音乐按新片长重裁淡出，完整图文剧本同步更新；详见[P009](P009-retiming-keeps-narration-and-script-aligned.md)。独立ASR与强制对齐分别保留，专名/字母B差异仍需核听。

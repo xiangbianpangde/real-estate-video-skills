@@ -1,0 +1,14 @@
+{
+  "frames": 760,
+  "fps": 30,
+  "duration_s": 25.333333333333332,
+  "sha256": "0bca4f88a348817c15378fae1892debda5d7ddb41f4e450b6a5723f5f0694415",
+  "source_sha256": "45e1ba37f6b8a694bf5f63e568469d0f404800bcaca34b230f3c8d183d3b9bdf",
+  "bgm": "NOT_INCLUDED_PENDING_USER_SPECIFIED_ASSET",
+  "narration": "mcode generated seven full semantic sentences",
+  "subtitles": "verbatim one-line cues with actual word timing and current-word yellow highlight",
+  "opening": "actual continuous indoor background + original floorplan + title; fades by2.85s",
+  "ending": "same bedroom background, disclaimer then CTA",
+  "audio_listening_verified": false,
+  "human_accepted": false
+}

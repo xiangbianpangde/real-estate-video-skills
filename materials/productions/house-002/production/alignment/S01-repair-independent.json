@@ -1,0 +1,83 @@
+{
+  "text": "招商餘院三室兩廳",
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 0.0,
+      "end": 2.0,
+      "text": "招商餘院三室兩廳",
+      "tokens": [
+        50364,
+        6852,
+        249,
+        45581,
+        22217,
+        246,
+        38358,
+        10960,
+        2415,
+        97,
+        16313,
+        17527,
+        111,
+        50482
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.4621527353922526,
+      "compression_ratio": 0.6857142857142857,
+      "no_speech_prob": 0.02927105501294136,
+      "words": [
+        {
+          "word": "招",
+          "start": 0.0,
+          "end": 0.42,
+          "probability": 0.8984375
+        },
+        {
+          "word": "商",
+          "start": 0.42,
+          "end": 0.6,
+          "probability": 0.99658203125
+        },
+        {
+          "word": "餘",
+          "start": 0.6,
+          "end": 0.78,
+          "probability": 0.5927734375
+        },
+        {
+          "word": "院",
+          "start": 0.78,
+          "end": 0.96,
+          "probability": 0.192626953125
+        },
+        {
+          "word": "三",
+          "start": 0.96,
+          "end": 1.4,
+          "probability": 0.64208984375
+        },
+        {
+          "word": "室",
+          "start": 1.4,
+          "end": 1.58,
+          "probability": 0.89111328125
+        },
+        {
+          "word": "兩",
+          "start": 1.58,
+          "end": 1.74,
+          "probability": 0.94384765625
+        },
+        {
+          "word": "廳",
+          "start": 1.74,
+          "end": 2.0,
+          "probability": 0.9794921875
+        }
+      ]
+    }
+  ],
+  "language": "zh"
+}

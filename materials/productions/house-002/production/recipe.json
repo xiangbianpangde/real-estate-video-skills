@@ -1,0 +1,92 @@
+{
+  "workCode": "jZwe3qrALx0M7dBG",
+  "start": {
+    "pano": 3,
+    "yawRad": 3.1919981741643215,
+    "fovDeg": 85.57
+  },
+  "width": 720,
+  "height": 1280,
+  "dpr": 1,
+  "tolerance": {
+    "fovDeg": 0.002,
+    "position": 0.002
+  },
+  "timeoutMs": 20000,
+  "steps": [
+    {
+      "kind": "hold",
+      "ms": 3000
+    },
+    {
+      "kind": "move",
+      "ms": 4200,
+      "pano": 4,
+      "yawRad": 3.1919981741643215
+    },
+    {
+      "kind": "move",
+      "ms": 2000,
+      "pano": 5,
+      "yawRad": 3.3720925687409418
+    },
+    {
+      "kind": "move",
+      "ms": 1300,
+      "pano": 6,
+      "yawRad": 3.3907171593030174
+    },
+    {
+      "kind": "hold",
+      "ms": 1500
+    },
+    {
+      "kind": "pan",
+      "ms": 1300,
+      "yawRad": 4.9615
+    },
+    {
+      "kind": "pan",
+      "ms": 1300,
+      "yawRad": 6.532309812892811
+    },
+    {
+      "kind": "move",
+      "ms": 1200,
+      "pano": 5,
+      "yawRad": 0.24912450571322456
+    },
+    {
+      "kind": "move",
+      "ms": 1700,
+      "pano": 4,
+      "yawRad": 0.23049991515114862
+    },
+    {
+      "kind": "pan",
+      "ms": 1500,
+      "yawRad": 1.5987635495329333
+    },
+    {
+      "kind": "move",
+      "ms": 3200,
+      "pano": 14,
+      "yawRad": 2.910381201890315
+    },
+    {
+      "kind": "move",
+      "ms": 1400,
+      "pano": 15,
+      "yawRad": 3
+    },
+    {
+      "kind": "pan",
+      "ms": 3500,
+      "yawRad": 2.2
+    },
+    {
+      "kind": "hold",
+      "ms": 3000
+    }
+  ]
+}

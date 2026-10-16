@@ -1,0 +1,59 @@
+{
+  "schema": "vr-voice-alignment/v1",
+  "audio_sha256": "9da26c1bfa5f14a61c51b8c54e66984b3bd872fb67fe859beece3794e5853734",
+  "text": "招商愉樾，三室两厅。",
+  "independent_asr_text": "招商餘院三室兩廳",
+  "timing_origin": "Whisper-small cross-attention DTW forced alignment with independent no-prompt ASR; zero-duration tokens merged into adjacent timed word",
+  "words": [
+    {
+      "text": "招",
+      "start_s": 0.0,
+      "end_s": 0.42,
+      "probability": 0.8984375
+    },
+    {
+      "text": "商",
+      "start_s": 0.42,
+      "end_s": 0.6,
+      "probability": 0.99658203125
+    },
+    {
+      "text": "愉",
+      "start_s": 0.6,
+      "end_s": 0.8,
+      "probability": 0.4375
+    },
+    {
+      "text": "樾，",
+      "start_s": 0.8,
+      "end_s": 1.0,
+      "probability": 0.00011104345321655273
+    },
+    {
+      "text": "三",
+      "start_s": 1.28,
+      "end_s": 1.4,
+      "probability": 0.84716796875
+    },
+    {
+      "text": "室",
+      "start_s": 1.4,
+      "end_s": 1.58,
+      "probability": 0.66943359375
+    },
+    {
+      "text": "两",
+      "start_s": 1.58,
+      "end_s": 1.74,
+      "probability": 0.53125
+    },
+    {
+      "text": "厅。",
+      "start_s": 1.74,
+      "end_s": 2.04,
+      "probability": 0.9267578125
+    }
+  ],
+  "content_listening_verified": false,
+  "model_directory": "/private/tmp/v14-whisper-cache/models--mlx-community--whisper-small-mlx/snapshots/45f3915923c7a79a5a5b5a7d909d39aeb0e5630e"
+}

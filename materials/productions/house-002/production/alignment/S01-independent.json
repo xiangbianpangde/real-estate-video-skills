@@ -1,0 +1,83 @@
+{
+  "text": "招商余乐三室两厅",
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 0.0,
+      "end": 2.26,
+      "text": "招商余乐三室两厅",
+      "tokens": [
+        50364,
+        6852,
+        249,
+        45581,
+        1593,
+        247,
+        44365,
+        10960,
+        2415,
+        97,
+        36257,
+        5014,
+        227,
+        50492
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.4551064491271973,
+      "compression_ratio": 0.6857142857142857,
+      "no_speech_prob": 0.06927504390478134,
+      "words": [
+        {
+          "word": "招",
+          "start": 0.0,
+          "end": 0.42,
+          "probability": 0.857421875
+        },
+        {
+          "word": "商",
+          "start": 0.42,
+          "end": 0.62,
+          "probability": 0.99462890625
+        },
+        {
+          "word": "余",
+          "start": 0.62,
+          "end": 0.84,
+          "probability": 0.6435546875
+        },
+        {
+          "word": "乐",
+          "start": 0.84,
+          "end": 1.06,
+          "probability": 0.2279052734375
+        },
+        {
+          "word": "三",
+          "start": 1.06,
+          "end": 1.56,
+          "probability": 0.7255859375
+        },
+        {
+          "word": "室",
+          "start": 1.56,
+          "end": 1.8,
+          "probability": 0.72314453125
+        },
+        {
+          "word": "两",
+          "start": 1.8,
+          "end": 1.94,
+          "probability": 0.9150390625
+        },
+        {
+          "word": "厅",
+          "start": 1.94,
+          "end": 2.26,
+          "probability": 0.91796875
+        }
+      ]
+    }
+  ],
+  "language": "zh"
+}

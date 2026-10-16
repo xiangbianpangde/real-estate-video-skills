@@ -1,0 +1,107 @@
+{
+  "source_sha256": "869febe5558c83241e24f36dfa71aa82f7b8c41a23b229027d98cec33c81966f",
+  "source_duration_s": 30.498,
+  "speed_map": [
+    {
+      "source_start_s": 0.0,
+      "source_end_s": 3.006,
+      "speed": 1
+    },
+    {
+      "source_start_s": 3.006,
+      "source_end_s": 7.252,
+      "speed": 1
+    },
+    {
+      "source_start_s": 7.252,
+      "source_end_s": 9.303,
+      "speed": 1
+    },
+    {
+      "source_start_s": 9.303,
+      "source_end_s": 10.654,
+      "speed": 1
+    },
+    {
+      "source_start_s": 10.654,
+      "source_end_s": 12.155,
+      "speed": 1.25
+    },
+    {
+      "source_start_s": 12.155,
+      "source_end_s": 13.466,
+      "speed": 1
+    },
+    {
+      "source_start_s": 13.466,
+      "source_end_s": 14.783,
+      "speed": 1
+    },
+    {
+      "source_start_s": 14.783,
+      "source_end_s": 16.036,
+      "speed": 1.15
+    },
+    {
+      "source_start_s": 16.036,
+      "source_end_s": 17.788,
+      "speed": 1.15
+    },
+    {
+      "source_start_s": 17.788,
+      "source_end_s": 19.299,
+      "speed": 1
+    },
+    {
+      "source_start_s": 19.299,
+      "source_end_s": 22.554,
+      "speed": 1.2
+    },
+    {
+      "source_start_s": 22.554,
+      "source_end_s": 24.002,
+      "speed": 1
+    },
+    {
+      "source_start_s": 24.002,
+      "source_end_s": 27.516,
+      "speed": 1
+    },
+    {
+      "source_start_s": 27.516,
+      "source_end_s": 30.498,
+      "speed": 1
+    }
+  ],
+  "schema": "vr-continuous-edit/v1",
+  "expected_output_duration_s": 29.263343478260868,
+  "actual_output_duration_s": 29.266016,
+  "output_sha256": "f4b38bce5f7362deb8d83f163936b8b23873050ce87e620315f1f7d7fce69184",
+  "ffmpeg_argv": [
+    "ffmpeg",
+    "-v",
+    "error",
+    "-n",
+    "-i",
+    "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/take-source.mp4",
+    "-map",
+    "0:v:0",
+    "-an",
+    "-vf",
+    "setpts=PTS-STARTPTS,setpts='if(lt(T,3.006),(0+(T-0)/1),if(lt(T,7.252),(3.006+(T-3.006)/1),if(lt(T,9.303),(7.252+(T-7.252)/1),if(lt(T,10.654),(9.303+(T-9.303)/1),if(lt(T,12.155),(10.654+(T-10.654)/1.25),if(lt(T,13.466),(11.8548+(T-12.155)/1),if(lt(T,14.783),(13.1658+(T-13.466)/1),if(lt(T,16.036),(14.4828+(T-14.783)/1.15),if(lt(T,17.788),(15.5723652174+(T-16.036)/1.15),if(lt(T,19.299),(17.0958434783+(T-17.788)/1),if(lt(T,22.554),(18.6068434783+(T-19.299)/1.2),if(lt(T,24.002),(21.3193434783+(T-22.554)/1),if(lt(T,27.516),(22.7673434783+(T-24.002)/1),(26.2813434783+(T-27.516)/1))))))))))))))/TB',fps=30",
+    "-c:v",
+    "libx264",
+    "-pix_fmt",
+    "yuv420p",
+    "-crf",
+    "20",
+    "-movflags",
+    "+faststart",
+    "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/edited/retimed.mp4"
+  ],
+  "fps_normalization": "CFR sampling, no optical interpolation; frames may be sampled but no source time interval is omitted",
+  "speed_boundary": "piecewise constant; not speed ramping",
+  "source_unchanged": true,
+  "visual_verified": false,
+  "human_accepted": false
+}

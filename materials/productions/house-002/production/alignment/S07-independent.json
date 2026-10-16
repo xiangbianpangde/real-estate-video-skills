@@ -1,0 +1,88 @@
+{
+  "text": "防曠以現場為準,歡迎留言",
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 0.0,
+      "end": 2.5,
+      "text": "防曠以現場為準,歡迎留言",
+      "tokens": [
+        50364,
+        35863,
+        9531,
+        254,
+        3588,
+        9581,
+        21446,
+        6344,
+        28220,
+        11,
+        21315,
+        43681,
+        50514
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.3929225376674107,
+      "compression_ratio": 0.7555555555555555,
+      "no_speech_prob": 0.03301313519477844,
+      "words": [
+        {
+          "word": "防",
+          "start": 0.0,
+          "end": 0.42,
+          "probability": 0.70068359375
+        },
+        {
+          "word": "曠",
+          "start": 0.42,
+          "end": 0.72,
+          "probability": 0.69140625
+        },
+        {
+          "word": "以",
+          "start": 0.72,
+          "end": 0.92,
+          "probability": 0.6181640625
+        },
+        {
+          "word": "現",
+          "start": 0.92,
+          "end": 1.08,
+          "probability": 0.68212890625
+        },
+        {
+          "word": "場",
+          "start": 1.08,
+          "end": 1.28,
+          "probability": 0.99853515625
+        },
+        {
+          "word": "為",
+          "start": 1.28,
+          "end": 1.42,
+          "probability": 0.97265625
+        },
+        {
+          "word": "準,",
+          "start": 1.42,
+          "end": 1.62,
+          "probability": 0.806640625
+        },
+        {
+          "word": "歡迎",
+          "start": 1.96,
+          "end": 2.18,
+          "probability": 0.994140625
+        },
+        {
+          "word": "留言",
+          "start": 2.18,
+          "end": 2.5,
+          "probability": 0.998046875
+        }
+      ]
+    }
+  ],
+  "language": "zh"
+}

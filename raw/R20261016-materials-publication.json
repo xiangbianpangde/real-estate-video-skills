@@ -1,0 +1,18 @@
+{
+  "schema": "materials-publication/v1",
+  "date": "2026-10-16",
+  "user_request": "推送并提交，bgm等资料全部都要提交并推送",
+  "materials_catalog": "materials/catalog.json",
+  "catalog_sha256": "ed46d720a50b1a1d0e1ca71d3cf557d6768a0771ab4d5479f4c306caa6c22cc0",
+  "file_count_excluding_catalog": 140,
+  "total_bytes_excluding_catalog": 300571799,
+  "largest_file_bytes": 17100609,
+  "all_recorded_file_shas_verified": true,
+  "actual_regular_files_not_symlink_stubs": true,
+  "active_entry_links_checked": 37,
+  "bgm_complete_originals": 5,
+  "bgm_excerpt_formats_count": 10,
+  "credentials_and_session_cache_excluded": true,
+  "prior_approval_snapshot_preserved": true,
+  "production_snapshot_source_unchanged": true
+}

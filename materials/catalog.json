@@ -1,0 +1,760 @@
+{
+  "schema": "published-materials/v1",
+  "date": "2026-10-16",
+  "scope": "user explicitly requested all BGM and related production materials committed and pushed",
+  "bgm_library": "library/index.html",
+  "bgm_manifest": "library/bgm/可用开头片段/清单.json",
+  "current_video": "productions/house-002/production/speed-v15/招商愉樾_v15_推进加快_25秒.mp4",
+  "current_review": "productions/house-002/production/speed-v15/成片与完整剧本_v15_推进加快.html",
+  "approved_script": "productions/house-002/视频剧本_v14_30秒_正向离开阳台.html",
+  "reference_video": "references/80ec73e744919854660c92ce74f4a6c2.mp4",
+  "historical_receipt_paths": "Absolute local provenance retained; use these relative entries for portable access. Frozen approval content is unchanged.",
+  "excluded_non_material_files": [
+    "production/asset-download-receipt.json",
+    "production/.DS_Store",
+    "production/final-mix-encode.log",
+    "production/tts-response.json",
+    "production/batch-schema-current.json",
+    "production/final-mix-qc.log",
+    "production/tts-request.json",
+    "production/voice-generation.json",
+    "production/review-voice-only/decode.log",
+    "production/review-voice-only/encode.log",
+    "production/post-voice-only/decode.log",
+    "production/post-voice-only/encode.log",
+    "production/speed-v15/decode-loudness.log",
+    "production/speed-v15/packaged/decode.log",
+    "production/speed-v15/packaged/encode.log"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1487,
+      "sha256": "ea1be09779131fc3ec901a2db968e70c19beb6b609b12e8a89c2069ce4391e80"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1168,
+      "sha256": "17080e668601009e0487327c3ffc9684dc025fd6db0927fd80ac446099a60f43"
+    },
+    {
+      "path": "library/bgm/原曲/404Hz,DJ铁柱-RM进行曲(高燃进行曲).flac",
+      "bytes": 16228213,
+      "sha256": "0226d654cfb3209f601179f31334f9cac72b1afee3adfe8ab872ef51972991bb"
+    },
+    {
+      "path": "library/bgm/原曲/DJ阿狸-天真的橡皮 (DJ版).mp3",
+      "bytes": 5424319,
+      "sha256": "8d34694d30fefa499055b4c6eb9fdd4d525f5933336baae0ee26590a19f986e5"
+    },
+    {
+      "path": "library/bgm/原曲/海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》.ogg",
+      "bytes": 4970834,
+      "sha256": "863d362af7171247044965036331b0cecba4817803fe75ede2def8383c16befe"
+    },
+    {
+      "path": "library/bgm/原曲/郭腾腾-喜剧之王 (剪辑版).ogg",
+      "bytes": 602335,
+      "sha256": "a42a04d32dbb7e3ee33d073f5257f59835cf39f08cafc89583e083a7942dae84"
+    },
+    {
+      "path": "library/bgm/原曲/金6-气质出场 (DJ版).mp3",
+      "bytes": 1858759,
+      "sha256": "716f3554b40569e5124dc7f01030d81a30d0ee1ce5d296ff5afac8a8b66cfa52"
+    },
+    {
+      "path": "library/bgm/原曲归档记录.json",
+      "bytes": 1834,
+      "sha256": "a77a1f9c86cbb1478913c2fc06a0092fe771f42dfc2ea8c1184153f4e39ffadc"
+    },
+    {
+      "path": "library/bgm/可用开头片段/使用说明.md",
+      "bytes": 1182,
+      "sha256": "751e4e8997222c72dd83ccd66771d207121540ad73b806b4cb05f9f0ce860d9c"
+    },
+    {
+      "path": "library/bgm/可用开头片段/清单.json",
+      "bytes": 15059,
+      "sha256": "657482537d056fcd2ac2cb2baf8f12ea05009ac1d70ef0d39bd97250e4ba4583"
+    },
+    {
+      "path": "library/bgm/可用开头片段/试听索引.html",
+      "bytes": 5633,
+      "sha256": "c383d861d7730d94da5380840cd57aeb9fc3b0bfa1f07c27501184b4edd6c31b"
+    },
+    {
+      "path": "library/bgm/可用开头片段/音频/01_404Hz,DJ铁柱-RM进行曲(高燃进行曲)_开头35秒.m4a",
+      "bytes": 1157591,
+      "sha256": "cf99d064804a3c25bfe702a3273cdd9f644b75de12d3cc01c54981ab1deb6a35"
+    },
+    {
+      "path": "library/bgm/可用开头片段/音频/01_404Hz,DJ铁柱-RM进行曲(高燃进行曲)_开头35秒.wav",
+      "bytes": 10080174,
+      "sha256": "93355caf1eb929d15921c2f02a50fe6a10d2bc1da74fc10d220780213d5dc34b"
+    },
+    {
+      "path": "library/bgm/可用开头片段/音频/02_DJ阿狸-天真的橡皮 (DJ版)_开头35秒.m4a",
+      "bytes": 1150315,
+      "sha256": "f77838787d36f93fb70f208fbf191ccf43ce58d060afb7e5a884e0811c4ee7f8"
+    },
+    {
+      "path": "library/bgm/可用开头片段/音频/02_DJ阿狸-天真的橡皮 (DJ版)_开头35秒.wav",
+      "bytes": 10080186,
+      "sha256": "78017903e99c869c2e5a1127d0ab3771b9108d66419523cc211c2ce521cc5b07"
+    },
+    {
+      "path": "library/bgm/可用开头片段/音频/03_海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》_开头35秒.m4a",
+      "bytes": 1111716,
+      "sha256": "a8ba021c623a57426a30c2664b87a0308340b141c885cf5ef4881f11ddb9b20d"
+    },
+    {
+      "path": "library/bgm/可用开头片段/音频/03_海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》_开头35秒.wav",
+      "bytes": 10080102,
+      "sha256": "7828099267538d7cfe2020bf1d2f7f7d040531219a667264217c5cab68e78c2c"
+    },
+    {
+      "path": "library/bgm/可用开头片段/音频/04_郭腾腾-喜剧之王 (剪辑版)_开头35秒.m4a",
+      "bytes": 1094052,
+      "sha256": "953f063975a40b5ca26796824c7a6a7f4db430e84ce18b7a5c0016e74b2e62be"
+    },
+    {
+      "path": "library/bgm/可用开头片段/音频/04_郭腾腾-喜剧之王 (剪辑版)_开头35秒.wav",
+      "bytes": 10080102,
+      "sha256": "3d451570e22bb5278694a0a8e62066a9b0eb4d72748954cd2658285f6108891d"
+    },
+    {
+      "path": "library/bgm/可用开头片段/音频/05_金6-气质出场 (DJ版)_开头35秒.m4a",
+      "bytes": 1165037,
+      "sha256": "29b631c7e857a77d91774b98a097b00727cc54d30c68bb33494c727b8549a732"
+    },
+    {
+      "path": "library/bgm/可用开头片段/音频/05_金6-气质出场 (DJ版)_开头35秒.wav",
+      "bytes": 10080184,
+      "sha256": "68781a8e8e2ac292a1f3deae5836088ce2c04ccb77133d7fd1cd66b17becc833"
+    },
+    {
+      "path": "library/bgm/素材库说明.md",
+      "bytes": 636,
+      "sha256": "c65a92a366ba7c16aaa684c2e71f1a47cca81f3c899930013d3f1eda3790b42b"
+    },
+    {
+      "path": "library/catalog.json",
+      "bytes": 516,
+      "sha256": "9b65228b13ff9e8025c6240f36c9bd8dcf1f1eaf7005eb2990d83b5287ecb79c"
+    },
+    {
+      "path": "library/index.html",
+      "bytes": 860,
+      "sha256": "3a9023951e5c8dcdfa48e329ba834d48bf4c5a4d5817f3d63bbf06bb2924b248"
+    },
+    {
+      "path": "productions/house-002/S01.png",
+      "bytes": 725341,
+      "sha256": "7b9ede6b0bde75c1e1bb4a694625418d8d9c87e21ecaebda31b20554e550743a"
+    },
+    {
+      "path": "productions/house-002/S02.png",
+      "bytes": 614697,
+      "sha256": "06936d038d3cfd70be106d57ad951e133d15f8218b8bab4a50c81710516f570b"
+    },
+    {
+      "path": "productions/house-002/S03.png",
+      "bytes": 816179,
+      "sha256": "0b3c3d6f096f66b2e8dc7fe1c80c26bc954a4882a34e18f62308b11d84235b86"
+    },
+    {
+      "path": "productions/house-002/S04.png",
+      "bytes": 728864,
+      "sha256": "d0e538e4e13095bcc90bbd8837cf522e5d11022b139c91042e951e91eff07c0a"
+    },
+    {
+      "path": "productions/house-002/S05.png",
+      "bytes": 590159,
+      "sha256": "eaf50a5724892c8288c00ece0e0f32efb8bfe68302aa13e6f57041a47a0b7dda"
+    },
+    {
+      "path": "productions/house-002/S06.png",
+      "bytes": 521033,
+      "sha256": "59f3314b59a60a559017ba1eec4095fdff9f895812cb4429fa544a6ded4445ca"
+    },
+    {
+      "path": "productions/house-002/S07.png",
+      "bytes": 439775,
+      "sha256": "c0c711e625637dfe70a5407ced8be0ce3bc8f394b6eb02165133d8a75dec5904"
+    },
+    {
+      "path": "productions/house-002/floorplan.png",
+      "bytes": 1222338,
+      "sha256": "87911a1c6c108445d15c96bc22db5ce7d4150cab9c4540e171aacb695c71771b"
+    },
+    {
+      "path": "productions/house-002/layout-review.json",
+      "bytes": 4452,
+      "sha256": "b71c94956ffb46affbd56f718309c97f66bb1ec7faef3f54eb00abb5635920e1"
+    },
+    {
+      "path": "productions/house-002/package/generation.json",
+      "bytes": 579,
+      "sha256": "f42606509f8905f88deb4646b648115d33dd217299807a98b7bfe94691531331"
+    },
+    {
+      "path": "productions/house-002/package/overview.png",
+      "bytes": 3379375,
+      "sha256": "9a1f006f5bbf89fbf941156514f5eabd543715b53d9915dbc893c52426cc4bc7"
+    },
+    {
+      "path": "productions/house-002/package/plan.md",
+      "bytes": 8331,
+      "sha256": "4a31e3cde1b0cb53f4df475d396060ec3ab901d3a6624c254d58c93f1d8677f0"
+    },
+    {
+      "path": "productions/house-002/package/route-board.html",
+      "bytes": 1637766,
+      "sha256": "84d4fa5db6c7ae747b91940a141391e604bd223227dc12bd7ec80a5e0572f19c"
+    },
+    {
+      "path": "productions/house-002/package/route-board.png",
+      "bytes": 1306937,
+      "sha256": "f92199f63818ff02a0a88da3830fc752296de5b86289e2d507dbcda456dcc3fa"
+    },
+    {
+      "path": "productions/house-002/package/storyboard.html",
+      "bytes": 10827675,
+      "sha256": "ed26e19981559f658b142da071fb1aae6e87da9f0d7be77e75c8ecbe1e3bb2c3"
+    },
+    {
+      "path": "productions/house-002/production/actual-chapters.json",
+      "bytes": 978,
+      "sha256": "4cb3a828079efd62911edec35026df4ef332918284d0b42df439038a543eefd0"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S01-independent.json",
+      "bytes": 1667,
+      "sha256": "d3e7acccf3369d4b7a1486bba1fcdc8e954aa85726a2a5f5c6692a987ab24e7c"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S01-repair-independent.json",
+      "bytes": 1666,
+      "sha256": "e8c5ce9ee2c50ba380e037efb83d488a6723fdc889e8bcde6ef9ff159577b2ec"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S01-repaired.json",
+      "bytes": 1478,
+      "sha256": "cb520efd082cff19152ed461831c581531ed8265c5edb3aa009acaa66b174e7d"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S01.json",
+      "bytes": 1494,
+      "sha256": "d2104ef202ff2c5b69bea21427489383b121a823ce7351fde6354cfda978208e"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S02-independent.json",
+      "bytes": 2143,
+      "sha256": "e0e1f164ff61926728b40987d239b92f8ea993458f221910591f14d4c905e20d"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S02.json",
+      "bytes": 1837,
+      "sha256": "c8db5033cd2f94c0de3257f5b428d7f873e7545a104f978bf1cffb647fc6f49c"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S03-independent.json",
+      "bytes": 1635,
+      "sha256": "d1b2f1c8f4437aa5a83f0241c3658b2d4d0b89ce0c5af4fb4cf64c593408a2df"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S03.json",
+      "bytes": 1492,
+      "sha256": "ee25fabc2375f9740f533fb9266e4090e2c2896184701e833ed265b40139f90c"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S04-independent.json",
+      "bytes": 1516,
+      "sha256": "4d0b83097b2950ba4b52bc35245c4b628ddffec66ee2ea9ef8dd98b1463f6bae"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S04.json",
+      "bytes": 1365,
+      "sha256": "48250027a31fb0445ee525182de52e82faca33c8fd61829a1f3f715f4ea865d2"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S05-independent.json",
+      "bytes": 2448,
+      "sha256": "3194f30a2ca9e7a5b26be04dbd1c5bdb64ad7585f39ae030e1a1e440c812d27a"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S05.json",
+      "bytes": 2074,
+      "sha256": "97821cfe4f49146244846f58cf9a39af661ab98ff2a7acb1cc19e4a3ac02a702"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S06-independent.json",
+      "bytes": 1998,
+      "sha256": "698aa04c5be5b81d5ac917b649c6b18f952566b09d39180e0fd027207dbc957f"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S06.json",
+      "bytes": 1721,
+      "sha256": "ae75ec443f4816cecdb2d718d5943f0621e521a1a985c0ae346786ed25ca230c"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S07-independent.json",
+      "bytes": 1809,
+      "sha256": "4514e6c936a7fd356aa9dde515d788713bb25d24bcd0eb1a133407ed0a8ab1c7"
+    },
+    {
+      "path": "productions/house-002/production/alignment/S07.json",
+      "bytes": 1739,
+      "sha256": "1c722f9816da8b6b8a35b9535a2e826ecbe705e8005ad18b7c790b448d82f545"
+    },
+    {
+      "path": "productions/house-002/production/bgm-requirement-20261016.json",
+      "bytes": 616,
+      "sha256": "d4405fdc5f2fd108fe33bcdd8396b6efa166210d0b09746a8a523e9c649c41fe"
+    },
+    {
+      "path": "productions/house-002/production/browser-playback.json",
+      "bytes": 255,
+      "sha256": "514de72a208909d53a53367554bcae428cdc9ff4e913ee65d9e86bcdf5c89e46"
+    },
+    {
+      "path": "productions/house-002/production/direction-check.json",
+      "bytes": 722,
+      "sha256": "4304262e0451c0d464839d45e9aea9432e48a96501c065e459c4793362c86173"
+    },
+    {
+      "path": "productions/house-002/production/edited/continuous-edit.json",
+      "bytes": 3098,
+      "sha256": "846b41271801743a8365fdc1dc72008ae737669f1b66fb04f227fce90d1b51fd"
+    },
+    {
+      "path": "productions/house-002/production/edited/retimed.mp4",
+      "bytes": 9528184,
+      "sha256": "f4b38bce5f7362deb8d83f163936b8b23873050ce87e620315f1f7d7fce69184"
+    },
+    {
+      "path": "productions/house-002/production/final-browser-playback.json",
+      "bytes": 380,
+      "sha256": "38449b214aaaac62a7eeb5df565e385762a3b2cf5274b10f954260d0105c075e"
+    },
+    {
+      "path": "productions/house-002/production/final-mix-receipt.json",
+      "bytes": 3884,
+      "sha256": "8563af1a0a1d95a412494b08188f0d27d11e3ee9916fe53ecb1597bb18d534c7"
+    },
+    {
+      "path": "productions/house-002/production/post-voice-only/final.mp4",
+      "bytes": 8899590,
+      "sha256": "2b5d6040d4021f39e8d94ec7f050d914e182dcae136a01a59b92499fae9a8b05"
+    },
+    {
+      "path": "productions/house-002/production/post-voice-only/mixed.wav",
+      "bytes": 5619154,
+      "sha256": "2917f2ae128c4b4a06f4f31d7c35fd94ecfbd24bdb62a54a13ea4483008949d4"
+    },
+    {
+      "path": "productions/house-002/production/post-voice-only/post-receipt.json",
+      "bytes": 4084,
+      "sha256": "0090ff5ae2d4054ad616a7296f19d1ec71fac8f88cae21e38d78fb91040a6658"
+    },
+    {
+      "path": "productions/house-002/production/post-voice-only/subtitle-timing.json",
+      "bytes": 11662,
+      "sha256": "aab11ccd5479b88f40fb7337ee2853d400b849330e3492b54438894e91923481"
+    },
+    {
+      "path": "productions/house-002/production/post-voice-only/subtitles.srt",
+      "bytes": 487,
+      "sha256": "cd60fdd0be48f406bf00f7c381141bc020adb98c53bfd26cf9d5d4673c9459c1"
+    },
+    {
+      "path": "productions/house-002/production/post-voice-only.json",
+      "bytes": 1537,
+      "sha256": "be539c578d2debc83cf81f86de0c6c968f99bab1f708ace2a2a5fb49ad5c45d7"
+    },
+    {
+      "path": "productions/house-002/production/production-progress.json",
+      "bytes": 8333,
+      "sha256": "7285d69ab250ebfe821260ad5f838a0cba2eb340cb92d8e22bbb77a955aca3c7"
+    },
+    {
+      "path": "productions/house-002/production/pronunciation-asset-url.json",
+      "bytes": 281,
+      "sha256": "b8be08490241c112df19c04237c3414c5013f0e1de0282a4befe83ec2d99f6fb"
+    },
+    {
+      "path": "productions/house-002/production/pronunciation-repair.json",
+      "bytes": 2452,
+      "sha256": "344c3b210a5dd126749d0da97f44e27cc16b68b5d9f5571b9c3738f75051bc48"
+    },
+    {
+      "path": "productions/house-002/production/pronunciation-request.json",
+      "bytes": 265,
+      "sha256": "2cb2611af014fa8d53ebb6a0233b3f837a40adc227570b2816783a393a93091b"
+    },
+    {
+      "path": "productions/house-002/production/pronunciation-response.json",
+      "bytes": 183,
+      "sha256": "8cecb80bf9c09a4fe20ababc07bcb0f43d7288ba16dd08b7a66e668ce75afdfd"
+    },
+    {
+      "path": "productions/house-002/production/pronunciation-task.txt",
+      "bytes": 853,
+      "sha256": "5f0b05ee52656947482cd77a22c82bab6b7c8ef29abcdd13e9160489fda13624"
+    },
+    {
+      "path": "productions/house-002/production/recipe.json",
+      "bytes": 1471,
+      "sha256": "2e5732c503b858447b05fcd5450a3032dad66f10eaf572f54703b0615c747b60"
+    },
+    {
+      "path": "productions/house-002/production/review-voice-only/actual-subtitle-timing.json",
+      "bytes": 11523,
+      "sha256": "2aaba6c11c4ef88f033300de23aadae3e591a62eb066cce840918eca70881075"
+    },
+    {
+      "path": "productions/house-002/production/review-voice-only/qc-0.png",
+      "bytes": 686495,
+      "sha256": "f20619073f77073a760e5e76262303840bfc334708a48332d04a7d76704271e4"
+    },
+    {
+      "path": "productions/house-002/production/review-voice-only/qc-1.png",
+      "bytes": 788262,
+      "sha256": "35561d849b41b134c90ff8f5e350f67c6fb8f5f1f970024bc390f4d0c258dc25"
+    },
+    {
+      "path": "productions/house-002/production/review-voice-only/qc-2.png",
+      "bytes": 608881,
+      "sha256": "0f3760d5a956b68bf2bc0f3dc166179be0537f52bc8447f800734b497b068ce6"
+    },
+    {
+      "path": "productions/house-002/production/review-voice-only/qc-3.png",
+      "bytes": 606901,
+      "sha256": "d51bc1e981f5d1d19057572ff6a227151b00d3c4579aa812341f16d2992de407"
+    },
+    {
+      "path": "productions/house-002/production/review-voice-only/qc-contact.png",
+      "bytes": 948512,
+      "sha256": "b05cc439da765eb592c09adb8a14b939ad53c73511e2fa74d6620206262cb94e"
+    },
+    {
+      "path": "productions/house-002/production/review-voice-only/render-receipt.json",
+      "bytes": 674,
+      "sha256": "f0884abf7e1c7f01be6a24b389854c0dc4921b0dc581b4a260d89741c3d137ed"
+    },
+    {
+      "path": "productions/house-002/production/review-voice-only/subtitles.srt",
+      "bytes": 730,
+      "sha256": "d6a4cd3286a08240272ae501786fbb18b174ad0adbc266977c647c35732339f5"
+    },
+    {
+      "path": "productions/house-002/production/review-voice-only/审看片_v14_配音字幕首尾_BGM待补.mp4",
+      "bytes": 10884477,
+      "sha256": "e805ed487214792d0bfcdd7bf21ed1d5d404f96351caab05003a4b453e5524d0"
+    },
+    {
+      "path": "productions/house-002/production/speech/S01-pronunciation.mp3",
+      "bytes": 40518,
+      "sha256": "9da26c1bfa5f14a61c51b8c54e66984b3bd872fb67fe859beece3794e5853734"
+    },
+    {
+      "path": "productions/house-002/production/speech/S01.mp3",
+      "bytes": 43974,
+      "sha256": "03987b60a5908b43abd68c4be7756df4a1c7ffedb19e0052a5912a0ce13a88ed"
+    },
+    {
+      "path": "productions/house-002/production/speech/S02.mp3",
+      "bytes": 45702,
+      "sha256": "d44733ff82845cfee43ee1ff7454185a62c09c1b4ac0ed18af80714de4240cc8"
+    },
+    {
+      "path": "productions/house-002/production/speech/S03.mp3",
+      "bytes": 39942,
+      "sha256": "8aa1d9ba5f86306de5697e12b076447a663a344fa4a73540f036f21cb99ed8a3"
+    },
+    {
+      "path": "productions/house-002/production/speech/S04.mp3",
+      "bytes": 36486,
+      "sha256": "a8c1f46d445bda624dfa9f356379b86b157fc7ff9cbf2f4e1c164cccb3507265"
+    },
+    {
+      "path": "productions/house-002/production/speech/S05.mp3",
+      "bytes": 50310,
+      "sha256": "492f1e5913b32e521ee433cbfa1afd523bda8c2145637c52e561a7154981f0c1"
+    },
+    {
+      "path": "productions/house-002/production/speech/S06.mp3",
+      "bytes": 47430,
+      "sha256": "597bc66a9528edd3d7ca99e8f2c97c9691a40ab369949e0562ec021173ad781c"
+    },
+    {
+      "path": "productions/house-002/production/speech/S07.mp3",
+      "bytes": 50886,
+      "sha256": "76790df742168bc4e38492c5b612db7666675eeb54f951189c9a9790d22f071e"
+    },
+    {
+      "path": "productions/house-002/production/speed-map.json",
+      "bytes": 1431,
+      "sha256": "33a89efe41c901eacf1a12892fd81f938bab031425c69d7407e32c1ec7ec19c0"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/S01.png",
+      "bytes": 692313,
+      "sha256": "331d7837a06a7a70f8bdc99d7f7225cd125196f069e2b033a2ad5219e831969f"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/S02.png",
+      "bytes": 605438,
+      "sha256": "e6c6d63ef2b9925dcc37553c4712a96f81a1952bfd9e10307b6bc7d7a0423a25"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/S03.png",
+      "bytes": 826911,
+      "sha256": "e8b5558cabb38f9caae01d8dc562be3e2e8913ba93615b0d66db4b412c489368"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/S04.png",
+      "bytes": 669134,
+      "sha256": "f1f4e457bf276ddc02aa7ae974fb8aa2468b7c4b2341b153c53fc87a839dd876"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/S05.png",
+      "bytes": 436629,
+      "sha256": "473393057fb5c23423d556b7c3788e1110c3e2bf8e580bfdab4d2458d02d6f85"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/S06.png",
+      "bytes": 495570,
+      "sha256": "b4e6fc521461eb6a2ede099a7b3e0570f976060b318ce978599b10c4772fdfce"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/S07.png",
+      "bytes": 439728,
+      "sha256": "13f2be915019813690134fe227980a896ef7242af7003f10cf8d0fa163a3bd5f"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/actual-chapters.json",
+      "bytes": 1319,
+      "sha256": "f1c3e659a188e70fcf0cfaefc245004050d99af6661de46a41b722777b25a928"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/browser-playback.json",
+      "bytes": 340,
+      "sha256": "55c51d8c52ad5bc5b99e01e7c0b34cd4118df58092758e5ffe5c9971c06d6060"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/continuous-edit.json",
+      "bytes": 3000,
+      "sha256": "85b479c72c95a4e81a50d22f44549e633059de4fcea36efb7f4ebc56f80ba5c6"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/final-receipt.json",
+      "bytes": 2712,
+      "sha256": "e94c591af167d60f009379f5fca38b3e8c6f09d46dea883df0813bcb114fdc06"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/floorplan.png",
+      "bytes": 1222338,
+      "sha256": "87911a1c6c108445d15c96bc22db5ce7d4150cab9c4540e171aacb695c71771b"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/narration-placement.json",
+      "bytes": 2278,
+      "sha256": "ff06c3218111414b8772e88cf3f41e17b78d18f1de1130c17d67f5e7ab3970eb"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/package/generation.json",
+      "bytes": 579,
+      "sha256": "48c54510f9b10ce3bf7a02b1dd5dc23ccfcf82ff4e9f26151b5e2f741b30c047"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/package/overview.png",
+      "bytes": 9126808,
+      "sha256": "910b60c1d6cfd4e4f265b9b0010fa959968403920a65657bfa3747eda2fd5055"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/package/plan.md",
+      "bytes": 8084,
+      "sha256": "9daefd651182dd11a93c281dbba1cc5b176bb5dcf9f55b2c58f1938ad726cd4a"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/package/route-board.html",
+      "bytes": 1637683,
+      "sha256": "427796631bb6354d2a5320897bf72e35a92b2a019bc29f6da8206f42c0adc395"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/package/route-board.png",
+      "bytes": 3653713,
+      "sha256": "d96442efa6a0d4a3cf34152218c669cd433e88df9fa93c40cfc6a4cb4812bdec"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/package/storyboard.html",
+      "bytes": 10467052,
+      "sha256": "860c8694e8745f5c22e9281eb00caab97cbfc9ce54476a76029a832ec126cba4"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/packaged/actual-subtitle-timing.json",
+      "bytes": 11545,
+      "sha256": "db14f57ec6aaf93439d0c64603d2eab957ceba20e0dc8297c04c645b4e9ba268"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/packaged/render-receipt.json",
+      "bytes": 673,
+      "sha256": "1a21b8f919501e49e8aa8481d656fa4b0a933bc3a3b2ab9c496c9ceb2c6955da"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/packaged/subtitles.srt",
+      "bytes": 730,
+      "sha256": "947427f8e9bf411b40fceedcc06f37687d7a60839e89821bc7126134cf802cf2"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/packaged/审看片_v14_配音字幕首尾_BGM待补.mp4",
+      "bytes": 10522676,
+      "sha256": "0bca4f88a348817c15378fae1892debda5d7ddb41f4e450b6a5723f5f0694415"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/qc-contact.png",
+      "bytes": 590195,
+      "sha256": "6bbcf6e8b5bfe5bd5ae8acbbb6c8ae83716537cafed58e64d7c280e94c0cc70f"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/record.json",
+      "bytes": 23692,
+      "sha256": "b471b66a468167a59b34f3a84c7dccda4a490afda78ea68d5f12f44e8a2cbeef"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/retimed.mp4",
+      "bytes": 11222362,
+      "sha256": "45e1ba37f6b8a694bf5f63e568469d0f404800bcaca34b230f3c8d183d3b9bdf"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/subtitle-timing.json",
+      "bytes": 10711,
+      "sha256": "94467a83562e358506d65dce59185aa89e08cc38e3729d9ef549f5e63dec63f2"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/voice.wav",
+      "bytes": 4864078,
+      "sha256": "e072f5852239230ebd6c8aa125d65db25b6f452677eb72cc990f457d1414d35e"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/成片与完整剧本_v15_推进加快.html",
+      "bytes": 7198870,
+      "sha256": "ccbfb128ca53a8b1ae1154acaae883d95596b6c6b42a10eeafc8c7876b8a49a0"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/招商愉樾_v15_推进加快_25秒.mp4",
+      "bytes": 10664964,
+      "sha256": "9070feadada8fa881f6ced083efde02b543cca53077f268fa8d7b6198f197477"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/首尾预览.html",
+      "bytes": 3144170,
+      "sha256": "f900f1312149f78d273193242a660040fea6efe9d1c0dd7e693ec008086ae587"
+    },
+    {
+      "path": "productions/house-002/production/speed-v15/首尾预览.png",
+      "bytes": 1334897,
+      "sha256": "98c7e02bd9dd359279cba28dd5baa782b4ecf6f33210fbe3c193c85f4ab90d64"
+    },
+    {
+      "path": "productions/house-002/production/take-original.webm",
+      "bytes": 17100609,
+      "sha256": "47ae0058748f8af93fdc0eb2b2c91a010ffb577df8ab47234106be8d9793aa84"
+    },
+    {
+      "path": "productions/house-002/production/take-source.mp4",
+      "bytes": 17057350,
+      "sha256": "869febe5558c83241e24f36dfa71aa82f7b8c41a23b229027d98cec33c81966f"
+    },
+    {
+      "path": "productions/house-002/production/take-telemetry.json",
+      "bytes": 178468,
+      "sha256": "88de79f858ab352e14aee33b1accb95c7ab066a7867c42f248e3c638145d1cfd"
+    },
+    {
+      "path": "productions/house-002/production/v14_29秒_配音字幕首尾_待指定BGM.mp4",
+      "bytes": 10885427,
+      "sha256": "7b2b54a8aff918a869532186483a670c0369acd6152b57462a4414471d0d24e5"
+    },
+    {
+      "path": "productions/house-002/production/voice-task.txt",
+      "bytes": 1426,
+      "sha256": "d3c7652b8c89f8a620d0ef34fe692c4450d4f012d8430fd9e56763e0e672c4e8"
+    },
+    {
+      "path": "productions/house-002/production/制作审看_v14_待指定BGM.html",
+      "bytes": 4675,
+      "sha256": "3c1d7f260aae6571698e3b5dcf122178c3b9cab1219201ef096fa867355e8f9b"
+    },
+    {
+      "path": "productions/house-002/production/成片审看_v14_喜剧之王.html",
+      "bytes": 4652,
+      "sha256": "a318b4dcc0f21d04ca62806be79b694ebb117b980c4a8aefb9a449d49f1efe09"
+    },
+    {
+      "path": "productions/house-002/production/招商愉樾_v14_喜剧之王_29秒.mp4",
+      "bytes": 11121671,
+      "sha256": "0f1167df1d7bde467e78c84f719e4746ce320b3c5e0b4c13316c91794525d743"
+    },
+    {
+      "path": "productions/house-002/record.json",
+      "bytes": 26294,
+      "sha256": "36b1bf03674a8d56ce53e6d798b568ddebb0d3492da8e3b8b77b60f267bfb40d"
+    },
+    {
+      "path": "productions/house-002/审核通过_v14.json",
+      "bytes": 1651,
+      "sha256": "47db771c83f6fd1da113ddcb881204f44f833eac169fe4e4670442bd8167e7e2"
+    },
+    {
+      "path": "productions/house-002/视频剧本_v14_30秒_正向离开阳台.html",
+      "bytes": 7562252,
+      "sha256": "8d62db2e4ef0723480d6a093b0c9eb3f4a97655067988f72af244349cedd2ebc"
+    },
+    {
+      "path": "productions/house-002/首尾预览.html",
+      "bytes": 3188781,
+      "sha256": "e5d22ab1150d17efefa592e4f4b9f30f478fe4b9eb0bf107e16bcbcaa099d4da"
+    },
+    {
+      "path": "productions/house-002/首尾预览.png",
+      "bytes": 476157,
+      "sha256": "7f6f8ffe69ad78787b3a35e42e2973de7321c98d8eb2364cb6c9fd0ff6ea7653"
+    },
+    {
+      "path": "references/80ec73e744919854660c92ce74f4a6c2.mp4",
+      "bytes": 6055714,
+      "sha256": "b8c5c8275afce5ebdb064850e701d4e6029d2813b458f9ea341e50350a3981cc"
+    }
+  ],
+  "total_bytes": 300571799,
+  "max_file_bytes": 17100609,
+  "all_bgm_originals_included": true,
+  "all_library_file_hashes_before_move": {
+    "index.html": "3a9023951e5c8dcdfa48e329ba834d48bf4c5a4d5817f3d63bbf06bb2924b248",
+    "catalog.json": "9b65228b13ff9e8025c6240f36c9bd8dcf1f1eaf7005eb2990d83b5287ecb79c",
+    "bgm/素材库说明.md": "c65a92a366ba7c16aaa684c2e71f1a47cca81f3c899930013d3f1eda3790b42b",
+    "bgm/原曲归档记录.json": "a77a1f9c86cbb1478913c2fc06a0092fe771f42dfc2ea8c1184153f4e39ffadc",
+    "bgm/原曲/海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》.ogg": "863d362af7171247044965036331b0cecba4817803fe75ede2def8383c16befe",
+    "bgm/原曲/DJ阿狸-天真的橡皮 (DJ版).mp3": "8d34694d30fefa499055b4c6eb9fdd4d525f5933336baae0ee26590a19f986e5",
+    "bgm/原曲/404Hz,DJ铁柱-RM进行曲(高燃进行曲).flac": "0226d654cfb3209f601179f31334f9cac72b1afee3adfe8ab872ef51972991bb",
+    "bgm/原曲/郭腾腾-喜剧之王 (剪辑版).ogg": "a42a04d32dbb7e3ee33d073f5257f59835cf39f08cafc89583e083a7942dae84",
+    "bgm/原曲/金6-气质出场 (DJ版).mp3": "716f3554b40569e5124dc7f01030d81a30d0ee1ce5d296ff5afac8a8b66cfa52",
+    "bgm/可用开头片段/试听索引.html": "c383d861d7730d94da5380840cd57aeb9fc3b0bfa1f07c27501184b4edd6c31b",
+    "bgm/可用开头片段/使用说明.md": "751e4e8997222c72dd83ccd66771d207121540ad73b806b4cb05f9f0ce860d9c",
+    "bgm/可用开头片段/清单.json": "3220b779f1b453a9fcfb4a0aafb33858708a7342f4f4ad0a033cdca0d1676339",
+    "bgm/可用开头片段/音频/05_金6-气质出场 (DJ版)_开头35秒.m4a": "29b631c7e857a77d91774b98a097b00727cc54d30c68bb33494c727b8549a732",
+    "bgm/可用开头片段/音频/02_DJ阿狸-天真的橡皮 (DJ版)_开头35秒.m4a": "f77838787d36f93fb70f208fbf191ccf43ce58d060afb7e5a884e0811c4ee7f8",
+    "bgm/可用开头片段/音频/01_404Hz,DJ铁柱-RM进行曲(高燃进行曲)_开头35秒.wav": "93355caf1eb929d15921c2f02a50fe6a10d2bc1da74fc10d220780213d5dc34b",
+    "bgm/可用开头片段/音频/01_404Hz,DJ铁柱-RM进行曲(高燃进行曲)_开头35秒.m4a": "cf99d064804a3c25bfe702a3273cdd9f644b75de12d3cc01c54981ab1deb6a35",
+    "bgm/可用开头片段/音频/05_金6-气质出场 (DJ版)_开头35秒.wav": "68781a8e8e2ac292a1f3deae5836088ce2c04ccb77133d7fd1cd66b17becc833",
+    "bgm/可用开头片段/音频/02_DJ阿狸-天真的橡皮 (DJ版)_开头35秒.wav": "78017903e99c869c2e5a1127d0ab3771b9108d66419523cc211c2ce521cc5b07",
+    "bgm/可用开头片段/音频/04_郭腾腾-喜剧之王 (剪辑版)_开头35秒.m4a": "953f063975a40b5ca26796824c7a6a7f4db430e84ce18b7a5c0016e74b2e62be",
+    "bgm/可用开头片段/音频/03_海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》_开头35秒.m4a": "a8ba021c623a57426a30c2664b87a0308340b141c885cf5ef4881f11ddb9b20d",
+    "bgm/可用开头片段/音频/04_郭腾腾-喜剧之王 (剪辑版)_开头35秒.wav": "3d451570e22bb5278694a0a8e62066a9b0eb4d72748954cd2658285f6108891d",
+    "bgm/可用开头片段/音频/03_海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》_开头35秒.wav": "7828099267538d7cfe2020bf1d2f7f7d040531219a667264217c5cab68e78c2c"
+  },
+  "credentials_included": false,
+  "catalog_excludes_self": true
+}

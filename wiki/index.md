@@ -4,30 +4,33 @@
 
 架构参考 WikiSkill（*Compiling Agent Experience into Persistent Knowledge for Skill Evolution*）：原始执行记录不可变地留在 `raw/`，经验被编译成 `wiki/patterns/` 下的独立条目，再由 `skills/` 引用。
 
+## 本轮使用复盘
+
+[CASE-20261016-004 · Skill实作、纠错与目录定版](cases/CASE-20261016-004-skill-production-finalization.md)：需求边界、问题/原因/处理、v14到v15速度实测、配音字幕、指定BGM、完整素材库、目录及验证证据。历史制作长日志继续保留，最新摘要以该案例及对应原始回执定位。
+
 ## 模式条目
 
 | ID | 标题 | 影响的 Skill 段落 | 状态 |
 |---|---|---|---|
-| [P001](patterns/P001-shot-ok-assembly-bad.md) | 单镜合格不等于成片合格 | 工作流第 0 步 · 脚本先审门 | active |
-| [P002](patterns/P002-subtitle-glyph-fallback.md) | 烧录字体缺字形导致整片不可用 | 第 B 步 10 · 后期 QC | active |
-| [P003](patterns/P003-music-bed-length-and-level.md) | 音乐候选短于成片，循环与响度策略 | 第 B 步 9 · 后期单 take | active |
+| [P001](patterns/P001-shot-ok-assembly-bad.md) | 单镜合格不等于成片合格 | 图文整包与完整交付 | active |
+| [P002](patterns/P002-subtitle-glyph-fallback.md) | 烧录字体缺字形导致整片不可用 | 字幕与字形检查 | active |
+| [P003](patterns/P003-music-bed-length-and-level.md) | 音乐候选短于成片，循环与响度策略 | 声音制作与来源/时长管理 | active |
 | [P004](patterns/P004-acceptance-does-not-unlock-next-stage.md) | 上一阶段接受不自动解锁下一阶段 | 触发边界 | active |
-| [P005](patterns/P005-narration-timeline-fit.md) | 配音时长与镜头时间轴错配 | 第 B 步 9 · 后期单 take | active |
-| [P006](patterns/P006-render-filter-capability-gap.md) | 渲染器缺少字幕滤镜时的替代路径 | 第 B 步 4 · 先测后写 | active |
+| [P005](patterns/P005-narration-timeline-fit.md) | 配音时长与镜头时间轴错配 | 声音制作与来源/时长管理 | active |
+| [P006](patterns/P006-render-filter-capability-gap.md) | 渲染器缺少字幕滤镜时的替代路径 | 当前工具能力与技术示范 | active |
 | [P007](patterns/P007-reference-subtitle-style.md) | 区分卖点字幕样式与完整口播覆盖 | 脚本包、后期时间轴与字幕 QC | active |
-| [P008](patterns/P008-vertical-fov-two-axis-focal-split.md) | 竖屏六面重投影的 FOV 约定：两轴必须分离焦距 | 第 B 步 4 · 先测后写 | active |
+| [P008](patterns/P008-vertical-fov-two-axis-focal-split.md) | 竖屏六面重投影的 FOV 约定：两轴必须分离焦距 | 当前工具能力与技术示范 | active |
+| [P009](patterns/P009-retiming-keeps-narration-and-script-aligned.md) | 画面提速后同步重排声音与完整剧本 | 路线运动、声音后期及同版图文交付 | active |
 
 ## 参考案例
 
 | ID | 实际流程 | 记录范围 |
 |---|---|---|
 | [CASE-20261013-001](cases/CASE-20261013-001-current-skill-production.md) | 3.1.0新房源选材/预检/问题/停止快照，追加3.2.0用户视觉范围更正 | 原历史保留，旧零伪影门槛不覆盖用户范围；完整视频未做，非出片成功案例 |
-
-| [CASE-20261013-002](cases/CASE-20261014-002-review-package.md) | 3.2.0全路线预检后的图文审核包复核与文案纠错 | 已有媒体复用；一次制作待拍前审核，非完整出片成功 |
-
+| [CASE-20261013-002](cases/CASE-20261014-002-review-package.md) | 3.2.0起的历史图文、制作及历次纠错长日志 | 各节保留当时状态；后续v15制作与当前摘要见CASE004，不再把页首拍前状态当作现状 |
 | [CASE-20261014-003](cases/CASE-20261014-003-design-system.md) | 设计系统v1.0四项交付、同源生成、正反验证及项目整理 | 已实现/测试；合成界面验证，不是房源生产或用户验收 |
-
 | [CASE-20261015-003](cases/CASE-20261015-003-constraint-audit.md) | 62类约束逐项量化、清理规则与执行检查 | 评分是工程判断；不执行视频 |
+| [CASE-20261016-004](cases/CASE-20261016-004-skill-production-finalization.md) | 本轮Skill使用至4.3.0定版及推送 | v15技术检查与用户回复、素材库和已知限制分别记录 |
 
 ## 配套
 

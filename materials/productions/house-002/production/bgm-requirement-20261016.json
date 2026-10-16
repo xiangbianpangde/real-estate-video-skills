@@ -1,0 +1,16 @@
+{
+  "source": "current direct user message",
+  "allowed_music": [
+    "喜剧之王（剪辑版）",
+    "天真的橡皮（DJ小辞）剪辑版",
+    "黑神话悟空 国潮",
+    "RM进行曲（高燃进行曲）",
+    "气质出场（DJ版）",
+    "阿衣莫（越南鼓FkHs）"
+  ],
+  "selection": "PENDING_EXACT_AUDIO_ASSET",
+  "previous_bgm": "REVOKED_BY_NEW_REQUIREMENT",
+  "local_filename_search": "no matching file found in Downloads/Music/Desktop/project local",
+  "pending": "user file path or downloadable source link",
+  "other_work": "continue audio alignment, captions and opening/ending packaging"
+}

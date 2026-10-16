@@ -1,0 +1,771 @@
+{
+  "schema": "vr-production-plan/v3",
+  "plan": {
+    "version": "v15 · 25.33秒 · 根据用户参考片调整推进节奏",
+    "path": "package/plan.md"
+  },
+  "scope": {
+    "execution_mode": "post_only",
+    "capture_medium": "panorama_navigation",
+    "source_namespace": "104121501123/jZwe3qrALx0M7dBG",
+    "render_method": "panorama_sdk_navigation",
+    "render_config": {
+      "renderer": "Five6.6.20 / Three r117",
+      "width": 720,
+      "height": 1280,
+      "dpr": 1,
+      "fov_axis": "vertical",
+      "fov_deg": 85.57,
+      "near": 0.08,
+      "far": 800
+    },
+    "validation_scope": "model_only",
+    "continuity_class": "cross_room_travel",
+    "duration_s": 25.333333,
+    "duration_tolerance_s": 1,
+    "output_dir": ".",
+    "authorized_actions": [
+      "voiceover",
+      "opening",
+      "ending",
+      "subtitles",
+      "bgm",
+      "encode",
+      "qc"
+    ],
+    "subtitle_content_mode": "verbatim_voiceover",
+    "subtitle_delivery": "burned_in",
+    "opening": "0–2.85秒：户型浮层与标题；约1.8秒开始向阳台移动，浮层随后淡出。",
+    "ending": "22.23–25.33秒：同一卧室背景，房况提示后留言。",
+    "bgm": "用户提供郭腾腾《喜剧之王（剪辑版）》OGG；取0–25.33秒，旁白让位与首尾淡化。",
+    "coverage": [
+      "客餐厅",
+      "阳台与真实窗景",
+      "卧室B"
+    ],
+    "route": "3→4→5→6→5→4→14→15",
+    "facts_and_rights": "归档建面88.73㎡、3室2厅；本片展示客厅、阳台真实窗景和卧室B，不拍卫生间。完整户型路线板仅用于剧本审核，不进入成片；不授权发布。",
+    "not_authorized": [
+      "倒退离开阳台",
+      "硬切/删除中间段/拼不同原件",
+      "拍摄卫生间",
+      "穿窗或合成外景",
+      "公开发布或新增未批准费用"
+    ],
+    "voiceover": "mcode当前可用自然普通话女声，优先沿用此前Warm_Girl；按完整语义句生成，依据实际音频对齐完整逐字字幕。音色及最终试听待核。",
+    "requested_actions": [
+      "voiceover",
+      "opening",
+      "ending",
+      "subtitles",
+      "bgm",
+      "encode",
+      "qc"
+    ],
+    "authorization_status": "USER_REQUESTED_SPEED_REVISION",
+    "subtitles_style": "白字粗黑描边、少量黄标、单行居中、无底框；逐字覆盖完整口播，依据最终音轨分cue；首尾标题不是字幕替代。",
+    "ending_cues": [
+      {
+        "order": 1,
+        "role": "disclaimer",
+        "text": "房况以现场为准"
+      },
+      {
+        "order": 2,
+        "role": "cta",
+        "text": "欢迎留言"
+      }
+    ],
+    "visual_criteria": "正向退出阳台；门口扫床窗；不怼墙；连续衔接；源过渡重影按实际动态审看。30秒为计划，不是已录成片时长。",
+    "route_space_ids": [
+      "living_dining",
+      "balcony",
+      "bedroom_b"
+    ],
+    "shot_constraints": {
+      "duration_range_s": [
+        25,
+        35
+      ],
+      "excluded_spaces": [
+        "bathroom"
+      ],
+      "avoid_wall_facing": true
+    },
+    "editing_policy": {
+      "single_take_required": true,
+      "allow_cuts": false,
+      "allow_remove_intervals": false,
+      "allow_speed_changes": true
+    }
+  },
+  "segments": [
+    {
+      "id": "S01",
+      "start_s": 0.0,
+      "end_s": 1.8,
+      "reference_image": "S01.png",
+      "action": "0–2.85秒：户型浮层与标题；约1.8秒开始向阳台移动，浮层随后淡出。",
+      "focus": "客厅与户型关系",
+      "text": "招商愉樾，三室两厅。",
+      "subtitle_text": "招商愉樾，三室两厅。",
+      "highlights": [],
+      "music": "用户提供郭腾腾《喜剧之王（剪辑版）》OGG；取0–25.33秒，旁白让位与首尾淡化。",
+      "risk": "源SDK跨点重影及门框变形仍保留，变速不消除投影问题；音色及房源名待人工核听。",
+      "visual": {
+        "role": "opening",
+        "title": "户型与客厅开场",
+        "layout": "opening_composite",
+        "motion": {
+          "kind": "static",
+          "label": "P3 · 室内背景＋户型浮层"
+        },
+        "risk_level": "limitation",
+        "headline_lines": [
+          "招商愉樾",
+          "建面88.73㎡ · 3室2厅"
+        ]
+      },
+      "space_ids": [
+        "living_dining"
+      ],
+      "framing_status": "subject"
+    },
+    {
+      "id": "S02",
+      "start_s": 1.8,
+      "end_s": 6.3,
+      "reference_image": "S02.png",
+      "action": "客厅→阳台保持连续正向推进；本章4.50秒，比v14的6.30秒更快。",
+      "focus": "客厅、阳台门洞与通道",
+      "text": "沿着客厅，走向相连的阳台。",
+      "subtitle_text": "沿着客厅，走向相连的阳台。",
+      "highlights": [],
+      "music": "用户提供郭腾腾《喜剧之王（剪辑版）》OGG；取0–25.33秒，旁白让位与首尾淡化。",
+      "risk": "源SDK跨点重影及门框变形仍保留，变速不消除投影问题；音色及房源名待人工核听。",
+      "visual": {
+        "role": "chapter",
+        "title": "客厅走向阳台",
+        "layout": "source_reference",
+        "motion": {
+          "kind": "travel",
+          "label": "P3 → P4 → P5 · 正向推进"
+        },
+        "risk_level": "limitation"
+      },
+      "space_ids": [
+        "living_dining",
+        "balcony"
+      ],
+      "framing_status": "subject"
+    },
+    {
+      "id": "S03",
+      "start_s": 6.3,
+      "end_s": 9.5,
+      "reference_image": "S03.png",
+      "action": "P5→P6到室内窗边，展示真实可见楼宇与道路，不穿窗、不补外景；停留段可适度加速。",
+      "focus": "室内窗框与真实窗外景象",
+      "text": "到窗边，看看真实外景。",
+      "subtitle_text": "到窗边，看看真实外景。",
+      "highlights": [],
+      "music": "用户提供郭腾腾《喜剧之王（剪辑版）》OGG；取0–25.33秒，旁白让位与首尾淡化。",
+      "risk": "源SDK跨点重影及门框变形仍保留，变速不消除投影问题；音色及房源名待人工核听。",
+      "visual": {
+        "role": "chapter",
+        "title": "窗边看真实外景",
+        "layout": "source_reference",
+        "motion": {
+          "kind": "travel",
+          "label": "P5 → P6 · 窗边向外看"
+        },
+        "risk_level": "limitation"
+      },
+      "space_ids": [
+        "balcony"
+      ],
+      "framing_status": "subject"
+    },
+    {
+      "id": "S04",
+      "start_s": 9.5,
+      "end_s": 12.128,
+      "reference_image": "S04.png",
+      "action": "保持P6位置，连续转向客厅门洞；转向完成、视线对准前进方向后才移动。转向不在柜面停住，不边看窗外边退行。",
+      "focus": "窗边→室内门洞的方向转换",
+      "text": "转过身，回到室内。",
+      "subtitle_text": "转过身，回到室内。",
+      "highlights": [],
+      "music": "用户提供郭腾腾《喜剧之王（剪辑版）》OGG；取0–25.33秒，旁白让位与首尾淡化。",
+      "risk": "源SDK跨点重影及门框变形仍保留，变速不消除投影问题；音色及房源名待人工核听。转向仍经过生活阳台柜台。",
+      "visual": {
+        "role": "chapter",
+        "title": "先转身，面向室内",
+        "layout": "source_reference",
+        "motion": {
+          "kind": "pan",
+          "label": "P6原地转向 · 先对准室内"
+        },
+        "risk_level": "pending"
+      },
+      "space_ids": [
+        "balcony"
+      ],
+      "framing_status": "pending"
+    },
+    {
+      "id": "S05",
+      "start_s": 12.128,
+      "end_s": 18.228,
+      "reference_image": "S05.png",
+      "action": "原地转向后正向回客厅→卧室B门口；本章6.10秒，比v14的8.28秒更快。",
+      "focus": "客厅门洞、通道与卧室B入口",
+      "text": "沿着室内通道，来到卧室B门口。",
+      "subtitle_text": "沿着室内通道，来到卧室B门口。",
+      "highlights": [],
+      "music": "用户提供郭腾腾《喜剧之王（剪辑版）》OGG；取0–25.33秒，旁白让位与首尾淡化。",
+      "risk": "源SDK跨点重影及门框变形仍保留，变速不消除投影问题；音色及房源名待人工核听。",
+      "visual": {
+        "role": "chapter",
+        "title": "正向回到卧室门口",
+        "layout": "source_reference",
+        "motion": {
+          "kind": "travel",
+          "label": "面向前进方向 · P6→P5→P4→P14→P15"
+        },
+        "risk_level": "pending"
+      },
+      "space_ids": [
+        "balcony",
+        "living_dining",
+        "bedroom_b"
+      ],
+      "framing_status": "pending"
+    },
+    {
+      "id": "S06",
+      "start_s": 18.228,
+      "end_s": 22.228,
+      "reference_image": "S06.png",
+      "action": "固定P15门口，不进入P16；从窗边缓慢扫向床铺，保留空间关系；此段保持自然原速。",
+      "focus": "卧室B窗边、床铺与房间关系",
+      "text": "站在门口，看看床铺与窗边。",
+      "subtitle_text": "站在门口，看看床铺与窗边。",
+      "highlights": [],
+      "music": "用户提供郭腾腾《喜剧之王（剪辑版）》OGG；取0–25.33秒，旁白让位与首尾淡化。",
+      "risk": "源SDK跨点重影及门框变形仍保留，变速不消除投影问题；音色及房源名待人工核听。",
+      "visual": {
+        "role": "chapter",
+        "title": "门口扫视床与窗",
+        "layout": "source_reference",
+        "motion": {
+          "kind": "pan",
+          "label": "P15定点 · 窗边 → 床铺"
+        },
+        "risk_level": "limitation"
+      },
+      "space_ids": [
+        "bedroom_b"
+      ],
+      "framing_status": "subject"
+    },
+    {
+      "id": "S07",
+      "start_s": 22.228,
+      "end_s": 25.333333,
+      "reference_image": "S07.png",
+      "action": "22.23–25.33秒：同一卧室背景，房况提示后留言。",
+      "focus": "室内背景与清晰留言入口",
+      "text": "房况以现场为准，欢迎留言。",
+      "subtitle_text": "房况以现场为准，欢迎留言。",
+      "highlights": [],
+      "music": "用户提供郭腾腾《喜剧之王（剪辑版）》OGG；取0–25.33秒，旁白让位与首尾淡化。",
+      "risk": "源SDK跨点重影及门框变形仍保留，变速不消除投影问题；音色及房源名待人工核听。",
+      "visual": {
+        "role": "ending",
+        "title": "卧室室内收束",
+        "layout": "ending_composite",
+        "motion": {
+          "kind": "static",
+          "label": "同镜头室内背景 · 轻收束"
+        },
+        "risk_level": "limitation",
+        "cta": "欢迎留言",
+        "disclaimer": "房况以现场为准"
+      },
+      "space_ids": [
+        "bedroom_b"
+      ],
+      "framing_status": "subject"
+    }
+  ],
+  "design_system": {
+    "id": "real-estate-storyboard",
+    "version": "1.1.0"
+  },
+  "review_route": {
+    "purpose": "script_review_only",
+    "included_in_video": false,
+    "floorplan": "floorplan.png",
+    "source_config": "/Users/xbpd/Downloads/房产资料/贝壳二手房房源完整资料库/武汉-104121501123-招商愉樾/04-完整VR素材/VR配置/defaultWork.json",
+    "source_config_sha256": "defc66325ebae240f85ebab0e9269284c170d04153c97230fc42eaa9e72d3aca",
+    "route": "3→4→5→6→5→4→14→15",
+    "floorplan_registration": {
+      "method": "manual_schematic_alignment",
+      "equations": [
+        "u=1440+140*x",
+        "v=365+140*z"
+      ],
+      "image_size": [
+        2400,
+        1800
+      ],
+      "status": "SCHEMATIC_NOT_SURVEYED",
+      "basis": "按原户型门洞、房间相对位置与SDK点位照片人工对齐；不是官方像素坐标变换或现场测绘"
+    },
+    "nodes": [
+      {
+        "pano_index": 0,
+        "sdk_position": [
+          0.0067200076,
+          0.001723994,
+          0.0015870612
+        ],
+        "floorplan_xy": [
+          1440.94,
+          365.22
+        ]
+      },
+      {
+        "pano_index": 1,
+        "sdk_position": [
+          -1.29489591,
+          -0.0086205464,
+          -0.0155613841
+        ],
+        "floorplan_xy": [
+          1258.71,
+          362.82
+        ]
+      },
+      {
+        "pano_index": 2,
+        "sdk_position": [
+          -2.1151575985,
+          -0.0249042295,
+          -0.0751810961
+        ],
+        "floorplan_xy": [
+          1143.88,
+          354.47
+        ]
+      },
+      {
+        "pano_index": 3,
+        "sdk_position": [
+          0.5102984489,
+          -0.003676625,
+          1.9879789965
+        ],
+        "floorplan_xy": [
+          1511.44,
+          643.32
+        ]
+      },
+      {
+        "pano_index": 4,
+        "sdk_position": [
+          0.6621633417,
+          -0.0096077569,
+          4.9982892575
+        ],
+        "floorplan_xy": [
+          1532.7,
+          1064.76
+        ]
+      },
+      {
+        "pano_index": 5,
+        "sdk_position": [
+          0.9761441169,
+          -0.0485612625,
+          6.3362522559
+        ],
+        "floorplan_xy": [
+          1576.66,
+          1252.08
+        ]
+      },
+      {
+        "pano_index": 6,
+        "sdk_position": [
+          1.1833745192,
+          -0.0521854806,
+          7.1508065821
+        ],
+        "floorplan_xy": [
+          1605.67,
+          1366.11
+        ]
+      },
+      {
+        "pano_index": 7,
+        "sdk_position": [
+          -1.9073620785,
+          -0.0280021209,
+          5.1708066606
+        ],
+        "floorplan_xy": [
+          1172.97,
+          1088.91
+        ]
+      },
+      {
+        "pano_index": 8,
+        "sdk_position": [
+          -1.7191787822,
+          -0.0388309747,
+          6.3312421572
+        ],
+        "floorplan_xy": [
+          1199.31,
+          1251.37
+        ]
+      },
+      {
+        "pano_index": 9,
+        "sdk_position": [
+          -1.5607180452,
+          -0.0437229646,
+          6.7056496322
+        ],
+        "floorplan_xy": [
+          1221.5,
+          1303.79
+        ]
+      },
+      {
+        "pano_index": 10,
+        "sdk_position": [
+          -2.329240278,
+          -0.0256664689,
+          3.9043336391
+        ],
+        "floorplan_xy": [
+          1113.91,
+          911.61
+        ]
+      },
+      {
+        "pano_index": 11,
+        "sdk_position": [
+          -2.3527469835,
+          -0.0309291342,
+          2.9554243258
+        ],
+        "floorplan_xy": [
+          1110.62,
+          778.76
+        ]
+      },
+      {
+        "pano_index": 12,
+        "sdk_position": [
+          -3.2521246383,
+          -0.0270908081,
+          3.788814839
+        ],
+        "floorplan_xy": [
+          984.7,
+          895.43
+        ]
+      },
+      {
+        "pano_index": 13,
+        "sdk_position": [
+          -3.7243944546,
+          -0.0323196103,
+          3.696296075
+        ],
+        "floorplan_xy": [
+          918.58,
+          882.48
+        ]
+      },
+      {
+        "pano_index": 14,
+        "sdk_position": [
+          -2.9073221018,
+          -0.0335236031,
+          5.0981438876
+        ],
+        "floorplan_xy": [
+          1032.97,
+          1078.74
+        ]
+      },
+      {
+        "pano_index": 15,
+        "sdk_position": [
+          -3.1657856024,
+          -0.0379865475,
+          6.19601897
+        ],
+        "floorplan_xy": [
+          996.79,
+          1232.44
+        ]
+      },
+      {
+        "pano_index": 16,
+        "sdk_position": [
+          -3.9537001088,
+          -0.0398134386,
+          6.2029737147
+        ],
+        "floorplan_xy": [
+          886.48,
+          1233.42
+        ]
+      }
+    ],
+    "chapters": [
+      {
+        "id": "S01",
+        "title": "户型与客厅开场",
+        "start_s": 0.0,
+        "end_s": 1.8,
+        "pano_indices": [
+          3
+        ],
+        "stop_pano": 3,
+        "motion_kind": "static"
+      },
+      {
+        "id": "S02",
+        "title": "客厅走向阳台",
+        "start_s": 1.8,
+        "end_s": 6.3,
+        "pano_indices": [
+          3,
+          4,
+          5
+        ],
+        "stop_pano": 5,
+        "motion_kind": "travel"
+      },
+      {
+        "id": "S03",
+        "title": "窗边看真实外景",
+        "start_s": 6.3,
+        "end_s": 9.5,
+        "pano_indices": [
+          5,
+          6
+        ],
+        "stop_pano": 6,
+        "motion_kind": "travel"
+      },
+      {
+        "id": "S04",
+        "title": "先转身，面向室内",
+        "start_s": 9.5,
+        "end_s": 12.128,
+        "pano_indices": [
+          6
+        ],
+        "stop_pano": 6,
+        "motion_kind": "pan"
+      },
+      {
+        "id": "S05",
+        "title": "正向回到卧室门口",
+        "start_s": 12.128,
+        "end_s": 18.228,
+        "pano_indices": [
+          6,
+          5,
+          4,
+          14,
+          15
+        ],
+        "stop_pano": 15,
+        "motion_kind": "travel"
+      },
+      {
+        "id": "S06",
+        "title": "门口扫视床与窗",
+        "start_s": 18.228,
+        "end_s": 22.228,
+        "pano_indices": [
+          15
+        ],
+        "stop_pano": 15,
+        "motion_kind": "pan"
+      },
+      {
+        "id": "S07",
+        "title": "卧室室内收束",
+        "start_s": 22.228,
+        "end_s": 25.333333,
+        "pano_indices": [
+          15
+        ],
+        "stop_pano": 15,
+        "motion_kind": "static"
+      }
+    ],
+    "caption": "沿用已拍完整连续路线；仅调整速度，按v15实际时码展示。虚线表示重复经过，不是倒退或切镜；路线图只用于审核。",
+    "view_box": [
+      680,
+      180,
+      1070,
+      1430
+    ],
+    "label_offsets": {
+      "3": [
+        35,
+        -25
+      ],
+      "4": [
+        35,
+        -25
+      ],
+      "5": [
+        -150,
+        -25
+      ],
+      "6": [
+        -170,
+        80
+      ],
+      "14": [
+        -110,
+        -20
+      ],
+      "15": [
+        -125,
+        -10
+      ]
+    },
+    "cuts": []
+  },
+  "board_content": {
+    "fact_caption": "归档建面88.73㎡ · 3室2厅；本片只展示客厅、阳台窗景、卧室B，不拍卫生间。",
+    "audio_caption": "复用mcode七句原始配音、重新落位与词级字幕；使用用户指定喜剧之王原音频。",
+    "limitations": "沿用同一30.498秒原件，保持全部源时间区间；SDK过渡重影、门框变形与转向柜台仍在。后期变速不冒充修复源画质；最终听感和节奏待用户验收。",
+    "changes": [
+      {
+        "title": "片头更早开始移动",
+        "text": "静止片头由3.01秒压到1.80秒；户型浮层可覆盖开始推进的画面，2.85秒退出。"
+      },
+      {
+        "title": "主要推进提速",
+        "text": "客厅至阳台6.30→4.50秒，回程8.28→6.10秒；两段分别约快40%和36%，相对于v14章节平均速度。"
+      },
+      {
+        "title": "速度平滑衔接",
+        "text": "用正导数连续时间映射覆盖完整原件，不硬切、不删中间段；展示外景、卧室门口扫视保留观看时间。"
+      },
+      {
+        "title": "声音与剧本同步",
+        "text": "25.33秒新成片同步配音落位、真实词级字幕、指定BGM、首尾及完整方案板；没有把旧字幕或音乐整轨加速。"
+      }
+    ]
+  },
+  "board_width": 2700,
+  "status": "POST_REVISION_PENDING_ACCEPTANCE",
+  "storyboard_title": "招商愉樾 · v15推进加快 · 同版完整图文剧本",
+  "assets": [
+    {
+      "path": "floorplan.png",
+      "origin": "actual_source",
+      "role": "reference",
+      "sha256": "87911a1c6c108445d15c96bc22db5ce7d4150cab9c4540e171aacb695c71771b"
+    },
+    {
+      "path": "S01.png",
+      "origin": "actual_source",
+      "role": "reference",
+      "sha256": "331d7837a06a7a70f8bdc99d7f7225cd125196f069e2b033a2ad5219e831969f",
+      "provenance": {
+        "source_media": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/take-source.mp4",
+        "source_time_s": 0.5,
+        "source_sha256": "869febe5558c83241e24f36dfa71aa82f7b8c41a23b229027d98cec33c81966f",
+        "use": "当前连续原件的真实画面参考"
+      }
+    },
+    {
+      "path": "S02.png",
+      "origin": "actual_source",
+      "role": "reference",
+      "sha256": "e6c6d63ef2b9925dcc37553c4712a96f81a1952bfd9e10307b6bc7d7a0423a25",
+      "provenance": {
+        "source_media": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/take-source.mp4",
+        "source_time_s": 6,
+        "source_sha256": "869febe5558c83241e24f36dfa71aa82f7b8c41a23b229027d98cec33c81966f",
+        "use": "当前连续原件的真实画面参考"
+      }
+    },
+    {
+      "path": "S03.png",
+      "origin": "actual_source",
+      "role": "reference",
+      "sha256": "e8b5558cabb38f9caae01d8dc562be3e2e8913ba93615b0d66db4b412c489368",
+      "provenance": {
+        "source_media": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/take-source.mp4",
+        "source_time_s": 11,
+        "source_sha256": "869febe5558c83241e24f36dfa71aa82f7b8c41a23b229027d98cec33c81966f",
+        "use": "当前连续原件的真实画面参考"
+      }
+    },
+    {
+      "path": "S04.png",
+      "origin": "actual_source",
+      "role": "reference",
+      "sha256": "f1f4e457bf276ddc02aa7ae974fb8aa2468b7c4b2341b153c53fc87a839dd876",
+      "provenance": {
+        "source_media": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/take-source.mp4",
+        "source_time_s": 14,
+        "source_sha256": "869febe5558c83241e24f36dfa71aa82f7b8c41a23b229027d98cec33c81966f",
+        "use": "当前连续原件的真实画面参考"
+      }
+    },
+    {
+      "path": "S05.png",
+      "origin": "actual_source",
+      "role": "reference",
+      "sha256": "473393057fb5c23423d556b7c3788e1110c3e2bf8e580bfdab4d2458d02d6f85",
+      "provenance": {
+        "source_media": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/take-source.mp4",
+        "source_time_s": 20.5,
+        "source_sha256": "869febe5558c83241e24f36dfa71aa82f7b8c41a23b229027d98cec33c81966f",
+        "use": "当前连续原件的真实画面参考"
+      }
+    },
+    {
+      "path": "S06.png",
+      "origin": "actual_source",
+      "role": "reference",
+      "sha256": "b4e6fc521461eb6a2ede099a7b3e0570f976060b318ce978599b10c4772fdfce",
+      "provenance": {
+        "source_media": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/take-source.mp4",
+        "source_time_s": 26,
+        "source_sha256": "869febe5558c83241e24f36dfa71aa82f7b8c41a23b229027d98cec33c81966f",
+        "use": "当前连续原件的真实画面参考"
+      }
+    },
+    {
+      "path": "S07.png",
+      "origin": "actual_source",
+      "role": "reference",
+      "sha256": "13f2be915019813690134fe227980a896ef7242af7003f10cf8d0fa163a3bd5f",
+      "provenance": {
+        "source_media": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/take-source.mp4",
+        "source_time_s": 29,
+        "source_sha256": "869febe5558c83241e24f36dfa71aa82f7b8c41a23b229027d98cec33c81966f",
+        "use": "当前连续原件的真实画面参考"
+      }
+    }
+  ]
+}

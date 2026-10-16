@@ -1,0 +1,71 @@
+{
+  "schema": "vr-voice-alignment/v1",
+  "audio_sha256": "76790df742168bc4e38492c5b612db7666675eeb54f951189c9a9790d22f071e",
+  "text": "房况以现场为准，欢迎留言。",
+  "independent_asr_text": "防曠以現場為準,歡迎留言",
+  "timing_origin": "Whisper-small cross-attention DTW forced alignment with independent no-prompt ASR; zero-duration tokens merged into adjacent timed word",
+  "words": [
+    {
+      "text": "房",
+      "start_s": 0.0,
+      "end_s": 0.42,
+      "probability": 0.0933837890625
+    },
+    {
+      "text": "况",
+      "start_s": 0.42,
+      "end_s": 0.62,
+      "probability": 0.08868408203125
+    },
+    {
+      "text": "以",
+      "start_s": 0.62,
+      "end_s": 0.92,
+      "probability": 0.79736328125
+    },
+    {
+      "text": "现",
+      "start_s": 0.92,
+      "end_s": 1.08,
+      "probability": 0.6982421875
+    },
+    {
+      "text": "场",
+      "start_s": 1.08,
+      "end_s": 1.28,
+      "probability": 0.99072265625
+    },
+    {
+      "text": "为",
+      "start_s": 1.28,
+      "end_s": 1.42,
+      "probability": 0.9921875
+    },
+    {
+      "text": "准，",
+      "start_s": 1.42,
+      "end_s": 1.66,
+      "probability": 0.99951171875
+    },
+    {
+      "text": "欢",
+      "start_s": 1.96,
+      "end_s": 2.12,
+      "probability": 0.876953125
+    },
+    {
+      "text": "迎",
+      "start_s": 2.12,
+      "end_s": 2.28,
+      "probability": 0.99951171875
+    },
+    {
+      "text": "留言。",
+      "start_s": 2.28,
+      "end_s": 2.5,
+      "probability": 0.99267578125
+    }
+  ],
+  "content_listening_verified": false,
+  "model_directory": "/private/tmp/v14-whisper-cache/models--mlx-community--whisper-small-mlx/snapshots/45f3915923c7a79a5a5b5a7d909d39aeb0e5630e"
+}

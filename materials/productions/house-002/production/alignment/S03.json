@@ -1,0 +1,59 @@
+{
+  "schema": "vr-voice-alignment/v1",
+  "audio_sha256": "8aa1d9ba5f86306de5697e12b076447a663a344fa4a73540f036f21cb99ed8a3",
+  "text": "到窗边，看看真实外景。",
+  "independent_asr_text": "到窗边看看真实外景",
+  "timing_origin": "Whisper-small cross-attention DTW forced alignment with independent no-prompt ASR; zero-duration tokens merged into adjacent timed word",
+  "words": [
+    {
+      "text": "到",
+      "start_s": 0.0,
+      "end_s": 0.34,
+      "probability": 0.98046875
+    },
+    {
+      "text": "窗",
+      "start_s": 0.34,
+      "end_s": 0.56,
+      "probability": 0.99658203125
+    },
+    {
+      "text": "边，",
+      "start_s": 0.56,
+      "end_s": 0.74,
+      "probability": 0.84423828125
+    },
+    {
+      "text": "看看",
+      "start_s": 1.04,
+      "end_s": 1.24,
+      "probability": 0.84716796875
+    },
+    {
+      "text": "真",
+      "start_s": 1.24,
+      "end_s": 1.46,
+      "probability": 0.98046875
+    },
+    {
+      "text": "实",
+      "start_s": 1.46,
+      "end_s": 1.66,
+      "probability": 0.98876953125
+    },
+    {
+      "text": "外",
+      "start_s": 1.66,
+      "end_s": 1.84,
+      "probability": 0.9794921875
+    },
+    {
+      "text": "景。",
+      "start_s": 1.84,
+      "end_s": 2.04,
+      "probability": 0.9921875
+    }
+  ],
+  "content_listening_verified": false,
+  "model_directory": "/private/tmp/v14-whisper-cache/models--mlx-community--whisper-small-mlx/snapshots/45f3915923c7a79a5a5b5a7d909d39aeb0e5630e"
+}

@@ -1,0 +1,13 @@
+{
+  "ended": true,
+  "currentTime": 29.266667,
+  "duration": 29.266667,
+  "mediaError": null,
+  "framesObserved": 877,
+  "maxMediaGap_s": 0.03333400000000353,
+  "unmutedPlayback": true,
+  "audioListeningVerified": false,
+  "images": true,
+  "overflow": false,
+  "note": "requestVideoFrameCallback attached at playback start; encoded stream has 878 frames, callback observed 877"
+}

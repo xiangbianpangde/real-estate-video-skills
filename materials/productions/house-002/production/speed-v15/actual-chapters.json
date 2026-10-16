@@ -1,0 +1,65 @@
+[
+  {
+    "id": "S01",
+    "start_s": 0.0,
+    "end_s": 1.8,
+    "source_start_s": 0.0,
+    "source_end_s": 3.006,
+    "old_duration_s": 3.006,
+    "new_duration_s": 1.8
+  },
+  {
+    "id": "S02",
+    "start_s": 1.8,
+    "end_s": 6.3,
+    "source_start_s": 3.006,
+    "source_end_s": 9.303,
+    "old_duration_s": 6.297000000000001,
+    "new_duration_s": 4.5
+  },
+  {
+    "id": "S03",
+    "start_s": 6.3,
+    "end_s": 9.5,
+    "source_start_s": 9.303,
+    "source_end_s": 12.155,
+    "old_duration_s": 2.5518,
+    "new_duration_s": 3.2
+  },
+  {
+    "id": "S04",
+    "start_s": 9.5,
+    "end_s": 12.128,
+    "source_start_s": 12.155,
+    "source_end_s": 14.783,
+    "old_duration_s": 2.628,
+    "new_duration_s": 2.628
+  },
+  {
+    "id": "S05",
+    "start_s": 12.128,
+    "end_s": 18.228,
+    "source_start_s": 14.783,
+    "source_end_s": 24.002,
+    "old_duration_s": 8.284543478260868,
+    "new_duration_s": 6.1
+  },
+  {
+    "id": "S06",
+    "start_s": 18.228,
+    "end_s": 22.228,
+    "source_start_s": 24.002,
+    "source_end_s": 27.516,
+    "old_duration_s": 3.5139999999999993,
+    "new_duration_s": 4
+  },
+  {
+    "id": "S07",
+    "start_s": 22.228,
+    "end_s": 25.333333,
+    "source_start_s": 27.516,
+    "source_end_s": 30.498,
+    "old_duration_s": 2.982000000000003,
+    "new_duration_s": 3.105333333333
+  }
+]

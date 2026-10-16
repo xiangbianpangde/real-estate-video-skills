@@ -1,67 +1,37 @@
-# Skill 影响表
+# Skill影响与验证索引
 
-记录每条 wiki 模式约束了 Skill 的哪一段，便于回归检查：改 Skill 时对照本表确认没有把某条经验改丢。
+本文按4.3.0实际入口整理模式与Skill的关系，只用于定位和追溯，不建立另一套门禁。行为以[Skill](../skills/vr-production-gates/SKILL.md)及其专项参考为准。旧段号/探索配额等历史映射可从提交`147a3ac`的本文件追溯；不作为当前约束。
 
-## 映射
+## 当前映射
 
-| 模式 | Skill 文件 | 段落 | 门禁编号 |
-|---|---|---|---|
-| P001 | `SKILL.md` | §2 图文脚本实际提交、§3 一次完整制作 | Script approval / Integrated execution |
-| P002 | `SKILL.md` | §4 实帧字形与后期QC | Subtitle burn-in |
-| P002 | `references/acceptance-matrix.md` | Subtitle burn-in 行 + 负向测试 | — |
-| P003 | `SKILL.md` | §3 获批后期资产/独立后期版本 | TTS/BGM/SFX assets / Post mix |
-| P004 | `SKILL.md` | 默认授权边界、§2版本批准、§4人工验收/发布分离 | Human acceptance |
-| P004 | `references/acceptance-matrix.md` | Required state split | — |
-| P005 | `SKILL.md` | §3最终音轨/字幕时间轴 | Post mix |
-| P006 | `SKILL.md` | §1 有限预检与渲染器基准回归 | Render / Preflight |
-| P007 | `SKILL.md` | §2真实源图卡、§3时间轴、§4首中尾结构/QC | Subtitle intent / coverage / style / burn-in |
-| P007 | `references/subtitle-style.md` | 完整口播与卖点压缩模式、首/中/尾角色、背景与标题/CTA授权边界、视觉版式、时间同步及拒收条件 | — |
-| P007 | `references/opening-ending-layout.md` | 2.5.0 首尾目标优先级、三层开场/室内尾镜、源时间与布局合同、结构与覆盖分项验收 | Opening/ending match |
-| P008 | `SKILL.md` / `references/continuous-take.md` | §1渲染基准回归、连续规范两轴FOV/SDK主相机控制 | Preflight / Continuity |
-| P001 / P006 | `references/continuous-take.md` / `scripts/check_shooting_plan.py` | 当前成像方法/源/配置/路线动态证据绑定；静态/loaded/回调不代替移动视觉PASS | Render-method precheck |
+| 模式 | 当前落点 | 需要核对的行为与边界 |
+|---|---|---|
+| [P001](patterns/P001-shot-ok-assembly-bad.md) · 完整交付 | [图文提交](../skills/vr-production-gates/references/illustrated-script.md)、[设计系统](../skills/vr-production-gates/design-system/SPEC.md) | 当前完整方案板、独立路线板、正文、动作与首尾实际交付；单镜/结构通过不等于整片接受 |
+| [P002](patterns/P002-subtitle-glyph-fallback.md) · 字形 | [字幕](../skills/vr-production-gates/references/subtitle-style.md) | 实际烧录字形可读，缺滤镜/字体时按当前环境处理 |
+| [P003](patterns/P003-music-bed-length-and-level.md) · 音乐来源与时长 | [声音制作](../skills/vr-production-gates/references/audio-production.md)、[素材位置](../skills/vr-production-gates/assets/README.md) | 指定版本优先；完整曲源与快捷片段分别保留；新长度从原曲重裁，最终混音另核 |
+| [P004](patterns/P004-acceptance-does-not-unlock-next-stage.md) · 授权/接受 | [Skill](../skills/vr-production-gates/SKILL.md)、[提交协议](../skills/vr-production-gates/references/illustrated-script.md) | 沿用实际已批准范围，技术检查、人审和发布分别记录；范围内纠错不逐层索权 |
+| [P005](patterns/P005-narration-timeline-fit.md) · 声音落位 | [声音制作](../skills/vr-production-gates/references/audio-production.md) | 实际音频/词时码、完整句与尾音；强制对齐不能认证发音正确 |
+| [P006](patterns/P006-render-filter-capability-gap.md) · 环境能力 | [技术示范](../skills/vr-production-gates/references/examples/technical-examples.md) | 核当前工具能力；替代实现实际产物检查，不把加载/模拟当成真实制作 |
+| [P007](patterns/P007-reference-subtitle-style.md) · 字幕与首尾 | [字幕](../skills/vr-production-gates/references/subtitle-style.md)、[首尾](../skills/vr-production-gates/references/opening-ending-layout.md) | 完整口播覆盖与卖点模式分开；用户所需首尾布局实际可见 |
+| [P008](patterns/P008-vertical-fov-two-axis-focal-split.md) · 成像/FOV | [连续技术](../skills/vr-production-gates/references/continuous-take.md) | 当前成像方法与配置核证；历史FOV/画质数值不是所有方法阈值 |
+| [P009](patterns/P009-retiming-keeps-narration-and-script-aligned.md) · 变速与衍生物 | [路线与运动](../skills/vr-production-gates/references/short-route-motion.md)、[图文提交](../skills/vr-production-gates/references/illustrated-script.md) | 连续完整源映射；重新落位原声/词字幕/BGM/首尾，同步当前完整剧本 |
 
-## 回归检查
+## 本轮实际使用、检查与限制
 
-修改 Skill 后逐条确认：
+详见[CASE004](cases/CASE-20261016-004-skill-production-finalization.md)；下表只索引证据，不再次判定事实。
 
-- [ ] P001：真实源图文脚本实际展示/一次完整制作仍在，逐镜仅用户明确要求
-- [ ] P002：后期 QC 仍要求字幕字形可读与抽帧目视
-- [ ] P003：BGM/SFX仍需记录来源、许可、SHA与响度；获批范围内不逐层索权
-- [ ] P004：完整制作批准可覆盖列明后期，但`technical_passed`、`ACCEPTED`和发布仍分开
-- [ ] P005：字幕末条仍要求不越界
-- [ ] P006：预检仍先于生成
-- [ ] P007：字幕仍保留单行居中、白字黑描边、少量标黄、无底框；标题卡独立；完整口播覆盖不得被卖点压缩误替代，内容模式与交付方式须入合同；首/尾结构必须分别对比，超范围先审脚本
-- [ ] P008：复用既有渲染器前仍须先跑已知被接受 take 的回归测试；竖屏重投影的 kx/ky 必须分离，不得用共用 k 的正方形视场
+| 使用/修改范围 | 已有证据 | 实际验证边界 |
+|---|---|---|
+| 同版图文、正向回程、门口扫视 | [v14剧本](../raw/R20261015-v14-forward-exit-script.json)、[4.1.1批准记录](../raw/R20261015-skill411-approval.json) | 剧本/批准与后续动态分别记录 |
+| 七句mcode、词时码与指定音乐 | [制作](../raw/R20261016-v14-production.json)、[指定音乐混音](../raw/R20261016-v14-final-mix.json) | 批量逐项核对/实际音轨/浏览器播放；专名听感不代签 |
+| 单源推进提速及声音同步 | [v15](../raw/R20261016-v15-speed-revision.json) | 全源单调映射、25.333秒、技术/浏览器检查；源SDK形变未消除 |
+| 完整原曲与开头片段 | [备料](../raw/R20261016-skill420-bgm-library.json)、[完整原曲](../raw/R20261016-bgm-full-originals.json) | 5首源SHA不变、10份衍生文件；版本差异/缺曲保留 |
+| Skill4.3.0目录 | [迁移与验证](../raw/R20261016-release-layout.json) | 147项回归、72项门禁、SDK离线/5组设计CLI及目标加载；全局无关重名/新模型触发边界另记 |
 
-- 图文脚本回归：真实源PNG/S-ID/动作/字幕/音乐/风险嵌入；路径-only/纯文字/版本漂移拒绝；检查器claim一次且并发失败关闭。
-- 探索回归：单问题最多两组对照、一次全路线预检、停止理由；不因小角度随机重跑全屋。
-- 当前成像回归：旧方法动态PASS不替当前源/路线；缺完整证据、控制失败、超出用户标准/未决或SHA漂移拒绝。用户参考内现象绑定依据/比较/披露后PASS_WITH_LIMITATIONS有效，不因重影自动FAIL。review/post_only分流保留，声明不当自动视觉认证。
-- 用户接受回归（3.2.0）：用户标准优先于Agent理想；参考实际效果有过渡伪影仍可作为范围，不自设零伪影/数值容忍阈值；已保存媒体按新标准另评，不改旧raw/FAIL、不重录或额外索同类许可。最终成片接受/发布分开。
-- 修复对象回归：修/验证Skill只改canonical和测试，不操作房源，不因视频输入缺口停规则任务；INVALID不自动追加take或预算。
+## 已删除约束不得从Wiki回流
 
-任一项丢失视为回归，不得发布新版本。
+4.0已审计的具体取舍见[约束审计](cases/CASE-20261015-003-constraint-audit.md)。不再用“局部最多两组”“全路线只准一次”“初始化失败永久消费授权”阻断修复；仅用户明确限制次数时生效。一镜到底约束连续源时间线，不是执行次数。
 
-### 2.7.0 连续镜头专项回归
+新的尝试按实际问题、进展和用户预算判断。无需为Wiki归纳增加审批或把本片角度、片长、响度、倍率强加未来任务。旧claim实现、历史许可和合成fixture不等于当前画面合格。
 
-- 默认一镜到底，但 MOV-006 不解锁 MOV-007；硬切例外不得宣称连续行走。
-- 跨房间先分模型内与现实核证：模型内缺轨迹/画面/穿模证据阻塞，缺现场测量不阻塞；现实分支另核尺度/眼高/净空。执行意向及旧许可不可替代所属分支证据。
-- 保留对象优先、有限预检、单变量对照和拍前/拍后双节点；局部冲突先报告、按实际优先级，不把旧逐段规则写成全局默认。
-- FOV回归不能只看编码；案例阈值、角度、时长和源面避让结论不推广。
-- P008 原文与既有未提交改动保留；新增规范采用有界描述，不将案例 MAE 或 down 面豁免写成全局安全认证。
-
-### 2.5.0 首尾专项回归
-
-- `reference_match` 不以资料卡获批代替匹配；目标截图优先于历史排版模板。
-- 新室内浮层重测主体 bbox，不继承旧卡片区域守卫；开场标题不套正文小字号。
-- 完整口播/免责声明冲突先交决策；CTA 不复制参考事实，生产仍需一次性许可。
-- 技术/首结构/尾结构/口播/人审分开，正文与音轨回归不省略。
-
-## 未被 Skill 吸收的经验
-
-已登记模式均有落点。本轮分色字形擦除、失效阈值、空缓冲音频检查等案例细节见 `skills/vr-production-gates/HANDOFF-history-through-3.4.0.md` 第8节；现有字形/回归/阻塞规则已约束其处置，但案例启发式和数值尚非通用门禁或新自动化。若后续要将具体检测算法固化为行为，应另做适用性回归与版本修订，不从本次摘要推断已实现。
-
-- 图文版式回归（3.3.0）：用户参考的顶部整片说明、横向章节图文卡、底部户型/调整/待审范围保持；真实原截图不充当排版卡。新v3绑定PNG/HTML/实际回读，旧v2只历史兼容；机器结构与实际视觉验证分开。
-
-- 图像语义（3.4.0）：动作SVG＋短说明、首镜真实背景/户型/标题布局预览及叙事标题独立填写；实际目视不由结构声明替代。
-
-- 设计系统v1.0（3.5.0）：以design-system/SPEC.md为设计规范权威位置；标准record经共享model/components/render生成两种输出，门禁继续管理来源与批准。
+公开SDK示范ISSUE039与源画面形变仍独立保留；文档整理不冒称已修复、模型触发已通过或人工已经试听。
