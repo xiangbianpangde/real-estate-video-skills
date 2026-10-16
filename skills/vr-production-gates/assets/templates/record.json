@@ -3,7 +3,7 @@
   "status": "DRAFT",
   "plan": {
     "version": "v1",
-    "path": "plan_v1.md",
+    "path": "剧本正文.md",
     "sha256": ""
   },
   "assets": [
@@ -62,7 +62,7 @@
       "origin": "actual_run"
     },
     {
-      "path": "storyboard.html",
+      "path": "视频剧本.html",
       "sha256": "",
       "role": "storyboard_source",
       "origin": "render_source"
@@ -171,12 +171,11 @@
     "storyboard_layout": {
       "kind": "overview_board",
       "board": "overview.png",
-      "source": "storyboard.html",
+      "source": "视频剧本.html",
       "review": "layout-review.json"
     },
     "review_route_layout": {
-      "board": "route-board.png",
-      "source": "route-board.html"
+      "source": "视频剧本.html#完整方案板"
     },
     "editing_policy": {
       "single_take_required": true,
@@ -188,7 +187,7 @@
   "exploration": {},
   "presentation": {
     "mode": "linked_document",
-    "document_path": "plan_v1.md",
+    "document_path": "视频剧本.html",
     "transcript_path": "review.jsonl",
     "transcript_sha256": "",
     "assistant_event_id": ""
@@ -201,7 +200,7 @@
   },
   "design_system": {
     "id": "real-estate-storyboard",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "review_route": {
     "purpose": "script_review_only",
@@ -210,6 +209,7 @@
     "route": "填写与scope.route相同的点位顺序",
     "nodes": [],
     "chapters": [],
-    "caption": "填写真实来源、人工对齐方法与未验证边界；模板不能批准或拍摄。"
+    "caption": "填写真实来源、人工对齐方法与未验证边界；模板不能批准或拍摄。",
+    "transitions": []
   }
 }

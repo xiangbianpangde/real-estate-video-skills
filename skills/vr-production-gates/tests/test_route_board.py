@@ -58,18 +58,19 @@ class RouteBoardTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Cut requires'):
             validate(self.record)
 
-    def test_route_board_is_independent_and_in_document(self):
+    def test_single_chinese_document_contains_full_route(self):
         result=self.invoke();self.assertEqual(result.returncode,0,result.stderr)
-        route=(self.root/'package/route-board.html').read_text();md=(self.root/'package/plan.md').read_text()
+        route=(self.root/'package/视频剧本.html').read_text();md=(self.root/'package/剧本正文.md').read_text()
+        self.assertEqual([p.name for p in (self.root/'package').glob('*.html')],['视频剧本.html'])
         self.assertIn('data-route-chapter="S01"',route);self.assertIn('data-route-chapter="S02"',route)
         self.assertIn('P0 → P1',route);self.assertIn('0.00–4.00秒',route);self.assertIn('主体收束',route)
-        self.assertIn('route-board.png',md);self.assertIn('一、完整方案板',md);self.assertIn('户型运镜路线图',md)
+        self.assertIn('视频剧本.html',md);self.assertIn('一、完整方案板',md);self.assertIn('户型运镜路线图',md)
     def test_bound_first_last_preview_preserved(self):
         (self.root/'preview.png').write_bytes((self.root/'source.png').read_bytes())
         from run import sha
         self.record['assets'].append({'path':'preview.png','sha256':sha(self.root/'preview.png'),'role':'design_preview','origin':'rendered_board'})
         result=self.invoke();self.assertEqual(result.returncode,0,result.stderr)
-        md=(self.root/'package/plan.md').read_text();self.assertIn('首尾层次与字幕顺序',md);self.assertIn('../preview.png',md)
+        md=(self.root/'package/剧本正文.md').read_text();self.assertIn('首尾层次与字幕顺序',md);self.assertIn('../preview.png',md)
 
     def test_missing_route_rejected(self):
         self.record.pop('review_route');result=self.invoke();self.assertNotEqual(result.returncode,0);self.assertIn('Complete review route required',result.stderr)
@@ -85,6 +86,26 @@ class RouteBoardTests(unittest.TestCase):
         self.record['scope']['route']='0';self.record['review_route']['route']='0'
         self.record['review_route']['chapters'][1].update(pano_indices=[0],stop_pano=0)
         result=self.invoke();self.assertEqual(result.returncode,0,result.stderr)
-        route=(self.root/'package/route-board.html').read_text();self.assertIn('S01 / S02',route)
+        route=(self.root/'package/视频剧本.html').read_text();self.assertIn('S01 / S02',route)
 
 if __name__=='__main__':unittest.main()
+
+class ContinuousPlanTests(unittest.TestCase):
+    def setUp(self):
+        self.fixture=RouteBoardTests();self.fixture.setUp()
+        self.record=self.fixture.record
+        self.record['fixture']=False
+        self.record['design_system']['version']='1.2.0'
+        self.fixture.editing_policy()
+    def tearDown(self):self.fixture.tearDown()
+    def test_real_single_take_without_connected_motion_plan_rejected(self):
+        from storyboard.model import validate
+        with self.assertRaisesRegex(ValueError,'Connected motion'):
+            validate(self.record)
+    def test_connected_motion_plan_can_be_pending_dynamic_review(self):
+        from storyboard.model import validate
+        self.record['review_route']['transitions']=[{'from_pano':0,'to_pano':1,'movement':'forward','view':'先转向门口再正向移动','duration_s':2}]
+        validate(self.record)
+        self.record['review_route']['transitions'][0]['movement']='backward'
+        with self.assertRaisesRegex(ValueError,'Forward'):
+            validate(self.record)

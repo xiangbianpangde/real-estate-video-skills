@@ -1,23 +1,21 @@
 # 当前项目交接
 
-这是本仓库唯一当前交接。通用执行入口为[Skill](skills/vr-production-gates/SKILL.md)，知识入口为[Wiki](wiki/index.md)，旧交接见[归档](wiki/archive/handoffs/index.md)。本页导航当前状态，不复制制作规则。
+这是本仓库唯一当前交接。执行入口为[Skill](skills/vr-production-gates/SKILL.md)，知识入口为[Wiki](wiki/index.md)，旧交接见[归档](wiki/archive/handoffs/index.md)。
 
-## 当前状态与入口
+## 当前状态
 
-- 本轮按用户确认的计划整理为4.4.0结构：项目HANDOFF移出Skill，历史交接归档；设计规范与设计资产分别放入references和assets，脚本/测试引用同步。目录与文档整理已完成：Pi严格0错误/警告，147项回归、72项门禁、SDK离线检查、5组设计CLI及独立Skill复制生成通过；140份素材及清单SHA不变。用户已授权提交推送，实际提交及远端状态以Git记录为准。
-- 已推送基线为`48087e7368276b46e042907fa78ba6582e5001ca`，包含Wiki及141个实际素材文件。完整BGM实体位于materials/library/bgm，local/material-library及Downloads/BGM为兼容入口。
-- 当前房源交付为[完整v15成片与剧本](materials/productions/house-002/production/speed-v15/成片与完整剧本_v15_推进加快.html)，25.333秒。用户回复“可以”后进入整理；不据此代签专名/字母B人工核听或其他未提供的接受。
-- 素材包见[materials总入口](materials/index.html)：5首完整原曲、10份35秒片段及房源原件/配音/剧本/成片。35秒不是后续上限；DJ阿狸与DJ小辞版本区别、缺黑神话记录仍保留。
+- Skill已修订至4.5.0：固定贝壳01–06资料适配、正式户型候选实际查看、短片内容取舍、新计划逐边正向运动、单一中文HTML整合方案板和详细正文。4.4.0目录结构继续沿用。
+- 已运行152项Python回归、72项门禁及5组设计CLI；Pi严格校验0错误/警告，实际DefaultResourceLoader连续两次加载目标唯一且0诊断。初次系统Python缺PIL、Pi自动定位失败，分别改用已有依赖运行时及显式安装包路径；没有安装或修改全局工具。
+- 当前已推送Git基线为0d14b10（作者邮箱归属已修正）；本次4.5.0尚未提交或推送。旧文档中的提交SHA是历史标识，历史备份仍保留。
+- 当前新房源外部项目的v2草案使用正确彩色户型，5章/30秒，聚焦客餐厅—窗边真实外景—转身正向回客厅；来源清单和唯一中文审核页已生成。未录制、未生成声音、未进行完整页面目视或新路线动态验证，不代签用户批准。
 
-## 已知限制
+## 既有制作与素材
 
-源SDK跨点重影/门框变形、转向柜台和公开SDK示范ISSUE039仍独立保留；速度接受不等于形变消除。当前完整复盘见[CASE004](wiki/cases/CASE-20261016-004-skill-production-finalization.md)，问题与后续证据见[台账](wiki/issues.md)。
+- 原v15成片与完整剧本继续位于[既有交付](materials/productions/house-002/production/speed-v15/成片与完整剧本_v15_推进加快.html)，25.333秒；本轮没有修改原音视频、已批准快照或素材实体。
+- 素材入口为[materials](materials/index.html)：完整BGM、35秒快捷片段和既有房源制作资料。35秒不是未来时长上限；DJ阿狸/DJ小辞差别与缺黑神话记录仍保留。
+- 原SDK跨点重影、门框变形及公开SDK示范ISSUE039仍独立保留；目录/规范修复不代表原画质和人工实听已经接受。
 
-本轮只整理目录、文档和路径调用，不重拍、不生成声音、不移动或改写音视频、原始回执或批准快照。其他全局Office/Morph Skill重名不在本仓库修复范围。
+## 证据与下一步
 
-## 本轮证据及后续
-
-- 迁移前工作区干净，回滚基线为48087e7；本地迁移前文本位于local/validation/structure-4.4.0/before。失败时按迁移清单原路恢复，只恢复本次改动，不reset或清除无关工作。
-- 本轮迁移与最终检查写入raw/R20261016-skill44-structure.json；历史raw不修改。
-- 结构检查的6组正反场景通过，48份Markdown/16处图片引用无断链；目标Skill连续加载两次零诊断。浏览器回读受已有配置占用及file://URL策略限制，本轮未完成页面目视检查，未绕过策略。
-- 本轮目录整理已交付，用户已明确要求提交推送；完成后按后续任务继续，不将该指令扩展为新制作或发布许可。
+- 本轮修订与检查见[原始回执](raw/R20261016-skill45-material-adaptation.json)，问题见[ISSUE042](wiki/issues.md#issue-20261016-042)。本机日志保留于local/validation/skill-4.5.0。
+- 新页面完整目视与候选路线动态仍待验证；先核本次新草案，不沿用旧版批准启动制作。新模型触发测试未运行，加载成功不代表真实任务触发已验证。

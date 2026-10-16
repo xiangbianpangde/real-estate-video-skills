@@ -17,8 +17,7 @@ def render_html(record, images, floorplan):
     count = len(record['segments'])
     width = record.get('board_width', min(2880,max(1280,count*330+96)))
     if type(width) is not int or width <= 0: raise ValueError('Board width must be a positive integer')
-    columns = min(count,tokens['layout']['max_columns'],max(1,(width-2*tokens['space']['page'])//tokens['layout']['card_min_width']))
-    css.extend([f'--board-width:{width}px;',f'--columns:{columns};'])
+    css.extend([f'--board-width:{width}px;'])
     scope, content = record['scope'], record.get('board_content',{})
     fixture = record.get('fixture') is True
     title = record.get('storyboard_title','房源介绍 · 拍前图文方案')
@@ -33,12 +32,12 @@ def render_html(record, images, floorplan):
     shape = scope.get('render_config',{})
     workflow = '整包审核 → 复用原件完成后期 → 按S-ID审成片' if scope.get('execution_mode')=='post_only' else '整包审核 → 完成采集与后期 → 按S-ID审成片'
     return f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>{esc(title)}</title>
-<style>:root{{{''.join(css)}}}{(DESIGN/'styles.css').read_text()}{ROUTE_CSS}</style><main id="board">
+<meta name="viewport" content="width=device-width, initial-scale=1"><style>:root{{{''.join(css)}}}{(DESIGN/'styles.css').read_text()}{ROUTE_CSS}</style><main id="board">
 <header><div class="eyebrow">{esc(scope['source_namespace'])} · {esc(record['plan']['version'])} · {esc(record.get('status','DRAFT'))}</div><h1>{esc(title)}</h1>
 <p>{' → '.join(esc(s['visual']['title']) for s in record['segments'])}</p>
 <div class="notice">约{scope['duration_s']:.1f}秒 · {esc(shape.get('width','待定'))}×{esc(shape.get('height','待定'))} · {esc(scope['render_method'])}</div>
 <p class="status">{'全部为虚构测试素材，不是房源脚本，不授权采集。' if fixture else '真实源参考、动作示意与布局预览分别标注；本图不表示已完成视频或用户已接受。'}</p></header>
-{route_view}<section class="cards">{cards}</section><section class="lower"><div class="panel"><h3>户型：整体布局参考</h3><img class="floorplan" src="{image(images[str(floorplan)])}" alt="{'合成测试户型' if fixture else '当前房源户型原图'}"><p>{esc(content.get('fact_caption','事实详见同版来源及合同'))}</p><p class="caption">{'合成测试素材' if fixture else '保留原图比例；不作为现实路径测绘'}</p></div>
+{route_view}<h2 id="详细剧本">详细图文剧本</h2><section class="cards">{cards}</section><section class="lower"><div class="panel"><h3>户型：整体布局参考</h3><img class="floorplan" src="{image(images[str(floorplan)])}" alt="{'合成测试户型' if fixture else '当前房源户型原图'}"><p>{esc(content.get('fact_caption','事实详见同版来源及合同'))}</p><p class="caption">{'合成测试素材' if fixture else '保留原图比例；不作为现实路径测绘'}</p></div>
 <div class="panel"><h3>整片设计与审核范围</h3>{changes}
 <div class="note"><b>首尾设计</b><p>{esc(scope['opening'])}</p><p>{esc(scope['ending'])}</p></div>
 <div class="note"><b>声音与字幕</b><p>{esc(scope.get('voiceover','按当前口播合同'))}</p><p>{esc(scope.get('bgm','无配乐'))}</p><p>{esc(subtitle_mode)} / {esc(subtitle_delivery)}</p></div>
@@ -50,7 +49,7 @@ def render_markdown(record, floorplan):
     s = record['scope']
     lines = [f'# {record.get("storyboard_title","图文拍摄脚本")} · {record["plan"]["version"]}', '',
              f'状态：{record.get("status","DRAFT")}；方案板与本正文由同一record.json生成。', '',
-             '![整体方案板](overview.png)', '', '## 制作范围', '',
+             '[完整图文剧本与方案板](视频剧本.html)', '', '## 制作范围', '',
              f'- 房源：{s["source_namespace"]}；方法：{s["render_method"]}；范围：{s.get("validation_scope","未声明")}。',
              f'- 时长：{s["duration_s"]}秒；配置：{json.dumps(s.get("render_config",{}),ensure_ascii=False)}。']
     for key in ['opening','ending','bgm','route','facts_and_rights']:
@@ -82,7 +81,7 @@ def render_markdown(record, floorplan):
     if record.get('review_route'):
         lines.insert(4,'## 一、完整方案板\n')
         pos=lines.index('## 制作范围')
-        lines[pos:pos]=['## 二、详细视频剧本','','## 户型运镜路线图（仅用于剧本审核）','','![完整路线方案板：逐章时码、动作与路径](route-board.png)','',record['review_route']['caption'],'']
+        lines[pos:pos]=['## 二、详细视频剧本','','## 户型运镜路线图（仅用于剧本审核）','','[完整路线方案板：逐章时码、动作与路径](视频剧本.html#完整方案板)','',record['review_route']['caption'],'']
     previews=[a for a in record.get('assets',[]) if a.get('role')=='design_preview' and a.get('path','').endswith('.png')]
     if previews:
         pos=lines.index('## 制作范围')

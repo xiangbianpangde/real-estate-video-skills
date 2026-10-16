@@ -1,0 +1,77 @@
+{
+  "schema": "skill-material-adaptation/v1",
+  "version": "4.5.0",
+  "base_commit": "0d14b10ae86c56cbebd0c16a9375f103fee3b9ab",
+  "scope": "fixed Beike library adapter, single Chinese storyboard, continuous motion planning; external v2 draft regeneration",
+  "changed_files": {
+    "HANDOFF.md": "eb9bd73ac900c518d95bfeab701cee4825f9b36e5d877237307683a28be05ac3",
+    "skills/vr-production-gates/CHANGELOG.md": "42da6e896215df238676558b4f520630d946e680c6e54b39a731e8ac7a83b437",
+    "skills/vr-production-gates/SKILL.md": "ed701bdd3a30270bad28adad483ce6376080c2bf62993b61ed3ccddd0b7e2ce1",
+    "skills/vr-production-gates/assets/design-system/schema.json": "9fdeaec645db5d2d2c35037f2b1d9f6240dfcd023616ded0e7f71e3545f3ead6",
+    "skills/vr-production-gates/assets/design-system/styles.css": "e2657f78fc8fee4441c6653a94ffaaf5724348c316daa2da17e02bfe22125679",
+    "skills/vr-production-gates/assets/templates/record.json": "5458ed0a6e033ee6b760b1e96ca489a939b941b9e81e8c075300a27ae5561a17",
+    "skills/vr-production-gates/references/design-system.md": "5ab52e2708d93479e5e43a2f6964b010186256f5ee9a37d1cb38aa3b85429c7b",
+    "skills/vr-production-gates/references/short-route-motion.md": "a2a6f13a676c56140eaa8093aa64ed4959e875daa8915f7b5d4008046590c29b",
+    "skills/vr-production-gates/scripts/build_script_package.py": "a1bb2ab4fc7c3754548b142458e516b5f9f9c9dbcff960ee6f93eab763915f3d",
+    "skills/vr-production-gates/scripts/storyboard/model.py": "6fa5d0a00a443edc016207d8d4fd98ff80a12073a761efd94adbb625113a7994",
+    "skills/vr-production-gates/scripts/storyboard/render.py": "a42c16d18b8a0dae5a10b35da3103aa19d550b41f782ccccfe054ae4b07164d9",
+    "skills/vr-production-gates/scripts/storyboard/route_board.py": "30e779b9c40199f916183b7f710689b79dcac7086b84c9579c60c5a20f778498",
+    "skills/vr-production-gates/tests/test_route_board.py": "c0feefd87522d037afe849175563866399f496eef76f341370347281742b21e9",
+    "tools/verify_design_system.py": "c03ee6e485b05bf48e64b42405d709c545bbfb1853e523f4183c241ad9b578b8",
+    "wiki/index.md": "93ef8d1b56a8946376067f861c1b5ec17abd43e42181e9d654cac4c93bb72768",
+    "wiki/issues.md": "e1413909c7706f6faa89c0db8779ba692541774e99aea9933c244117f72587d5",
+    "wiki/logs.md": "6d43fe914de8f0f94696a7b822333c714763f059cd9d3babf646fdf3a2304a96",
+    "wiki/skill-impact.md": "1663c75aba65b79d558c4394eeffbcf3c680a6bf1676e3e366c926152b06c52f",
+    "skills/vr-production-gates/scripts/inspect_listing_materials.py": "40d57c8f43d8ebbb16125a4389890db0e1c0854a81a53f54df9b495ef9fe0a2c",
+    "skills/vr-production-gates/references/listing-materials.md": "ed25b00e7a8dc63365232bc80877f3536c087a4a7426388c12477f994b49a565",
+    "skills/vr-production-gates/tests/test_material_sources.py": "8871ba76791be40196dc61a460f7f7026974ac337a1f167abefb751996cdc2ce",
+    "skills/vr-production-gates/references/acceptance-matrix.md": "25ce02b989dd70f8f08f2dd371d04608d10e45fd3502e5f9081b8fef20856e6c",
+    "skills/vr-production-gates/references/illustrated-script.md": "6119187c3632ba659116d8bddc379335e1d83bd6cdc1e6943775d075684b1c38"
+  },
+  "validation": {
+    "python_tests": 152,
+    "gate_tests": 72,
+    "design_cli_cases": 5,
+    "strict_errors": 0,
+    "strict_warnings": 0,
+    "loader": {
+      "count": 52,
+      "diagnostics": 0,
+      "reloads": 2
+    },
+    "evidence_dir": "local/validation/skill-4.5.0",
+    "evidence_hashes": {
+      "local/validation/skill-4.5.0/design-cli.json": "56ec160d3c13915df37bce4b3e77ff868eda4bfa74e02f5e02875322f9b2d409",
+      "local/validation/skill-4.5.0/strict.log": "c62de7548588c739d83ec5cceb0f41f9cc22c6b33cb9165966353513cc7a1d96",
+      "local/validation/skill-4.5.0/current-package.json": "67ed3d3a1a63926f13fb6b445a5aa00f554972c114654b54d5504bf409935d35",
+      "local/validation/skill-4.5.0/design-cli.log": "56ec160d3c13915df37bce4b3e77ff868eda4bfa74e02f5e02875322f9b2d409",
+      "local/validation/skill-4.5.0/sample-materials.json": "6175bd36f2f686c1630b7b2f7bd6343f4085034297f25e7be96f76b040ceb65e",
+      "local/validation/skill-4.5.0/gates.log": "31d06ab358e532edea8593417bcd2d21cb753fdeb7c158ff4fadb83dd0d9516c",
+      "local/validation/skill-4.5.0/current-materials.json": "3ac7e6ec027dc5672d5088e8d513f12eac5b3ccebb1a22172f6f5ad58302db12",
+      "local/validation/skill-4.5.0/loader.json": "a07d18ac3e10843d93ee4bdfbc81a8f09f014ef899eda2e01b1b02d95228bc53",
+      "local/validation/skill-4.5.0/tests.log": "6ee2ca2ef6e6d424ead8b1286cea0127b674b528d19438edcb20a713b66123ac"
+    }
+  },
+  "unverified": [
+    "fresh model triggers",
+    "new HTML full visual review",
+    "new route continuous motion and smoothness"
+  ],
+  "sources": {
+    "library_examples": 2,
+    "source_files_modified": false,
+    "floorplan_name_is_not_type": true
+  },
+  "external_package": {
+    "path": "/Users/xbpd/Projects/越秀汉阳星汇云锦-视频/v2/generated/视频剧本.html",
+    "record_sha256": "84efd06b3ca83df2f02dfe39c4bfa2d90da9dc8acf92b1a80a1dc21bd99f6d94",
+    "duration_s": 30,
+    "chapters": 5,
+    "status": "DRAFT",
+    "full_route_dynamic": "PENDING",
+    "capture_authorized": false
+  },
+  "no_new_capture": true,
+  "no_new_audio": true,
+  "no_push": true
+}

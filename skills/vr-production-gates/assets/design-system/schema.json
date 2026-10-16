@@ -27,7 +27,8 @@
         "version": {
           "enum": [
             "1.0.0",
-            "1.1.0"
+            "1.1.0",
+            "1.2.0"
           ]
         }
       }
@@ -535,6 +536,41 @@
               }
             }
           }
+        },
+        "transitions": {
+          "type": "array",
+          "description": "逐边正向运动计划；字段不证明动态画面通过",
+          "items": {
+            "type": "object",
+            "required": [
+              "from_pano",
+              "to_pano",
+              "movement",
+              "view",
+              "duration_s"
+            ],
+            "properties": {
+              "from_pano": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "to_pano": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "movement": {
+                "const": "forward"
+              },
+              "view": {
+                "type": "string",
+                "minLength": 1
+              },
+              "duration_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          }
         }
       }
     }
@@ -546,7 +582,10 @@
           "design_system": {
             "properties": {
               "version": {
-                "const": "1.1.0"
+                "enum": [
+                  "1.1.0",
+                  "1.2.0"
+                ]
               }
             }
           }

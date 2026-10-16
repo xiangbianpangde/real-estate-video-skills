@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One record -> board HTML + detailed Markdown + content digest receipt.
+"""One record -> one Chinese HTML with route/detail + supporting Markdown/receipt.
 Creates a new output directory. Does not export PNG or assert visual acceptance.
 """
 import argparse
@@ -14,8 +14,6 @@ def build_package(record_path, output_dir, floorplan):
     record_path=Path(record_path).resolve()
     record,images=load(record_path,floorplan)
     html=render_html(record,images,floorplan)
-    from storyboard.route_board import route_document
-    route_html=route_document(record,images,floorplan) if record.get("review_route") else None
     # Rebase file references for the new output directory, rather than duplicating data.
     output_dir=Path(output_dir).resolve()
     import copy
@@ -38,11 +36,9 @@ def build_package(record_path, output_dir, floorplan):
              'board_html_sha256':hashlib.sha256(html.encode()).hexdigest(),'script_markdown_sha256':hashlib.sha256(md.encode()).hexdigest(),
              'segments':[s['id'] for s in record['segments']],'visual_review':'PENDING','capture_authorized':False}
     output_dir.mkdir(parents=True,exist_ok=False)
-    (output_dir/'storyboard.html').write_text(html)
-    (output_dir/'plan.md').write_text(md)
-    if route_html is not None:
-        (output_dir/'route-board.html').write_text(route_html)
-        receipt['route_board_html_sha256']=hashlib.sha256(route_html.encode()).hexdigest()
+    (output_dir/'视频剧本.html').write_text(html, encoding='utf-8')
+    (output_dir/'剧本正文.md').write_text(md, encoding='utf-8')
+    receipt['document']='视频剧本.html'
     (output_dir/'generation.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
     return receipt
 

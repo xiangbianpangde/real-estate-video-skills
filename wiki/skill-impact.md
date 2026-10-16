@@ -1,14 +1,16 @@
 # Skill影响与验证索引
 
-本文按4.4.0实际入口整理模式与Skill的关系，只用于定位和追溯，不建立另一套门禁。行为以[Skill](../skills/vr-production-gates/SKILL.md)及其专项参考为准，当前项目状态见[根HANDOFF](../HANDOFF.md)。旧段号/探索配额等历史映射可从提交`147a3ac`的本文件追溯；不作为当前约束。
+本文按4.5.0实际入口整理模式与Skill的关系，只用于定位和追溯，不建立另一套门禁。行为以[Skill](../skills/vr-production-gates/SKILL.md)及其专项参考为准，当前项目状态见[根HANDOFF](../HANDOFF.md)。旧段号/探索配额等历史映射可从提交`147a3ac`的本文件追溯；不作为当前约束。
 
 设计系统规范现位于[references/design-system.md](../skills/vr-production-gates/references/design-system.md)，tokens、CSS、schema与示例位于[assets/design-system](../skills/vr-production-gates/assets/design-system/examples/README.md)；测试与CHANGELOG仍在Skill包根。旧交接集中在[历史归档](archive/handoffs/index.md)，不再作为Skill包的执行入口。
 
 ## 当前映射
 
+4.5.0增加[固定资料适配](../skills/vr-production-gates/references/listing-materials.md)：01–06目录、身份核对、实际选图、短片取舍；新计划使用设计系统1.2逐边运动。历史1.0/1.1快照保留。
+
 | 模式 | 当前落点 | 需要核对的行为与边界 |
 |---|---|---|
-| [P001](patterns/P001-shot-ok-assembly-bad.md) · 完整交付 | [图文提交](../skills/vr-production-gates/references/illustrated-script.md)、[设计系统](../skills/vr-production-gates/references/design-system.md) | 当前完整方案板、独立路线板、正文、动作与首尾实际交付；单镜/结构通过不等于整片接受 |
+| [P001](patterns/P001-shot-ok-assembly-bad.md) · 完整交付 | [图文提交](../skills/vr-production-gates/references/illustrated-script.md)、[设计系统](../skills/vr-production-gates/references/design-system.md) | 当前单一中文HTML内的完整方案板、路线板、正文、动作与首尾实际交付；单镜/结构通过不等于整片接受 |
 | [P002](patterns/P002-subtitle-glyph-fallback.md) · 字形 | [字幕](../skills/vr-production-gates/references/subtitle-style.md) | 实际烧录字形可读，缺滤镜/字体时按当前环境处理 |
 | [P003](patterns/P003-music-bed-length-and-level.md) · 音乐来源与时长 | [声音制作](../skills/vr-production-gates/references/audio-production.md)、[素材位置](../skills/vr-production-gates/assets/README.md) | 指定版本优先；完整曲源与快捷片段分别保留；新长度从原曲重裁，最终混音另核 |
 | [P004](patterns/P004-acceptance-does-not-unlock-next-stage.md) · 授权/接受 | [Skill](../skills/vr-production-gates/SKILL.md)、[提交协议](../skills/vr-production-gates/references/illustrated-script.md) | 沿用实际已批准范围，技术检查、人审和发布分别记录；范围内纠错不逐层索权 |

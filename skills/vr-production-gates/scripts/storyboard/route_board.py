@@ -5,7 +5,7 @@ import struct
 
 def validate_route(record):
     route=record.get('review_route')
-    required=record.get('design_system',{}).get('version')=='1.1.0'
+    required=record.get('design_system',{}).get('version') in {'1.1.0','1.2.0'}
     if route is None:
         if required:raise ValueError('Complete review route required')
         return
@@ -18,6 +18,20 @@ def validate_route(record):
     try:seq=[int(x) for x in route['route'].split('→')]
     except (KeyError,AttributeError,ValueError):raise ValueError('Explicit numeric route sequence required')
     if not seq or any(x<0 for x in seq):raise ValueError('Explicit numeric route sequence required')
+    policy=record['scope'].get('editing_policy',{})
+    if policy.get('single_take_required') and record.get('fixture') is not True and record.get('design_system',{}).get('version')=='1.2.0' and record['scope'].get('execution_mode')!='post_only':
+        transitions=route.get('transitions',[])
+        expected=[(a,b) for a,b in zip(seq,seq[1:]) if a!=b]
+        if not isinstance(transitions,list) or [(t.get('from_pano'),t.get('to_pano')) for t in transitions]!=expected:
+            raise ValueError('Connected motion plan required for every route transition')
+        for transition in transitions:
+            duration=transition.get('duration_s')
+            if transition.get('movement')!='forward':
+                raise ValueError('Forward movement required; turn before return travel')
+            if not str(transition.get('view','')).strip() or type(duration) not in (int,float) or not math.isfinite(duration) or duration<=0:
+                raise ValueError('Connected motion requires view direction and positive duration')
+        if sum(t['duration_s'] for t in transitions)>record['scope']['duration_s']:
+            raise ValueError('Connected motion exceeds the whole video duration')
     nodes=route.get('nodes',[]);points={}
     for node in nodes:
         index=node.get('pano_index');xy=node.get('floorplan_xy')
@@ -98,7 +112,9 @@ def route_section(record, images, floorplan):
         label=' → '.join(step['label'] for step in motion_steps(s['visual']))
         rows.append(f'<li data-route-chapter="{esc(s["id"])}" data-start="{s["start_s"]}" data-end="{s["end_s"]}" data-panos="{"→".join(str(n) for n in c["pano_indices"])}"><b>{esc(s["id"])} · {esc(s["visual"]["title"])}</b><span>{s["start_s"]:.2f}–{s["end_s"]:.2f}秒 · {esc(label)}</span><code>{" → ".join("P"+str(n) for n in c["pano_indices"])}</code></li>')
     legend='蓝线＋箭头：导航顺序　蓝虚线：重复回程　'+('棕虚线：剪辑切换，不是行走　' if cuts else '')+'圆点：点位　S-ID：章节停留点（同点可对应多章）'
-    return '<section class="route-review" data-complete-route-board="true"><h2>户型运镜路线图 · 仅用于剧本审核</h2><p class="route-legend">'+legend+'</p><div class="route-grid"><div>'+''.join(parts)+'</div><div><ul class="route-list">'+''.join(rows)+'</ul><p class="route-note">'+esc(route['caption'])+'</p><p class="route-note">'+esc(record.get('board_content',{}).get('limitations','候选路线需按本方法动态验证，静态图不证明实际连续性。'))+'</p><p class="route-legend">本图不进入视频、不占成片时长，不继承旧版批准。</p></div></div></section>'
+    movements=''.join('<li>P'+str(t['from_pano'])+' → P'+str(t['to_pano'])+' · '+str(t['duration_s'])+'秒 · '+esc(t['view'])+'</li>' for t in route.get('transitions',[]))
+    motion='<details><summary>连续移动与转向设计（待动态验证）</summary><ul>'+movements+'</ul></details>' if movements else ''
+    return '<section class="route-review" id="完整方案板" data-complete-route-board="true"><h2>户型运镜路线图 · 仅用于剧本审核</h2><p class="route-legend">'+legend+'</p><div class="route-grid"><div>'+''.join(parts)+'</div><div><ul class="route-list">'+''.join(rows)+'</ul>'+motion+'<p class="route-note">'+esc(route['caption'])+'</p><p class="route-note">'+esc(record.get('board_content',{}).get('limitations','候选路线需按本方法动态验证，静态图不证明实际连续性。'))+'</p><p class="route-legend">本图不进入视频、不占成片时长，不继承旧版批准。</p></div></div></section>'
 
 
 def route_document(record,images,floorplan):

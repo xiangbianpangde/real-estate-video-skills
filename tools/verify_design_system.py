@@ -36,9 +36,9 @@ def verify():
             run=subprocess.run(cmd,capture_output=True,text=True)
             expected=name in {'valid','missing-ending-cta'}
             ok=(run.returncode==0 and out.is_dir()) if expected else (run.returncode!=0 and not out.exists())
-            row={'case':name,'expected':'generated_pair' if expected else 'rejected_without_output','exit_code':run.returncode,'passed':ok,'argv':cmd}
+            row={'case':name,'expected':'generated_document' if expected else 'rejected_without_output','exit_code':run.returncode,'passed':ok,'argv':cmd}
             if expected and ok:
-                md=(out/'plan.md').read_text();html=(out/'storyboard.html').read_text();receipt=json.loads((out/'generation.json').read_text())
+                md=(out/'剧本正文.md').read_text();html=(out/'视频剧本.html').read_text();receipt=json.loads((out/'generation.json').read_text())
                 for seg in record['segments']:
                     if seg['text'] not in md or seg['text'] not in html or seg['visual']['title'] not in md or seg['visual']['title'] not in html: row['passed']=False
                 row['content_hashes_match']=(hashlib.sha256(md.encode()).hexdigest()==receipt['script_markdown_sha256'] and hashlib.sha256(html.encode()).hexdigest()==receipt['board_html_sha256'])
