@@ -1,0 +1,50 @@
+{
+  "schema": "minimax-cn-and-capture-risk/v1",
+  "version": "4.8.0",
+  "base_commit": "32eea45bc9910858a3c79b4382ecebb7d23726e5",
+  "official_sources": [
+    "https://platform.minimaxi.com/docs/api-reference/speech-t2a-http",
+    "https://platform.minimaxi.com/docs/api-reference/voice-management-get",
+    "https://platform.minimaxi.com/docs/m-plan/intro",
+    "https://github.com/MiniMax-AI/skills/blob/main/skills/frontend-dev/scripts/minimax_tts.py"
+  ],
+  "validation": {
+    "regressions": 177,
+    "tts_tests": 5,
+    "design_cli_cases": 5,
+    "strict_errors": 0,
+    "strict_warnings": 0,
+    "loader_repeat_same": true,
+    "loader_diagnostics": 0
+  },
+  "live_auth": {
+    "endpoint": "https://api.minimax.cn/v1/get_voice",
+    "request": {
+      "voice_type": "system"
+    },
+    "transport_reached": true,
+    "api_code": 2049,
+    "trace_id": null,
+    "audio_generated": false,
+    "account_entitlement_verified": false,
+    "no_generation_retry": true
+  },
+  "scope": "China official TTS implementation and pre-design continuous-capture risks; no property production",
+  "unverified": [
+    "real successful TTS using account subscription",
+    "account billing attribution",
+    "human voice listening",
+    "fresh model adherence"
+  ],
+  "local_evidence_sha256": {
+    "local/validation/skill-4.8.0/design-cli.json": "53c15e8b0ec2da08c3f966802ba5fb23f33d589a0b5759b8df6bea0a9f6cc522",
+    "local/validation/skill-4.8.0/minimax-tts-doc.html": "5d2e800784698efefb57950a0d38b6b824e6b9b8ca8d029008fe0ef7136e7f7a",
+    "local/validation/skill-4.8.0/strict.log": "c62de7548588c739d83ec5cceb0f41f9cc22c6b33cb9165966353513cc7a1d96",
+    "local/validation/skill-4.8.0/live-auth-result.json": "a07a9cdd4ae67bd2d15161534afffc70173313e2caa12a18374001425091459b",
+    "local/validation/skill-4.8.0/design-cli.log": "53c15e8b0ec2da08c3f966802ba5fb23f33d589a0b5759b8df6bea0a9f6cc522",
+    "local/validation/skill-4.8.0/loader.json": "a07d18ac3e10843d93ee4bdfbc81a8f09f014ef899eda2e01b1b02d95228bc53",
+    "local/validation/skill-4.8.0/tests.log": "1d252a7c2776deb0bbc3c54358ec274024a52ccaaa9b60d8a0d841c9a2a4e9de",
+    "local/validation/skill-4.8.0/minimax-mplan-doc.html": "aa82089ad34de8a1c1479607899cb2c8d2a9ead2972d197cd6863984be15e74f",
+    "local/validation/skill-4.8.0/minimax-voice-doc.html": "f453d60175a4e179fdbd1a75aae2765beca1b4282b6b56ac0b6251acb3e72df2"
+  }
+}

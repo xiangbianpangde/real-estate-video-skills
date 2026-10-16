@@ -7,7 +7,7 @@
 ## 当前入口与历史归档
 
 - [项目当前交接](../HANDOFF.md)：当前版本、制作状态、证据与唯一下一步。
-- [Skill当前规范](../skills/vr-production-gates/SKILL.md)：4.7.0执行入口；模式与专项参考的关系见[当前影响映射](skill-impact.md#当前映射)。
+- [Skill当前规范](../skills/vr-production-gates/SKILL.md)：4.8.0执行入口；模式与专项参考的关系见[当前影响映射](skill-impact.md#当前映射)。
 - [历史归档](archive/handoffs/index.md)：旧交接与历史路径的入口；仅用于追溯，不覆盖当前规范或项目状态。
 
 ## 本轮使用复盘

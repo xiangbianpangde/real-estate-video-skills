@@ -26,10 +26,13 @@ class ProductionProfileTests(unittest.TestCase):
         for field in ['allow_cuts','allow_remove_intervals']:
             record=copy.deepcopy(self.record);record['scope']['editing_policy'][field]=True
             with self.assertRaisesRegex(ValueError,'single take'):validate_production_profile(record)
-    def test_generated_music_or_missing_mcode_rejected(self):
+    def test_generated_music_or_unapproved_voice_provider_rejected(self):
         for field,value in [('bgm_source','generated'),('voiceover_provider','system_say')]:
             record=copy.deepcopy(self.record);record['scope'][field]=value
             with self.assertRaisesRegex(ValueError,'mcode'):validate_production_profile(record)
+    def test_approved_minimax_cn_provider_allowed(self):
+        self.record['scope']['voiceover_provider']='minimax_cn'
+        validate_production_profile(self.record)
     def test_bathroom_exclusion_required(self):
         self.record['scope']['shot_constraints']['excluded_spaces']=[]
         with self.assertRaisesRegex(ValueError,'bathroom'):validate_production_profile(self.record)

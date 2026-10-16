@@ -61,8 +61,8 @@ def validate_production_profile(record):
     policy=scope.get('editing_policy',{})
     if policy.get('single_take_required') is not True or policy.get('allow_cuts') is not False or policy.get('allow_remove_intervals') is not False:
         raise ValueError('Fixed production requires complete single take without cuts')
-    if scope.get('voiceover_provider')!='mcode' or scope.get('bgm_source')!='specified_library':
-        raise ValueError('Fixed production requires mcode voiceover and specified BGM library')
+    if scope.get('voiceover_provider') not in {'mcode','minimax_cn'} or scope.get('bgm_source')!='specified_library':
+        raise ValueError('Fixed production requires mcode or minimax_cn voiceover and specified BGM library')
     if 'bathroom' not in scope.get('shot_constraints',{}).get('excluded_spaces',[]):
         raise ValueError('Fixed production excludes bathroom')
 

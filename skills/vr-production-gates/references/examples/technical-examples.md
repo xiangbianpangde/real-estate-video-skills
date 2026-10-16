@@ -1,5 +1,7 @@
 # 可运行技术示范
 
+实际中国MiniMax配音入口见[中国TTS工具说明](../minimax-cn-tts.md)，工具在scripts/minimax_tts_cn.py；失败不自动重复生成，成功文件可按SHA复用。
+
 本页把已用过的技术整理为可复用实现，按需要选读，不增加审批层级或尝试次数限制。代码在 [technical_examples](../../scripts/technical_examples)。当前房源及其版本、路线、批准和画面问题仍以项目交接为准；运行示范不操作该房源。
 
 | 示例 | 提供什么 | 本次验证与限制 |

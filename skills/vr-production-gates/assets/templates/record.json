@@ -188,9 +188,9 @@
       "allow_speed_changes": true
     },
     "production_profile": "house-short-v1",
-    "voiceover_provider": "mcode",
+    "voiceover_provider": "minimax_cn",
     "bgm_source": "specified_library",
-    "voiceover": "mcode生成本版口播",
+    "voiceover": "MiniMax中国官方HTTP TTS生成本版口播",
     "shot_constraints": {
       "duration_range_s": [
         25,
