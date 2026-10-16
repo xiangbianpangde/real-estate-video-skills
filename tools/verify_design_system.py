@@ -11,7 +11,7 @@ import tempfile
 
 ROOT=Path(__file__).resolve().parents[1]
 SKILL=ROOT/'skills/vr-production-gates'
-EXAMPLES=SKILL/'design-system/examples'
+EXAMPLES=SKILL/'assets/design-system/examples'
 
 
 def verify():

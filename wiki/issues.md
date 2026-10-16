@@ -101,7 +101,7 @@
 - 首次观察：2026-10-12源码核查；本次登记：2026-10-13。
 - 影响/预期：文档门禁不能约束直接旧入口；预期未来获准的新入口调用检查器，按返回码启动并正确恢复状态。
 - 证据：私有生产脚本脱敏名 `take_v3g_record.js`（只读、未重跑），SHA `5d2154493a9c47d5b40baa3daa0a2896e9421134eb4fee313ef5976e7095d2b4`；有 `captureStream`及 `syncState=undefined`，没有检查器调用。另一次官方SDK连接回调后被旧state拉回的记录SHA `782da06337b971e6ab279c4ab9e5dc9fc92b1787a921e0f9af6b9022d8b371fd`，只支持该次控制失效，不把两者合并成同一录像故障。
-- 当前处理：3.1.0 [SDK控制规则](../skills/vr-production-gates/references/continuous-take.md#sdk状态控制与恢复)已写实际主相机/描述符/delete恢复；新会话行为验证通过，**历史采集器没有改写或接入**，详见 [交接限制](../skills/vr-production-gates/HANDOFF.md)第12节。
+- 当前处理：3.1.0 [SDK控制规则](../skills/vr-production-gates/references/continuous-take.md#sdk状态控制与恢复)已写实际主相机/描述符/delete恢复；新会话行为验证通过，**历史采集器没有改写或接入**，详见 [历史交接限制](archive/handoffs/through-3.4.0.md)第12节。
 - 状态历史：2026-10-13补登记为 `triaged`，规则已修与实际入口未修分开；不标生产集成verified。
 - 下一步：未来另有新采集器开发范围时先做入口/恢复集成回归；本台账不授权改历史脚本、删除claim或重录。
 
@@ -112,7 +112,7 @@
 - 首次观察/登记：2026-10-13真实新会话只读核对。
 - 影响/预期：接手者可能把旧快照当当前结果；预期版本/计数有明确日期范围且以入口/真实验证为准。
 - 证据：私有初次“对象纠偏”答复及修前交接字节；历史文本保留，不改成当时就已3.1.0。
-- 修复：[HANDOFF](../skills/vr-production-gates/HANDOFF.md)当前头3.1.0，第12节列44，第11节标历史；提交 `3a42430`。
+- 修复：[历史HANDOFF](archive/handoffs/through-3.4.0.md)当时当前头3.1.0，第12节列44，第11节标历史；提交 `3a42430`。
 - 已运行验证：最终strict `validated=1/errors=0/warnings=0`、44 CLI；独立新会话读到入口/CHANGELOG/HANDOFF版本一致。
 - 状态历史：2026-10-13补登记为 `verified`，本次文档一致性范围；不是长期防漂移保证。
 - 下一步：后续修订同步当前头，旧版本/计数只保留为日期快照。
@@ -522,6 +522,11 @@ v12门口扫视局部验证在录制前被实际FOV收敛守卫拦截。状态tr
 
 
 2026-10-15 ISSUE040补充：用户明确v14审核通过，禁止倒着拍摄、建议门口展示房间。Skill4.1.1在入口/运动/图文交付/验收场景纳入三项纠错；严格校验、加载与链接通过。当前verified仅为图文及规则整合，新增正向转向/回程动态仍待核。
+
+
+2026-10-16 ISSUE040动态补证：既有[v14实际生产回执](../raw/R20261016-v14-production.json)记录30.498秒/916帧单源采集，`local_turn_verified`为先原地转向再正向穿过室内门口；7段行进采样的`min_forward_dot`均为正（最低约0.2563）。后续29.267秒版本保留完整源映射、无硬切或删段，浏览器完整播放无媒体错误。该回执仍保留`CONTROLS_CHECKED_VISUAL_PENDING`及人工实听待验，不能将控制/播放结果代签为独立画质或听感接受。
+
+[v15原始回执](../raw/R20261016-v15-speed-revision.json)继续复用同一完整源区间，单调正导数映射输出25.333秒，`cuts=false`、`removed_intervals=false`、`source_unchanged=true`、`no_new_capture=true`；全解码与实际浏览器播放结束且无媒体错误。以上是2026-10-15“新动作动态待验证”之后补齐的实际生产、朝向采样和播放证据，不改写旧段当时状态。源SDK重影/门框形变及转向柜台仍保留；原始回执中人工实听/当时用户接受的待验字段不覆盖或代签，后续用户回复单列于[CASE004](cases/CASE-20261016-004-skill-production-finalization.md)。本次补证只回读既有原始回执，未重新拍摄、生成声音或补作人工实听。
 
 
 ## ISSUE-20261016-041

@@ -12,7 +12,7 @@
 - 字幕压缩口播成为一眼可扫的事实锚点，不逐字复制配音。
 - 标题卡可用两行层级，与正文字幕样式分开。
 
-公开仓库只记录这些视觉规律与 SHA 级来源索引，不保存视频或真实帧；示例 PNG 是抽象重绘。
+当时公开仓库只记录这些视觉规律与SHA级来源索引，未保存视频或真实帧；示例PNG是抽象重绘。本次用户授权提交的参考片与其他材料见[资料入口](../../materials/index.html)，历史公开范围不覆盖本轮授权。
 
 ## 解读与覆盖边界
 
@@ -24,7 +24,9 @@
 
 正文样式相似不能证明首尾结构对齐。参考开场是室内背景、两行房源标题、户型图卡片三层；参考尾镜是室内背景上的收束/CTA。白底户型卡与这些结构不同，需独立比对背景和文案。改变背景或新增标题事实/CTA 须回脚本审阅，不能靠字幕修订许可扩展；完整口播不得被标题卡替代。截图与记录冲突需核对 SHA、播放器时间及实际编码帧，不先推定用户看错版本。
 
-## 新片应用规则
+## 当时的新片应用规则
+
+以下数值、版式和回审表述保留样本与历史实现条件；当前按[字幕规范](../../skills/vr-production-gates/references/subtitle-style.md)、[首尾规范](../../skills/vr-production-gates/references/opening-ending-layout.md)及实际批准范围判断，不增加固定数值或审批配额。
 
 1. 脚本合同声明 `subtitle_content_mode`（`editorial_keywords` 或 `verbatim_voiceover`）及 `subtitle_delivery`（烧录、可开关字幕轨或两者）；不能从视觉样式猜覆盖要求。
 2. 完整口播模式明确要求用户逐字上屏时，不得套用“压缩成标签”的习惯；长句拆分为连续单行字幕，文字不得删改。
@@ -50,7 +52,4 @@
 
 ## 影响
 
-- `skills/vr-production-gates/SKILL.md` 第 0 步脚本包、第 B 步 9 后期时间轴、第 B 步 10 后期 QC 与接受
-- `skills/vr-production-gates/references/subtitle-style.md`
-- `skills/vr-production-gates/references/acceptance-matrix.md` Subtitle intent / coverage / style / burn-in
-- 图文示例：`skills/vr-production-gates/references/examples/example-02-post-audio-subtitle.md`
+当前落点统一见[Skill影响表的P007映射](../skill-impact.md#当前映射)，核对字幕覆盖、视觉样式和首尾结构。旧“第B步”等段号只用于历史追溯，不扩展当前规范。

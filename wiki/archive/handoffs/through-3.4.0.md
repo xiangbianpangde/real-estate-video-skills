@@ -1,12 +1,14 @@
+> 历史归档：2026-10-16迁入；仅供追溯，不作为当前执行规则。当前项目见[唯一交接](../../../HANDOFF.md)。原始位置与SHA见[归档索引](index.md)。
+
 # vr-production-gates 交接
 
 > 当前 **3.4.0**（2026-10-14）；本页为导航，历史章节保留。
 
-[3.4.0版式合同](references/storyboard-layout.md)。
+[3.4.0版式合同](../../../skills/vr-production-gates/references/storyboard-layout.md)。
 
 ## 用户接受基准（3.2.0保留）
 
-用户`de658a6b`以厨房试片SHA `0c08ab62ee3a23437d79657428e2b89cc784ad20f44e695dd0bdd73228855bae`实际效果为接受范围：有跨点重影及稳定横扫。按[视觉合同](references/visual-acceptance.md)比较/披露，不自设零伪影/阈值，不重复索缺陷许可或强制硬切。
+用户`de658a6b`以厨房试片SHA `0c08ab62ee3a23437d79657428e2b89cc784ad20f44e695dd0bdd73228855bae`实际效果为接受范围：有跨点重影及稳定横扫。按[视觉合同](../../../skills/vr-production-gates/references/visual-acceptance.md)比较/披露，不自设零伪影/阈值，不重复索缺陷许可或强制硬切。
 
 v2绑定参考/原话/SHA与比较/披露，PASS_WITH_LIMITATIONS有效；64 CLI红→绿，旧PASS/post_only兼容。未决/超范围/控制失败拒绝，最终接受/发布独立。仅修规则，不录制/提交；私有核验`技能接受基准修复_20261013`留现状备份，只回滚增量。
 
@@ -62,8 +64,8 @@ v2绑定参考/原话/SHA与比较/披露，PASS_WITH_LIMITATIONS有效；64 CLI
 
 ## 1. 接手顺序与范围
 
-1. 阅读本文件、[SKILL.md](SKILL.md)、[CHANGELOG.md](CHANGELOG.md)。
-2. 阅读[字幕规范](references/subtitle-style.md)、[验收矩阵](references/acceptance-matrix.md)、[触发设计](references/trigger-design.md)。
+1. 阅读本文件、[SKILL.md](../../../skills/vr-production-gates/SKILL.md)、[CHANGELOG.md](../../../skills/vr-production-gates/CHANGELOG.md)。
+2. 阅读[字幕规范](../../../skills/vr-production-gates/references/subtitle-style.md)、[验收矩阵](../../../skills/vr-production-gates/references/acceptance-matrix.md)、[触发设计](../../../skills/vr-production-gates/references/trigger-design.md)。
 3. 对照仓库根目录下 `wiki/patterns/P007-reference-subtitle-style.md`、`wiki/skill-impact.md` 和 `wiki/logs.md`（仓库知识层，不作为便携 Skill 包内链接）。
 4. 若涉及视频，先返回私有媒体项目读取其 HANDOFF、唯一实时状态、风险、事实合同和本次许可；本交接只提供规则，不传递生产授权。
 
@@ -150,10 +152,10 @@ python3 ~/.pi/agent/skills/task/skill-authoring/scripts/validate.py --strict --f
 
 ### 规则与实现变化
 
-- 新增 [首尾结构协议](references/opening-ending-layout.md)：目标截图优先；区分 `reference_match` 与 `approved_variant`，获批资料卡不代表参考结构匹配。
+- 新增 [首尾结构协议](../../../skills/vr-production-gates/references/opening-ending-layout.md)：目标截图优先；区分 `reference_match` 与 `approved_variant`，获批资料卡不代表参考结构匹配。
 - 开场由白底资料页改为本房源室内背景、黄白两行大标题、半透明圆角户型浮层。示例几何仅是人工测量起点；完整首段口播另排，新浮层重测主体包围盒，不照搬旧坐标。
 - 尾镜由户型资料页改为已核验室内卧室背景、约0.61H单行CTA，完整免责声明分区并按连续cue保留。背景、事实、CTA及修订范围须独立授权。
-- 新增 [文案禁用清单](references/文案/文案中不能出现的内容.md)：内部核验区分建筑、套内建筑、使用及房间标注面积；不猜公摊、不把图纸差异归因公摊。公摊解释及同义内容禁止进入任何可见/可听层，包含图片小字。
+- 新增 [文案禁用清单](../../../skills/vr-production-gates/references/文案/文案中不能出现的内容.md)：内部核验区分建筑、套内建筑、使用及房间标注面积；不猜公摊、不把图纸差异归因公摊。公摊解释及同义内容禁止进入任何可见/可听层，包含图片小字。
 - 同步SKILL入口、触发设计、字幕规范、验收矩阵、CHANGELOG与wiki影响导航；版本保持2.6.0，本次收束文档不另改行为版本。
 
 ### 已授权的生产与结果

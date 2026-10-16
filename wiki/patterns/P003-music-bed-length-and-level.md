@@ -32,4 +32,4 @@
 
 ## 影响
 
-- `skills/vr-production-gates/SKILL.md` 第 B 步 8–9 · 后期资产与单 take
+当前落点统一见[Skill影响表的P003映射](../skill-impact.md#当前映射)，核对当前声音制作与素材位置。旧“第B步”等段号只用于历史追溯，不扩展当前规范。

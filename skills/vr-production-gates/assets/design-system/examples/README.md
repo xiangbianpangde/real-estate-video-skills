@@ -24,7 +24,9 @@
 
 截图＋长文不是方案板；首镜写了户型但没实际画出户型也不是首镜预览。以上判断同时体现在输入约束、生成器和实际成图检查，不只靠说明文字。
 
-执行正例和反例：
+以下是完整仓库的维护命令，需在仓库根目录运行；独立安装的Skill不包含仓库tools，不能把此命令当作包内入口。独立包可直接用scripts/build_script_package.py生成示例，tests保留相应检查。
+
+完整仓库执行正例和反例：
 
 ```bash
 python3 tools/verify_design_system.py --evidence-out /path/to/verification.json

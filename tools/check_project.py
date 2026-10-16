@@ -13,10 +13,18 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def check():
     errors=[];documents=0;images=0
-    paths=[ROOT/'README.md']
+    paths=[ROOT/'README.md',ROOT/'HANDOFF.md']
+    # Current and historical handoffs are repository documents, not Skill files.
+    for name in ['README.md','HANDOFF.md','wiki/archive/handoffs/through-3.8.1.md',
+                 'wiki/archive/handoffs/through-3.4.0.md']:
+        if not (ROOT/name).is_file():errors.append(f'missing required document: {name}')
+    for p in (ROOT/'skills').rglob('*'):
+        if p.is_file() and (p.name.upper().startswith('HANDOFF') or p.stem.upper()=='PURPOSE'):
+            errors.append(f'{p.relative_to(ROOT)}: project handoff or purpose does not belong in the Skill package')
     for folder in ['skills','wiki','raw']: paths.extend((ROOT/folder).rglob('*.md'))
     for p in paths:
         if '__pycache__' in p.parts:continue
+        if not p.is_file():continue
         documents+=1
         text=re.sub(r'```.*?```','',p.read_text(),flags=re.S)
         for match in re.finditer(r'(!?)\[([^\]]*)\]\(([^)]+)\)',text):

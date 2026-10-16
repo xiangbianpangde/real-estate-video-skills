@@ -101,7 +101,7 @@ class SimplifiedPolicyTests(unittest.TestCase):
         from pathlib import Path
         sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
         from storyboard.model import validate
-        sample=Path(__file__).resolve().parents[1]/'design-system/examples/valid.json'
+        sample=Path(__file__).resolve().parents[1]/'assets/design-system/examples/valid.json'
         for lines in [['名称'],['名称','户型','区域']]:
             r=json.loads(sample.read_text())
             r['segments'][0]['visual']['headline_lines']=lines

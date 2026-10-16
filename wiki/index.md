@@ -4,6 +4,12 @@
 
 架构参考 WikiSkill（*Compiling Agent Experience into Persistent Knowledge for Skill Evolution*）：原始执行记录不可变地留在 `raw/`，经验被编译成 `wiki/patterns/` 下的独立条目，再由 `skills/` 引用。
 
+## 当前入口与历史归档
+
+- [项目当前交接](../HANDOFF.md)：当前版本、制作状态、证据与唯一下一步。
+- [Skill当前规范](../skills/vr-production-gates/SKILL.md)：4.4.0执行入口；模式与专项参考的关系见[当前影响映射](skill-impact.md#当前映射)。
+- [历史归档](archive/handoffs/index.md)：旧交接与历史路径的入口；仅用于追溯，不覆盖当前规范或项目状态。
+
 ## 本轮使用复盘
 
 [CASE-20261016-004 · Skill实作、纠错与目录定版](cases/CASE-20261016-004-skill-production-finalization.md)：需求边界、问题/原因/处理、v14到v15速度实测、配音字幕、指定BGM、完整素材库、目录及验证证据。历史制作长日志继续保留，最新摘要以该案例及对应原始回执定位。
@@ -30,7 +36,7 @@
 | [CASE-20261013-002](cases/CASE-20261014-002-review-package.md) | 3.2.0起的历史图文、制作及历次纠错长日志 | 各节保留当时状态；后续v15制作与当前摘要见CASE004，不再把页首拍前状态当作现状 |
 | [CASE-20261014-003](cases/CASE-20261014-003-design-system.md) | 设计系统v1.0四项交付、同源生成、正反验证及项目整理 | 已实现/测试；合成界面验证，不是房源生产或用户验收 |
 | [CASE-20261015-003](cases/CASE-20261015-003-constraint-audit.md) | 62类约束逐项量化、清理规则与执行检查 | 评分是工程判断；不执行视频 |
-| [CASE-20261016-004](cases/CASE-20261016-004-skill-production-finalization.md) | 本轮Skill使用至4.3.0定版及推送 | v15技术检查与用户回复、素材库和已知限制分别记录 |
+| [CASE-20261016-004](cases/CASE-20261016-004-skill-production-finalization.md) | 制作至v15、4.3.0资料推送及4.4.0目录整理 | 已推送的48087e7与尚未提交的本轮整理分开；技术检查、用户回复和人工实听分别记录 |
 
 ## 配套
 

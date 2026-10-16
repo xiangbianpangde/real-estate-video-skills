@@ -23,8 +23,6 @@ v15把片头静止3.006→1.80秒、去程6.297→4.50秒、回程8.285→6.10�
 
 ## 已有Skill落点
 
-- [路线与运动](../../skills/vr-production-gates/references/short-route-motion.md)：参考片与推进节奏、完整源时间映射。
-- [声音制作](../../skills/vr-production-gates/references/audio-production.md)：实际音频/词时码、完整语句及音乐处理。
-- [图文提交](../../skills/vr-production-gates/references/illustrated-script.md)：同版完整交付。
+当前落点统一见[Skill影响表的P009映射](../skill-impact.md#当前映射)：完整源时间映射、声音落位及同版图文交付。
 
 本模式解释已实现做法，不新增Skill行为或新检查器。

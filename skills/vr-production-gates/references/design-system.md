@@ -1,14 +1,14 @@
 # 房产图文剧本设计系统 v1.1
 
-同一份record生成可审阅的总板、独立完整户型路线板和详细正文；组件不授生产权限。审核入口见[提交协议](../references/illustrated-script.md)。
+同一份record生成可审阅的总板、独立完整户型路线板和详细正文；组件不授生产权限。审核入口见[提交协议](illustrated-script.md)。
 
 ## 层次与样式
 
-![总板示例：全部为合成测试素材](examples/positive/overview.png)
+![总板示例：全部为合成测试素材](../assets/design-system/examples/positive/overview.png)
 
 顶部说明房源/版本、观看顺序与时长；中部章节卡连接真实参考、动作图示、主体与文案；下部给户型、改动和限制。S-ID连接卡片、正文与成片意见。
 
-颜色与间距复用[tokens](tokens.json)和[样式](styles.css)。深青标题、绿色动作、琥珀风险是默认样式，可按阅读宽度与当前目标调整。状态有文字，图片保比例；卡片数量/标题行数/高亮数量不设通用上限。首尾按本次要求实际合成预览。
+颜色与间距复用[tokens](../assets/design-system/tokens.json)和[样式](../assets/design-system/styles.css)。深青标题、绿色动作、琥珀风险是默认样式，可按阅读宽度与当前目标调整。状态有文字，图片保比例；卡片数量/标题行数/高亮数量不设通用上限。首尾按本次要求实际合成预览。
 
 ## 图像与组件
 
@@ -23,7 +23,7 @@
 
 ## 数据与生成
 
-[Schema](schema.json)描述vr-production-plan/v3与设计系统1.0/1.1结构；语义校验在scripts/storyboard/model.py。plan/scope存一次内容与范围，assets存来源/字节身份，segments存章节，visual存标题、图像角色与动作，board_content存实际变更，不维护重复台本。
+[Schema](../assets/design-system/schema.json)描述vr-production-plan/v3与设计系统1.0/1.1结构；语义校验在scripts/storyboard/model.py。plan/scope存一次内容与范围，assets存来源/字节身份，segments存章节，visual存标题、图像角色与动作，board_content存实际变更，不维护重复台本。
 
 渲染器当前输入为PNG、有限动作/版式类型和S编号等结构，这是工具格式，不是新审批要求。来源缺失/字节漂移、时间轴不合法、图文对象不一致会失败；字段齐全不证明画面好看。
 
@@ -41,6 +41,6 @@ python3 skills/vr-production-gates/scripts/build_script_package.py \
 
 scope.review_route_layout绑定板与图源；当前版本、时码、点位表及正文嵌图一致。图只用于剧本审核，不进入成片；真实动态仍另核。切镜仅在用户允许时以cuts标明，不画成行走。
 
-交付核同版数据、两板/正文、动作图示、要求的首尾层次、来源图片加载与可读性。用户时长/禁拍空间用shot_constraints及空间分类表达，连续后期用editing_policy/speed_map；见[路线规范](../references/short-route-motion.md)。
+交付核同版数据、两板/正文、动作图示、要求的首尾层次、来源图片加载与可读性。用户时长/禁拍空间用shot_constraints及空间分类表达，连续后期用editing_policy/speed_map；见[路线规范](short-route-motion.md)。
 
-[正反示例](examples/README.md)只验证结构。实际浏览器和成片检查、用户接受各自如实记录。
+[正反示例](../assets/design-system/examples/README.md)只验证结构。实际浏览器和成片检查、用户接受各自如实记录。

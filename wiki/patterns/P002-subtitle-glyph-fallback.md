@@ -27,5 +27,4 @@
 
 ## 影响
 
-- `skills/vr-production-gates/SKILL.md` 第 B 步 10 · 后期 QC 与接受
-- `skills/vr-production-gates/references/acceptance-matrix.md` Subtitle burn-in 门禁
+当前落点统一见[Skill影响表的P002映射](../skill-impact.md#当前映射)，核对字幕字形与实际烧录可读性。旧“第B步”等段号只用于历史追溯，不扩展当前规范。

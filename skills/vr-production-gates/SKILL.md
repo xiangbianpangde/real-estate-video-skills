@@ -3,7 +3,7 @@ name: vr-production-gates
 description: 房产视频的图文剧本、VR/模型采集、配音字幕与成片检查。用户要求先审剧本再制作、修复房产视频或维护本技能时使用；按当前要求自主推进验证和纠错。技能维护不自动执行视频制作。
 compatibility: Pi coding agent; Python 3.10+, FFmpeg/ffprobe, local browser playback
 metadata:
-  version: "4.3.0"
+  version: "4.4.0"
   status: "active"
   layer: "task"
   priority: "40"
@@ -13,7 +13,7 @@ disable-model-invocation: false
 
 # 房产视频制作
 
-目标是交付可审核的剧本和符合当前要求的视频。规则服务于交付；模板参数、历史案例和检查器字段不增加用户授权门槛。
+目标是交付可审核的图文剧本与完整视频，减少格式遗漏、声音错配和未经核验的完成声明。规则服务于交付；模板参数、历史案例和检查器字段不增加用户授权门槛。
 
 ## 确认本次交付
 
@@ -40,11 +40,11 @@ disable-model-invocation: false
 
 ## 图文剧本与一次审核
 
-使用[设计系统](design-system/SPEC.md)的同一份record生成完整方案板、户型路线板和详细正文。章节含真实画面、动作图示、主体、口播/字幕和实际风险；首尾按当前要求画出真实布局。当前用户要求首镜户型、尾镜室内引流时，两者实际可见。
+使用[设计系统](references/design-system.md)的同一份record生成完整方案板、户型路线板和详细正文。章节含真实画面、动作图示、主体、口播/字幕和实际风险；首尾按当前要求画出真实布局。当前用户要求首镜户型、尾镜室内引流时，两者实际可见。
 
 [提交协议](references/illustrated-script.md)支持完整文档链接与自然语言批准，内部记录批准对象和内容快照；用户无需读哈希或重复状态口令。将拍法、声音、字幕、首尾和输出范围一次说明，获批后自主完成。仅实质改变事实、承诺、覆盖、用户硬要求、来源权利或费用时回审；范围内的角度、速度、布局、编码与故障修复不逐次请示。
 
-模板及私有素材/制作目录的分工见[模板与素材位置](assets/README.md)。按用户给定素材根或仓库本地入口定位来源，不把本机音乐和房源打进通用Skill包。
+可复制的生产记录见[模板索引](assets/README.md)。素材与项目状态由调用方提供；本技能包不维护具体房源交接、机器私有路径或项目归档。
 
 ## 制作与交付
 
@@ -54,6 +54,6 @@ disable-model-invocation: false
 
 检查最终文件的画面、字幕、音轨、尺寸/时长与实际播放；按章节说明结果和剩余问题，交用户接受或退回。更新项目现有状态和问题记录。检查器核结构、来源及范围，不认证画质或替代真实审看。
 
-工具入口、格式和示例见[提交协议](references/illustrated-script.md)、[验收场景](references/acceptance-matrix.md)与[示例](design-system/examples/README.md)。规则审计的逐项取舍留在项目Wiki，不作为新的执行门槛。
+工具入口、格式和示例见[提交协议](references/illustrated-script.md)、[验收场景](references/acceptance-matrix.md)与[示例](assets/design-system/examples/README.md)。规则审计的逐项取舍留在项目Wiki，不作为新的执行门槛。
 
 实现时按需读[可运行技术示范](references/examples/technical-examples.md)：SDK生命周期、单源变速、mcode入口与音频字幕后期。示范不新增执行门槛，验证范围分别标明。

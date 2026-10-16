@@ -4,7 +4,7 @@ from pathlib import Path
 from .components import chapter_card, image, esc
 from .model import validate, bind_images, motion_steps
 
-DESIGN = Path(__file__).resolve().parents[2] / 'design-system'
+DESIGN = Path(__file__).resolve().parents[2] / 'assets/design-system'
 
 
 def render_html(record, images, floorplan):

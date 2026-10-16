@@ -1,0 +1,251 @@
+{
+  "schema": "skill-layout-restructure/v1",
+  "date": "2026-10-16",
+  "baseline_commit": "48087e7368276b46e042907fa78ba6582e5001ca",
+  "media_catalog_sha256": "ed46d720a50b1a1d0e1ca71d3cf557d6768a0771ab4d5479f4c306caa6c22cc0",
+  "moves": [
+    {
+      "from": "skills/vr-production-gates/design-system/SPEC.md",
+      "to": "skills/vr-production-gates/references/design-system.md",
+      "sha256_before": "4689e60e842987b3d8ee43edd0a314c106c15e9a865dc0eca66dabcdb7d9a993",
+      "sha256_after": "669181f16b54bad630c2377d632ba232f401a6a29a7c6d268c7556619d570d1b",
+      "byte_identical": false
+    },
+    {
+      "from": "skills/vr-production-gates/HANDOFF.md",
+      "to": "HANDOFF.md",
+      "sha256_before": "22cdb88b94f7f80912d5485c02a06fa9f3ce64cdc2fac191f2e239ea3b786967",
+      "sha256_after": "facdf81b31b1f8e5a8e6b538729465f864172d5b35f05dd139c186ae810e476b",
+      "byte_identical": false
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/styles.css",
+      "to": "skills/vr-production-gates/assets/design-system/styles.css",
+      "sha256_before": "0315830aad42e890143a642403f96295e1fdd73ac373b5190af74f2a7499e716",
+      "sha256_after": "0315830aad42e890143a642403f96295e1fdd73ac373b5190af74f2a7499e716",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/schema.json",
+      "to": "skills/vr-production-gates/assets/design-system/schema.json",
+      "sha256_before": "16d53c8ef4a73a0778262437556a2ff2ce6486e09c9d93db38a583417bcf8eb9",
+      "sha256_after": "16d53c8ef4a73a0778262437556a2ff2ce6486e09c9d93db38a583417bcf8eb9",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/tokens.json",
+      "to": "skills/vr-production-gates/assets/design-system/tokens.json",
+      "sha256_before": "628aa7d499f3d1d488d72534164e5b89f3570d89f7b06c7eafbe57856461fd85",
+      "sha256_after": "628aa7d499f3d1d488d72534164e5b89f3570d89f7b06c7eafbe57856461fd85",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/floorplan.png",
+      "to": "skills/vr-production-gates/assets/design-system/examples/floorplan.png",
+      "sha256_before": "435b746d9819e57c92c90f1239202af04f565c8816f0d41b06a1a0c3363da57c",
+      "sha256_after": "435b746d9819e57c92c90f1239202af04f565c8816f0d41b06a1a0c3363da57c",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/summary-subtitles.json",
+      "to": "skills/vr-production-gates/assets/design-system/examples/summary-subtitles.json",
+      "sha256_before": "63809e0c03dd750e527b06681d847b157c942b024171a20e758d307d95a10b16",
+      "sha256_after": "63809e0c03dd750e527b06681d847b157c942b024171a20e758d307d95a10b16",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/valid.json",
+      "to": "skills/vr-production-gates/assets/design-system/examples/valid.json",
+      "sha256_before": "4b750b9c5b54d7f618f28099e5ff04b10dd5f82fe312504589aeb0f96c8114ca",
+      "sha256_after": "4b750b9c5b54d7f618f28099e5ff04b10dd5f82fe312504589aeb0f96c8114ca",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/README.md",
+      "to": "skills/vr-production-gates/assets/design-system/examples/README.md",
+      "sha256_before": "0ee1d419802b625ae6ec34f7ea3e005cd63ee89f6e3dc258d90c477dc24cb169",
+      "sha256_after": "417786c133aac7fc875e1498caf9ece9c44a53f1b569775ff5a4c39b2c620e45",
+      "byte_identical": false
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/missing-motion.json",
+      "to": "skills/vr-production-gates/assets/design-system/examples/missing-motion.json",
+      "sha256_before": "cb532553101f3af215ea190f674bc73d3a3a3a4c0f3bac4ee44d798b73bcf54d",
+      "sha256_after": "cb532553101f3af215ea190f674bc73d3a3a3a4c0f3bac4ee44d798b73bcf54d",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/negative.png",
+      "to": "skills/vr-production-gates/assets/design-system/examples/negative.png",
+      "sha256_before": "5c5a06d14eb86afc04d8961f522dcb2d206b482a01a669c1d54079e3778c77a3",
+      "sha256_after": "5c5a06d14eb86afc04d8961f522dcb2d206b482a01a669c1d54079e3778c77a3",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/negative.html",
+      "to": "skills/vr-production-gates/assets/design-system/examples/negative.html",
+      "sha256_before": "626fdad6556bc7354504d6c3dec3f08ffd3bb0895f3da6cdb2846511cea04867",
+      "sha256_after": "626fdad6556bc7354504d6c3dec3f08ffd3bb0895f3da6cdb2846511cea04867",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/scene.png",
+      "to": "skills/vr-production-gates/assets/design-system/examples/scene.png",
+      "sha256_before": "a94e2e63596b1d9d2ad72a3d88c3534361624e5d23100b4c363245416917841b",
+      "sha256_after": "a94e2e63596b1d9d2ad72a3d88c3534361624e5d23100b4c363245416917841b",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/opening-without-floorplan.json",
+      "to": "skills/vr-production-gates/assets/design-system/examples/opening-without-floorplan.json",
+      "sha256_before": "e174301e36d1bccb0163a2cfbba1ac3e95e66e8fb51c30d30cb1ef8ecedfcce8",
+      "sha256_after": "e174301e36d1bccb0163a2cfbba1ac3e95e66e8fb51c30d30cb1ef8ecedfcce8",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/missing-ending-cta.json",
+      "to": "skills/vr-production-gates/assets/design-system/examples/missing-ending-cta.json",
+      "sha256_before": "a5670a131a0cf340e89bba245a3f52d84cf6ccdea3bdb3fa44836f1a2e4b513f",
+      "sha256_after": "a5670a131a0cf340e89bba245a3f52d84cf6ccdea3bdb3fa44836f1a2e4b513f",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/positive/storyboard.html",
+      "to": "skills/vr-production-gates/assets/design-system/examples/positive/storyboard.html",
+      "sha256_before": "4ebd5329e702cf4bcd4a4dc87c37ebbe4246b1b199c10f311a10a6ad4a674388",
+      "sha256_after": "4ebd5329e702cf4bcd4a4dc87c37ebbe4246b1b199c10f311a10a6ad4a674388",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/positive/overview.png",
+      "to": "skills/vr-production-gates/assets/design-system/examples/positive/overview.png",
+      "sha256_before": "791eccc91d18aae55831c011074a4199f1798d21ef8d3c732c8de6749d518865",
+      "sha256_after": "791eccc91d18aae55831c011074a4199f1798d21ef8d3c732c8de6749d518865",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/positive/plan.md",
+      "to": "skills/vr-production-gates/assets/design-system/examples/positive/plan.md",
+      "sha256_before": "26073dd353ec91fa595855c60281dd93c3d4a85562dc0f82e9575b6eeb1ba6ab",
+      "sha256_after": "26073dd353ec91fa595855c60281dd93c3d4a85562dc0f82e9575b6eeb1ba6ab",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/design-system/examples/positive/generation.json",
+      "to": "skills/vr-production-gates/assets/design-system/examples/positive/generation.json",
+      "sha256_before": "eaa1e43434f45e8cb1e12bf954ef9a9f553b191ad6698b728ba0d90ef6d325fe",
+      "sha256_after": "eaa1e43434f45e8cb1e12bf954ef9a9f553b191ad6698b728ba0d90ef6d325fe",
+      "byte_identical": true
+    },
+    {
+      "from": "skills/vr-production-gates/HANDOFF-history-through-3.4.0.md",
+      "to": "wiki/archive/handoffs/through-3.4.0.md",
+      "sha256_before": "c0792646be013f16a68f9a0516210731881c37d6b4654c7a1bfcbf2fce302b52",
+      "sha256_after": "94ac1deaa4c8bd876d7c854bebfc8145b35ac0de26745f9bd54821e1bd6487a6",
+      "byte_identical": false
+    },
+    {
+      "from": "skills/vr-production-gates/HANDOFF-history-through-3.8.1.md",
+      "to": "wiki/archive/handoffs/through-3.8.1.md",
+      "sha256_before": "bbda6f199a2b02f2e136f290b5bd3d52bc4499ffa2bf61e96beb9fad849060ad",
+      "sha256_after": "4a01864f760a8956ed23bdf5b7b879de171508ebb7d2fa822eba5fd24f60283d",
+      "byte_identical": false
+    }
+  ],
+  "merge": {
+    "from": "skills/vr-production-gates/PURPOSE.md",
+    "into": "skills/vr-production-gates/SKILL.md",
+    "sha256_before": "657edb01a33e2534a99aa4efef38634f06f3d8cb6a33931a9ff105ca743fab3b"
+  },
+  "rollback": "Reverse listed moves and restore the pre-edit text snapshots from local/validation/structure-4.4.0/before; never reset or remove unrelated work.",
+  "purpose_merged": true,
+  "moved_files": 21,
+  "version": "4.4.0",
+  "status": "IMPLEMENTED_AND_CHECKED_NOT_COMMITTED",
+  "scope": "approved five-step Skill/project layout reorganization",
+  "archive_index": "wiki/archive/handoffs/index.md",
+  "unique_current_handoff": "HANDOFF.md",
+  "design_spec": "skills/vr-production-gates/references/design-system.md",
+  "design_assets": "skills/vr-production-gates/assets/design-system",
+  "checks": {
+    "strict": {
+      "validated": 1,
+      "errors": 0,
+      "warnings": 0,
+      "strict": true
+    },
+    "target_loader": {
+      "skills": [
+        {
+          "name": "vr-production-gates",
+          "path": "/Users/xbpd/Projects/房产介绍视频skills/skills/vr-production-gates/SKILL.md",
+          "disableModelInvocation": false
+        }
+      ],
+      "diagnostics": [],
+      "repeatSame": true
+    },
+    "standalone_generation": {
+      "copied_skill_without_project_docs": true,
+      "generation_passed": true,
+      "output_files": [
+        "generation.json",
+        "plan.md",
+        "storyboard.html"
+      ],
+      "fixture": "synthetic, not a real house"
+    },
+    "project_structure_cases": {
+      "passed": true,
+      "cases": [
+        "valid repository layout passes",
+        "root HANDOFF links are checked",
+        "archive links are checked exactly once",
+        "Skill HANDOFF and PURPOSE regressions are rejected",
+        "missing root HANDOFF is rejected without a crash",
+        "missing archived handoff is rejected"
+      ]
+    },
+    "design_cli": {
+      "passed": true,
+      "cases": 5,
+      "evidence": "local/validation/structure-4.4.0/design-cli.json"
+    },
+    "regression": {
+      "passed": true,
+      "tests": 147,
+      "evidence": "local/validation/structure-4.4.0/tests.log"
+    },
+    "gate_regression": {
+      "passed": true,
+      "tests": 72,
+      "evidence": "local/validation/structure-4.4.0/gates.log"
+    },
+    "sdk_offline": {
+      "passed": true,
+      "evidence": "local/validation/structure-4.4.0/sdk.log"
+    },
+    "media_preservation": {
+      "media_catalog_sha256_unchanged": true,
+      "all_recorded_file_shas_unchanged": true,
+      "files_checked": 140,
+      "materials_git_diff": "",
+      "prior_raw_git_diff": ""
+    }
+  },
+  "browser_validation": {
+    "new_page_observed": false,
+    "chrome_attempt": "existing profile in use",
+    "cua_attempt": "file:// protocol blocked by URL safety policy",
+    "policy_workaround_attempted": false,
+    "safer_completed_alternative": "local path/link checks, isolated package generation, full existing regression; no claim of new visual readback"
+  },
+  "other_limits": [
+    "No new model trigger test",
+    "Other global Office/Morph duplicate Skill entries untouched",
+    "Existing Pi-specific frontmatter preserved; narrow Codex quick validator not represented as passed"
+  ],
+  "no_capture_or_audio_generation": true,
+  "historical_raw_and_approval_snapshots_unchanged": true,
+  "no_commit_or_push": true
+}

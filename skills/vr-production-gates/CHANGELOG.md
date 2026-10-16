@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.4.0 - 2026-10-16
+
+- 项目当前HANDOFF移到仓库根，历史两份交接移入wiki/archive/handoffs并建立归档索引；PURPOSE通用目的合入SKILL，不再保留重复项目入口。
+- 设计规范移至references/design-system.md，tokens/CSS/schema及合成示例归assets/design-system；更新渲染器、现有测试与文档路径。包根保留Pi要求的CHANGELOG与既有tests。
+- 清除Skill资产说明中的具体项目状态，Wiki纠正旧路径、最终推送状态及旧配额的历史隔离；媒体、原始回执和批准快照均保持。
+- 现有项目检查补唯一交接与归档入口，记录迁移/回滚及实际检查；不新增制作审批、固定尝试次数或通用倍率。
+
 ## 4.3.0 - 2026-10-16
 
 - 发布资料补充：按用户追加授权，将完整BGM/房源制作资料与参考片置于独立materials包并随仓库提交，更新相对入口；不改通用Skill执行行为，local会话/缓存继续忽略。

@@ -2,9 +2,15 @@
 
 **状态**：active ｜ **首次记录**：2026-10 ｜ **来源**：多次边界争议
 
-> **3.0.0兼容说明（2026-10-12）**：保留下文历史正文。真实图文脚本的一次完整制作批准可覆盖列明采集与首尾/配音/字幕/BGM/导出/QC，不再等待母版接受或逐层索权；旧局部批准、路径-only批准仍不追认。“一个输出尝试”对正式采集指一次take，失败也消费；同母版获批后期可另存新版本，不覆盖原件、不重拍。新后期范围按`post_only`绑定原母版回审，不篡改旧claim。技术通过、最终用户接受、发布许可仍独立。当前依据为[Skill](../../skills/vr-production-gates/SKILL.md)与[验收矩阵](../../skills/vr-production-gates/references/acceptance-matrix.md)。
+## 当前适用（4.4.0 · 2026-10-16）
 
-## 现象
+本模式active表示授权范围与技术检查、用户接受、发布许可仍须分别记录。执行按[当前Skill](../../skills/vr-production-gates/SKILL.md)和[验收场景](../../skills/vr-production-gates/references/acceptance-matrix.md)：已批准范围内的技术失败可修复重试，保留失败记录与原件；一镜到底指单一连续源时间线。旧“失败消费”“只准一次”“局部两组”及机械重新许可均不恢复为当前配额，用户明确限制次数或不重拍时仍遵守。
+
+## 历史规则（已被当前规范替代）
+
+> **3.0.0兼容说明（2026-10-12）**：以下保留当时许可机制，不能据此阻断当前范围内修复。真实图文脚本的一次完整制作批准可覆盖列明采集与首尾/配音/字幕/BGM/导出/QC，不再等待母版接受或逐层索权；旧局部批准、路径-only批准仍不追认。“一个输出尝试”对正式采集指一次take，失败也消费；同母版获批后期可另存新版本，不覆盖原件、不重拍。新后期范围按`post_only`绑定原母版回审，不篡改旧claim。技术通过、最终用户接受、发布许可仍独立。当前替代依据为[Skill](../../skills/vr-production-gates/SKILL.md)与[验收矩阵](../../skills/vr-production-gates/references/acceptance-matrix.md)。
+
+## 历史现象
 
 真实案例里反复出现同一类误解风险：
 
@@ -15,7 +21,7 @@
 
 这些跨阶段推断一旦成立，真实性门禁就形同虚设。
 
-## 有效做法
+## 历史有效做法
 
 把状态拆开记录，每一步只承认自己那一步的证据：
 
@@ -36,5 +42,4 @@
 
 ## 影响
 
-- `skills/vr-production-gates/SKILL.md` 触发边界与工作流第 0 步
-- `skills/vr-production-gates/references/acceptance-matrix.md` Required state split
+当前落点统一见[Skill影响表的P004映射](../skill-impact.md#当前映射)。上述历史状态名和单次许可表述不构成当前用户口令、执行次数或逐层审批要求。
