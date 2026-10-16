@@ -1,0 +1,50 @@
+{
+  "schema": "house-storyboard-review/v1",
+  "version": "v14",
+  "date": "2026-10-15",
+  "user_correction": "draw full storyboard and correct v13 backward balcony exit",
+  "scope": "full illustrated script, no new dynamic route capture or audio generation",
+  "planned_duration_s": 30,
+  "chapter_times": [
+    0,
+    3,
+    9,
+    12,
+    15,
+    23,
+    27,
+    30
+  ],
+  "route": "3→4→5→6→5→4→14→15",
+  "direction_correction": {
+    "S04": "turn in place at P6 toward interior before leaving",
+    "S05": "move forward facing indoor travel direction; no backwards exit"
+  },
+  "delivered": [
+    "complete overview board PNG/HTML",
+    "complete route board PNG/HTML",
+    "opening/ending preview PNG/HTML",
+    "seven illustrated chapters with motions, narration, full subtitles, music and risks",
+    "same-record detailed Markdown and integrated HTML"
+  ],
+  "checks": {
+    "overview_present": true,
+    "route_board_present": true,
+    "seven_chapters": true,
+    "motion_diagrams": 7,
+    "opening_real_interior_floorplan_title": true,
+    "ending_real_interior_cta": true,
+    "all_images_loaded": true,
+    "desktop_no_overflow": true,
+    "mobile_430px_no_overflow": true,
+    "new_forward_exit_dynamics": "PENDING",
+    "video_capture_authorized": false
+  },
+  "rebuild": "three generated content outputs byte-identical from same final record",
+  "markdown_png_embeds": "PASS",
+  "original_source_files": "found moved under Downloads/房产资料; SHA matched prior archived identities",
+  "v13_status": "RETURNED_BY_USER_FOR_BACKWARD_EXIT_AND_MISSING_SCRIPT",
+  "current_status": "DRAFT_AWAITING_USER_REVIEW",
+  "new_dynamics": "PENDING",
+  "capture_authorized": false
+}

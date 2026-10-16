@@ -1,0 +1,208 @@
+{
+  "schema": "v15-speed-revision/v1",
+  "date": "2026-10-16",
+  "user_request": "推进速度需要更快，看参考视频",
+  "output_dir": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/speed-v15",
+  "final": {
+    "file": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/speed-v15/招商愉樾_v15_推进加快_25秒.mp4",
+    "sha256": "9070feadada8fa881f6ced083efde02b543cca53077f268fa8d7b6198f197477",
+    "music": "/Users/xbpd/Music/QQ音乐/郭腾腾-喜剧之王 (剪辑版).ogg",
+    "music_sha256": "a42a04d32dbb7e3ee33d073f5257f59835cf39f08cafc89583e083a7942dae84",
+    "mix_filter": "[0:a]asplit=2[voice][key];[1:a]atrim=end=25.333333333333,asetpts=PTS-STARTPTS,aresample=48000,volume=-6.82dB,afade=t=in:d=0.4,afade=t=out:st=24.033333333333:d=1.3[bed];[bed][key]sidechaincompress=threshold=0.025:ratio=6:attack=35:release=400[duck];[voice][duck]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.84:level=false:latency=true[a]",
+    "full_decode_passed": true,
+    "audio_summary": "Summary:\n\n  Integrated loudness:\n    I:         -17.4 LUFS\n    Threshold: -27.6 LUFS\n\n  Loudness range:\n    LRA:         3.6 LU\n    Threshold: -37.7 LUFS\n    LRA low:   -19.9 LUFS\n    LRA high:  -16.3 LUFS\n\n  True peak:\n    Peak:       -5.6 dBFS\n[out#0/null @ 0x7c82c50300] video:315KiB audio:4752KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nframe=  760 fps=0.0 q=-0.0 Lsize=N/A time=00:00:25.33 bitrate=N/A speed=56.1x elapsed=0:00:00.45    \n",
+    "human_listening_verified": false,
+    "human_accepted": false,
+    "browser_playback": {
+      "ended": true,
+      "duration_s": 25.333333,
+      "current_time_s": 25.333333,
+      "media_error": null,
+      "frames_observed": 759,
+      "encoded_frames": 760,
+      "max_media_gap_s": 0.03333400000000353,
+      "unmuted_playback": true,
+      "all_images_loaded": true,
+      "page_overflow": false,
+      "human_listening_verified": false,
+      "human_accepted": false
+    },
+    "artifacts": {
+      "record.json": "b471b66a468167a59b34f3a84c7dccda4a490afda78ea68d5f12f44e8a2cbeef",
+      "package/overview.png": "910b60c1d6cfd4e4f265b9b0010fa959968403920a65657bfa3747eda2fd5055",
+      "package/route-board.png": "d96442efa6a0d4a3cf34152218c669cd433e88df9fa93c40cfc6a4cb4812bdec",
+      "首尾预览.png": "98c7e02bd9dd359279cba28dd5baa782b4ecf6f33210fbe3c193c85f4ab90d64",
+      "成片与完整剧本_v15_推进加快.html": "ccbfb128ca53a8b1ae1154acaae883d95596b6c6b42a10eeafc8c7876b8a49a0",
+      "packaged/subtitles.srt": "947427f8e9bf411b40fceedcc06f37687d7a60839e89821bc7126134cf802cf2"
+    },
+    "reference_review": {
+      "path": "/Users/xbpd/Downloads/80ec73e744919854660c92ce74f4a6c2.mp4",
+      "duration_s": 28.966667,
+      "browser_playback_ended": true,
+      "comparison": "different house; compare pacing and earlier movement, no asserted physical m/s equivalence"
+    }
+  },
+  "continuous_edit": {
+    "source": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/take-source.mp4",
+    "source_sha256": "869febe5558c83241e24f36dfa71aa82f7b8c41a23b229027d98cec33c81966f",
+    "reference_video": "/Users/xbpd/Downloads/80ec73e744919854660c92ce74f4a6c2.mp4",
+    "source_duration_s": 30.498,
+    "output_duration_s": 25.333333333333,
+    "source_knots_s": [
+      0.0,
+      3.006,
+      9.303,
+      12.155,
+      14.783,
+      24.002,
+      27.516,
+      30.498
+    ],
+    "output_knots_s": [
+      0.0,
+      1.8,
+      6.3,
+      9.5,
+      12.128,
+      18.228,
+      22.228,
+      25.333333333333
+    ],
+    "mapping": "monotone PCHIP, positive derivative, continuously varying speed; full source interval; CFR sampling",
+    "polynomial_coefficients": [
+      [
+        0.0009599045195369599,
+        0.0028698125709203685,
+        -0.03555737838782632,
+        -0.01674964492201289,
+        0.004419793277374267,
+        -0.025826114434185102,
+        5.56432698557644e-05
+      ],
+      [
+        0.009564663225953103,
+        -0.006998512295236493,
+        0.17990699210105293,
+        0.022452704518933348,
+        -0.05874908719880198,
+        0.16672299287703146,
+        -0.015255603449917632
+      ],
+      [
+        0.5613772857572672,
+        0.6449012364569933,
+        0.8981451961696703,
+        1.0566737722193142,
+        0.8276467480856147,
+        0.871345253130407,
+        1.0863566782149443
+      ],
+      [
+        0.0,
+        1.8,
+        6.3,
+        9.5,
+        12.128,
+        18.228,
+        22.228
+      ]
+    ],
+    "source_unchanged": true,
+    "cuts": false,
+    "removed_intervals": false,
+    "ffmpeg_argv": [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-n",
+      "-i",
+      "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/take-source.mp4",
+      "-an",
+      "-vf",
+      "setpts=PTS-STARTPTS,setpts='(if(lt(T,3.006),((0.00095990451953696*(T-0)+(0.0095646632259531))*(T-0)+(0.56137728575727))*(T-0)+(0),if(lt(T,9.303),((0.0028698125709204*(T-3.006)+(-0.0069985122952365))*(T-3.006)+(0.64490123645699))*(T-3.006)+(1.8),if(lt(T,12.155),((-0.035557378387826*(T-9.303)+(0.17990699210105))*(T-9.303)+(0.89814519616967))*(T-9.303)+(6.3),if(lt(T,14.783),((-0.016749644922013*(T-12.155)+(0.022452704518933))*(T-12.155)+(1.0566737722193))*(T-12.155)+(9.5),if(lt(T,24.002),((0.0044197932773743*(T-14.783)+(-0.058749087198802))*(T-14.783)+(0.82764674808561))*(T-14.783)+(12.128),if(lt(T,27.516),((-0.025826114434185*(T-24.002)+(0.16672299287703))*(T-24.002)+(0.87134525313041))*(T-24.002)+(18.228),((5.5643269855764e-05*(T-27.516)+(-0.015255603449918))*(T-27.516)+(1.0863566782149))*(T-27.516)+(22.228))))))))/TB',fps=30",
+      "-c:v",
+      "libx264",
+      "-crf",
+      "18",
+      "-pix_fmt",
+      "yuv420p",
+      "-movflags",
+      "+faststart",
+      "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/speed-v15/retimed.mp4"
+    ],
+    "human_accepted": false
+  },
+  "chapters": [
+    {
+      "id": "S01",
+      "start_s": 0.0,
+      "end_s": 1.8,
+      "source_start_s": 0.0,
+      "source_end_s": 3.006,
+      "old_duration_s": 3.006,
+      "new_duration_s": 1.8
+    },
+    {
+      "id": "S02",
+      "start_s": 1.8,
+      "end_s": 6.3,
+      "source_start_s": 3.006,
+      "source_end_s": 9.303,
+      "old_duration_s": 6.297000000000001,
+      "new_duration_s": 4.5
+    },
+    {
+      "id": "S03",
+      "start_s": 6.3,
+      "end_s": 9.5,
+      "source_start_s": 9.303,
+      "source_end_s": 12.155,
+      "old_duration_s": 2.5518,
+      "new_duration_s": 3.2
+    },
+    {
+      "id": "S04",
+      "start_s": 9.5,
+      "end_s": 12.128,
+      "source_start_s": 12.155,
+      "source_end_s": 14.783,
+      "old_duration_s": 2.628,
+      "new_duration_s": 2.628
+    },
+    {
+      "id": "S05",
+      "start_s": 12.128,
+      "end_s": 18.228,
+      "source_start_s": 14.783,
+      "source_end_s": 24.002,
+      "old_duration_s": 8.284543478260868,
+      "new_duration_s": 6.1
+    },
+    {
+      "id": "S06",
+      "start_s": 18.228,
+      "end_s": 22.228,
+      "source_start_s": 24.002,
+      "source_end_s": 27.516,
+      "old_duration_s": 3.5139999999999993,
+      "new_duration_s": 4
+    },
+    {
+      "id": "S07",
+      "start_s": 22.228,
+      "end_s": 25.333333,
+      "source_start_s": 27.516,
+      "source_end_s": 30.498,
+      "old_duration_s": 2.982000000000003,
+      "new_duration_s": 3.105333333333
+    }
+  ],
+  "limitations": [
+    "source SDK ghosting/doorframe deformation remain",
+    "turn shows utility balcony counter",
+    "human listening and final user acceptance pending"
+  ],
+  "no_new_capture": true,
+  "no_new_generation": true,
+  "skills_changed": false
+}

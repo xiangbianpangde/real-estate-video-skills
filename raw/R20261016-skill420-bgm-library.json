@@ -1,0 +1,372 @@
+{
+  "schema": "skill420-bgm-library/v1",
+  "date": "2026-10-16",
+  "skill_version": "4.2.0",
+  "request": "整合本次过程要求、问题和对应解决方法，并整理BGM开头部分",
+  "user_v15_reply": "可以，现在开始整理",
+  "validation": {
+    "validated": 1,
+    "errors": 0,
+    "warnings": 0,
+    "strict": true
+  },
+  "tests": {
+    "count": 147,
+    "passed": true,
+    "log": "local/validation/skill420-tests.log"
+  },
+  "pi_target_loader": {
+    "skills": [
+      {
+        "name": "vr-production-gates",
+        "path": "/Users/xbpd/Projects/房产介绍视频skills/skills/vr-production-gates/SKILL.md",
+        "disableModelInvocation": false
+      }
+    ],
+    "diagnostics": [],
+    "repeatSame": true
+  },
+  "pi_full_loader": {
+    "skill_count": 70,
+    "diagnostics_count": 11,
+    "target_discovered": [
+      "/Users/xbpd/Projects/房产介绍视频skills/skills/vr-production-gates/SKILL.md"
+    ],
+    "diagnostics_scope": "pre-existing unrelated officecli/morph skill name collisions; not modified"
+  },
+  "codex_quick_validate": "pre-existing Pi compatibility / disable-model-invocation fields unsupported by the narrow Codex checker; not removed",
+  "new_model_trigger_tests": "not run; invocation description unchanged except scoped local BGM routing",
+  "bgm": {
+    "directory": "/Users/xbpd/Downloads/BGM/可用开头片段",
+    "tracks": 5,
+    "files": 10,
+    "all_source_sha_independently_unchanged": true,
+    "entries": [
+      {
+        "source": "/Users/xbpd/Downloads/BGM/404Hz,DJ铁柱-RM进行曲(高燃进行曲).flac",
+        "source_sha256": "0226d654cfb3209f601179f31334f9cac72b1afee3adfe8ab872ef51972991bb",
+        "source_duration_s": 143.69102,
+        "source_tags": {
+          "TITLE": "RM进行曲(高燃进行曲)",
+          "ALBUM": "Next To You",
+          "ARTIST": "404Hz",
+          "QMQuality": "Premium-Atmos-2"
+        },
+        "source_probe_diagnostics": "",
+        "excerpt_source_s": [
+          0,
+          35.0
+        ],
+        "source_unchanged": true,
+        "target_lufs": -18,
+        "target_true_peak_dbfs": -2,
+        "fade_in_s": 0.02,
+        "fade_out_s": 0.8,
+        "filter": "loudnorm=I=-18:TP=-2:LRA=11:measured_I=-7.32:measured_TP=-0.05:measured_LRA=1.50:measured_thresh=-17.36:offset=-0.61:linear=true,afade=t=in:d=0.02,afade=t=out:st=34.2:d=0.8",
+        "wav_command": [
+          "ffmpeg",
+          "-hide_banner",
+          "-v",
+          "error",
+          "-n",
+          "-i",
+          "/Users/xbpd/Downloads/BGM/404Hz,DJ铁柱-RM进行曲(高燃进行曲).flac",
+          "-map",
+          "0:a:0",
+          "-vn",
+          "-t",
+          "35.0",
+          "-af",
+          "loudnorm=I=-18:TP=-2:LRA=11:measured_I=-7.32:measured_TP=-0.05:measured_LRA=1.50:measured_thresh=-17.36:offset=-0.61:linear=true,afade=t=in:d=0.02,afade=t=out:st=34.2:d=0.8",
+          "-ar",
+          "48000",
+          "-ac",
+          "2",
+          "-c:a",
+          "pcm_s24le",
+          "/Users/xbpd/Downloads/BGM/可用开头片段/音频/01_404Hz,DJ铁柱-RM进行曲(高燃进行曲)_开头35秒.wav"
+        ],
+        "outputs": {
+          "wav": {
+            "path": "音频/01_404Hz,DJ铁柱-RM进行曲(高燃进行曲)_开头35秒.wav",
+            "sha256": "93355caf1eb929d15921c2f02a50fe6a10d2bc1da74fc10d220780213d5dc34b",
+            "duration_s": 35.0,
+            "integrated_lufs": -18.11,
+            "true_peak_dbfs": -10.73,
+            "full_decode_passed": true
+          },
+          "preview": {
+            "path": "音频/01_404Hz,DJ铁柱-RM进行曲(高燃进行曲)_开头35秒.m4a",
+            "sha256": "cf99d064804a3c25bfe702a3273cdd9f644b75de12d3cc01c54981ab1deb6a35",
+            "duration_s": 35.0,
+            "integrated_lufs": -18.13,
+            "true_peak_dbfs": -10.31,
+            "full_decode_passed": true
+          }
+        },
+        "version_identity": "filename and embedded tags retained; no inferred artist/version equivalence"
+      },
+      {
+        "source": "/Users/xbpd/Downloads/BGM/DJ阿狸-天真的橡皮 (DJ版).mp3",
+        "source_sha256": "8d34694d30fefa499055b4c6eb9fdd4d525f5933336baae0ee26590a19f986e5",
+        "source_duration_s": 321.792993,
+        "source_tags": {
+          "title": "天真的橡皮",
+          "artist": "DJ阿狸",
+          "album": "人海一场相逢",
+          "genre": "Blues"
+        },
+        "source_probe_diagnostics": "[mjpeg @ 0x7c7ac84a80] bits 198 is invalid\n",
+        "excerpt_source_s": [
+          0,
+          35.0
+        ],
+        "source_unchanged": true,
+        "target_lufs": -18,
+        "target_true_peak_dbfs": -2,
+        "fade_in_s": 0.02,
+        "fade_out_s": 0.8,
+        "filter": "loudnorm=I=-18:TP=-2:LRA=11:measured_I=-6.55:measured_TP=1.90:measured_LRA=1.90:measured_thresh=-16.61:offset=-0.33:linear=true,afade=t=in:d=0.02,afade=t=out:st=34.2:d=0.8",
+        "wav_command": [
+          "ffmpeg",
+          "-hide_banner",
+          "-v",
+          "error",
+          "-n",
+          "-i",
+          "/Users/xbpd/Downloads/BGM/DJ阿狸-天真的橡皮 (DJ版).mp3",
+          "-map",
+          "0:a:0",
+          "-vn",
+          "-t",
+          "35.0",
+          "-af",
+          "loudnorm=I=-18:TP=-2:LRA=11:measured_I=-6.55:measured_TP=1.90:measured_LRA=1.90:measured_thresh=-16.61:offset=-0.33:linear=true,afade=t=in:d=0.02,afade=t=out:st=34.2:d=0.8",
+          "-ar",
+          "48000",
+          "-ac",
+          "2",
+          "-c:a",
+          "pcm_s24le",
+          "/Users/xbpd/Downloads/BGM/可用开头片段/音频/02_DJ阿狸-天真的橡皮 (DJ版)_开头35秒.wav"
+        ],
+        "outputs": {
+          "wav": {
+            "path": "音频/02_DJ阿狸-天真的橡皮 (DJ版)_开头35秒.wav",
+            "sha256": "78017903e99c869c2e5a1127d0ab3771b9108d66419523cc211c2ce521cc5b07",
+            "duration_s": 35.0,
+            "integrated_lufs": -18.24,
+            "true_peak_dbfs": -9.55,
+            "full_decode_passed": true
+          },
+          "preview": {
+            "path": "音频/02_DJ阿狸-天真的橡皮 (DJ版)_开头35秒.m4a",
+            "sha256": "f77838787d36f93fb70f208fbf191ccf43ce58d060afb7e5a884e0811c4ee7f8",
+            "duration_s": 35.0,
+            "integrated_lufs": -18.28,
+            "true_peak_dbfs": -9.64,
+            "full_decode_passed": true
+          }
+        },
+        "version_identity": "filename and embedded tags retained; no inferred artist/version equivalence"
+      },
+      {
+        "source": "/Users/xbpd/Downloads/BGM/海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》.ogg",
+        "source_sha256": "863d362af7171247044965036331b0cecba4817803fe75ede2def8383c16befe",
+        "source_duration_s": 379.312993,
+        "source_tags": {},
+        "source_probe_diagnostics": "",
+        "excerpt_source_s": [
+          0,
+          35.0
+        ],
+        "source_unchanged": true,
+        "target_lufs": -18,
+        "target_true_peak_dbfs": -2,
+        "fade_in_s": 0.02,
+        "fade_out_s": 0.8,
+        "filter": "loudnorm=I=-18:TP=-2:LRA=11:measured_I=-6.78:measured_TP=2.23:measured_LRA=2.60:measured_thresh=-16.78:offset=-0.48:linear=true,afade=t=in:d=0.02,afade=t=out:st=34.2:d=0.8",
+        "wav_command": [
+          "ffmpeg",
+          "-hide_banner",
+          "-v",
+          "error",
+          "-n",
+          "-i",
+          "/Users/xbpd/Downloads/BGM/海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》.ogg",
+          "-map",
+          "0:a:0",
+          "-vn",
+          "-t",
+          "35.0",
+          "-af",
+          "loudnorm=I=-18:TP=-2:LRA=11:measured_I=-6.78:measured_TP=2.23:measured_LRA=2.60:measured_thresh=-16.78:offset=-0.48:linear=true,afade=t=in:d=0.02,afade=t=out:st=34.2:d=0.8",
+          "-ar",
+          "48000",
+          "-ac",
+          "2",
+          "-c:a",
+          "pcm_s24le",
+          "/Users/xbpd/Downloads/BGM/可用开头片段/音频/03_海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》_开头35秒.wav"
+        ],
+        "outputs": {
+          "wav": {
+            "path": "音频/03_海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》_开头35秒.wav",
+            "sha256": "7828099267538d7cfe2020bf1d2f7f7d040531219a667264217c5cab68e78c2c",
+            "duration_s": 35.0,
+            "integrated_lufs": -18.16,
+            "true_peak_dbfs": -8.99,
+            "full_decode_passed": true
+          },
+          "preview": {
+            "path": "音频/03_海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》_开头35秒.m4a",
+            "sha256": "a8ba021c623a57426a30c2664b87a0308340b141c885cf5ef4881f11ddb9b20d",
+            "duration_s": 35.0,
+            "integrated_lufs": -18.18,
+            "true_peak_dbfs": -8.99,
+            "full_decode_passed": true
+          }
+        },
+        "version_identity": "filename and embedded tags retained; no inferred artist/version equivalence"
+      },
+      {
+        "source": "/Users/xbpd/Downloads/BGM/郭腾腾-喜剧之王 (剪辑版).ogg",
+        "source_sha256": "a42a04d32dbb7e3ee33d073f5257f59835cf39f08cafc89583e083a7942dae84",
+        "source_duration_s": 61.41678,
+        "source_tags": {},
+        "source_probe_diagnostics": "",
+        "excerpt_source_s": [
+          0,
+          35.0
+        ],
+        "source_unchanged": true,
+        "target_lufs": -18,
+        "target_true_peak_dbfs": -2,
+        "fade_in_s": 0.02,
+        "fade_out_s": 0.8,
+        "filter": "loudnorm=I=-18:TP=-2:LRA=11:measured_I=-16.89:measured_TP=-3.02:measured_LRA=2.70:measured_thresh=-26.97:offset=-0.85:linear=true,afade=t=in:d=0.02,afade=t=out:st=34.2:d=0.8",
+        "wav_command": [
+          "ffmpeg",
+          "-hide_banner",
+          "-v",
+          "error",
+          "-n",
+          "-i",
+          "/Users/xbpd/Downloads/BGM/郭腾腾-喜剧之王 (剪辑版).ogg",
+          "-map",
+          "0:a:0",
+          "-vn",
+          "-t",
+          "35.0",
+          "-af",
+          "loudnorm=I=-18:TP=-2:LRA=11:measured_I=-16.89:measured_TP=-3.02:measured_LRA=2.70:measured_thresh=-26.97:offset=-0.85:linear=true,afade=t=in:d=0.02,afade=t=out:st=34.2:d=0.8",
+          "-ar",
+          "48000",
+          "-ac",
+          "2",
+          "-c:a",
+          "pcm_s24le",
+          "/Users/xbpd/Downloads/BGM/可用开头片段/音频/04_郭腾腾-喜剧之王 (剪辑版)_开头35秒.wav"
+        ],
+        "outputs": {
+          "wav": {
+            "path": "音频/04_郭腾腾-喜剧之王 (剪辑版)_开头35秒.wav",
+            "sha256": "3d451570e22bb5278694a0a8e62066a9b0eb4d72748954cd2658285f6108891d",
+            "duration_s": 35.0,
+            "integrated_lufs": -18.1,
+            "true_peak_dbfs": -4.13,
+            "full_decode_passed": true
+          },
+          "preview": {
+            "path": "音频/04_郭腾腾-喜剧之王 (剪辑版)_开头35秒.m4a",
+            "sha256": "953f063975a40b5ca26796824c7a6a7f4db430e84ce18b7a5c0016e74b2e62be",
+            "duration_s": 35.0,
+            "integrated_lufs": -18.1,
+            "true_peak_dbfs": -4.14,
+            "full_decode_passed": true
+          }
+        },
+        "version_identity": "filename and embedded tags retained; no inferred artist/version equivalence"
+      },
+      {
+        "source": "/Users/xbpd/Downloads/BGM/金6-气质出场 (DJ版).mp3",
+        "source_sha256": "716f3554b40569e5124dc7f01030d81a30d0ee1ce5d296ff5afac8a8b66cfa52",
+        "source_duration_s": 98.950975,
+        "source_tags": {
+          "title": "07-气质出场(DJ版)-金6",
+          "album": "法老王",
+          "artist": "金6",
+          "genre": "Blues"
+        },
+        "source_probe_diagnostics": "[mjpeg @ 0x7c07064a80] bits 200 is invalid\n",
+        "excerpt_source_s": [
+          0,
+          35.0
+        ],
+        "source_unchanged": true,
+        "target_lufs": -18,
+        "target_true_peak_dbfs": -2,
+        "fade_in_s": 0.02,
+        "fade_out_s": 0.8,
+        "filter": "loudnorm=I=-18:TP=-2:LRA=11:measured_I=-7.77:measured_TP=1.49:measured_LRA=1.10:measured_thresh=-17.77:offset=-0.06:linear=true,afade=t=in:d=0.02,afade=t=out:st=34.2:d=0.8",
+        "wav_command": [
+          "ffmpeg",
+          "-hide_banner",
+          "-v",
+          "error",
+          "-n",
+          "-i",
+          "/Users/xbpd/Downloads/BGM/金6-气质出场 (DJ版).mp3",
+          "-map",
+          "0:a:0",
+          "-vn",
+          "-t",
+          "35.0",
+          "-af",
+          "loudnorm=I=-18:TP=-2:LRA=11:measured_I=-7.77:measured_TP=1.49:measured_LRA=1.10:measured_thresh=-17.77:offset=-0.06:linear=true,afade=t=in:d=0.02,afade=t=out:st=34.2:d=0.8",
+          "-ar",
+          "48000",
+          "-ac",
+          "2",
+          "-c:a",
+          "pcm_s24le",
+          "/Users/xbpd/Downloads/BGM/可用开头片段/音频/05_金6-气质出场 (DJ版)_开头35秒.wav"
+        ],
+        "outputs": {
+          "wav": {
+            "path": "音频/05_金6-气质出场 (DJ版)_开头35秒.wav",
+            "sha256": "68781a8e8e2ac292a1f3deae5836088ce2c04ccb77133d7fd1cd66b17becc833",
+            "duration_s": 35.0,
+            "integrated_lufs": -18.1,
+            "true_peak_dbfs": -8.74,
+            "full_decode_passed": true
+          },
+          "preview": {
+            "path": "音频/05_金6-气质出场 (DJ版)_开头35秒.m4a",
+            "sha256": "29b631c7e857a77d91774b98a097b00727cc54d30c68bb33494c727b8549a732",
+            "duration_s": 35.0,
+            "integrated_lufs": -18.18,
+            "true_peak_dbfs": -9.54,
+            "full_decode_passed": true
+          }
+        },
+        "version_identity": "filename and embedded tags retained; no inferred artist/version equivalence"
+      }
+    ],
+    "version_notes": [
+      "天真的橡皮为DJ阿狸版，不等同于此前DJ小辞版",
+      "未提供黑神话悟空国潮"
+    ],
+    "browser": {
+      "metadata_loaded": 5,
+      "duration_each_s": 35,
+      "first_track_played_to_end": true,
+      "other_four_playback_started": true,
+      "errors": 0,
+      "page_overflow": false,
+      "human_listening_verified": false
+    }
+  },
+  "no_commit_or_push": true,
+  "known_sdk_issue039": "not changed by this scope"
+}

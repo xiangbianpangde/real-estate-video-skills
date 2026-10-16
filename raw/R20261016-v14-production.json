@@ -1,0 +1,112 @@
+{
+  "schema": "v14-production-progress/v1",
+  "date": "2026-10-16",
+  "status": "AWAITING_SPECIFIED_MUSIC_ASSET",
+  "approved_script": "v14",
+  "approved_artifacts_unchanged": true,
+  "capture": {
+    "single_source_duration_s": 30.498,
+    "frames": 916,
+    "local_turn_verified": "stationary turn then forward through indoor doorway",
+    "control_status": "CONTROLS_CHECKED_VISUAL_PENDING",
+    "state_restored": true,
+    "forward_direction_check": [
+      {
+        "step": 1,
+        "target": 4,
+        "min_forward_dot": 0.9999980639458369,
+        "samples": 126
+      },
+      {
+        "step": 2,
+        "target": 5,
+        "min_forward_dot": 0.9835098955632278,
+        "samples": 60
+      },
+      {
+        "step": 3,
+        "target": 6,
+        "min_forward_dot": 0.9998194635342761,
+        "samples": 39
+      },
+      {
+        "step": 7,
+        "target": 5,
+        "min_forward_dot": 0.9999907035881572,
+        "samples": 35
+      },
+      {
+        "step": 8,
+        "target": 4,
+        "min_forward_dot": 0.9994267013191827,
+        "samples": 51
+      },
+      {
+        "step": 10,
+        "target": 14,
+        "min_forward_dot": 0.25628233683259155,
+        "samples": 97
+      },
+      {
+        "step": 11,
+        "target": 15,
+        "min_forward_dot": 0.9959860551649838,
+        "samples": 42
+      }
+    ],
+    "raw_sha256": "47ae0058748f8af93fdc0eb2b2c91a010ffb577df8ab47234106be8d9793aa84"
+  },
+  "edited": {
+    "duration_s": 29.2666667,
+    "complete_source_map": true,
+    "cuts": false,
+    "removed_intervals": false,
+    "sha256": "f4b38bce5f7362deb8d83f163936b8b23873050ce87e620315f1f7d7fce69184"
+  },
+  "voice": {
+    "generator": "mcode current Matrix batch_text_to_audio",
+    "original_requests": 7,
+    "success": 7,
+    "downloads": 7,
+    "tts_speed_requested": 1.05,
+    "timing": "local Whisper-small cross-attention DTW with independent no-prompt ASR",
+    "uniform_character_timing": false,
+    "proper_name_asr_differences": "PENDING_LISTENING",
+    "additional_pronunciation_variant": "S01 alternate homophone input generated once, retained as candidate; not used in current preview"
+  },
+  "packaging": {
+    "opening": "actual indoor moving source, floorplan overlay and title",
+    "subtitles": "complete script one-line word-aligned cues with current word highlight",
+    "ending": "same bedroom background with disclaimer then CTA"
+  },
+  "preview": {
+    "filename": "v14_29秒_配音字幕首尾_待指定BGM.mp4",
+    "sha256": "7b2b54a8aff918a869532186483a670c0369acd6152b57462a4414471d0d24e5",
+    "bgm": "NONE, explicit intermediate review version",
+    "audio_gain_db": 6,
+    "audio_metric_summary": "Summary:\n\n  Integrated loudness:\n    I:         -16.1 LUFS\n    Threshold: -26.7 LUFS\n\n  Loudness range:\n    LRA:         5.7 LU\n    Threshold: -38.1 LUFS\n    LRA low:   -22.3 LUFS\n    LRA high:  -16.5 LUFS\n\n  True peak:\n    Peak:       -5.7 dBFS\n[out#0/null @ 0x78f4c0c9c0] video:364KiB audio:5488KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nframe=  878 fps=0.0 q=-0.0 Lsize=N/A time=00:00:29.26 bitrate=N/A speed= 119x elapsed=0:00:00.24    \n",
+    "playback": {
+      "ended": true,
+      "duration": 29.269,
+      "currentTime": 29.269,
+      "mediaError": null,
+      "framesObserved": 878,
+      "maxMediaGap_s": 0.03333400000000353,
+      "unmutedPlayback": true,
+      "audioListeningVerified": false,
+      "images": true,
+      "overflow": false
+    }
+  },
+  "remaining": [
+    "one usable audio from user six named tracks, exact edit/DJ version",
+    "final BGM mixing and whole-track check",
+    "human listening of proper name and voice quality",
+    "final user acceptance"
+  ],
+  "source_limitations": [
+    "SDK cross-point ghosting and doorframe distortion remain",
+    "turn briefly shows balcony utility counter"
+  ],
+  "no_publish": true
+}

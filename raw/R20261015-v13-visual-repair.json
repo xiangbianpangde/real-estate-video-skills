@@ -1,0 +1,76 @@
+{
+  "schema": "house-video-repair-validation/v1",
+  "version": "v13",
+  "date": "2026-10-15",
+  "scope": "visual repair and review, no narration/music/final packaging",
+  "local_validation": {
+    "duration_about_s": 4.5,
+    "status": "controls and restoration passed; half-second frames reviewed"
+  },
+  "full_source": {
+    "duration_s": 29.479,
+    "frames": 885,
+    "sha256": "4d4ca29e0261658e41ac7c9478c40a8bfc7dd163456cbbcac86ec16ee6bceeb0",
+    "max_frame_gap_ms": 62,
+    "gaps_over_100ms": 0
+  },
+  "edited": {
+    "duration_s": 27.333333,
+    "single_source": true,
+    "cuts": false,
+    "removed_intervals": false,
+    "speed_map": "private review folder/speed-map.json",
+    "decoded": true
+  },
+  "playback": {
+    "ended": true,
+    "duration": 27.333333,
+    "currentTime": 27.333333,
+    "mediaError": null,
+    "framesObserved": 820,
+    "maxObservedMediaGap_s": 0.03333400000000353,
+    "muted": true,
+    "images": [
+      {
+        "src": "卧室预览.jpg",
+        "loaded": true
+      },
+      {
+        "src": "逐半秒画面_1.jpg",
+        "loaded": true
+      },
+      {
+        "src": "逐半秒画面_2.jpg",
+        "loaded": true
+      }
+    ],
+    "overflow": false
+  },
+  "restoration": {
+    "pano": 0,
+    "fov": 96,
+    "position_error": 4.526807776770321e-16,
+    "ready": true,
+    "syncOwn": false,
+    "helper": true,
+    "pixel_ratio": 1
+  },
+  "observed_changes": [
+    "bedroom doorway scan instead of indoor push",
+    "balcony return keeps window view until living room",
+    "bedroom turn combined with corridor movement",
+    "window hold and return segments accelerated"
+  ],
+  "remaining": [
+    "SDK cross-point ghosting and doorframe distortion remain",
+    "P4 rotation briefly passes nearby wall/curtain",
+    "no human acceptance or narration/music postproduction"
+  ],
+  "visual_acceptance": "PENDING_USER",
+  "technical_errors_preserved": [
+    "extracted adapter disabled sync before setState settlement",
+    "pan promise returned before final angular convergence",
+    "fixed requestFrame last=now under-sampled native cadence; remainder scheduling produced885frames/29.479s"
+  ],
+  "private_evidence": "local/validation/v13-visual-repair and current visualization folder"
+}

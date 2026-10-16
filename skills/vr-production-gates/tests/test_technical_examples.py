@@ -79,4 +79,33 @@ class TechnicalExamples(unittest.TestCase):
         self.script('postprocess.py','--plan',plan,'--out',self.p/'bad',good=False);self.assertFalse((self.p/'bad').exists())
 
 
+    def test_bgm_short_source_not_padded_or_looped_and_original_preserved(self):
+        source=self.p/'library';source.mkdir();audio=source/'short.wav'
+        self.call(['ffmpeg','-v','error','-f','lavfi','-i','sine=frequency=330:sample_rate=48000:duration=1',str(audio)])
+        original=self.sha(audio)
+        self.script('prepare_bgm.py','--source-dir',source,'--out',source/'ready','--seconds','35')
+        report=json.loads((source/'ready/清单.json').read_text());entry=report['entries'][0]
+        self.assertEqual(entry['excerpt_source_s'],[0,1])
+        self.assertEqual(self.sha(audio),original)
+        for out in entry['outputs'].values():
+            self.assertAlmostEqual(out['duration_s'],1,delta=.08)
+            self.assertLess(out['true_peak_dbfs'],0)
+            self.assertTrue(out['full_decode_passed'])
+            self.assertTrue((source/'ready'/out['path']).exists())
+
+    def test_bgm_existing_output_not_overwritten(self):
+        source=self.p/'library';source.mkdir();audio=source/'source.wav'
+        self.call(['ffmpeg','-v','error','-f','lavfi','-i','sine=frequency=330:duration=1',str(audio)])
+        out=source/'ready';out.mkdir();sentinel=out/'keep.txt';sentinel.write_text('user work')
+        self.script('prepare_bgm.py','--source-dir',source,'--out',out,good=False)
+        self.assertEqual(sentinel.read_text(),'user work')
+        self.assertEqual(list(out.iterdir()),[sentinel])
+
+    def test_bgm_silent_source_does_not_claim_usable_output(self):
+        source=self.p/'library';source.mkdir()
+        self.call(['ffmpeg','-v','error','-f','lavfi','-i','anullsrc=r=48000:cl=stereo','-t','1',str(source/'silent.wav')])
+        self.script('prepare_bgm.py','--source-dir',source,'--out',source/'ready',good=False)
+        self.assertFalse((source/'ready/试听索引.html').exists())
+
+
 if __name__=='__main__':unittest.main(verbosity=2)

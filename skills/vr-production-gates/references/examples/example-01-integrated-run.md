@@ -23,7 +23,7 @@
 | 首尾/声音 | 首镜户型图、连续室内背景、室内尾镜/获准CTA、素材库BGM授权池 |
 | 范围与审批 | 采集及列明后期/编码/QC；正文/PNG/输入/范围SHA及实际展示/批准事件 |
 
-详见 [图文协议](../illustrated-script.md)、[脚本模板](../illustrated-script-template.md) 与 [记录模板](../freeze-record-template.json)。
+详见 [图文协议](../illustrated-script.md)、[脚本模板](../illustrated-script-template.md) 与 [记录模板](../../assets/templates/record.json)。
 
 ## 动作图示与首镜布局
 

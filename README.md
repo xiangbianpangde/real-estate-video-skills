@@ -1,56 +1,66 @@
 # 房产介绍视频 Skills
 
-面向真实房产素材的图文剧本、完整制作和成片验收。当前技能版本以[SKILL.md](skills/vr-production-gates/SKILL.md)为准。
+制作真实房源图文剧本与视频。目录定版版本为4.3.0，当前行为及版本以[SKILL.md](skills/vr-production-gates/SKILL.md)为准。
 
-## 从哪里开始
+## 工作入口
 
-| 需要做什么 | 唯一入口 |
+| 任务 | 入口 |
 |---|---|
-| 继续当前项目 | [交接导航](skills/vr-production-gates/HANDOFF.md) |
-| 约束逐项审计 | [4.0约束审计](wiki/cases/CASE-20261015-003-constraint-audit.md) |
-| 执行制作流程 | [制作技能](skills/vr-production-gates/SKILL.md) |
-| 设计图文剧本 | [设计系统 v1.1](skills/vr-production-gates/design-system/SPEC.md) |
-| 运行SDK/变速/声音技术示范 | [技术示范](skills/vr-production-gates/references/examples/technical-examples.md) |
-| 看完整正反示例 | [设计系统示例](skills/vr-production-gates/design-system/examples/README.md) |
-| 提交与绑定拍前审核 | [提交协议](skills/vr-production-gates/references/illustrated-script.md) |
-| 查问题与复盘 | [Wiki导航](wiki/index.md)、[Bug台账](wiki/issues.md) |
+| 继续当前房源 | [交接导航](skills/vr-production-gates/HANDOFF.md) |
+| 执行制作 | [制作技能](skills/vr-production-gates/SKILL.md) |
+| 填写新剧本 | [生产记录模板](skills/vr-production-gates/assets/templates/record.json)、[填写说明](skills/vr-production-gates/references/illustrated-script-template.md) |
+| 图文设计与组件 | [设计系统](skills/vr-production-gates/design-system/SPEC.md) |
+| 素材库与文件分工 | [模板与素材位置](skills/vr-production-gates/assets/README.md) |
+| 变速、SDK、音频与BGM整理 | [技术示范](skills/vr-production-gates/references/examples/technical-examples.md) |
+| 图文正反示例 | [示例](skills/vr-production-gates/design-system/examples/README.md) |
+| 问题与过程记录 | [Wiki](wiki/index.md)、[Bug台账](wiki/issues.md)、[约束审计](wiki/cases/CASE-20261015-003-constraint-audit.md) |
 
-## 结构与职责
+本机打开 `local/index.html` 可进入素材库及当前成片；完整BGM、开头片段与来源清单位于 `local/material-library/bgm/`。该私有工作区被Git忽略，不随公开仓库分发；其他机器使用自己的素材根，不假定本机路径存在。原Downloads/BGM是当前素材库的兼容入口，只有一份媒体实体。
+
+## 定版目录
 
 ```text
 skills/vr-production-gates/
-  SKILL.md                 执行入口
-  design-system/           设计规范、tokens/CSS、标准结构、正反示例
-  scripts/technical_examples/  SDK适配、完整变速、音频字幕后期与离线演示
-  scripts/storyboard/       共享数据校验、组件和两种输出
-  scripts/build_script_package.py  record -> 总板HTML + 独立路线板HTML + 正文
-  scripts/check_shooting_plan.py   审核/来源/输出目录保护
-  references/              提交、成像、字幕和首尾的专项合同
-  tests/                   现有门禁与生成器回归
-wiki/                      脱敏问题、模式、案例与演化日志
-raw/                       不可变脱敏原始记录
-local/                     本地会话导出与整理回执；Git忽略
+  SKILL.md                         行为入口
+  PURPOSE.md                       用途与边界
+  CHANGELOG.md                     版本演化
+  HANDOFF*.md                      既有项目导航与历史，保留路径
+  assets/
+    README.md                      模板/素材目录职责
+    templates/record.json          唯一生产记录模板
+  design-system/                   SPEC、tokens/CSS、schema、图文正反例
+  references/                      图文审核、运动、声音、字幕、首尾专项说明
+    examples/                      技术过程示例与问题定位入口
+  scripts/
+    storyboard/                    同一record的数据校验、组件和生成
+    technical_examples/            SDK、连续变速、音频字幕、BGM整理工具
+    build_script_package.py        方案板HTML＋路线板HTML＋正文
+    check_shooting_plan.py          来源/审核/输出保护
+  tests/                           行为与真实媒体回归
+wiki/                              问题、案例和演化日志
+raw/                               不可变原始回执
+local/                             私有素材、制作入口、会话与验证证据
+  material-library/bgm/            完整原曲＋开头片段＋清单/试听索引
+  productions/                     当前成片/剧本入口，原媒体不搬动
+  validation/                      验证证据与本轮迁移备份
+  session-exports/                  既有会话导出
 ```
 
-设计信息只维护在record.json；方案板和详细正文由同一输入生成。读者图片采用PNG，HTML保留为可放大图源。完整制作的默认流程、用户视觉标准及授权以技能和专项合同为准，本页只导航。
+章节卡、动作图示、首尾组件和风险标签仍由设计系统与生成器维护；方案板、路线板及正文使用同一record。真实房源及音乐不复制进通用Skill资产。目录定版不冻结素材时长、拍法参数或后续正常迭代。
 
-## 生成与验证
+## 生成与检查
 
 ```bash
 python3 skills/vr-production-gates/scripts/build_script_package.py \
   --record /private/version/record.json --floorplan floorplan.png \
   --output-dir /private/version/generated
 
+python3 -m unittest discover -s skills/vr-production-gates/tests -p 'test_*.py'
 python3 skills/vr-production-gates/tests/run.py
-python3 skills/vr-production-gates/tests/test_storyboard.py
-python3 tools/verify_design_system.py --evidence-out /path/to/evidence.json
+python3 tools/verify_design_system.py --evidence-out /path/to/new-evidence.json
 python3 tools/check_project.py
 ```
 
-生成命令不导出PNG、不授生产权限。需真实浏览器加载、导出PNG和目视，再按提交协议记录审核对象；用户通过完整文档链接自然批准，无需读技术摘要。通用JSON Schema引擎、新上下文模型触发和真实房源端到端制作的验证状态见交接记录。
+音频/字幕测试使用含Pillow的Python环境；FFmpeg/ffprobe需可用。生成不等于目视/实听或用户接受。实际检查、已知限制与批准对象见交接及原始回执。
 
-Pi安装：沿用一个canonical目录，使用项目`.pi/skills`符号链接，或`pi --skill /path/to/skills/vr-production-gates`加载；不要维护同名副本。
-
-## 内容与历史保护
-
-公开仓库只放代码、规范、抽象图和脱敏证据；真实房源素材、身份与完整会话留私有。重组保留旧交接字节及本地会话SHA；当前入口只指向权威合同。历史记录不等于当前批准、用户接受或发布许可。
+Pi沿用唯一canonical目录，可用 `pi --skill /path/to/skills/vr-production-gates` 加载；不维护同名副本。当前交接和历史路径保留，便于追溯已有引用；原始回执不因目录定版重写。

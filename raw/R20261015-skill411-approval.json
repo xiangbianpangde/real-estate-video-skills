@@ -1,0 +1,31 @@
+{
+  "schema": "skill-approval-integration/v1",
+  "version": "4.1.1",
+  "date": "2026-10-15",
+  "scope": "skill instructions and v14 approval record only",
+  "changes": [
+    "forbid backward moving capture; turn to travel direction before returning",
+    "recommend stable doorway sweep for room presentation, preserving suitable alternatives",
+    "deliver current complete illustrated script with revised route or video review"
+  ],
+  "checks": {
+    "strict_errors": 0,
+    "strict_warnings": 0,
+    "pi_loader_diagnostics": 0,
+    "project_links": "PASS",
+    "diff_whitespace": "PASS"
+  },
+  "v14_approval": {
+    "source": "direct user message",
+    "status": "SCRIPT_APPROVED_ONCE",
+    "approved_record_sha256": "36b1bf03674a8d56ce53e6d798b568ddebb0d3492da8e3b8b77b60f267bfb40d",
+    "new_dynamic_route": "PENDING",
+    "captured_this_turn": false
+  },
+  "tests_not_run": [
+    "new-model trigger behavior",
+    "video capture or playback",
+    "runtime SDK example regression; no code changed this turn"
+  ],
+  "rollback_base": "2e6a889"
+}

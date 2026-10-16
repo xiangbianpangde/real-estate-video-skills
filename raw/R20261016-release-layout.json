@@ -1,0 +1,126 @@
+{
+  "schema": "release-layout-migration/v1",
+  "date": "2026-10-16",
+  "moves": [
+    {
+      "from": "/Users/xbpd/Downloads/BGM",
+      "to": "/Users/xbpd/Projects/房产介绍视频skills/local/material-library/bgm"
+    },
+    {
+      "from": "/Users/xbpd/Projects/房产介绍视频skills/skills/vr-production-gates/references/freeze-record-template.json",
+      "to": "/Users/xbpd/Projects/房产介绍视频skills/skills/vr-production-gates/assets/templates/record.json"
+    }
+  ],
+  "compatibility_link": "/Users/xbpd/Downloads/BGM",
+  "template_sha256": "1ee0db80b2ecc0fb17dc971c907dc7fa8cbccf0befd16dbf255af076d5ff8a99",
+  "original_bgm_tree": {
+    "素材库说明.md": "c65a92a366ba7c16aaa684c2e71f1a47cca81f3c899930013d3f1eda3790b42b",
+    "原曲归档记录.json": "a77a1f9c86cbb1478913c2fc06a0092fe771f42dfc2ea8c1184153f4e39ffadc",
+    "原曲/海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》.ogg": "863d362af7171247044965036331b0cecba4817803fe75ede2def8383c16befe",
+    "原曲/DJ阿狸-天真的橡皮 (DJ版).mp3": "8d34694d30fefa499055b4c6eb9fdd4d525f5933336baae0ee26590a19f986e5",
+    "原曲/404Hz,DJ铁柱-RM进行曲(高燃进行曲).flac": "0226d654cfb3209f601179f31334f9cac72b1afee3adfe8ab872ef51972991bb",
+    "原曲/郭腾腾-喜剧之王 (剪辑版).ogg": "a42a04d32dbb7e3ee33d073f5257f59835cf39f08cafc89583e083a7942dae84",
+    "原曲/金6-气质出场 (DJ版).mp3": "716f3554b40569e5124dc7f01030d81a30d0ee1ce5d296ff5afac8a8b66cfa52",
+    "可用开头片段/试听索引.html": "c383d861d7730d94da5380840cd57aeb9fc3b0bfa1f07c27501184b4edd6c31b",
+    "可用开头片段/使用说明.md": "751e4e8997222c72dd83ccd66771d207121540ad73b806b4cb05f9f0ce860d9c",
+    "可用开头片段/清单.json": "da341f4840b05cf7257c00b51f557adbd316d8481f45e63085544b6bbaedd370",
+    "可用开头片段/音频/05_金6-气质出场 (DJ版)_开头35秒.m4a": "29b631c7e857a77d91774b98a097b00727cc54d30c68bb33494c727b8549a732",
+    "可用开头片段/音频/02_DJ阿狸-天真的橡皮 (DJ版)_开头35秒.m4a": "f77838787d36f93fb70f208fbf191ccf43ce58d060afb7e5a884e0811c4ee7f8",
+    "可用开头片段/音频/01_404Hz,DJ铁柱-RM进行曲(高燃进行曲)_开头35秒.wav": "93355caf1eb929d15921c2f02a50fe6a10d2bc1da74fc10d220780213d5dc34b",
+    "可用开头片段/音频/01_404Hz,DJ铁柱-RM进行曲(高燃进行曲)_开头35秒.m4a": "cf99d064804a3c25bfe702a3273cdd9f644b75de12d3cc01c54981ab1deb6a35",
+    "可用开头片段/音频/05_金6-气质出场 (DJ版)_开头35秒.wav": "68781a8e8e2ac292a1f3deae5836088ce2c04ccb77133d7fd1cd66b17becc833",
+    "可用开头片段/音频/02_DJ阿狸-天真的橡皮 (DJ版)_开头35秒.wav": "78017903e99c869c2e5a1127d0ab3771b9108d66419523cc211c2ce521cc5b07",
+    "可用开头片段/音频/04_郭腾腾-喜剧之王 (剪辑版)_开头35秒.m4a": "953f063975a40b5ca26796824c7a6a7f4db430e84ce18b7a5c0016e74b2e62be",
+    "可用开头片段/音频/03_海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》_开头35秒.m4a": "a8ba021c623a57426a30c2664b87a0308340b141c885cf5ef4881f11ddb9b20d",
+    "可用开头片段/音频/04_郭腾腾-喜剧之王 (剪辑版)_开头35秒.wav": "3d451570e22bb5278694a0a8e62066a9b0eb4d72748954cd2658285f6108891d",
+    "可用开头片段/音频/03_海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》_开头35秒.wav": "7828099267538d7cfe2020bf1d2f7f7d040531219a667264217c5cab68e78c2c"
+  },
+  "rollback": "unlink Downloads/BGM alias; rename local/material-library/bgm back to Downloads/BGM; rename assets/templates/record.json back to references/freeze-record-template.json; restore changed text references from pre-migration backups",
+  "post_move_original_master_hashes": {
+    "海山来了-Media awer《阿衣莫 (越南鼓FkHs) 》.ogg": "863d362af7171247044965036331b0cecba4817803fe75ede2def8383c16befe",
+    "DJ阿狸-天真的橡皮 (DJ版).mp3": "8d34694d30fefa499055b4c6eb9fdd4d525f5933336baae0ee26590a19f986e5",
+    "404Hz,DJ铁柱-RM进行曲(高燃进行曲).flac": "0226d654cfb3209f601179f31334f9cac72b1afee3adfe8ab872ef51972991bb",
+    "郭腾腾-喜剧之王 (剪辑版).ogg": "a42a04d32dbb7e3ee33d073f5257f59835cf39f08cafc89583e083a7942dae84",
+    "金6-气质出场 (DJ版).mp3": "716f3554b40569e5124dc7f01030d81a30d0ee1ce5d296ff5afac8a8b66cfa52"
+  },
+  "downloads_alias_resolves_to": "/Users/xbpd/Projects/房产介绍视频skills/local/material-library/bgm",
+  "current_production_pointer": "/Users/xbpd/Projects/房产介绍视频skills/local/productions/current",
+  "current_production_target": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/speed-v15",
+  "skill_version": "4.3.0",
+  "checks": {
+    "strict": {
+      "validated": 1,
+      "errors": 0,
+      "warnings": 0,
+      "strict": true
+    },
+    "loader": {
+      "skills": [
+        {
+          "name": "vr-production-gates",
+          "path": "/Users/xbpd/Projects/房产介绍视频skills/skills/vr-production-gates/SKILL.md"
+        }
+      ],
+      "diagnostics": [],
+      "repeatSame": true
+    },
+    "library": {
+      "master_tracks": 5,
+      "master_sha_unchanged": true,
+      "excerpt_sha_unchanged": true,
+      "html_entries_checked": 5,
+      "resource_links_checked": 36,
+      "downloads_alias": "/Users/xbpd/Projects/房产介绍视频skills/local/material-library/bgm",
+      "canonical_bgm": "/Users/xbpd/Projects/房产介绍视频skills/local/material-library/bgm",
+      "same_root": true
+    },
+    "python_regression": {
+      "passed": true,
+      "tests": 147,
+      "log": "local/validation/skill430-tests.log"
+    },
+    "gate_regression": {
+      "passed": true,
+      "tests": 72,
+      "log": "local/validation/skill430-gates.log"
+    },
+    "sdk_offline": {
+      "passed": true,
+      "log": "local/validation/skill430-sdk.log"
+    },
+    "design_system_cli": {
+      "passed": true,
+      "cases": 5,
+      "evidence": "local/validation/skill430-design-system.json"
+    },
+    "browser": {
+      "workspace_to_library_to_listening_index": true,
+      "audio_tracks_loaded": 5,
+      "audio_duration_each_s": 35,
+      "full_original_links": 5,
+      "production_navigation": true,
+      "video_duration_s": 25.333333,
+      "all_images_loaded": true,
+      "overflow": false,
+      "new_capture": false,
+      "human_listening_verified": false
+    }
+  },
+  "backups": "local/validation/layout-backup",
+  "known_validation_limits": [
+    "no new model trigger tests",
+    "existing unrelated full-set Office/Morph collisions",
+    "Codex quick validator does not understand existing Pi frontmatter"
+  ],
+  "public_files": [
+    "README.md",
+    "skills/vr-production-gates/assets/README.md",
+    "skills/vr-production-gates/assets/templates/record.json"
+  ],
+  "local_entries": [
+    "local/index.html",
+    "local/material-library/index.html",
+    "local/material-library/catalog.json",
+    "local/productions/index.html"
+  ]
+}

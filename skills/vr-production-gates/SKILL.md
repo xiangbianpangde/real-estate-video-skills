@@ -3,7 +3,7 @@ name: vr-production-gates
 description: 房产视频的图文剧本、VR/模型采集、配音字幕与成片检查。用户要求先审剧本再制作、修复房产视频或维护本技能时使用；按当前要求自主推进验证和纠错。技能维护不自动执行视频制作。
 compatibility: Pi coding agent; Python 3.10+, FFmpeg/ffprobe, local browser playback
 metadata:
-  version: "4.1.0"
+  version: "4.3.0"
   status: "active"
   layer: "task"
   priority: "40"
@@ -32,6 +32,8 @@ disable-model-invocation: false
 
 先按[路线与运动](references/short-route-motion.md)设计完整候选，再核高风险段和相关连接。验证次数由实际问题、有效进展、时间与费用决定，本技能不设固定次数。
 
+禁止倒着移动拍摄：回程先转向前进方向，再正向移动，不能为避墙而保持看向窗外倒退。展示房间一般优先在门口稳定扫视；门口遮挡或细节需求时再选合适机位，这是建议。
+
 每次尝试要解决具体疑点。参数或实现有新依据时继续；重复操作无新增信息、已定位源能力上限、触及用户明定预算，或需要用户选择实质取舍时停下并说明。技术失败可以修复重试，保留失败记录，不默认消耗唯一机会。局部改动先复核相关区间，最终交付再完整检查。
 
 当前方法的动态画面决定运动是否可用，静帧和加载回调不能替代。用户参考是评价依据，按[画面接受](references/visual-acceptance.md)记录具体差异。SDK/模型实现需要时读[连续镜头技术](references/continuous-take.md)或[模型摄影](references/model-capture-contract.md)。
@@ -42,11 +44,13 @@ disable-model-invocation: false
 
 [提交协议](references/illustrated-script.md)支持完整文档链接与自然语言批准，内部记录批准对象和内容快照；用户无需读哈希或重复状态口令。将拍法、声音、字幕、首尾和输出范围一次说明，获批后自主完成。仅实质改变事实、承诺、覆盖、用户硬要求、来源权利或费用时回审；范围内的角度、速度、布局、编码与故障修复不逐次请示。
 
+模板及私有素材/制作目录的分工见[模板与素材位置](assets/README.md)。按用户给定素材根或仓库本地入口定位来源，不把本机音乐和房源打进通用Skill包。
+
 ## 制作与交付
 
 按用户选择采集并完成后期；一镜到底指单一连续源时间线，不是只准执行一次。用户要求不硬切时，局部加速也保留完整区间，按[连续后期](references/short-route-motion.md)记录实际映射。显式不重拍或次数上限仍遵守。
 
-声音任务读[音频](references/audio-production.md)，字幕读[字幕](references/subtitle-style.md)，首尾改版读[首尾](references/opening-ending-layout.md)。按需加载，不为每次修正重复读全套。
+声音任务及本地BGM开头素材整理读[音频](references/audio-production.md)，字幕读[字幕](references/subtitle-style.md)，首尾改版读[首尾](references/opening-ending-layout.md)。按需加载，不为每次修正重复读全套。
 
 检查最终文件的画面、字幕、音轨、尺寸/时长与实际播放；按章节说明结果和剩余问题，交用户接受或退回。更新项目现有状态和问题记录。检查器核结构、来源及范围，不认证画质或替代真实审看。
 

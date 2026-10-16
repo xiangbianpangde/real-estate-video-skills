@@ -1,0 +1,85 @@
+{
+  "schema": "v14-final-mix/v1",
+  "date": "2026-10-16",
+  "music": {
+    "user_supplied_path": "/Users/xbpd/Music/QQ音乐/郭腾腾-喜剧之王 (剪辑版).ogg",
+    "filename": "郭腾腾-喜剧之王 (剪辑版).ogg",
+    "tags": {
+      "title": "喜剧之王",
+      "artist": "郭腾腾"
+    },
+    "version_basis": "user supplied exact edit filename; tags omit edit suffix",
+    "sha256": "a42a04d32dbb7e3ee33d073f5257f59835cf39f08cafc89583e083a7942dae84",
+    "duration_s": 61.41678,
+    "excerpt_s": [
+      0,
+      29.266666666666666
+    ],
+    "gain_db": -6.82
+  },
+  "video": {
+    "file": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/招商愉樾_v14_喜剧之王_29秒.mp4",
+    "sha256": "0f1167df1d7bde467e78c84f719e4746ce320b3c5e0b4c13316c91794525d743",
+    "duration_s": 29.266666666666666,
+    "video_stream_unchanged": true,
+    "video_stream_hash": "SHA256=78264df3f2d77a066ead0b0c485cf91aa79aa94d3e42687f157724fb96e321a7"
+  },
+  "mix": {
+    "filter": "[0:a]aresample=48000,asplit=2[voice][key];[1:a]atrim=start=0:end=29.266666666666666,asetpts=PTS-STARTPTS,aresample=48000,volume=-6.82dB,afade=t=in:st=0:d=0.4,afade=t=out:st=27.966666666666665:d=1.3[music];[music][key]sidechaincompress=threshold=0.025:ratio=6:attack=35:release=400:makeup=1[duck];[voice][duck]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.84:level=false:latency=true[a]",
+    "argv": [
+      "ffmpeg",
+      "-hide_banner",
+      "-n",
+      "-i",
+      "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/v14_29秒_配音字幕首尾_待指定BGM.mp4",
+      "-i",
+      "/Users/xbpd/Music/QQ音乐/郭腾腾-喜剧之王 (剪辑版).ogg",
+      "-filter_complex",
+      "[0:a]aresample=48000,asplit=2[voice][key];[1:a]atrim=start=0:end=29.266666666666666,asetpts=PTS-STARTPTS,aresample=48000,volume=-6.82dB,afade=t=in:st=0:d=0.4,afade=t=out:st=27.966666666666665:d=1.3[music];[music][key]sidechaincompress=threshold=0.025:ratio=6:attack=35:release=400:makeup=1[duck];[voice][duck]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.84:level=false:latency=true[a]",
+      "-map",
+      "0:v:0",
+      "-map",
+      "[a]",
+      "-c:v",
+      "copy",
+      "-c:a",
+      "aac",
+      "-b:a",
+      "192k",
+      "-ar",
+      "48000",
+      "-t",
+      "29.266666666666666",
+      "-movflags",
+      "+faststart",
+      "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/招商愉樾_v14_喜剧之王_29秒.mp4"
+    ],
+    "voice_source": "existing +6dB voice-only preview; no added voice gain",
+    "fade_in_s": 0.4,
+    "fade_out_s": 1.3
+  },
+  "checks": {
+    "full_decode_exit": 0,
+    "loudness_summary": "Summary:\n\n  Integrated loudness:\n    I:         -17.9 LUFS\n    Threshold: -28.0 LUFS\n\n  Loudness range:\n    LRA:         6.7 LU\n    Threshold: -38.2 LUFS\n    LRA low:   -23.0 LUFS\n    LRA high:  -16.4 LUFS\n\n  True peak:\n    Peak:       -5.6 dBFS\n[out#0/null @ 0x7662c48300] video:364KiB audio:5488KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nframe=  878 fps=0.0 q=-0.0 Lsize=N/A time=00:00:29.26 bitrate=N/A speed=61.7x elapsed=0:00:00.47    \n",
+    "human_listening_verified": false,
+    "user_accepted": false,
+    "browser_playback": {
+      "ended": true,
+      "currentTime": 29.266667,
+      "duration": 29.266667,
+      "mediaError": null,
+      "framesObserved": 877,
+      "maxMediaGap_s": 0.03333400000000353,
+      "unmutedPlayback": true,
+      "audioListeningVerified": false,
+      "images": true,
+      "overflow": false,
+      "note": "requestVideoFrameCallback attached at playback start; encoded stream has 878 frames, callback observed 877"
+    }
+  },
+  "review_page": "/Users/xbpd/.codex/visualizations/2026/10/15/01a13deb-5103-73b0-b06c-f9316f6d2c90/拍前图文包_v14_30秒_正向离开阳台/production/成片审看_v14_喜剧之王.html",
+  "limitations": [
+    "SDK cross-point ghosting and doorframe distortion remain",
+    "turn briefly shows balcony utility counter"
+  ]
+}
