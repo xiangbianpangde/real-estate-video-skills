@@ -31,6 +31,20 @@ def inspect_materials(root):
     }
     resources = ['04-完整VR素材/VR入口.txt', '04-完整VR素材/VR配置/defaultWork.json',
                  '04-完整VR素材/VR配置/vr-manifest.json', '04-完整VR素材/点位及空间清单/点位清单.json']
+    work_path=root / '04-完整VR素材/VR配置/defaultWork.json'
+    work=json.loads(work_path.read_text(encoding='utf-8')) if work_path.is_file() else {}
+    observers=work.get('observers',[])
+    point_path=root / '04-完整VR素材/点位及空间清单/点位清单.json'
+    point_list=json.loads(point_path.read_text(encoding='utf-8')) if point_path.is_file() else []
+    rows=point_list if isinstance(point_list,list) else []
+    spatial={
+        'observers':[{'pano_index':o.get('index'),'position':o.get('position'),
+                      'floor_index':o.get('floor_index'),'accessible_nodes':o.get('accessible_nodes',[])} for o in observers],
+        'floorplan_metadata_keys':[key for key in ('hierarchy_floor_plan','outline_floor_plan','standard_floor_plan_url') if work.get(key)],
+        'point_list_fields':sorted({k for row in rows if isinstance(row,dict) for k in row}),
+        'room_mapping_status':'UNVERIFIED',
+        'note':'点位清单可能只是全景六面图索引；observers位置/相邻关系不等于正式户型像素或房间归属。floorplan元数据存在也不证明包含变换。',
+    }
     return {
         'schema': 'beike-listing-materials/v1', 'root': str(root), 'listing_id': identity,
         'community': facts.get('community'), 'facts': entry(facts_path),
@@ -42,6 +56,7 @@ def inspect_materials(root):
                       'note': '核彩色布局、门窗及家具；文件名不证明图像类型。VR截图/catalog不自动替代正式户型。'},
         'vr_resources': [entry(root / rel) for rel in resources if (root / rel).is_file()],
         'missing_vr_resources': [rel for rel in resources if not (root / rel).is_file()],
+        'spatial_inventory':spatial,
     }
 
 

@@ -200,7 +200,7 @@
   },
   "design_system": {
     "id": "real-estate-storyboard",
-    "version": "1.2.0"
+    "version": "1.3.0"
   },
   "review_route": {
     "purpose": "script_review_only",
@@ -209,7 +209,12 @@
     "route": "填写与scope.route相同的点位顺序",
     "nodes": [],
     "chapters": [],
-    "caption": "填写真实来源、人工对齐方法与未验证边界；模板不能批准或拍摄。",
-    "transitions": []
+    "caption": "填写本套户型来源及已核房间示意或坐标变换方法；逐点填写room_id、room_evidence，未核实不能声称完成。",
+    "transitions": [],
+    "registration": {
+      "mode": "room_schematic",
+      "floorplan_sha256": "",
+      "rooms": []
+    }
   }
 }

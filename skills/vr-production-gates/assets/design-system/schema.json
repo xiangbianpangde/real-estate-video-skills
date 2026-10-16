@@ -28,7 +28,8 @@
           "enum": [
             "1.0.0",
             "1.1.0",
-            "1.2.0"
+            "1.2.0",
+            "1.3.0"
           ]
         }
       }
@@ -571,6 +572,53 @@
               }
             }
           }
+        },
+        "registration": {
+          "type": "object",
+          "required": [
+            "mode",
+            "floorplan_sha256",
+            "rooms"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "room_schematic",
+                "world_similarity"
+              ]
+            },
+            "floorplan_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rooms": {
+              "type": "array"
+            },
+            "anchors": {
+              "type": "array"
+            },
+            "checks": {
+              "type": "array"
+            },
+            "matrix": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "max_error_px": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "axis": {
+              "enum": [
+                "xy",
+                "xz",
+                "yz",
+                "x-z",
+                "z-x"
+              ]
+            }
+          }
         }
       }
     }
@@ -584,7 +632,8 @@
               "version": {
                 "enum": [
                   "1.1.0",
-                  "1.2.0"
+                  "1.2.0",
+                  "1.3.0"
                 ]
               }
             }

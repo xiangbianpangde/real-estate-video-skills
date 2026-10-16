@@ -5,7 +5,8 @@ import struct
 
 def validate_route(record):
     route=record.get('review_route')
-    required=record.get('design_system',{}).get('version') in {'1.1.0','1.2.0'}
+    version=record.get('design_system',{}).get('version')
+    required=version in {'1.1.0','1.2.0','1.3.0'}
     if route is None:
         if required:raise ValueError('Complete review route required')
         return
@@ -19,7 +20,7 @@ def validate_route(record):
     except (KeyError,AttributeError,ValueError):raise ValueError('Explicit numeric route sequence required')
     if not seq or any(x<0 for x in seq):raise ValueError('Explicit numeric route sequence required')
     policy=record['scope'].get('editing_policy',{})
-    if policy.get('single_take_required') and record.get('fixture') is not True and record.get('design_system',{}).get('version')=='1.2.0' and record['scope'].get('execution_mode')!='post_only':
+    if policy.get('single_take_required') and record.get('fixture') is not True and version in {'1.2.0','1.3.0'} and record['scope'].get('execution_mode')!='post_only':
         transitions=route.get('transitions',[])
         expected=[(a,b) for a,b in zip(seq,seq[1:]) if a!=b]
         if not isinstance(transitions,list) or [(t.get('from_pano'),t.get('to_pano')) for t in transitions]!=expected:
@@ -39,6 +40,9 @@ def validate_route(record):
             raise ValueError('Unique route nodes with finite coordinates required')
         points[index]=xy
     if any(x not in points for x in seq):raise ValueError('Route references unknown node')
+    if route.get('registration') is not None or (version=='1.3.0' and record.get('fixture') is not True):
+        from .floorplan_registration import validate_registration
+        validate_registration(route)
     cuts=route.get('cuts',[])
     if cuts and record['scope'].get('continuity_class')!='approved_cut_exception':
         raise ValueError('Cut requires approved_cut_exception')
@@ -88,6 +92,13 @@ def route_section(record, images, floorplan):
     route=record['review_route']
     if route['floorplan']!=str(floorplan):raise ValueError('Route floorplan differs from bound image')
     width,height=struct.unpack('>II',images[str(floorplan)][16:24]);box=route.get('view_box',[0,0,width,height])
+    registration=route.get('registration')
+    if registration:
+        import hashlib
+        if registration['floorplan_sha256']!=hashlib.sha256(images[str(floorplan)]).hexdigest():
+            raise ValueError('Registration floorplan image changed; recheck coordinates')
+    if any(not (0<=n['floorplan_xy'][0]<width and 0<=n['floorplan_xy'][1]<height) for n in route['nodes']):
+        raise ValueError('Route node outside floorplan image')
     if len(box)!=4 or any(type(x) not in (int,float) or not math.isfinite(x) for x in box) or min(box[:2])<0 or min(box[2:])<=0 or box[0]+box[2]>width or box[1]+box[3]>height:
         raise ValueError('Route map view box outside source image')
     points={n['pano_index']:n['floorplan_xy'] for n in route['nodes']};seq=[int(x) for x in route['route'].split('→')]
@@ -112,6 +123,8 @@ def route_section(record, images, floorplan):
         label=' → '.join(step['label'] for step in motion_steps(s['visual']))
         rows.append(f'<li data-route-chapter="{esc(s["id"])}" data-start="{s["start_s"]}" data-end="{s["end_s"]}" data-panos="{"→".join(str(n) for n in c["pano_indices"])}"><b>{esc(s["id"])} · {esc(s["visual"]["title"])}</b><span>{s["start_s"]:.2f}–{s["end_s"]:.2f}秒 · {esc(label)}</span><code>{" → ".join("P"+str(n) for n in c["pano_indices"])}</code></li>')
     legend='蓝线＋箭头：导航顺序　蓝虚线：重复回程　'+('棕虚线：剪辑切换，不是行走　' if cuts else '')+'圆点：点位　S-ID：章节停留点（同点可对应多章）'
+    if registration:
+        legend+='。'+('房间级近似示意：点在已核房间内，箭头仅表达顺序，不表达精确位置或穿门轨迹。' if registration['mode']=='room_schematic' else '坐标变换已作残差与独立点检查；房间归属依据另列，非实地测绘。')
     movements=''.join('<li>P'+str(t['from_pano'])+' → P'+str(t['to_pano'])+' · '+str(t['duration_s'])+'秒 · '+esc(t['view'])+'</li>' for t in route.get('transitions',[]))
     motion='<details><summary>连续移动与转向设计（待动态验证）</summary><ul>'+movements+'</ul></details>' if movements else ''
     return '<section class="route-review" id="完整方案板" data-complete-route-board="true"><h2>户型运镜路线图 · 仅用于剧本审核</h2><p class="route-legend">'+legend+'</p><div class="route-grid"><div>'+''.join(parts)+'</div><div><ul class="route-list">'+''.join(rows)+'</ul>'+motion+'<p class="route-note">'+esc(route['caption'])+'</p><p class="route-note">'+esc(record.get('board_content',{}).get('limitations','候选路线需按本方法动态验证，静态图不证明实际连续性。'))+'</p><p class="route-legend">本图不进入视频、不占成片时长，不继承旧版批准。</p></div></div></section>'

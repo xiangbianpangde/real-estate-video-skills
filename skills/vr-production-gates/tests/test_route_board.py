@@ -88,6 +88,33 @@ class RouteBoardTests(unittest.TestCase):
         result=self.invoke();self.assertEqual(result.returncode,0,result.stderr)
         route=(self.root/'package/视频剧本.html').read_text();self.assertIn('S01 / S02',route)
 
+class RegistrationIntegrationTests(unittest.TestCase):
+    def setUp(self):
+        self.fixture=RouteBoardTests();self.fixture.setUp()
+        self.record=self.fixture.record
+    def tearDown(self):self.fixture.tearDown()
+    def registration(self):
+        from run import sha
+        route=self.record['review_route']
+        route['registration']={'mode':'room_schematic','floorplan_sha256':sha(self.fixture.root/'floor.png'),
+                               'rooms':[{'id':'living','polygon':[[0,0],[1,0],[1,1],[0,1]]}]}
+        for node in route['nodes']:node.update(room_id='living',room_evidence='synthetic fixture frame')
+    def test_registered_schematic_keeps_complete_document(self):
+        self.registration()
+        result=self.fixture.invoke();self.assertEqual(result.returncode,0,result.stderr)
+        page=(self.fixture.root/'package/视频剧本.html').read_text()
+        self.assertIn('房间级近似示意',page)
+        self.assertIn('data-route-chapter="S02"',page)
+    def test_changed_floorplan_rejects_old_registration(self):
+        self.registration();self.record['review_route']['registration']['floorplan_sha256']='0'*64
+        result=self.fixture.invoke();self.assertNotEqual(result.returncode,0)
+        self.assertIn('floorplan image changed',result.stderr)
+        self.assertFalse((self.fixture.root/'package').exists())
+    def test_new_real_plan_without_registration_rejected(self):
+        self.record['fixture']=False;self.record['design_system']['version']='1.3.0'
+        from storyboard.model import validate
+        with self.assertRaisesRegex(ValueError,'registration mode'):validate(self.record)
+
 if __name__=='__main__':unittest.main()
 
 class ContinuousPlanTests(unittest.TestCase):

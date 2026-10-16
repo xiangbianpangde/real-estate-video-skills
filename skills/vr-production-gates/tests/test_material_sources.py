@@ -49,3 +49,15 @@ class MaterialSourcesTests(unittest.TestCase):
             p.write_text(json.dumps({'listing_id':'456'}))
             with self.assertRaisesRegex(ValueError,'identity'):
                 self.inspect(root)
+
+    def test_panorama_catalog_is_not_room_mapping(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/'武汉-123-测试小区'
+            for rel,data in [('01-房源信息/房源信息.json',{'listing_id':'123'}),
+                             ('04-完整VR素材/VR配置/defaultWork.json',{'observers':[{'index':0,'position':[1,2,3],'accessible_nodes':[1]}]}),
+                             ('04-完整VR素材/点位及空间清单/点位清单.json',[{'index':0,'front':'test'}])]:
+                p=root/rel;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(data))
+            spatial=self.inspect(root)['spatial_inventory']
+            self.assertEqual(spatial['room_mapping_status'],'UNVERIFIED')
+            self.assertEqual(spatial['point_list_fields'],['front','index'])
+            self.assertEqual(spatial['observers'][0]['position'],[1,2,3])

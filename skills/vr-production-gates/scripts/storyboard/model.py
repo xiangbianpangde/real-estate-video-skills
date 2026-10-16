@@ -121,7 +121,7 @@ def validate(record):
         # Labels describe the plan; they cannot certify camera frames or new dynamics.
     ds = record.get('design_system')
     if ds is not None:
-        if ds.get('id') != 'real-estate-storyboard' or ds.get('version') not in {'1.0.0','1.1.0','1.2.0'}:
+        if ds.get('id') != 'real-estate-storyboard' or ds.get('version') not in {'1.0.0','1.1.0','1.2.0','1.3.0'}:
             raise ValueError('Unsupported design system version')
         if segments[0]['visual'].get('role') != 'opening' or segments[-1]['visual'].get('role') != 'ending':
             raise ValueError('Standard script requires explicit opening and ending roles')

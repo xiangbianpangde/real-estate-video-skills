@@ -23,7 +23,7 @@
 
 ## 数据与生成
 
-[Schema](../assets/design-system/schema.json)描述vr-production-plan/v3与设计系统1.0/1.1/1.2结构；语义校验在scripts/storyboard/model.py。plan/scope存一次内容与范围，assets存来源/字节身份，segments存章节，visual存标题、图像角色与动作，board_content存实际变更，不维护重复台本。
+[Schema](../assets/design-system/schema.json)描述vr-production-plan/v3与设计系统1.0/1.1/1.2/1.3结构；语义校验在scripts/storyboard/model.py。plan/scope存一次内容与范围，assets存来源/字节身份，segments存章节，visual存标题、图像角色与动作，board_content存实际变更，不维护重复台本。
 
 渲染器当前输入为PNG、有限动作/版式类型和S编号等结构，这是工具格式，不是新审批要求。来源缺失/字节漂移、时间轴不合法、图文对象不一致会失败；字段齐全不证明画面好看。
 
@@ -37,7 +37,7 @@ python3 skills/vr-production-gates/scripts/build_script_package.py \
 
 ## 完整路线板与完成标准
 
-新计划使用设计系统1.2（保留1.0/1.1历史读取）；1.2的真实一镜到底采集计划需逐边transitions，后期复用原件仍核连续后期回执。设计系统1.1起用review_route描述左户型＋箭头/S-ID，右每章标题/时码/动作/路径。chapters与segments逐项对应，同点多章保留全部标签；共享组件在同一HTML中生成完整板并接续正文。只有总板缩图、P点顺序或旧版截图不满足本项目完整路线板要求。
+新计划使用设计系统1.3（保留1.0–1.2历史读取），按[资料适配的标定恢复](listing-materials.md#点位标定与失败恢复)绑定图源与房间归属；1.2起的真实一镜到底采集计划需逐边transitions，后期复用原件仍核连续后期回执。设计系统1.1起用review_route描述左户型＋箭头/S-ID，右每章标题/时码/动作/路径。chapters与segments逐项对应，同点多章保留全部标签；共享组件在同一HTML中生成完整板并接续正文。只有总板缩图、P点顺序或旧版截图不满足本项目完整路线板要求。
 
 scope.review_route_layout绑定板与图源；当前版本、时码、点位表及正文嵌图一致。图只用于剧本审核，不进入成片；真实动态仍另核。切镜仅在用户允许时以cuts标明，不画成行走。
 

@@ -3,7 +3,7 @@ name: vr-production-gates
 description: 房产视频的图文剧本、VR/模型采集、配音字幕与成片检查。用户要求先审剧本再制作、修复房产视频或维护本技能时使用；按当前要求自主推进验证和纠错。技能维护不自动执行视频制作。
 compatibility: Pi coding agent; Python 3.10+, FFmpeg/ffprobe, local browser playback
 metadata:
-  version: "4.5.0"
+  version: "4.6.0"
   status: "active"
   layer: "task"
   priority: "40"
@@ -17,7 +17,7 @@ disable-model-invocation: false
 
 ## 确认本次交付
 
-收到固定贝壳房源目录时先按[资料适配](references/listing-materials.md)读取01–06类目录，运行只读清单并实际查看户型候选；文件名不证明图像正确。
+收到固定贝壳房源目录时先按[资料适配](references/listing-materials.md)读取01–06类目录，运行只读清单并实际查看户型候选；文件名不证明图像正确。户型点位按同页“点位标定与失败恢复”核房间与坐标；标定失败自主排查，不将删掉路线图推荐给用户。
 
 读当前项目状态、用户最新要求和已有素材，确定覆盖空间、时长、拍法、声音及输出。已有明确指令直接沿用，只集中询问真正影响结果或授权的缺项。
 

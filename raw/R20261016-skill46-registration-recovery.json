@@ -1,0 +1,68 @@
+{
+  "schema": "skill-registration-recovery/v1",
+  "version": "4.6.0",
+  "base_commit": "96070d4891fab156edd8067f952febded459f35e",
+  "changes": {
+    "HANDOFF.md": "93a6358c958622ec37108bb6fe0cad95f8e151b9e93d30daa0e9b580a1ce703f",
+    "skills/vr-production-gates/CHANGELOG.md": "6e353380d5b30ccf3962b98d57476762a35673cee2b88fe785e5419d0866b4b5",
+    "skills/vr-production-gates/SKILL.md": "2cd6f1cf687f41d2adee43d13b8f7f63889061fed6f3026bbf1b1f4ea7fabbcc",
+    "skills/vr-production-gates/assets/design-system/schema.json": "ce3c12aec67c5886ae0b2f1ffa4d46b7e5025430911390cd0b729446b959f9c5",
+    "skills/vr-production-gates/assets/templates/record.json": "8ab7519bfac4f0b976d9a8e4b428c957fdeb1a7f733d3515b2e46aaafdd0d111",
+    "skills/vr-production-gates/references/design-system.md": "d12eba2ce8eb4e6e39e9259c3bf060481269d750c2c72a4e1f4acdecd0ca50c8",
+    "skills/vr-production-gates/references/listing-materials.md": "2972216f857f0e7a673c462020a41060619477eca2dec20147632312c2b27744",
+    "skills/vr-production-gates/scripts/inspect_listing_materials.py": "faedc5a182c8be6030b39e8cd3c4fb74316d426adbe26e21f5af6f5b72874c12",
+    "skills/vr-production-gates/scripts/storyboard/model.py": "10036cc3939ea6c7b0d61351225575a727cb45e4604ea6936a0c6011ada38999",
+    "skills/vr-production-gates/scripts/storyboard/route_board.py": "88c4323471fb9af9e149021196d6a915959a4cbca8b992a38ca06fd58581e820",
+    "skills/vr-production-gates/tests/test_material_sources.py": "0f2206442aa468cf3b1a57c2d77ead12e06bc2123fef0228eb77cb2f604d1e3c",
+    "skills/vr-production-gates/tests/test_route_board.py": "042757cdb2dd6d0666456d0bbc41e4d42d90e78d14eae044961118805458f29c",
+    "wiki/index.md": "9d13cc2f6678cf432fcd35fa90dca6e60e918d317c6170840077298332db5674",
+    "wiki/issues.md": "ed8d0e60dc8e3281e69e88fd381fc46af6bc6d146e4f6da8134b6eaf79883aea",
+    "wiki/logs.md": "7e2b6d0b3b645bde45a46fce41e9a68359ceb6b0e5cccbb84013c4dcaf4a363a",
+    "wiki/skill-impact.md": "f64aad10f3025eb43487c332edc52acef618a12f9c1161feb8712a2c18460731",
+    "skills/vr-production-gates/scripts/storyboard/floorplan_registration.py": "28b23de9429f509247f49d7ced78203c4a23e5806bf155e5b02b7da44a104249",
+    "skills/vr-production-gates/tests/test_floorplan_registration.py": "77a45b0f906bd6f08cb37814fb97c3b492232a1cc36a6255be0746d48c1d192d"
+  },
+  "checks": {
+    "regressions": 164,
+    "design_cli_cases": 5,
+    "strict_errors": 0,
+    "strict_warnings": 0,
+    "loader_diagnostics": 0,
+    "loader_repeat_same": true,
+    "fit_cli": {
+      "result": {
+        "matrix": [
+          9.999999999999998,
+          0.0,
+          10.000000000000004,
+          20.000000000000004
+        ],
+        "max_anchor_error_px": 5.0242958677880805e-15
+      },
+      "synthetic": true
+    }
+  },
+  "real_material_readback": {
+    "observer_count": 28,
+    "room_mapping_status": "UNVERIFIED",
+    "point_list_is_panorama_catalog": true
+  },
+  "evidence": {
+    "local/validation/skill-4.6.0/design-cli.json": "bd6f676dfe924f8599e304153fde54b0bc81a7fe32716e6eefe4af8466a38c31",
+    "local/validation/skill-4.6.0/fit-cli.json": "76e3ca5de35c92372a54a178ebb5c3a32ec91dbdb4b8fcb2b2ebfb6c8622a9a7",
+    "local/validation/skill-4.6.0/anchors.json": "898a2559487ab5fcb16909cb50c88acc33de691c2686e73323a8b0f3f67b5263",
+    "local/validation/skill-4.6.0/strict.log": "c62de7548588c739d83ec5cceb0f41f9cc22c6b33cb9165966353513cc7a1d96",
+    "local/validation/skill-4.6.0/design-cli.log": "bd6f676dfe924f8599e304153fde54b0bc81a7fe32716e6eefe4af8466a38c31",
+    "local/validation/skill-4.6.0/materials.json": "3545e9b255c97a67cbd62475b94aeb854141de37447cdb29b1ad81deeb3d0905",
+    "local/validation/skill-4.6.0/loader.json": "a07d18ac3e10843d93ee4bdfbc81a8f09f014ef899eda2e01b1b02d95228bc53",
+    "local/validation/skill-4.6.0/tests.log": "fcd5c0eb458901c0fb9397693e7161062ab4ea043cb11bb86c612c2b89c3adc8"
+  },
+  "unverified": [
+    "fresh model trigger behavior",
+    "actual room labels correctness",
+    "real property registration and visual route",
+    "dynamic motion"
+  ],
+  "scope": "Skill and checks only; no property navigation/capture/post-production; no push",
+  "previous_external_project_path_present": false
+}
