@@ -109,3 +109,43 @@ class TechnicalExamples(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main(verbosity=2)
+
+class PostTimelineRegression(unittest.TestCase):
+    setUp=TechnicalExamples.setUp
+    tearDown=TechnicalExamples.tearDown
+    sha=TechnicalExamples.sha
+    call=TechnicalExamples.call
+    script=TechnicalExamples.script
+    audio_plan=TechnicalExamples.audio_plan
+    def test_narration_outside_matching_visual_window_is_rejected(self):
+        plan=self.audio_plan(self.p/'source.mp4')
+        self.plan['narration'][0]['visual_window_s']=[2,4]
+        plan.write_text(json.dumps(self.plan))
+        self.script('postprocess.py','--plan',plan,'--out',self.p/'bad',good=False)
+        self.assertFalse((self.p/'bad').exists())
+
+    def test_matching_visual_window_and_split_cues_preserve_words(self):
+        plan=self.audio_plan(self.p/'source.mp4')
+        self.plan['narration'][0]['visual_window_s']=[.4,1.6]
+        self.plan['subtitle_max_chars']=5
+        plan.write_text(json.dumps(self.plan))
+        self.script('postprocess.py','--plan',plan,'--out',self.p/'post')
+        timing=json.loads((self.p/'post/subtitle-timing.json').read_text())
+        self.assertEqual(len(timing['cues']),2)
+        self.assertEqual(''.join(c['text'] for c in timing['cues']),'DEMO ONLY')
+        self.assertAlmostEqual(timing['cues'][0]['start_s'],.6)
+        receipt=json.loads((self.p/'post/post-receipt.json').read_text())
+        self.assertEqual(receipt['subtitle_source']['path'],'subtitles.srt')
+        self.assertEqual(receipt['subtitle_source']['sha256'],self.sha(self.p/'post/subtitles.srt'))
+        self.assertEqual(receipt['input_sha256'][str((self.p/'voice.wav').resolve())],self.sha(self.p/'voice.wav'))
+
+    def test_fixed_plan_requires_final_video_binding_and_visual_windows(self):
+        plan=self.audio_plan(self.p/'source.mp4')
+        self.plan['production_profile']='house-short-v1'
+        plan.write_text(json.dumps(self.plan))
+        self.script('postprocess.py','--plan',plan,'--out',self.p/'bad-sha',good=False)
+        self.plan['video_sha256']=self.sha(self.p/'source.mp4')
+        plan.write_text(json.dumps(self.plan))
+        self.script('postprocess.py','--plan',plan,'--out',self.p/'bad-window',good=False)
+        self.assertFalse((self.p/'bad-sha').exists())
+        self.assertFalse((self.p/'bad-window').exists())

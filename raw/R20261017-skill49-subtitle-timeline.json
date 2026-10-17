@@ -1,0 +1,35 @@
+{
+  "schema": "skill-subtitle-timeline/v1",
+  "version": "4.9.0",
+  "base_commit": "d813fa53007bb14dad5769e68a3dc504a3fceb05",
+  "scope": "Skill only; external video untouched",
+  "requirements": {
+    "subtitle_content_mode": "verbatim_voiceover",
+    "subtitle_delivery": "burned_in",
+    "audio_timeline_binding": "final_audio_alignment_sha256",
+    "visual_window_per_utterance": true,
+    "approved_opening": "preserved_current_floorplan_overlay"
+  },
+  "validation": {
+    "regressions": 182,
+    "design_cli_cases": 5,
+    "strict_errors": 0,
+    "strict_warnings": 0,
+    "loader_diagnostics": 0,
+    "loader_repeat_same": true
+  },
+  "external_diagnosis": {
+    "video_path": "/Users/xbpd/Projects/越秀汉阳星汇云锦-视频制作/越秀汉阳星汇云锦-房产介绍-成片.mp4",
+    "duration_s": 33.2,
+    "audio_recognized_end_s": 32.42,
+    "legacy_subtitle_start_s": 2.7,
+    "legacy_subtitle_mode": "editorial_keyword_png_cards",
+    "audio_video_sync": "not_verified_as_aligned"
+  },
+  "unverified": [
+    "real repaired video listening",
+    "actual current TTS provider",
+    "semantic visual-window truth"
+  ],
+  "no_external_video_write": true
+}

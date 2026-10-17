@@ -13,6 +13,8 @@ class ProductionProfileTests(unittest.TestCase):
             'render_config':{'width':720,'height':1280},
             'editing_policy':{'single_take_required':True,'allow_cuts':False,'allow_remove_intervals':False,'allow_speed_changes':True},
             'voiceover_provider':'mcode','bgm_source':'specified_library',
+            'subtitle_content_mode':'verbatim_voiceover','subtitle_delivery':'burned_in',
+            'audio_timeline_binding':'final_audio_alignment_sha256',
             'shot_constraints':{'excluded_spaces':['bathroom']}}}
     def test_current_requirements_and_local_speed_changes_allowed(self):
         validate_production_profile(self.record)
@@ -38,3 +40,12 @@ class ProductionProfileTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'bathroom'):validate_production_profile(self.record)
     def test_historical_unprofiled_record_not_rewritten(self):
         validate_production_profile({'scope':{'duration_s':106.5}})
+
+class SubtitleProfileRegression(unittest.TestCase):
+    setUp=ProductionProfileTests.setUp
+    def test_keyword_only_rejected(self):
+        self.record['scope']['subtitle_content_mode']='editorial_keywords'
+        with self.assertRaisesRegex(ValueError,'verbatim'):validate_production_profile(self.record)
+    def test_unburned_subtitles_rejected(self):
+        self.record['scope']['subtitle_delivery']='selectable_track'
+        with self.assertRaisesRegex(ValueError,'burned'):validate_production_profile(self.record)

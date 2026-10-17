@@ -159,7 +159,7 @@
       "encode",
       "qc"
     ],
-    "subtitle_content_mode": "editorial_keywords",
+    "subtitle_content_mode": "verbatim_voiceover",
     "subtitle_delivery": "burned_in",
     "opening": "",
     "ending": "",
@@ -201,7 +201,8 @@
       ],
       "avoid_wall_facing": true
     },
-    "route_space_ids": []
+    "route_space_ids": [],
+    "audio_timeline_binding": "final_audio_alignment_sha256"
   },
   "exploration": {},
   "presentation": {

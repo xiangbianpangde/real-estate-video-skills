@@ -1,5 +1,7 @@
 # 可运行技术示范
 
+postprocess.py固定短片计划需填写production_profile=house-short-v1、video_sha256及各narration.visual_window_s；音频词时码SHA仍绑定原音频。按实际词/标点拆短cue，subtitle_max_chars为布局参数，不是平均时码生成器。输出仅写新目录，回执绑定所有输入、实际字幕源和混音SHA；窗口真实性与听感需另验。
+
 实际中国MiniMax配音入口见[中国TTS工具说明](../minimax-cn-tts.md)，工具在scripts/minimax_tts_cn.py；失败不自动重复生成，成功文件可按SHA复用。
 
 本页把已用过的技术整理为可复用实现，按需要选读，不增加审批层级或尝试次数限制。代码在 [technical_examples](../../scripts/technical_examples)。当前房源及其版本、路线、批准和画面问题仍以项目交接为准；运行示范不操作该房源。

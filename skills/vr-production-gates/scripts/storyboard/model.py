@@ -65,6 +65,12 @@ def validate_production_profile(record):
         raise ValueError('Fixed production requires mcode or minimax_cn voiceover and specified BGM library')
     if 'bathroom' not in scope.get('shot_constraints',{}).get('excluded_spaces',[]):
         raise ValueError('Fixed production excludes bathroom')
+    if scope.get('subtitle_content_mode') != 'verbatim_voiceover':
+        raise ValueError('Fixed production requires verbatim voiceover subtitles')
+    if scope.get('audio_timeline_binding')!='final_audio_alignment_sha256':
+        raise ValueError('Fixed production requires final audio alignment binding')
+    if scope.get('subtitle_delivery') not in {'burned_in','both'}:
+        raise ValueError('Fixed production requires burned-in subtitles')
 
 
 def validate(record):

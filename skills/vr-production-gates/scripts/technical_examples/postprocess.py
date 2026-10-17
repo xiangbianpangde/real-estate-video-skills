@@ -25,12 +25,30 @@ def srt_time(value):
     return f'{ms//3600000:02}:{ms//60000%60:02}:{ms//1000%60:02},{ms%1000:03}'
 
 
+def split_cues(words, start, limit):
+    groups=[];group=[]
+    for word in words:
+        if group and len(''.join(w['text'] for w in group))+len(word['text'])>limit:
+            groups.append(group);group=[]
+        group.append(word)
+        if word['text'].rstrip().endswith(('，','。','！','？','；',',','.','!','?',';')):
+            groups.append(group);group=[]
+    if group:groups.append(group)
+    return [{'text':''.join(w['text'] for w in group),'start_s':start+group[0]['start_s'],
+             'end_s':start+group[-1]['end_s'],
+             'words':[dict(w,start_s=start+w['start_s'],end_s=start+w['end_s']) for w in group]} for group in groups]
+
+
 def prepare(plan_path):
     path=Path(plan_path).resolve();plan=json.loads(path.read_text());base=path.parent
     resolve=lambda name:(base/name).resolve()
     video=resolve(plan['video']);font=resolve(plan['font']);music=resolve(plan['music']) if plan.get('music') else None
     info=probe(video);duration=info['duration_s'];stream=next(s for s in info['streams'] if s['codec_type']=='video')
     inputs=[path,video,font]+([music] if music else []);chapters=[];cues=[];previous_end=0
+    limit=plan.get('subtitle_max_chars',18)
+    if type(limit) is not int or limit<=0:raise ValueError('Positive subtitle cue length required')
+    fixed=plan.get('production_profile')=='house-short-v1'
+    if fixed and plan.get('video_sha256')!=sha(video):raise ValueError('Final video SHA must bind visual windows')
     for item in plan['narration']:
         audio=resolve(item['audio']);alignment=resolve(item['alignment']);timing=json.loads(alignment.read_text());length=probe(audio)['duration_s'];start=item['start_s']
         if timing['audio_sha256']!=sha(audio):raise ValueError('Alignment audio SHA mismatch')
@@ -45,8 +63,14 @@ def prepare(plan_path):
         # A mismatch is exposed, not silently replaced with the approved script.
         actual=''.join(w['text'] for w in words)
         if actual!=item['text']:raise ValueError('Transcript differs from expected text; review before rendering')
-        cue={'text':actual,'start_s':start+words[0]['start_s'],'end_s':start+words[-1]['end_s'],'words':[dict(w,start_s=start+w['start_s'],end_s=start+w['end_s']) for w in words]}
-        cues.append(cue);chapters.append({**item,'audio':audio,'alignment':alignment,'duration_s':length,'timing_origin':timing['timing_origin']});inputs += [audio,alignment]
+        window=item.get('visual_window_s')
+        if fixed and window is None:raise ValueError('Fixed production requires a matching visual window for each utterance')
+        if window is not None:
+            if not isinstance(window,list) or len(window)!=2 or not all(finite(v) for v in window) or not 0<=window[0]<window[1]<=duration:
+                raise ValueError('Invalid visual window')
+            if start+words[0]['start_s']<window[0] or start+words[-1]['end_s']>window[1]:
+                raise ValueError('Narration words outside matching visual window')
+        cues.extend(split_cues(words,start,limit));chapters.append({**item,'audio':audio,'alignment':alignment,'duration_s':length,'timing_origin':timing['timing_origin']});inputs += [audio,alignment]
     if not chapters:raise ValueError('At least one narration item required by this audio example')
     fps=plan.get('fps',float(Fraction(stream['avg_frame_rate'])))
     if not finite(fps) or fps<=0:raise ValueError('Finite positive fps required')
@@ -119,6 +143,11 @@ def build(plan_path,out):
             if not encoder.stdin.closed:encoder.stdin.close()
     subprocess.run(['ffmpeg','-v','error','-i',str(target),'-f','null','-'],check=True)
     report={'schema':'vr-post-example/v1','synthetic_fixture':plan.get('synthetic_fixture',False),'output_sha256':sha(target),'source_sha256':source_sha,'source_unchanged':sha(video)==source_sha,'duration_s':probe(target)['duration_s'],'frames':frames,'source_audio':'replaced explicitly by plan narration/music; source untouched','music_crossfade_s':cross,'music_repeats':repeats,'mix_command':mix_cmd,'decode_command':decode_cmd,'encode_command':encode_cmd,'audio_listening_verified':False,'human_accepted':False,'scope':'caption and audio example; opening/floorplan/CTA not implemented here, reuse storyboard previews for those layers'}
+    report['input_sha256']={str(p):sha(p) for p in inputs}
+    report['subtitle_source']={'path':'subtitles.srt','sha256':sha(folder/'subtitles.srt'),
+                               'timing_sha256':sha(folder/'subtitle-timing.json'),'renderer':'Pillow from the same cues'}
+    report['mixed_audio_sha256']=sha(mixed)
+    report['cache_policy']='New output directory required; existing files are never silently reused'
     write_json(folder/'post-receipt.json',report);return report
 
 

@@ -3,7 +3,7 @@ name: vr-production-gates
 description: 房产视频的图文剧本、VR/模型采集、配音字幕与成片检查。用户要求先审剧本再制作、修复房产视频或维护本技能时使用；按当前要求自主推进验证和纠错。技能维护不自动执行视频制作。
 compatibility: Pi coding agent; Python 3.10+, FFmpeg/ffprobe, local browser playback
 metadata:
-  version: "4.8.0"
+  version: "4.9.0"
   status: "active"
   layer: "task"
   priority: "40"
@@ -48,7 +48,7 @@ disable-model-invocation: false
 
 ## 图文剧本与一次审核
 
-使用[设计系统](references/design-system.md)的同一份record生成一个中文命名HTML，内部包含完整方案板、户型路线板和详细正文。章节含真实画面、动作图示、主体、口播/字幕和实际风险；首尾按当前要求画出真实布局。当前用户要求首镜户型、尾镜室内引流时，两者实际可见。
+使用[设计系统](references/design-system.md)的同一份record生成一个中文命名HTML，内部包含完整方案板、户型路线板和详细正文。固定短片使用完整实际口播字幕（verbatim_voiceover，烧录），关键词卡不能替代；最终画面/音频/字幕共用同一落位时间线，按实际音频时码核对应空间，不能只核总时长。章节含真实画面、动作图示、主体、口播/字幕和实际风险；首尾按当前要求画出真实布局。当前用户要求首镜户型、尾镜室内引流时，两者实际可见。
 
 [提交协议](references/illustrated-script.md)支持完整文档链接与自然语言批准，内部记录批准对象和内容快照；用户无需读哈希或重复状态口令。将拍法、声音、字幕、首尾和输出范围一次说明，获批后自主完成。仅实质改变事实、承诺、覆盖、用户硬要求、来源权利或费用时回审；范围内的角度、速度、布局、编码与故障修复不逐次请示。
 
@@ -59,6 +59,8 @@ disable-model-invocation: false
 按用户选择采集并完成后期；一镜到底指单一连续源时间线，不是只准执行一次。用户要求不硬切时，局部加速也保留完整区间，按[连续后期](references/short-route-motion.md)记录实际映射。显式不重拍或次数上限仍遵守。
 
 声音任务及本地BGM开头素材整理读[音频](references/audio-production.md)，字幕读[字幕](references/subtitle-style.md)，首尾改版读[首尾](references/opening-ending-layout.md)。按需加载，不为每次修正重复读全套。
+
+输入/变速/声音/字幕变化后按[音频与中间文件失效](references/audio-production.md#音画对应与中间文件失效)重建受影响输出，核实际进入渲染的字幕源。保留用户已认可的首镜形式，具体见[首尾](references/opening-ending-layout.md#已确认的首镜形式)。
 
 检查最终文件的画面、字幕、音轨、尺寸/时长与实际播放；按章节说明结果和剩余问题，交用户接受或退回。更新项目现有状态和问题记录。检查器核结构、来源及范围，不认证画质或替代真实审看。
 
