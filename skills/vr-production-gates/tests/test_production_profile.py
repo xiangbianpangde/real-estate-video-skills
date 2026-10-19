@@ -49,3 +49,17 @@ class SubtitleProfileRegression(unittest.TestCase):
     def test_unburned_subtitles_rejected(self):
         self.record['scope']['subtitle_delivery']='selectable_track'
         with self.assertRaisesRegex(ValueError,'burned'):validate_production_profile(self.record)
+
+class HumanCameraProfileTests(unittest.TestCase):
+    def base(self):
+        return {'scope':{'production_profile':'human-camera-choice-v1','duration_s':25,'route':'客厅→阳台→主卧','camera_profile':{'aspect_ratio':'4:3','vertical_fov_deg':80,'height_m':1.6},'movement_choices':[{'id':'MOV-006','execution_status':'candidate'},{'id':'MOV-001','execution_status':'reference_only'},{'id':'MOV-005','execution_status':'style_reference_only'}]}}
+    def test_human_camera_profile_accepts_declared_choices(self):
+        from storyboard.model import validate_human_camera_profile
+        validate_human_camera_profile(self.base())
+    def test_mov005_cannot_be_upgraded(self):
+        from storyboard.model import validate_human_camera_profile
+        r=self.base();r['scope']['movement_choices'][-1]['execution_status']='candidate'
+        with self.assertRaisesRegex(ValueError,'style reference'):validate_human_camera_profile(r)
+    def test_default_profile_is_unaffected(self):
+        from storyboard.model import validate_human_camera_profile
+        validate_human_camera_profile({'scope':{'production_profile':'house-short-v1','duration_s':30}})

@@ -73,8 +73,25 @@ def validate_production_profile(record):
         raise ValueError('Fixed production requires burned-in subtitles')
 
 
+def validate_human_camera_profile(record):
+    scope=record.get('scope',{})
+    if scope.get('production_profile')!='human-camera-choice-v1': return
+    if type(scope.get('duration_s')) not in (int,float) or not 20<=scope['duration_s']<=30:
+        raise ValueError('Human camera choice requires 20-30 seconds')
+    camera=scope.get('camera_profile',{})
+    if camera.get('aspect_ratio')!='4:3' or camera.get('vertical_fov_deg')!=80 or camera.get('height_m')!=1.6:
+        raise ValueError('Human camera profile requires 4:3, vertical FOV 80 and height 1.60m')
+    moves=scope.get('movement_choices',[])
+    if not moves or any(m.get('id') not in {'MOV-006','MOV-001','MOV-005'} for m in moves):
+        raise ValueError('Human camera movement choices must use registered library')
+    if any(m.get('id')=='MOV-005' and m.get('execution_status')!='style_reference_only' for m in moves):
+        raise ValueError('MOV-005 is style reference only until source action is verified')
+    if scope.get('route')!='客厅→阳台→主卧': raise ValueError('Human camera route must cover living room, balcony and primary bedroom')
+
+
 def validate(record):
     validate_production_profile(record)
+    validate_human_camera_profile(record)
     validate_editing(record)
     segments = record.get('segments', [])
     if not segments:
