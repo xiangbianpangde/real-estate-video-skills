@@ -57,7 +57,9 @@ def check(record_path, phase, claim):
     if not isinstance(record, dict):
         raise ValueError("record must be an object")
     base = record_path.parent.resolve()
-    if record.get("design_system") is not None or record.get("scope", {}).get("shot_constraints") is not None or record.get("scope", {}).get("editing_policy") is not None:
+    if (record.get("design_system") is not None
+            or any(record.get("scope", {}).get(key) is not None
+                   for key in ("shot_constraints", "editing_policy", "showcase"))):
         from storyboard.model import validate
         validate(record)
         if phase in ("capture", "post") and record.get("scope", {}).get("shot_constraints") is not None:

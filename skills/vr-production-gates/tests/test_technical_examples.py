@@ -51,6 +51,45 @@ class TechnicalExamples(unittest.TestCase):
 
     def test_continuous_mapping_changes_duration_and_preserves_input(self):self.retime()
 
+    def test_only_transition_is_additionally_accelerated(self):
+        self.mapping['showcase'] = {}
+        for part, mode in zip(self.mapping['speed_map'], ['indoor', 'transition', 'outdoor']):
+            part['content_mode'] = mode
+        self.map.write_text(json.dumps(self.mapping))
+        original_map = self.map.read_bytes()
+        self.script('retime.py', '--source', self.p/'source.mp4', '--map', self.map,
+                    '--out', self.p/'faster', '--fps', '12')
+        receipt = json.loads((self.p/'faster/continuous-edit.json').read_text())
+        self.assertEqual([p['speed'] for p in receipt['speed_map']], [1, 3, 1])
+        self.assertEqual([p['speed'] for p in receipt['baseline_speed_map']], [1, 2, 1])
+        self.assertAlmostEqual(receipt['expected_output_duration_s'], 4 + 2/3)
+        self.assertAlmostEqual(receipt['actual_output_duration_s'], 4 + 2/3, delta=1/12)
+        self.assertEqual(receipt['showcase']['transition_speed_multiplier'], 1.5)
+        self.assertEqual(self.sha(self.p/'source.mp4'), self.source_sha)
+        self.assertEqual(self.map.read_bytes(), original_map)
+        self.assertEqual([(p['source_start_s'], p['source_end_s']) for p in receipt['speed_map']],
+                         [(0, 2), (2, 4), (4, 6)])
+        self.call(['ffmpeg', '-v', 'error', '-i', str(self.p/'faster/retimed.mp4'), '-f', 'null', '-'])
+
+    def test_showcase_map_requires_classification_and_actual_transition(self):
+        for modes in ([None, None, None], ['indoor', 'outside', 'outdoor'],
+                      ['indoor', 'indoor', 'outdoor']):
+            self.mapping['showcase'] = {}
+            for part, mode in zip(self.mapping['speed_map'], modes):
+                part['content_mode'] = mode
+            self.map.write_text(json.dumps(self.mapping))
+            self.script('retime.py', '--source', self.p/'source.mp4', '--map', self.map,
+                        '--out', self.p/'bad', good=False)
+            self.assertFalse((self.p/'bad').exists())
+
+    def test_accelerated_receipt_not_silently_accelerated_twice(self):
+        self.mapping['showcase'] = {}
+        self.mapping['baseline_speed_map'] = self.mapping['speed_map']
+        self.map.write_text(json.dumps(self.mapping))
+        self.script('retime.py', '--source', self.p/'source.mp4', '--map', self.map,
+                    '--out', self.p/'bad', good=False)
+        self.assertFalse((self.p/'bad').exists())
+
     def test_gap_rejected_before_output(self):
         self.mapping['speed_map'][1]['source_start_s']=2.2;self.map.write_text(json.dumps(self.mapping))
         self.script('retime.py','--source',self.p/'source.mp4','--map',self.map,'--out',self.p/'bad',good=False)

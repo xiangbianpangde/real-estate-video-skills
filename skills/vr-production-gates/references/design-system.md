@@ -25,6 +25,8 @@
 
 [Schema](../assets/design-system/schema.json)描述vr-production-plan/v3与设计系统1.0/1.1/1.2/1.3结构；语义校验在scripts/storyboard/model.py。plan/scope存一次内容与范围，assets存来源/字节身份，segments存章节，visual存标题、图像角色与动作，board_content存实际变更，不维护重复台本。
 
+当前模板用scope.showcase记录[三空间展示选择](short-route-motion.md#展示选择与三空间范围)，scope.route_space_ids/逐点room_id及segments.space_ids对应真实空间，content_mode区分室内、室外和转场。页头/正文显示有效选择及转场目标，章节卡/正文显示内容分类，generation.json保留有效选项；历史未声明showcase仍可读。
+
 渲染器当前输入为PNG、有限动作/版式类型和S编号等结构，这是工具格式，不是新审批要求。来源缺失/字节漂移、时间轴不合法、图文对象不一致会失败；字段齐全不证明画面好看。
 
 ```bash

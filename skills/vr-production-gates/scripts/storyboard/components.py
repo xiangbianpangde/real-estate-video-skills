@@ -2,6 +2,7 @@
 import base64
 import html
 from .model import MOTION_KINDS, motion_steps
+from .showcase import CONTENT_LABELS
 
 esc = lambda value: html.escape(str(value))
 
@@ -50,9 +51,11 @@ def risk_tag(level, text):
 
 def chapter_card(seg, images, floorplan, fixture=False):
     v = seg['visual']
+    mode = seg.get('content_mode')
+    mode_label = f'<p class="caption">展示内容：{esc(CONTENT_LABELS[mode])}</p>' if mode in CONTENT_LABELS else ''
     return f'''<article class="card" data-segment="{esc(seg['id'])}"><div class="bar">{esc(seg['id'])} · {seg['end_s']-seg['start_s']:.1f}秒</div>
 <div class="content"><div class="eyebrow">{seg['start_s']:.2f}–{seg['end_s']:.2f}秒</div><h2>{esc(v['title'])}</h2>
-{preview(seg, images, floorplan, fixture)}{motion_component(v)}
+{preview(seg, images, floorplan, fixture)}{mode_label}{motion_component(v)}
 <div class="field"><b>镜头动作</b><p>{esc(seg['action'])}</p></div>
 <div class="field"><b>观看重点</b><p>{esc(seg['focus'])}</p></div>
 <div class="field"><b>口播</b><p>{esc(seg.get('text', '') or '无旁白')}</p></div>

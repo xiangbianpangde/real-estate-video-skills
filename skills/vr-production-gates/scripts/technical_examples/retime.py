@@ -12,6 +12,7 @@ import sys
 sys.dont_write_bytecode=True
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from storyboard.model import validate_editing
+from storyboard.showcase import accelerate_transitions, showcase_options
 from media import probe,sha,write_json,output_folder
 
 
@@ -24,9 +25,12 @@ def retime(source,mapping,out,fps=30,discard_audio=False):
         raise ValueError('Source has audio; choose its treatment explicitly (--discard-audio for this example)')
     record={'scope':{'continuity_class':'cross_room_travel','editing_policy':{'single_take_required':True,'allow_cuts':False,'allow_remove_intervals':False,'allow_speed_changes':True},'editing_source_duration_s':duration,'speed_map':report['speed_map']}}
     validate_editing(record)
+    effective = accelerate_transitions(report)
+    record['scope']['speed_map'] = effective
+    validate_editing(record)
     if type(fps) is not int or fps<=0:raise ValueError('Positive integer fps required')
     elapsed=0.;parts=[]
-    for segment in report['speed_map']:
+    for segment in effective:
         a,b,speed=(segment[k] for k in ('source_start_s','source_end_s','speed'))
         expression=f'({elapsed:.12g}+(T-{a:.12g})/{speed:.12g})'
         parts.append((b,expression));elapsed+=(b-a)/speed
@@ -38,6 +42,9 @@ def retime(source,mapping,out,fps=30,discard_audio=False):
     cmd=['ffmpeg','-v','error','-n','-i',str(source),'-map','0:v:0','-an','-vf',filters,'-c:v','libx264','-pix_fmt','yuv420p','-crf','20','-movflags','+faststart',str(target)]
     subprocess.run(cmd,check=True)
     result={**report,'schema':'vr-continuous-edit/v1','expected_output_duration_s':elapsed,'actual_output_duration_s':probe(target)['duration_s'],'output_sha256':sha(target),'ffmpeg_argv':cmd,'fps_normalization':'CFR sampling, no optical interpolation; frames may be sampled but no source time interval is omitted','speed_boundary':'piecewise constant; not speed ramping','source_unchanged':sha(source)==report['source_sha256'],'visual_verified':False,'human_accepted':False}
+    if report.get('showcase') is not None:
+        result.update(showcase=showcase_options({'scope': {'showcase': report['showcase']}}),
+                      baseline_speed_map=report['speed_map'], speed_map=effective)
     write_json(folder/'continuous-edit.json',result)
     return result
 

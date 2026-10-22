@@ -26,6 +26,24 @@
       "origin": "actual_source"
     },
     {
+      "path": "S03.png",
+      "sha256": "",
+      "role": "reference",
+      "origin": "actual_source"
+    },
+    {
+      "path": "S04.png",
+      "sha256": "",
+      "role": "reference",
+      "origin": "actual_source"
+    },
+    {
+      "path": "S05.png",
+      "sha256": "",
+      "role": "reference",
+      "origin": "actual_source"
+    },
+    {
       "path": "../source/model.at3d",
       "sha256": "",
       "role": "source",
@@ -87,7 +105,7 @@
       "music": "",
       "risk": "",
       "visual": {
-        "title": "待填叙事角色标题",
+        "title": "客厅开场",
         "layout": "opening_composite",
         "motion": {
           "kind": "static",
@@ -99,14 +117,78 @@
         ],
         "role": "opening"
       },
-      "space_ids": [],
+      "space_ids": ["living_room"],
+      "content_mode": "indoor",
       "framing_status": "pending"
     },
     {
       "id": "S02",
       "start_s": 3,
-      "end_s": 30,
+      "end_s": 4,
       "reference_image": "S02.png",
+      "action": "",
+      "focus": "",
+      "text": "",
+      "highlights": [],
+      "music": "",
+      "risk": "待按实际动态核转场速度与时窗",
+      "visual": {
+        "title": "客厅正向前往阳台",
+        "layout": "source_reference",
+        "motion": {"kind": "travel", "label": "仅移动段额外提速"},
+        "role": "chapter"
+      },
+      "space_ids": ["living_room", "balcony"],
+      "content_mode": "transition",
+      "framing_status": "pending"
+    },
+    {
+      "id": "S03",
+      "start_s": 4,
+      "end_s": 22,
+      "reference_image": "S03.png",
+      "action": "",
+      "focus": "",
+      "text": "",
+      "highlights": [],
+      "music": "",
+      "risk": "室外景观须由当前真实源确认，不支持时先对齐取舍",
+      "visual": {
+        "title": "阳台真实窗景",
+        "layout": "source_reference",
+        "motion": {"kind": "pan", "label": "稳定展示真实窗景"},
+        "role": "chapter"
+      },
+      "space_ids": ["balcony"],
+      "content_mode": "outdoor",
+      "framing_status": "pending"
+    },
+    {
+      "id": "S04",
+      "start_s": 22,
+      "end_s": 23,
+      "reference_image": "S04.png",
+      "action": "",
+      "focus": "",
+      "text": "",
+      "highlights": [],
+      "music": "",
+      "risk": "必要客厅衔接按真实点位填写，不倒退、不重复展示",
+      "visual": {
+        "title": "转向后正向前往主卧",
+        "layout": "source_reference",
+        "motion": {"kind": "travel", "label": "先转向再正向移动"},
+        "role": "chapter"
+      },
+      "space_ids": ["balcony", "primary_bedroom"],
+      "content_mode": "transition",
+      "framing_status": "pending"
+    },
+    {
+      "id": "S05",
+      "start_s": 23,
+      "end_s": 30,
+      "reference_image": "S05.png",
       "action": "",
       "focus": "",
       "text": "",
@@ -114,17 +196,18 @@
       "music": "",
       "risk": "",
       "visual": {
-        "title": "待填叙事角色标题",
+        "title": "主卧展示与收尾",
         "layout": "ending_composite",
         "motion": {
-          "kind": "travel",
-          "label": "待填动作短说明"
+          "kind": "pan",
+          "label": "待按真实主体填写门口扫视"
         },
         "role": "ending",
         "cta": "待填获审CTA",
         "disclaimer": "待填完整必要提示"
       },
-      "space_ids": [],
+      "space_ids": ["primary_bedroom"],
+      "content_mode": "indoor",
       "framing_status": "pending"
     }
   ],
@@ -164,7 +247,13 @@
     "opening": "",
     "ending": "",
     "bgm": "用户指定现成BGM库内选符合版本的曲目，不新生成音乐",
-    "coverage": [],
+    "coverage": ["客厅", "阳台", "主卧"],
+    "showcase": {
+      "space_order": ["living_room", "balcony", "primary_bedroom"],
+      "primary_content": "outdoor",
+      "selection_source": "default",
+      "transition_speed_multiplier": 1.5
+    },
     "route": "",
     "facts_and_rights": "",
     "not_authorized": [
@@ -201,7 +290,7 @@
       ],
       "avoid_wall_facing": true
     },
-    "route_space_ids": [],
+    "route_space_ids": ["living_room", "balcony", "primary_bedroom"],
     "audio_timeline_binding": "final_audio_alignment_sha256"
   },
   "exploration": {},

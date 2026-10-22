@@ -63,6 +63,9 @@
         "shot_constraints": {
           "$ref": "#/$defs/shot_constraints"
         },
+        "showcase": {
+          "$ref": "#/$defs/showcase"
+        },
         "route_space_ids": {
           "type": "array",
           "minItems": 1,
@@ -120,6 +123,9 @@
               "speed": {
                 "type": "number",
                 "exclusiveMinimum": 0
+              },
+              "content_mode": {
+                "enum": ["indoor", "outdoor", "transition"]
               }
             }
           }
@@ -188,6 +194,28 @@
     }
   },
   "$defs": {
+    "showcase": {
+      "type": "object",
+      "description": "Current choices; an empty object uses current defaults. Historical records may omit this block.",
+      "properties": {
+        "space_order": {
+          "const": ["living_room", "balcony", "primary_bedroom"]
+        },
+        "primary_content": {
+          "enum": ["indoor", "outdoor"],
+          "default": "outdoor"
+        },
+        "selection_source": {
+          "enum": ["default", "user"],
+          "default": "default"
+        },
+        "transition_speed_multiplier": {
+          "type": "number",
+          "exclusiveMinimum": 1,
+          "default": 1.5
+        }
+      }
+    },
     "shot_constraints": {
       "type": "object",
       "required": [
@@ -393,6 +421,9 @@
             "minLength": 1
           }
         },
+        "content_mode": {
+          "enum": ["indoor", "outdoor", "transition"]
+        },
         "framing_status": {
           "enum": [
             "subject",
@@ -446,6 +477,10 @@
               "pano_index": {
                 "type": "integer",
                 "minimum": 0
+              },
+              "room_id": {
+                "type": "string",
+                "minLength": 1
               },
               "floorplan_xy": {
                 "type": "array",

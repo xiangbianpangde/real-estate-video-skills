@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 from storyboard.render import load, render_html, render_markdown
+from storyboard.showcase import showcase_options
 
 
 def build_package(record_path, output_dir, floorplan):
@@ -35,6 +36,8 @@ def build_package(record_path, output_dir, floorplan):
     receipt={'schema':'storyboard-generation/v1','source_record_sha256':hashlib.sha256(record_path.read_bytes()).hexdigest(),
              'board_html_sha256':hashlib.sha256(html.encode()).hexdigest(),'script_markdown_sha256':hashlib.sha256(md.encode()).hexdigest(),
              'segments':[s['id'] for s in record['segments']],'visual_review':'PENDING','capture_authorized':False}
+    if showcase_options(record) is not None:
+        receipt['showcase'] = showcase_options(record)
     output_dir.mkdir(parents=True,exist_ok=False)
     (output_dir/'视频剧本.html').write_text(html, encoding='utf-8')
     (output_dir/'剧本正文.md').write_text(md, encoding='utf-8')

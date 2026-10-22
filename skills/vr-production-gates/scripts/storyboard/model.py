@@ -86,7 +86,9 @@ def validate_human_camera_profile(record):
         raise ValueError('Human camera movement choices must use registered library')
     if any(m.get('id')=='MOV-005' and m.get('execution_status')!='style_reference_only' for m in moves):
         raise ValueError('MOV-005 is style reference only until source action is verified')
-    if scope.get('route')!='客厅→阳台→主卧': raise ValueError('Human camera route must cover living room, balcony and primary bedroom')
+    # New plans classify coverage separately from numeric SDK point sequences.
+    if scope.get('showcase') is None and scope.get('route')!='客厅→阳台→主卧':
+        raise ValueError('Human camera route must cover living room, balcony and primary bedroom')
 
 
 def validate(record):
@@ -161,6 +163,8 @@ def validate(record):
         if used.intersection(excluded):
             raise ValueError('Excluded space appears in chapter or return route')
         # Labels describe the plan; they cannot certify camera frames or new dynamics.
+    from .showcase import validate_showcase
+    validate_showcase(record)
     ds = record.get('design_system')
     if ds is not None:
         if ds.get('id') != 'real-estate-storyboard' or ds.get('version') not in {'1.0.0','1.1.0','1.2.0','1.3.0'}:

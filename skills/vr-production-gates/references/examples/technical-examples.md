@@ -9,7 +9,7 @@ postprocess.py固定短片计划需填写production_profile=house-short-v1、vid
 | 示例 | 提供什么 | 本次验证与限制 |
 |---|---|---|
 | [panorama.mjs](../../scripts/technical_examples/panorama.mjs) | 注入当前SDK实例，预加载、实际姿态检查、导航回调、可选原生时戳录制、finally恢复 | 4组离线模拟；未在真实SDK执行抽取后的适配器 |
-| [retime.py](../../scripts/technical_examples/retime.py) | 单原件完整时间映射，局部加速，不硬切或删除时间区间 | 实际FFmpeg：6秒→约5秒；输入未变。分段恒速，不含速度渐变或补帧 |
+| [retime.py](../../scripts/technical_examples/retime.py) | 单原件完整映射；当前showcase只额外加速transition，不硬切/删区间 | 实际FFmpeg：历史基准6秒→约5秒；当前转场额外×1.5→约4.667秒，展示不变、输入未变。分段恒速，无渐变或补帧 |
 | [align_voice.py](../../scripts/technical_examples/align_voice.py) | 本地既有mlx-whisper模型，无台本提示的词级识别时码 | CLI入口检查；本次未执行模型识别，不自动下载模型 |
 | [postprocess.py](../../scripts/technical_examples/postprocess.py) | 已有旁白落位、真实时码字幕、Pillow烧录、音乐交叉淡化延展、旁白侧链压低、导出 | 实际FFmpeg/Pillow合成信号检查；未作真实配音试听或音乐审美验收 |
 | [demo.py](../../scripts/technical_examples/demo.py) | 一条命令生成完整离线演示、输入清单、回执和审看页 | 测试画面、正弦音及人工测试时码，绝不冒充房源或配音 |
@@ -69,10 +69,15 @@ node skills/vr-production-gates/tests/test_panorama_example.mjs
   "schema": "vr-continuous-edit/v1",
   "source_sha256": "REPLACE_WITH_ACTUAL_SHA256",
   "source_duration_s": 6,
+  "showcase": {
+    "primary_content": "outdoor",
+    "selection_source": "default",
+    "transition_speed_multiplier": 1.5
+  },
   "speed_map": [
-    {"source_start_s": 0, "source_end_s": 2, "speed": 1},
-    {"source_start_s": 2, "source_end_s": 4, "speed": 2},
-    {"source_start_s": 4, "source_end_s": 6, "speed": 1}
+    {"source_start_s": 0, "source_end_s": 2, "speed": 1, "content_mode": "indoor"},
+    {"source_start_s": 2, "source_end_s": 4, "speed": 2, "content_mode": "transition"},
+    {"source_start_s": 4, "source_end_s": 6, "speed": 1, "content_mode": "outdoor"}
   ]
 }
 ```
@@ -81,6 +86,10 @@ node skills/vr-production-gates/tests/test_panorama_example.mjs
 python3 skills/vr-production-gates/scripts/technical_examples/retime.py \
   --source /path/to/source.mp4 --map /path/to/map.json --out /path/to/new-edit
 ```
+
+本例只是6秒变速格式，不是符合制作片长/主体占比的完整剧本。showcase从剧本scope.showcase复制；空对象使用当前默认室外/转场额外×1.5。上述2倍基准移动实际变为3倍，展示仍为1倍；预期总长约4.667秒。没有showcase的历史映射保持原行为（本例基准约5秒），不静默追加提速。
+
+当前映射必须将展示与移动按真实端点分开，逐段content_mode=indoor/outdoor/transition；缺分类或无transition拒绝。回执保留baseline_speed_map与实际speed_map，不修改输入映射；已带baseline_speed_map的回执不能直接再次输入。最终有效映射及时间轴同步回剧本和声音字幕，不能把展示选择变成一行不落实的标签。
 
 SHA或时长不符、时间线缺口/重叠/倒序、非法速度会拒绝。源有声音时先明确处理：本示例仅支持显式`--discard-audio`后另配旁白，不用于让原声自动跟随变速。变速复用现有`storyboard.model.validate_editing`，没有另造一套连续性规则。
 
@@ -157,7 +166,7 @@ python3 skills/vr-production-gates/scripts/technical_examples/prepare_bgm.py \
 
 `试听索引.html`链接实际文件，`清单.json`留源路径/标签/SHA、源时长/截取区间、处理命令与输出解码/响度结果。工具保留原曲和未完成输出供检查，不下载、改曲名、推定版本相同或证明发布权利。输出少于源时长不代表漏曲；静音、解码失败或编码后削波会报错。
 
-项目实作说明：曾用单调PCHIP把完整连续源时间映射到新章节时间，保持方向和全部区间；画面提速后复用原语音及词级时码、重排落位，指定歌曲单独裁剪混音。该方法需验证导数为正及端点/实际输出，分段常速CLI不能冒称已实现相同渐变。具体房源、曲目和倍率留案例记录，不固化为其他任务默认值。
+项目实作说明：曾用单调PCHIP把完整连续源时间映射到新章节时间，保持方向和全部区间；画面提速后复用原语音及词级时码、重排落位，指定歌曲单独裁剪混音。该方法需验证导数为正及端点/实际输出，分段常速CLI不能冒称已实现相同渐变。具体房源与曲目留案例记录；当前额外转场倍率见[路线与运动](../short-route-motion.md)，历史个例参数不覆盖当前默认。
 
 开头整理器另核短源不循环/不补静音、既有输出不覆盖、纯静音不冒称可用；使用合成音调验证这些行为，不将合成数据当作曲目听感。
 
@@ -172,4 +181,4 @@ python3 skills/vr-production-gates/scripts/technical_examples/prepare_bgm.py \
 | 批量配音返回成功却缺音频，或字幕只有关键词 | 顶层成功不等于逐项成功、对齐不等于内容核听；核逐项回执与实际词时码，保留独立识别差异，见[声音制作](../audio-production.md) |
 | 视频全解码/CFR通过，仍见SDK重影 | 源画面投影问题与后期技术通过不是同一件事；保留源限制，不伪称变速或插帧已修复 |
 
-曲目清单、房源路线和本片倍率仍归项目案例；上述入口归纳如何判断和修复，不给未来任务新增配额或审批。
+曲目清单、实际房源点位及本片最终倍率仍归项目案例；当前展示范围/默认转场倍率以[路线与运动](../short-route-motion.md)为准。上述入口不新增配额或审批。
