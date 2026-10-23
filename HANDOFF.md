@@ -4,7 +4,16 @@
 
 用户明确授权：本仓库内已授权修改完成并通过相关检查后，默认提交并推送，无需每次重复询问；用户明确要求只保留本地时除外。只提交本次任务相关改动，保留无关工作；推送后核对远端提交及工作区。不将本约定扩展为强推、重写历史、发布视频或操作其他仓库的授权。
 
-## 当前任务：Skill熵减4.13.0 · 2026-10-23
+## 当前任务：MiniMax Code原生确认流程4.14.0 · 2026-10-23
+
+- 用户明确选择“只修改技能，改用MCode原生确认卡暂停”，不安装Hook插件、不修改全局运行时目录。当前入口为[Skill](skills/vr-production-gates/SKILL.md)与[MCode确认流程](skills/vr-production-gates/references/script-approval-gate.md)，不是Pi工具硬门禁；下方Pi状态/命令均是历史记录，不适用于当前MCode。
+- 已替换当前入口及填写/提交/整体验收规范：完整脚本review → 实际交付链接/文件 → 原生ask_user（requiresExplicitResponse=true、单步骤、批准/保持暂停两个选项）→ waiting_for_user立即停下 → 本次真实用户明确批准 → 原指纹复核及制作技术检查。只修Skill不需Pi维护命令，不自动制作。
+- 新增scripts/approval/minimax.py准备卡片参数与技术检查；不提交卡片、不认证用户、不保存批准，所有输出明确production_authorized/user_approval_verified/hard_tool_interception=false。共享检查器区分content_snapshot与原Pi host_confirmation，保持来源、HTML、预检、连续性及claim保护；DRAFT/空approval无需补造转录。旧Pi扩展、.pi设置与原CLI原位保留兼容，MCode不会加载它们。
+- 已运行：14项MCode专项、234项全量Python、72项历史CLI、4项SDK离线mock、5组设计CLI，均通过；文档链接/JSON及Skill元信息检查通过。Pi宿主回归未启动：默认全局Pi包缺失，未安装或扩大路径搜索。设计CLI首次因回执父目录不存在写入失败，补建项目local/validation/minimax-approval后重跑通过，首败保留记录。
+- 详细结果在local/validation/minimax-approval/checks.json及design-system.json。独立审查初轮发现“当前交接仍要求Pi”“DRAFT否决真实批准”两项P2，已修正文并只读复审通过，无新增问题。实施基线cf2a745，工作分支task/minimax-approval-gate；用户本轮已明确要求提交并推送，按检查结果仅提交本轮相关文件至当前任务分支，实际提交及远端同步状态以Git回读为准，不合并主分支或发布视频。
+- 未操作真实房源/配音/成片，未做新版视频审核卡端到端、真实房源UI或新上下文模型触发测试；本次接入方式的真实问卷往返不是视频批准或成片验收。下一步在MCode加载本仓库唯一Skill后按上述流程处理新的制作请求，无需Pi /reload或状态工具，不因维护完成自动开拍。
+
+## 历史任务：Skill熵减4.13.0 · 2026-10-23
 
 - [实施方案](wiki/entropy-reduction/方案.md)已固化并嵌入[技术图PNG](wiki/entropy-reduction/技术图.png)，3000×2240实际导出/回读可读，图文检查通过。[首轮审计](wiki/entropy-reduction/首轮审计.md)保留原静态快照，并追加运行复现与处置；不另建当前状态。
 - 已修现行模板→生成→宿主→CLI的关键契约：linked HTML共用标准生成/角色/逐章校验；正文自动嵌overview，草稿不列未来预检；确认语法共享；video_production_check用宿主当前确认调用原capture/post，不改record或生成媒体。验证结果framing_status不再重锁内容，坏构图/制作pending仍拒绝。历史协议、两个profile、单源变速保护及用户硬要求保留。

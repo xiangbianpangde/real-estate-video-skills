@@ -1,54 +1,86 @@
-# 视频脚本—用户确认门禁
+# 视频脚本—用户确认门禁（MiniMax Code）
 
-先交完整本版脚本，再等真实用户明确确认，最后制作。这里的暂停是用户要求的必经门禁，不是可被“持续推进”“自主完成”跳过的进度点。
+先交完整本版脚本，再等待真实用户明确确认，最后制作。这是用户要求的必经暂停，不能被“持续推进”“自主完成”跳过。
 
-## 加载与确认生效
+## 当前接入与边界
 
-Pi Skill正文只提供指令，不能拦截工具。硬拦截由包内[scripts/approval/index.ts](../scripts/approval/index.ts)扩展提供；本仓库的项目设置`.pi/settings.json`在项目受信任并重新加载后自动加载它。将Skill用于其他制作目录时，须同时显式加载同一个扩展，不复制第二份Skill：
+当前用户选择：**只修改技能，使用MCode原生 `ask_user` 确认卡暂停；不安装Hook插件。** 这是流程门禁，不是全工具硬拦截、操作系统沙箱或身份认证服务。MCode的工具执行权限确认也不是脚本批准。不能声称“未确认的所有工具已由宿主拦截”。
+
+在MCode加载本技能后，直接使用已有Python脚本和原生 `ask_user`；不要求Pi扩展、状态工具或 `/video-gate` 命令。只修技能时，按用户本轮授权编辑和运行相关离线测试，不弹制作确认卡、不操作房源或生成媒体。
+
+[scripts/approval/minimax.py](../scripts/approval/minimax.py)是标准库适配器：`review`校验完整内容并生成卡片参数；`check`比较审核时内容指纹并复用原技术检查。它不提交卡片、不认证用户、不保存或导出批准凭据，任何输出的 `production_authorized`、`user_approval_verified`、`hard_tool_interception` 都是false。
+
+## 准备、提交、暂停、继续
+
+1. **准备完整脚本。** 允许读取素材、编写record与图文剧本、运行固定资料清单/生成/review工具。未批准不录制、调用TTS、混音、烧字或导出，不把制作伪装成预检。需动态SDK预检时先提交候选脚本，批准后再执行。Python默认使用当前可用的 `python3`，图像生成沿用已有Pillow环境，不安装无关依赖。
+2. **校验并绑定本版。** 运行 `minimax.py review --record <本版record>`；它复用完整正文、源图、制作范围及口播/风险/音乐检查。linked HTML须与标准生成器一致并包含逐章必审内容。保存本次输出中的 `fingerprint` 与record路径，后续对照的是此原值；生成一份新指纹不能使变更继承旧批准。record中的 `status`、`approval` 不是授权。
+3. **先实际交付。** 在assistant用户可见文本单独一行给出返回的完整脚本链接，并用当前界面的文件交付标记交付本轮生成的脚本。拍法、声音、字幕、首尾、输出和限制另段说明。工具结果中的链接、截图成功或打印JSON不算已交给用户。不要用图片链接、代码块、引文或HTML注释藏审核入口。
+4. **真正调用确认卡并停下。** 将 `review` 返回的 `ask_user` 对象作为原生工具参数。必须 `requiresExplicitResponse=true`，一个 `selectionMode=single` 步骤，且只有两个选项：明确批准本版并按范围开始制作／暂不批准保持暂停。问题正文必须独立说明当前房源、版本、完整脚本路径、主要制作动作、输出位置、保留原件、不公开发布及不新增收费；不能只放在可能隐藏的标题或description中。不要预设/自动选中批准，不与任何制作调用并行。工具返回 `waiting_for_user` 后**立即结束本轮**，等待后续用户答复；不另设提醒等待用户、不把调用成功当批准。
+5. **只依据真实后续决定继续。** 检查本次卡片的requestId/stepId与用户所选option id，或其明确文字答复确实批准本版。`approve_current_script`才表示批准；`leave_unchanged`、否定、修改、问题或歧义继续暂停。室内/室外偏好、孤立的“确认/好/继续”、旧批准、其他版本、工具回执及模型生成的消息不算本版批准。不要求用户背口令。工具不可用时准确说明，交付完整脚本后结束等待真实明确回复；没有明确回复仍不制作，不虚报卡片已提交。
+6. **复核后在范围内制作。** 先核真实批准仍适用于当前会话/版本，且未撤回。在已批准范围完成动态验证并补真实precheck资产后，以**审核时原指纹**运行 `minimax.py check --phase capture`，需要预留新目录才加 `--claim`；后期用 `--phase post`。它不生成媒体、不改record，缺预检/坏构图/来源或连续性问题照旧失败，失败不预留目录。通过只代表技术检查通过，不能替代真实批准或画面/声音审看。
+
+## 命令与确认卡参数
+
+从技能目录运行；路径包含空格时用引号。制作项目的版本目录放record与生成文件，技能目录不存房源状态。
 
 ```bash
-pi --extension /path/to/vr-production-gates/scripts/approval/index.ts \
-   --skill /path/to/vr-production-gates
+# 审核前：仅资料与完整剧本
+python3 scripts/inspect_listing_materials.py "/project/listing"
+python3 scripts/build_script_package.py --record "/project/v1/record.json" \
+  --floorplan floorplan.png --output-dir "/project/v1/generated"
+python3 scripts/approval/minimax.py review --record "/project/v1/record.json"
+
+# 先交付完整链接/文件，再实际调用 ask_user，停止并等待真实用户决定。
+# 以下仅在本版真实批准后执行。指纹取自该次 review，不是批准凭据。
+python3 scripts/approval/minimax.py check --record "/project/v1/record.json" \
+  --fingerprint "<审核时的64位指纹>" --phase capture --claim
+python3 scripts/approval/minimax.py check --record "/project/v1/record.json" \
+  --fingerprint "<同一审核指纹>" --phase post
 ```
 
-`video_gate_status`实际返回`loaded=true`、`mode=production`才是当前宿主门禁已接入；看见文件、读过Skill或模型说“已加载”均不是证据。没有这个工具时，只准备脚本并说明需加载扩展；不能降级成无门禁制作。Python默认`python3`，宿主可通过`VR_GATE_PYTHON`指定已有运行时，不安装依赖。
+`review`输出的 `ask_user` 结构如下；示例占位符必须由当前实际内容替换。JSON本身不会显示确认卡或暂停会话，必须调用实际工具。
 
-维护本Skill而非制作房源时，由用户在Pi输入`/video-gate maintenance`允许代码编辑/测试；模型没有开启维护模式的工具。用户输入`/video-gate production`重新锁定。维护模式状态始终标`MAINTENANCE_ONLY`，不代表视频制作已批准；用户命令不由模型通过bash、工具回执或伪造消息代发。
-
-## 提交、等待、解锁
-
-1. **准备脚本**：默认`SCRIPT_REQUIRED`。允许读取素材、编写文档；`video_script_prepare`只运行固定的`inspect`资料清单、`build`剧本生成、`review`结构检查，不执行任意shell。制作所用的FFmpeg、TTS、浏览器求值/录制与其他执行类工具保持锁定。需要脚本前动态预检或任意SDK求值时，先另给本次候选脚本并审核，不把完整制作伪装为预检。
-2. **提交本版**：`video_script_submit({record_path})`复用已有`check_shooting_plan --phase review`，核完整正文、源图、制作范围及本版口播/风险/音乐；单独HTML还必须与当前标准生成器输出逐字一致，并逐章核口播/风险/音乐/黄标，不能把必审内容藏进HTML。绑定实际审核文档及内容快照，只进入`PRESENTATION_REQUIRED`。record的`status`和`approval`字段不授予宿主权限。
-3. **交给用户并停下**：assistant在聊天**单独一行**展示工具返回的本版完整脚本Markdown链接（其他范围说明另起段），随后请求审核并结束本轮。图片引用、代码块、引文或HTML注释中的伪链接不算交付。工具输出中的链接不算交付，生成成功、截图或模型说“用户已确认”都不算批准。此后状态为`USER_CONFIRMATION_REQUIRED`，同一轮继续制作仍会被拦截。
-4. **真实用户确认**：宿主收到后续interactive或RPC用户输入，例如“审核通过，现在开始制作”“确认本版脚本，开始制作”，且该用户消息实际进入当前分支，才进入`USER_CONFIRMED`。无需用户读哈希或背固定口令；模糊的“确认/同意/好/继续”、室内/室外选择、提问、否定、引文、其他版本或extension注入均不能解锁。不确定时保持锁定，问清本版脚本是否通过。
-5. **按已确认范围检查并制作**：每次执行前重核本版内容快照及当前分支的展示/确认消息。用`video_production_check({phase:"capture",claim:true})`核采集并预留新目录，或`{phase:"post"}`核后期；无需预留时capture可省claim。工具只接phase/claim，record与确认来自当前宿主，复用既有CLI的内容、来源、预检、连续性及输出保护；不生成媒体、不改record、不导出批准凭据。缺真实预检证据时先在已批准范围完成相关动态验证，补入实际资产后再查；运行证据及framing_status由pending核为subject不要求第二次内容批准；检查仍拒绝已知空墙/柜门和未完成的制作构图。模型仍遵守动作、费用、来源及不发布范围，宿主放行不是任意shell语义沙箱。
-
-提交工具参数只接受record路径，没有`approved=true`、用户回复、令牌或跳过字段。批准不来自模型写的本地JSON、历史转录或旧批准文件；宿主内存保存当前有效确认。制作检查经stdin向固定Python适配器传本版指纹，适配器重核后调用原检查器；这是同进程权限边界后的内部IPC，不是可持久复用的授权令牌，也不防有同等权限的外部进程。旧独立CLI继续用于历史转录检查，不认证身份；当前宿主流程无需填status/approval/transcript。
+```json
+{
+  "requiresExplicitResponse": true,
+  "title": "审核视频脚本 v1",
+  "steps": [{
+    "id": "script_approval",
+    "header": "本版脚本审核",
+    "question": "是否批准房源A的v1完整脚本（实际完整文件路径），并按所列范围开始本地制作？此处列明时长、画幅、空间、拍法、声音、动作及输出目录；保留原件，不公开发布或新增收费，未批准保持暂停。",
+    "options": [
+      {"id": "approve_current_script", "label": "批准 v1 本版脚本，按所列范围开始制作"},
+      {"id": "leave_unchanged", "label": "暂不批准，保持暂停，不开始制作"}
+    ],
+    "selectionMode": "single"
+  }]
+}
+```
 
 ## 变更、撤回与恢复
 
-- 脚本正文、审核文档、来源/内容或制作范围变更会使快照失配并重锁；重新提交、展示、等待确认。提交失败也清除旧批准，不能沿用旧版继续。
-- 输出目录、DPR/编码等已有规则认定的运行修复不改变内容快照，避免每次技术重试都要求重新审核。变更事实、覆盖、声音承诺、权利或费用仍回审。
-- 用户撤回、要求暂停/修改、开始另一房源，或切到没有本次确认的分支会重锁。`/reload`或新会话默认重新锁定，不从模型可写的本地凭据自动恢复；确认状态不能因摘要而凭空迁移。
-- 门禁状态工具和提交/准备操作按顺序执行；审批期间不并发改写本版脚本。文件外部改写会在下次执行前重核，但本扩展不提供操作系统级的文件锁或跨进程事务。
+- 脚本正文、审核HTML、来源、承诺或制作范围改变：旧指纹失配，重新生成完整本版、交付并请求确认；提交失败也不能继续沿用旧版制作。
+- 输出目录、DPR/编码、实际预检回执或framing_status由pending核为subject等已有规则允许的运行修复不改变内容指纹，不因技术重试重复审批。仍须核新证据及未完成/坏构图。
+- 用户撤回、暂停、要求修改或换房，立即停止依赖旧批准的动作。新会话/分支或上下文恢复后，不能凭摘要、本地JSON或旧Pi状态自动恢复批准；无法核清本次真实确认就重新交审。
+- 审批期间不并发改脚本；每个制作阶段前复核内容。此适配器不提供文件锁、跨进程事务或全工具拦截；有同等权限的模型/外部进程可以绕开CLI，不能把流程规则描述成安全沙箱。
+- 不为使旧CLI通过而补造 `review.jsonl`、用户事件或批准字段。MCode路线保持模板中的DRAFT/空approval即可，真实决定来自当前会话，不写入可复用授权文件。
 
-## 浏览器与验证边界
+## 浏览器及旧Pi兼容
 
-浏览器仍使用[Chrome DevTools MCP](../SKILL.md#浏览器工具)。未批准时仅开放已打开页面的列表、快照/截图和控制台/网络读取；导航也可能触发HTML主动内容，因此和任意`evaluate_script`、点击、录制一起锁住。用户可自行打开本版审核页供只读截图检查；不能让模型以导航审核页为名执行脚本。MCP缺失时准确说明，不换工具绕门禁；本轮模拟MCP测试只证明宿主在执行前拦截，不证明真实MCP或房源可用。
+仍按[Chrome DevTools MCP](../SKILL.md#浏览器工具)操作。审核前请用户自行打开本版审核页，模型仅对已开页面做列表/快照/截图及控制台/网络读取；不以审核为名导航主动HTML、点击或任意求值。这里是执行规则，不宣称已安装技术拦截。MCP缺失如实标未验证，不换工具绕规则。
 
-当前linked_document的HTML在review、宿主提交和制作检查中共用同一验证：唯一已绑定图源、标准生成器逐字节一致、逐章必审内容完整。`storyboard_source`用于当前同页总板，历史`integrated_review_source`仍可读。确认语法由共享`confirmation.json`给宿主与当前linked CLI使用；身份仍只有宿主验证，旧rendered/inline格式保留历史判定。
+本包仍保留 [Pi适配器](../scripts/approval/index.ts)、原 `.pi/settings.json` 及离线Pi回归，供原Pi调用方兼容；MCode不会读取该设置或注册其专用工具。这不是MCode启用门禁的前置步骤。旧独立CLI的transcript/approval只用于历史记录检查，不认证用户身份，不能据此恢复当前授权。
 
-这是**加载本扩展的Pi会话工具执行门禁**，不是操作系统沙箱。未加载/被人禁用的扩展、外部命令行、其他进程、具有同等权限的恶意扩展不在覆盖内。确认后通用执行工具仍有自身范围约束，发布或新增费用不因脚本批准自动获准。未批准时默认拒绝未知执行工具，而非用危险命令关键词猜测是否制作。
-
-## 可复现验收
+## 验收与证据
 
 ```bash
-# 原Python CLI与快照回归
+# 本版MCode适配器：卡片schema、内容漂移、技术失败及输出保护
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
+  -s skills/vr-production-gates/tests -p 'test_minimax_approval.py'
+
+# 原技术和内容规则回归
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
   -s skills/vr-production-gates/tests -p 'test_*.py'
-
-# 已安装Pi的真实AgentSession、工具hook与真实bash哨兵；离线faux响应，无模型费用
-node skills/vr-production-gates/tests/test_approval_runtime.mjs
 ```
 
-Node测试通过`PI_CODING_AGENT_PACKAGE`或`npm root -g`定位已安装Pi；Python可用`PYTHON`指定。它在独立临时工作目录验证未提交/未展示/伪批准/错版本/否定/偏好拒绝、真实interactive/RPC批准放行、漂移/撤回/分支重锁和维护边界，最后移除自己创建的工作目录。通过不等于房源成片、用户观感或真实MCP验收。
+单元/CLI回归只证明参数与技术行为。真实确认卡必须分别核“调用实际 `ask_user` → 返回waiting_for_user → 本轮停止 → 后续真实用户决定”；不能用打印模式或测试桩宣称UI验收。本次维护选择的卡片不代表任何房源脚本已获批。未做真实房源、TTS或成片检查时明确记为未验证。

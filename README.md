@@ -8,7 +8,7 @@
 |---|---|
 | 当前项目状态与下一步 | [HANDOFF.md](HANDOFF.md) |
 | 通用制作行为 | [Skill](skills/vr-production-gates/SKILL.md) |
-| 脚本先审、用户确认门禁与加载 | [宿主门禁](skills/vr-production-gates/references/script-approval-gate.md) |
+| 脚本先审、MCode原生确认卡与暂停 | [确认流程](skills/vr-production-gates/references/script-approval-gate.md) |
 | 本轮使用复盘 | [Wiki索引](wiki/index.md)、[CASE004](wiki/cases/CASE-20261016-004-skill-production-finalization.md) |
 | 归档与历史交接 | [归档索引](wiki/archive/handoffs/index.md) |
 | 图文设计 | [设计系统规范](skills/vr-production-gates/references/design-system.md) |
@@ -26,7 +26,7 @@ HANDOFF.md                         唯一当前项目交接
 README.md                          仓库导航
 skills/vr-production-gates/
   SKILL.md                         通用技能入口
-  CHANGELOG.md                     包版本记录（现有Pi校验要求）
+  CHANGELOG.md                     包版本记录（保留现有路径）
   references/                      工作规范、设计说明与技术示例
     design-system.md               设计规范说明
   scripts/                         可复用工具与组件实现
@@ -60,8 +60,10 @@ python3 tools/verify_design_system.py --evidence-out /path/to/new-evidence.json
 python3 tools/check_project.py
 ```
 
-音频/字幕检查使用含Pillow的Python及FFmpeg/ffprobe；Skill加载另用现有Pi严格校验与实际资源加载。结构检查不替代画面实看/声音试听。本项目受信任后由`.pi/settings.json`自动加载审批扩展；启动制作前核`video_gate_status`。仅维护Skill时由用户输入`/video-gate maintenance`允许代码/测试，切回制作用`/video-gate production`重锁。
+音频/字幕检查使用含Pillow的Python及FFmpeg/ffprobe；结构检查不替代画面实看/声音试听。当前使用 **MiniMax Code 原生确认卡的流程门禁**，按用户选择不安装Hook插件，不宣称全工具硬拦截。在MCode加载唯一Skill后，运行 `python3 skills/vr-production-gates/scripts/approval/minimax.py review --record /project/v1/record.json`，实际交付完整脚本链接/文件，再调用原生 `ask_user`（requiresExplicitResponse=true），返回waiting_for_user后立即停止等待。
 
-其他制作目录同时加载唯一Skill和门禁：`pi --extension /path/to/vr-production-gates/scripts/approval/index.ts --skill /path/to/vr-production-gates`。只加载Skill不会自动启用硬拦截，不维护同名副本。宿主工具链离线验收为`node skills/vr-production-gates/tests/test_approval_runtime.mjs`；未加载扩展或真实MCP不可用时准确说明缺项，不绕过审核。包根CHANGELOG和tests是现有工具约定，不是项目状态入口。
+后续本版真实批准后，以review原指纹运行 `minimax.py check --record ... --fingerprint ... --phase capture|post` 做技术检查；需要预留新采集目录才加 `--claim`。CLI不认证用户或授予制作权限，不能用重算指纹、status/approval或伪造转录绕过审核。只维护Skill时直接按本轮授权编辑/测试，不需Pi维护命令。详细参数及未接通卡片/MCP时的处理见[确认流程](skills/vr-production-gates/references/script-approval-gate.md)。
+
+旧 `.pi/settings.json`、Pi适配器和 `tests/test_approval_runtime.mjs` 保留原Pi调用方兼容，MCode不会读取该配置或提供其专用工具；Pi加载/工具链结果不是MCode确认卡验收。包根CHANGELOG和tests保留原路径，不是项目状态入口。
 
 历史归档沿用Wiki归档索引，阶段被替代时标明原因、日期、原位置、内容身份和当前入口；不定期复制快照，不从历史配额恢复当前约束。

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Review snapshot and fixed host-to-CLI adapter; never authenticates a user itself.
+"""Shared content snapshot; never authenticates a user itself.
 
-Host authorization stays in Pi memory. The optional stdin operation is internal
-IPC from that host, not a persisted approval token or an OS-level security gate.
+The legacy Pi --host-check operation accepts internal IPC from that extension.
+MCode uses minimax.py for explicitly technical-only checks and native ask_user
+for a real user decision; neither a snapshot nor a local JSON grants authority.
 """
 import hashlib
 import json

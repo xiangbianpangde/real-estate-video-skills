@@ -55,7 +55,9 @@ def number(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
 
-def check(record_path, phase, claim, *, host_confirmation=None):
+def check(record_path, phase, claim, *, host_confirmation=None, content_snapshot=None):
+    if host_confirmation is not None and content_snapshot is not None:
+        raise ValueError('Choose a host confirmation or a technical content snapshot, not both')
     errors = []
     record = json.loads(record_path.read_text(encoding="utf-8"))
     if not isinstance(record, dict):
@@ -420,11 +422,13 @@ def check(record_path, phase, claim, *, host_confirmation=None):
         from document_review import check_linked_document
         check_linked_document(record, base)
 
-    if phase != "review" and host_confirmation is not None:
-        # Internal adapter only: the host has authenticated the current branch.
-        # Never inferred from record fields; the public CLI exposes no bypass flag.
-        if (host_confirmation.get('plan_sha256'), host_confirmation.get('bundle_sha256')) != (plan_sha, bundle_sha):
-            errors.append('approval_snapshot_mismatch')
+    bound_snapshot = host_confirmation if host_confirmation is not None else content_snapshot
+    if phase != "review" and bound_snapshot is not None:
+        # Pi's legacy adapter supplies authenticated host confirmation. MCode's
+        # flow-only adapter supplies a content snapshot for technical checks,
+        # never a claim of user approval; the caller must report that boundary.
+        if (bound_snapshot.get('plan_sha256'), bound_snapshot.get('bundle_sha256')) != (plan_sha, bundle_sha):
+            errors.append('approval_snapshot_mismatch' if host_confirmation is not None else 'content_snapshot_mismatch')
     elif phase != "review":
         if record.get("status") != "SCRIPT_APPROVED_ONCE":
             errors.append("not_approved")

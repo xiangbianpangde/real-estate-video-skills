@@ -14,26 +14,29 @@
 
 ## 一次批准与内部绑定
 
-先按[宿主脚本门禁](script-approval-gate.md)用video_script_submit绑定本版完整脚本，在assistant聊天文本交付返回链接后，结束本轮等待用户。没有后续真实用户明确确认时，采集、配音、变速、混音、烧字和导出均不得开始；工具生成/截图成功和状态字段不能代签。宿主门禁只读本版结构快照，从interactive/RPC输入和当前分支真实消息确认，不从下列历史转录字段授予权限。
+先按[MCode脚本确认流程](script-approval-gate.md)运行 `minimax.py review` 检查并取得本版指纹、完整链接及确认卡参数；在assistant聊天实际交付链接/文件及范围，再调用原生 `ask_user`，`requiresExplicitResponse=true`，一个单选步骤和批准/保持暂停两个选项。返回 `waiting_for_user` 后立即结束本轮。没有后续真实用户明确确认时，采集、配音、变速、混音、烧字和导出均不得开始；打印卡片JSON、截图成功、状态字段或工具执行权限都不能代签。此为流程门禁，不提供全部工具的硬拦截。
 
-用户对清晰版本/范围自然回复批准或“接受，现在开始”即可；不要求固定口令、紧邻parentId、浏览器Current URL或事先工具回执。孤立的同意、否定答复或指向其他版本的回复不算本版批准。
+确认卡应独立说明本房源、本版完整脚本及主要范围。核本次真实卡片答复的requestId、步骤与选项；明确自然语言批准本版也可，不要求固定口令、紧邻parentId、浏览器Current URL或读哈希。孤立的同意、否定答复或其他版本不算批准；卡片工具不可用时交付完整脚本并结束等待真实明确答复，不虚报卡片已提交。
 
-当前记录使用presentation.mode=linked_document，document_path指完整Markdown或已绑定的自包含HTML；status/approval/transcript不用于宿主授权，保持草稿字段即可。真实确认保存在宿主内存，制作前用video_production_check把同版确认交给技术检查。模板见[record](../assets/templates/record.json)。独立旧CLI仅在已有真实历史转录时使用transcript_path/assistant_event_id、approval.user_event_id/explicit_text和plan/bundle快照；保存真实原事件，不让模型补造批准，也不要求用户再批。
+当前记录使用presentation.mode=linked_document，document_path指完整Markdown或已绑定的自包含HTML；MCode流程保持DRAFT/空approval，不从status/approval/transcript取授权。真实决定依据当前会话，在制作前用 `minimax.py check` 和**该次审核的原指纹**核内容及技术条件；CLI不验证用户身份或授权。模板见[record](../assets/templates/record.json)。独立旧CLI仅在已有真实历史转录时使用transcript_path/assistant_event_id、approval.user_event_id/explicit_text和plan/bundle快照；保存原事件，不让模型补造批准或为技术检查重复索权。
 
 linked_document的BUNDLE只绑定可审核内容与范围，忽略探索计数、预检回执、framing_status验证状态、渲染配置及输出目录等运行细节；用户明定预算仍绑定。素材/正文静默漂移被拒绝，范围内参数纠错与换新输出目录不要求第二次内容批准。历史inline_cards/rendered_document及原claim保留读取兼容，不要求重写旧批准。
 
-SCRIPT_APPROVED_ONCE是历史CLI状态标识，不能单独解锁宿主工具；其含义是完整范围已获批，不是只准尝试一次。获批后自主完成采集和列明后期；仅改变事实/承诺、覆盖、用户硬要求、来源权利或费用时回审。发布另核，用户明确不重拍仍生效。
+SCRIPT_APPROVED_ONCE是历史CLI状态标识，不能单独授予制作权限；其含义是完整范围已获批，不是只准尝试一次。获批后自主完成采集和列明后期；仅改变事实/承诺、覆盖、用户硬要求、来源权利或费用时回审。发布另核，用户明确不重拍仍生效。
 
 ## 工具
 
 Python 3.10+，标准库。路径相对record；Markdown图路径相对正文。SHA用于防错源/静默漂移，由工具计算，不给用户增加阅读任务。
 
 ```bash
-# 当前宿主：video_script_prepare(review) → submit/展示/等确认 → video_production_check
-# 以下独立CLI仅检查已有历史转录，不授予宿主权限：
-python3 scripts/check_shooting_plan.py --record /private/version/record.json --phase review
-python3 scripts/check_shooting_plan.py --record /private/version/record.json --phase capture --claim
-python3 scripts/check_shooting_plan.py --record /private/version/record.json --phase post
+# MCode：review → 实际交付 → 原生ask_user暂停 → 真实批准 → 技术检查
+python3 scripts/approval/minimax.py review --record /project/v1/record.json
+# 以下只在本版真实批准后执行；原指纹不是批准凭据：
+python3 scripts/approval/minimax.py check --record /project/v1/record.json \
+  --fingerprint "<审核时指纹>" --phase capture --claim
+python3 scripts/approval/minimax.py check --record /project/v1/record.json \
+  --fingerprint "<同一审核指纹>" --phase post
+# 旧check_shooting_plan.py CLI保留真实历史转录检查，不认证身份。
 ```
 
 --claim只预留新的输出目录，避免并发覆盖；技术失败可保留记录后换新目录重试，不设全局次数。post_only绑定base_media与master资产，只做后期，不能启动capture；已有工作目录可恢复，调用方保留成功媒体并以新文件输出改动。

@@ -1,9 +1,9 @@
 ---
 name: vr-production-gates
 description: 房产视频的图文剧本、VR/模型采集、配音字幕与成片检查。制作房产视频、要求先审剧本、修复视频或维护本技能时使用；必须先交本版完整脚本，等待用户明确确认后才能制作。技能维护不自动执行视频制作。
-compatibility: Pi coding agent with bundled approval extension; Python 3.10+, FFmpeg/ffprobe; Chrome DevTools MCP for browser work
+compatibility: MiniMax Code with native ask_user confirmation; Python 3.10+, FFmpeg/ffprobe; Chrome DevTools MCP for browser work
 metadata:
-  version: "4.13.0"
+  version: "4.14.0"
   status: "active"
   layer: "task"
   priority: "40"
@@ -17,11 +17,11 @@ disable-model-invocation: false
 
 ## 强制门禁：脚本 → 用户确认 → 制作
 
-每次制作先读[脚本确认门禁](references/script-approval-gate.md)，确认宿主`video_gate_status`实际返回`loaded=true`且处于production模式。未加载门禁时只准备脚本并说明接入缺项，不能无门禁制作；Skill正文不能代替工具拦截。仅维护Skill时由用户使用`/video-gate maintenance`，不因此批准房源视频。
+每次制作先读[脚本确认门禁](references/script-approval-gate.md)。当前采用 **MiniMax Code 原生 `ask_user` 确认卡的流程门禁**，不安装 Hook 插件，不宣称能硬拦截全部工具；不要求 Pi 的状态工具、扩展或维护命令。用户明确要求只修Skill时，直接在授权范围维护及测试，不因此批准任何房源制作。
 
-未获本版用户确认前，只准备素材与图文脚本。用`video_script_prepare`完成必要的资料清单/剧本生成/review，`video_script_submit`绑定完整本版，再在聊天给用户可打开的完整脚本链接和范围，请其审核，**结束本轮并等待回复**。不在同轮继续录制、TTS、混音、字幕烧录或最终导出；“自主推进/持续完成”、用户最初说“做视频/开始”、展示重点选择均不能跳过审核。
+未获本版用户确认前，只准备素材与图文脚本。用现有Python工具生成完整脚本，再运行`scripts/approval/minimax.py review --record <本版record>`检查并取得本版指纹、完整链接和确认卡参数。先在聊天交付可打开的完整链接、文件及范围，再**实际调用原生 `ask_user`**，设置`requiresExplicitResponse=true`、一个单选步骤和“批准本版开始制作／暂不批准保持暂停”两个选项。工具返回`waiting_for_user`后立即停止本轮；不能用文字模拟卡片、只打印JSON，或并行调制作工具。不提前录制、TTS、混音、烧字或导出；“自主推进”、最初说“做视频”、室内/室外选择和工具执行权限都不能代替脚本审核。
 
-只有脚本交付之后的真实用户明确确认，且本版快照匹配，才由宿主门禁放行制作。模型不能代填批准、伪造用户消息、沿用旧版/别套房源接受，或把生成/截图成功当审核通过。不同意、修改、歧义答复保持锁定；内容变化、新提交、撤回或换房按门禁重锁，普通运行参数修复不增设重复审批。
+只有此卡的后续真实用户答复明确批准本版，且本版指纹复核一致，才继续已列范围。模型不能自选、代答、伪造用户消息/转录、沿用旧版或别套房源批准；本地状态字段和技术检查通过均不授权。否定、修改或歧义答复继续暂停；内容变化、新提交失败、撤回或换房重新交审，普通运行参数修复不增设重复审批。卡片工具不可用时交付脚本并结束等待真实明确回复，不虚报卡片已调用或硬门禁已启用。
 
 ## 确认本次交付
 
@@ -68,13 +68,13 @@ disable-model-invocation: false
 
 使用[设计系统](references/design-system.md)的同一份record生成一个中文命名HTML，内部包含完整方案板、户型路线板和详细正文。固定短片使用完整实际口播字幕（verbatim_voiceover，烧录），关键词卡不能替代；最终画面/音频/字幕共用同一落位时间线，按实际音频时码核对应空间，不能只核总时长。章节含真实画面、动作图示、主体、口播/字幕和实际风险；首尾按当前要求画出真实布局。当前用户要求首镜户型、尾镜室内引流时，两者实际可见。
 
-[提交协议](references/illustrated-script.md)支持完整文档链接与自然语言批准；[宿主门禁](references/script-approval-gate.md)从真实用户输入绑定本版内容，而不是信任模型填写的approval字段。将拍法、声音、字幕、首尾和输出范围一次说明，提交后停止等待；用户无需读哈希或重复状态口令。门禁放行后才在批准范围自主完成。仅实质改变事实、承诺、覆盖、用户硬要求、来源权利或费用时回审；范围内的角度、速度、布局、编码与故障修复不逐次请示。
+[提交协议](references/illustrated-script.md)使用完整文档链接和MCode原生确认卡；[流程门禁](references/script-approval-gate.md)要求真实用户后续决定，不信任模型填写的approval字段。将拍法、声音、字幕、首尾和输出范围一次说明，在确认卡的问题正文重复本版房源、版本、完整脚本路径、主要动作及不发布/不新增收费边界，再暂停等待；用户无需读哈希或背口令。明确批准后才在范围内自主完成。仅实质改变事实、承诺、覆盖、用户硬要求、来源权利或费用时回审；范围内的角度、速度、布局、编码与故障修复不逐次请示。
 
 可复制的生产记录见[模板索引](assets/README.md)。素材与项目状态由调用方提供；本技能包不维护具体房源交接、机器私有路径或项目归档。
 
 ## 制作与交付
 
-真实确认后先用`video_production_check`核capture/post；需要预留采集目录时用capture＋claim。它复用既有内容、来源、预检及连续性检查，由宿主传递本版确认，不让模型补写批准或再次索权；通过后才按范围采集与后期。一镜到底指单一连续源时间线，不是只准执行一次。局部加速保留完整区间，按[连续后期](references/short-route-motion.md)记录映射；用户明确不重拍或限次仍遵守。
+真实确认后按[流程门禁](references/script-approval-gate.md)保留审核时的原指纹，先在批准范围完成必要动态预检，再运行`scripts/approval/minimax.py check --record <本版record> --fingerprint <审核时指纹> --phase capture`；需要预留新采集目录才加`--claim`，后期用`--phase post`。它复用内容、来源、预检及连续性检查，**只核技术条件，不验证用户身份、不授予制作权限**；不让模型伪填批准或转录。内容变化必须重新交审，不能用重算指纹继续。通过后才按已确认范围采集与后期。一镜到底指单一连续源时间线，不是只准执行一次。局部加速保留完整区间，按[连续后期](references/short-route-motion.md)记录映射；用户明确不重拍或限次仍遵守。
 
 声音任务及本地BGM开头素材整理读[音频](references/audio-production.md)，字幕读[字幕](references/subtitle-style.md)，首尾改版读[首尾](references/opening-ending-layout.md)。按需加载，不为每次修正重复读全套。
 
