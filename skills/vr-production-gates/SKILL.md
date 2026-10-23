@@ -1,9 +1,9 @@
 ---
 name: vr-production-gates
 description: 房产视频的图文剧本、VR/模型采集、配音字幕与成片检查。用户要求先审剧本再制作、修复房产视频或维护本技能时使用；按当前要求自主推进验证和纠错。技能维护不自动执行视频制作。
-compatibility: Pi coding agent; Python 3.10+, FFmpeg/ffprobe, local browser playback
+compatibility: Pi coding agent; Python 3.10+, FFmpeg/ffprobe; Chrome DevTools MCP for browser work
 metadata:
-  version: "4.11.0"
+  version: "4.11.1"
   status: "active"
   layer: "task"
   priority: "40"
@@ -37,6 +37,12 @@ disable-model-invocation: false
 - 保留原件和已批准版本，改动写新文件；来源、范围与实际结果可核。
 - 遵守用户明确的拍法、禁拍空间、费用及不重拍等要求；发布和超出授权的外部操作另核。
 - 技术检查、实际观看/听取和用户接受分别说明，不代签验收。
+
+## 浏览器工具
+
+房源页面操作、VR/模型SDK与相机调试、图文剧本HTML渲染/截图及成片浏览器播放检查，统一使用 **Chrome DevTools MCP**。先发现当前宿主实际暴露的服务/工具及schema，读取页面列表并核对目标房源或本版文档，再操作；工具名称随宿主而异，不把直接CDP、agent-browser、Playwright或Computer Use当作该MCP。
+
+工具未暴露、连接失败或缺登录/目标页权限时，先排查并记录具体缺项；无法恢复则暂停依赖浏览器的环节，继续已授权的离线脚本与文档检查，说明需接通Chrome DevTools MCP，不静默替换工具或虚报实际审看。只有用户明确改用其他工具时才调整要求。离线生成、Python/FFmpeg与SDK mock仍用现有CLI；MCP可用不等于获得房源导航、采集或发布授权。
 
 ## 规划与验证
 

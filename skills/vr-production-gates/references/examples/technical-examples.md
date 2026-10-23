@@ -18,18 +18,18 @@ postprocess.py固定短片计划需填写production_profile=house-short-v1、vid
 
 ## 先运行离线演示
 
-依赖：已有FFmpeg/ffprobe、Python及Pillow；SDK示范另用Node/浏览器。字体显式传入，不写死某台电脑路径。以下从仓库根目录运行，`python3`须指向含Pillow的环境：
+依赖：已有FFmpeg/ffprobe、Python及Pillow；SDK离线mock用Node，真实浏览器操作使用[Chrome DevTools MCP](../../SKILL.md#浏览器工具)。字体显式传入，不写死某台电脑路径。以下从仓库根目录运行，`python3`须指向含Pillow的环境：
 
 ```bash
 python3 skills/vr-production-gates/scripts/technical_examples/demo.py \
   --font /path/to/existing-font.ttf --out /tmp/vr-technical-demo
 ```
 
-打开输出的`review.html`，观看`post/final.mp4`。新目录用于防覆盖输入，不代表“一次机会”。生成后的技术回执保留输入身份、实际命令、时长与未验证项；它不是用户验收。
+通过Chrome DevTools MCP打开输出的`review.html`，检查`post/final.mp4`实际播放；浏览器工具未接通时只报告离线生成与媒体检查，不冒称浏览器观看完成。新目录用于防覆盖输入，不代表“一次机会”。生成后的技术回执保留输入身份、实际命令、时长与未验证项；它不是用户验收。
 
 ## SDK预加载、连续运动与恢复
 
-由当前宿主取得已登录房源的实际SDK实例`f`，在浏览器模块中导入后主动调用。模块导入本身不导航、不录制、不上传。下列点位和尺寸只说明格式，必须替换为当前已核实拓扑与视口：
+通过Chrome DevTools MCP核对已登录的目标房源页，使用当前工具schema取得实际SDK实例`f`，在该页的浏览器执行环境导入后主动调用。模块导入本身不导航、不录制、不上传。下列点位和尺寸只说明格式，必须替换为当前已核实拓扑与视口：
 
 ```javascript
 import {runRoute} from './panorama.mjs';

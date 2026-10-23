@@ -1,0 +1,71 @@
+{
+  "schema": "skill-revision-evidence/v1",
+  "recorded_at": "2026-10-23",
+  "skill": "vr-production-gates",
+  "version_before": "4.11.0",
+  "version_after": "4.11.1",
+  "baseline_commit": "4343a7b9bd2b2f6e1add7df382f2a9a9986ed027",
+  "request": "Supplement this Skill with a requirement to use Chrome DevTools MCP",
+  "implemented": {
+    "browser_tool": "Chrome DevTools MCP",
+    "applies_to": ["property page operations", "VR/model SDK and camera debugging", "storyboard HTML rendering and screenshots", "browser playback checks"],
+    "discovery": "Use the host's actual server/tools/schema and verify target-page identity before operations",
+    "unavailable": "Diagnose and report missing tools/connection/access; pause dependent browser steps, continue authorized offline work; no silent substitution or false visual-verification claim",
+    "offline_tools": "Existing Python, FFmpeg and SDK mocks remain CLI-based",
+    "not_changed": ["three-space display order", "outdoor default and indoor choice", "additional 1.5 transition multiplier", "existing duration/aspect profiles", "executable code and template/schema"]
+  },
+  "environment_probe": {
+    "command": "PI_OFFLINE=1 pi mcp list --json",
+    "exit_code": 0,
+    "result": {"servers": [], "errors": []},
+    "user_mcp_config_exists": false,
+    "project_mcp_config_exists": false,
+    "chrome_devtools_tools_exposed_in_session": false,
+    "actual_chrome_devtools_mcp_call": false,
+    "global_or_project_configuration_modified": false,
+    "evidence": "local/validation/skill-4.11.1/mcp-status.json",
+    "evidence_sha256": "58fc8c1a48539fce9647a8f05b38c68e58386398eca8a640e99fb6ff13dcedca"
+  },
+  "checks": [
+    {
+      "command": "python3 <installed-skill-authoring>/scripts/validate.py --strict skills/vr-production-gates",
+      "environment": "PI_CODING_AGENT_PACKAGE points to installed Pi; PYTHONDONTWRITEBYTECODE=1",
+      "exit_code": 0,
+      "validated": 1,
+      "errors": 0,
+      "warnings": 0,
+      "evidence": "local/validation/skill-4.11.1/strict.log"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s skills/vr-production-gates/tests -p 'test_showcase.py'",
+      "exit_code": 0,
+      "tests": 16,
+      "evidence": "local/validation/skill-4.11.1/showcase.log",
+      "evidence_sha256": "ca2c2974ece6bb90bf2a1b481f7abc0864a3026d96fc50867f1df7e438e62983"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s skills/vr-production-gates/tests -p 'test_production_profile.py'",
+      "exit_code": 0,
+      "tests": 13,
+      "evidence": "local/validation/skill-4.11.1/profile.log",
+      "evidence_sha256": "b986091cdd4d7aeb1185de9a51d74065913d71702d10fa5dada3e4c584a2ddd7"
+    },
+    {
+      "method": "Installed Pi DefaultResourceLoader, full skill set, two reloads",
+      "target_count": 1,
+      "diagnostics": [],
+      "reloads_equal": true,
+      "skill_command": "/skill:vr-production-gates",
+      "evidence": "local/validation/skill-4.11.1/loader.json",
+      "evidence_sha256": "3c010ee97eed29df8f7f99feb31d288bc09e843bc094b4cae396072c1c268803"
+    }
+  ],
+  "verification_boundary": [
+    "Documentation-only browser execution contract; no new browser UI implementation or UI unit tests",
+    "MCP configuration discovery is not a successful connection or tool call",
+    "No substitute browser was used for this revision",
+    "Real Chrome DevTools MCP connection/page operations, fresh-context trigger and property production are not verified",
+    "No property navigation, recording, voice generation, publishing or personal global configuration changes"
+  ],
+  "delivery": "Existing HANDOFF authorizes commit and normal push after related checks; actual Git and remote identity are verified separately."
+}
