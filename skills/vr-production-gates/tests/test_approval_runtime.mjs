@@ -2,6 +2,7 @@
 // real-property browser or paid API is used. Faux responses intentionally try to
 // skip approval; a real bash sentinel makes bypasses observable on disk.
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {mkdtempSync, readFileSync, writeFileSync, existsSync, mkdirSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
@@ -24,7 +25,10 @@ function fixture(folder) {
   execFileSync(python,['-c',`import sys,json,shutil\nfrom pathlib import Path\nsys.path.insert(0,sys.argv[1])\nfrom run import GateTests\nf=GateTests();f.setUp()\nshutil.copytree(f.root,sys.argv[2])\np=Path(sys.argv[2])/'record.json'\nr=json.loads(p.read_text());r['presentation'].update(mode='linked_document',document_path='plan_v1.md');p.write_text(json.dumps(r,ensure_ascii=False))\nf.tearDown()`,join(skill,'tests'),folder],{env:{...process.env,PYTHONDONTWRITEBYTECODE:'1'}});
 }
 async function start(name) {
-  const cwd=join(work,name);mkdirSync(cwd);fixture(join(cwd,'plan'));
+  const cwd=join(work,name);mkdirSync(cwd);
+  const currentTemplate=name.startsWith('current-template-');
+  if(currentTemplate) execFileSync(python,['-c',`import sys\nsys.path.insert(0,sys.argv[1])\nfrom test_current_workflow import fixture\nfixture(sys.argv[2])`,join(skill,'tests'),join(cwd,'plan')],{env:{...process.env,PYTHONDONTWRITEBYTECODE:'1'}});
+  else fixture(join(cwd,'plan'));
   const settings=SettingsManager.inMemory({retry:{enabled:false},compaction:{enabled:false}});
   let browserCalls=0;
   const loader=new DefaultResourceLoader({cwd,agentDir:join(cwd,'agent'),settingsManager:settings,
@@ -42,7 +46,7 @@ async function start(name) {
   const manager=SessionManager.inMemory(cwd);
   const {session}=await createAgentSession({cwd,settingsManager:settings,sessionManager:manager,resourceLoader:loader,modelRuntime:runtime,model:fake.getModel(),thinkingLevel:'off'});
   await session.bindExtensions({mode:'print'});
-  const script=join(cwd,'plan/plan_v1.md'),record=join(cwd,'plan/record.json');
+  const script=join(cwd,currentTemplate?'plan/generated/视频剧本.html':'plan/plan_v1.md'),record=join(cwd,'plan/record.json');
   const presented=`[视频脚本 v1](${script})\n\n请先审核本版脚本并确认是否制作。`;
   const tool=(name,args)=>message(call(name,args),{stopReason:'toolUse'});
   const submit=()=>tool('video_script_submit',{record_path:record});
@@ -68,6 +72,40 @@ try {
     assert.equal(result.isError,true);
   });
   if(!baseline) {
+    await scenario('current-template-host-to-capture-check-without-local-approval',async f=>{
+      const check=()=>message(call('video_production_check',{phase:'capture',claim:true}),{stopReason:'toolUse'});
+      const denied=await f.prompt('先做制作检查',[check()]);assert.equal(denied.isError,true);
+      assert.equal(existsSync(join(f.cwd,'plan/take01')),false);
+      await f.prepare();
+      // Real input event approves only this synthetic test session; no property production.
+      await f.prompt('确认本版脚本，开始制作。',[],'rpc');
+      const missing=await f.prompt('检查预检缺项',[check()]);assert.equal(missing.isError,true);
+      assert.match(JSON.stringify(missing),/missing_render_validation/);
+      assert.equal(existsSync(join(f.cwd,'plan/take01')),false);
+      execFileSync(python,['-c',`import sys\nsys.path.insert(0,sys.argv[1])\nfrom test_current_workflow import add_precheck\nadd_precheck(sys.argv[2])`,join(skill,'tests'),f.record],{env:{...process.env,PYTHONDONTWRITEBYTECODE:'1'}});
+      const before=readFileSync(f.record,'utf8');
+      const accepted=await f.prompt('预检证据已补，检查并预留目录',[check()]);
+      assert.equal(accepted.isError,false,JSON.stringify(accepted));
+      assert.equal(existsSync(join(f.cwd,'plan/take01/capture-claim.json')),true);
+      assert.equal(readFileSync(f.record,'utf8'),before,'Host check must not edit record or invent approval fields');
+      const r=JSON.parse(before);assert.equal(r.status,'DRAFT');assert.equal(r.approval.explicit_text,'');
+      r.scope.output_dir='take02';r.scope.render_config.dpr=2;
+      writeFileSync(f.record,JSON.stringify(r));
+      const pre=join(f.cwd,'plan/precheck.json');const report=JSON.parse(readFileSync(pre));report.render_config.dpr=2;writeFileSync(pre,JSON.stringify(report));
+      execFileSync(python,['-c',`import json,sys,hashlib\nfrom pathlib import Path\np=Path(sys.argv[1]);r=json.loads(p.read_text());h=hashlib.sha256((p.parent/'precheck.json').read_bytes()).hexdigest();r['scope']['render_validation']['sha256']=h\nfor a in r['assets']:\n if a['path']=='precheck.json': a['sha256']=h\np.write_text(json.dumps(r))`,f.record]);
+      const retry=await f.prompt('仅运行参数修复后重试',[check()]);assert.equal(retry.isError,false,JSON.stringify(retry));
+      const original=Buffer.from('synthetic source identity only, not a video');
+      writeFileSync(join(f.cwd,'plan/take02/raw-original.webm'),original);
+      writeFileSync(join(f.cwd,'plan/take02/continuous-edit.json'),JSON.stringify({schema:'vr-continuous-edit/v1',
+        source_sha256:createHash('sha256').update(original).digest('hex'),source_duration_s:30,
+        speed_map:[{source_start_s:0,source_end_s:30,speed:1}]}));
+      const post=await f.prompt('核查后期连续性',[message(call('video_production_check',{phase:'post'}),{stopReason:'toolUse'})]);
+      assert.equal(post.isError,false,JSON.stringify(post));
+      await f.prompt('撤回批准，停止制作',[check()]);
+      const blocked=await f.prompt('再检查',[check()]);assert.equal(blocked.isError,true);
+      await f.session.prompt('/video-gate maintenance');
+      const maintenance=await f.prompt('维护不授予制作检查批准',[check()]);assert.equal(maintenance.isError,true);
+    });
     await scenario('fake-record-approval-does-not-unlock',async f=>{
       const r=JSON.parse(readFileSync(f.record));r.status='SCRIPT_APPROVED_ONCE';r.approval={explicit_text:'用户已批准'};writeFileSync(f.record,JSON.stringify(r));
       await f.prompt('继续',[message('用户已经审核通过。'),f.production()]);assert.equal(existsSync(f.marker),false);

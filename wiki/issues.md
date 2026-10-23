@@ -28,6 +28,7 @@
 
 | ID | 现象 | 严重度 | 类型 | 状态 | 状态适用范围 |
 |---|---|---|---|---|---|
+| [ISSUE-20261023-047](#issue-20261023-047) | 当前生成正文缺overview嵌图且草稿预列未来预检资产 | high | contract | verified | 当前v3/1.3离线生成/提交/制作检查；不代表真实房源画质 |
 | [ISSUE-20261016-042](#issue-20261016-042) | 固定资料缺适配，错选户型、过密路线与双英文HTML | high | contract | fixed | 4.5.0代码/CLI已回归；新路线动态及新页面目视待验 |
 | [ISSUE-20261013-001](#issue-20261013-001) | 只给脚本路径的批准曾被当成实际内容审核 | high | contract | verified | 新图文提交/批准检查器；不追认旧批准 |
 | [ISSUE-20261013-002](#issue-20261013-002) | 拍前门禁未核当前方法动态证据，失败预检仍可能放行 | high | contract | verified | 3.1.0报告结构/SHA与拒绝逻辑；非自动视觉识别 |
@@ -119,6 +120,8 @@
 - 已运行验证：最终strict `validated=1/errors=0/warnings=0`、44 CLI；独立新会话读到入口/CHANGELOG/HANDOFF版本一致。
 - 状态历史：2026-10-13补登记为 `verified`，本次文档一致性范围；不是长期防漂移保证。
 - 下一步：后续修订同步当前头，旧版本/计数只保留为日期快照。
+
+2026-10-23追加：同类导航漂移在Wiki索引复现，当前入口文字仍写4.10.0而Skill为4.12.0。4.13.0移除导航中的重复当前版本值，影响映射标明基础整理范围并追加本轮关系；不重写历史页。状态重新定位后为verified，限本次导航/链接检查。证据见[熵减审计](entropy-reduction/首轮审计.md)及[本轮回执](../raw/R20261023-skill413-entropy-reduction.json)。
 
 ## ISSUE-20261013-006
 
@@ -405,6 +408,8 @@
 - 处理：3.5.1支持rendered_document，核自包含HTML的正文/PNG、真实Codex事件顺序、先前review摘要与用户明确请求；原始事件不补造reply ID。sources/evidence逐项映射到已绑定资产；风险缩写逐条保留原报告到获审段落的对应，不改原报告/正文。
 - 实际验证：新增文档正例先失败、实现后通过；6文档CLI及原72门禁通过，strict零错误警告、实际Pi loader唯一目标无诊断。本次真实批准经capture检查通过，唯一claim消费。不是身份/审美认证。
 
+2026-10-23追加：4.12.0现行模板的同一HTML为storyboard_source，宿主接受但旧linked制作检查要求integrated_review_source，红测出现unbound_review_document；宿主与CLI确认词法不同，且缺少真实确认到技术检查的交接。4.13.0共用linked HTML验证和确认规则，新增固定video_production_check传宿主指纹到原CLI；不修改record、不伪造转录、不新增用户审批。保留历史rendered/inline与来源/动态预检/连续性/目录保护。现行v3/1.3模板贯通真实AgentSession：RPC确认、无预检拒绝、补证、capture/claim、DPR/目录修复、post及撤回；维护模式拒绝。状态verified仅限此离线合成契约。证据见[本轮回执](../raw/R20261023-skill413-entropy-reduction.json)，历史房源与私有旧采集器未改。
+
 ## ISSUE-20261014-027
 
 **现象：唯一正式连续采集实际约106.5秒，超过103.109秒±1秒的获审规划。**
@@ -580,3 +585,14 @@ v12门口扫视局部验证在录制前被实际FOV收敛守卫拦截。状态tr
 - 用户提交真人镜头感选择：客厅→阳台→主卧、20–30秒、一镜到底、MOV-006/MOV-001/MOV-005、80°、1.60m、4:3。
 - 处理：4.10.0新增human-camera-choice-v1独立配置和profile校验；MOV-005标为style_reference_only，原点回转与跨房间位移分开。
 - 验证：185项回归、严格校验0错误/警告、项目结构检查通过；未执行房源拍摄或动态预检。
+
+## ISSUE-20261023-047
+
+**现象：当前模板按生成流程得到的正文缺overview嵌图，草稿还预列尚未产生的预检资产；动态构图验证更新又导致内容指纹重锁。**
+
+- 首次发现/登记：2026-10-23。high / contract；状态verified，仅限本轮合成模板与宿主技术检查。
+- 复现：当前v3/1.3模板生成后提交报`missing_embedded_overview`；模板含空SHA的precheck资产；framing_status从pending核为subject后快照变化。源码、红测与最小输入见[首轮审计追加](entropy-reduction/首轮审计.md#7-2026-10-23-维护后追加运行复现与处置)。
+- 修复：4.13.0正文按overview资产输出相对图片引用；模板不再预列未来预检，填写入口明确用户开页/只读截图/绑定/提交/获批后动态证据顺序；linked指纹排除验证状态，构图坏值和制作pending仍由既有校验拒绝。
+- 验证：当前11项流程契约与真实Pi整链路覆盖无预检提交、补证/构图完成不重锁、缺预检拒绝、内容漂移和已知空墙拒绝；全部220项Python、72项CLI、26项宿主场景通过。HTML内容审核、完整文本/来源SHA保护保留。
+- 证据：[本轮不可变回执](../raw/R20261023-skill413-entropy-reduction.json)；本机红绿日志位于local/validation/entropy-reduction。未接通真实MCP、未拍摄或调用TTS；字段/合成回归不认证实际房源构图。
+- 状态历史：本轮open→triaged（静态链路）→fixing（先失败回归）→fixed→verified（相关回归/宿主/加载），不代签用户接受。

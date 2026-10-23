@@ -128,6 +128,26 @@ export default function(pi:ExtensionAPI) {
       return result({...status(),review_passed:true,link:`[视频脚本 ${data.version}](${data.document_path})`,
         next_action:'将此Markdown完整脚本链接单独一行交给用户（范围说明另起段），结束本轮并等待明确确认。'});
     }});
+  pi.registerTool({name:'video_production_check',label:'核查已确认制作范围',
+    description:'本版真实用户确认后运行固定capture/post结构检查；可预留采集目录，不录制、不配音、不渲染。宿主传递确认，模型不能填写批准或换record。',
+    parameters:Type.Object({phase:Type.Union([Type.Literal('capture'),Type.Literal('post')]),claim:Type.Optional(Type.Boolean())}),executionMode:'sequential',
+    async execute(_id,args,signal,_update,ctx) {
+      if(maintenance || !await current(ctx) || !pending?.approved)
+        throw Error('Requires a live production-mode user confirmation for this script');
+      if(args.claim && args.phase!=='capture') throw Error('claim is capture-only');
+      const pinned=pending;
+      // No record mutation/exported approval token. Feed the current in-memory
+      // fingerprint to the existing technical checker, which revalidates content.
+      const request=JSON.stringify({phase:args.phase,claim:args.claim===true,fingerprint:pinned.snapshot.fingerprint});
+      const stdout=await new Promise<string>((accept,reject)=>{
+        const child=execFile(process.env.VR_GATE_PYTHON||'python3',
+          [resolve(here,'snapshot.py'),pinned.snapshot.record_path,'--host-check'],
+          {cwd:ctx.cwd,signal,encoding:'utf8',maxBuffer:1024*1024,env:{...process.env,PYTHONDONTWRITEBYTECODE:'1'}},
+          (error,out,err)=>error?reject(Error(out||err||error.message)):accept(out));
+        child.stdin?.end(request);
+      });
+      return result({...JSON.parse(stdout),authorization_source:'live_host_confirmation'});
+    }});
   pi.registerCommand('video-gate',{description:'用户控制：status / maintenance（仅修Skill测试）/ production（重锁并制作）',
     handler:async(args,ctx)=>{
       const action=args.trim()||'status';

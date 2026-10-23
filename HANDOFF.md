@@ -4,7 +4,16 @@
 
 用户明确授权：本仓库内已授权修改完成并通过相关检查后，默认提交并推送，无需每次重复询问；用户明确要求只保留本地时除外。只提交本次任务相关改动，保留无关工作；推送后核对远端提交及工作区。不将本约定扩展为强推、重写历史、发布视频或操作其他仓库的授权。
 
-## 最新修订4.12.0 · 2026-10-23
+## 当前任务：Skill熵减4.13.0 · 2026-10-23
+
+- [实施方案](wiki/entropy-reduction/方案.md)已固化并嵌入[技术图PNG](wiki/entropy-reduction/技术图.png)，3000×2240实际导出/回读可读，图文检查通过。[首轮审计](wiki/entropy-reduction/首轮审计.md)保留原静态快照，并追加运行复现与处置；不另建当前状态。
+- 已修现行模板→生成→宿主→CLI的关键契约：linked HTML共用标准生成/角色/逐章校验；正文自动嵌overview，草稿不列未来预检；确认语法共享；video_production_check用宿主当前确认调用原capture/post，不改record或生成媒体。验证结果framing_status不再重锁内容，坏构图/制作pending仍拒绝。历史协议、两个profile、单源变速保护及用户硬要求保留。
+- 实际验证：220项Python（含11项当前流程）、72项旧CLI、26项真实Pi AgentSession场景、5组设计CLI；严格校验0/0，完整20技能集连续两次目标唯一、零诊断/扩展错误。当前v3/1.3链路覆盖真实RPC确认、缺预检拒绝/不claim、补证、capture/claim、DPR/目录重试、post连续性和撤回。核心及最后增量审查0 findings，误报有专项反证。
+- 证据：[不可变回执](raw/R20261023-skill413-entropy-reduction.json)，本机红绿/审查/加载日志在local/validation/entropy-reduction；回退基线b3aed4239f7c442e485ef9bd9b20e9ef004209e0及原未提交文档备份同处。DAUG无ledger，按调用链同步文档，没有初始化新治理系统。
+- 用户已开启maintenance，宿主实际production_authorized=false。未操作真实房源、TTS或成片；MCP清单仍为空，真实房源UI/动态/实听和新模型触发未验证，不以合成测试代替。未移动历史媒体/批准快照，也不改全局规则。
+- 本轮按默认约定完成检查后提交推送，身份以Git与远端回读为准。**使用新版前在当前会话/reload使扩展与新工具生效；随后核video_gate_status。制作仍须production模式、本版完整脚本和后续真实确认，不因维护完成自动开拍。**
+
+## 最近技能修订4.12.0 · 2026-10-23（既有记录）
 
 - 用户报告未先审脚本就直接完成视频。已复现旧Pi工具管道未经审核能直接执行bash制作；新增包内`scripts/approval`宿主门禁，项目`.pi/settings.json`自动加载并由扩展发现唯一Skill。当前会话须/reload；其他制作目录须同时加载扩展和Skill，不能只读Skill就声称硬门禁生效。
 - 默认锁所有未知执行类工具；固定video_script_prepare只做资料/剧本/review，video_script_submit只冻结本版并返回链接。assistant须单独一行交付可见完整链接并结束本轮等待；仅后续interactive/RPC用户明确确认及真实分支消息解锁。模型填approval/旧转录/工具回执/偏好选择不授权限。

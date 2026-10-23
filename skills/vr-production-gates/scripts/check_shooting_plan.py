@@ -37,6 +37,10 @@ def bundle_digest(record):
         core['assets'] = [a for a in record.get('assets', []) if a.get('role') not in
                           {'precheck', 'precheck_report', 'continuous_edit_report'}]
         core['exploration'] = {'limits': record.get('exploration', {}).get('limits', {})}
+        # Completing dynamic framing verification is evidence, not a new script.
+        # validate() still rejects known bad framing; capture/post reject pending.
+        core['segments'] = [{k:v for k,v in segment.items() if k != 'framing_status'}
+                            for segment in record.get('segments', [])]
     return hashlib.sha256(json.dumps(core, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()
 
 
@@ -51,7 +55,7 @@ def number(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
 
-def check(record_path, phase, claim):
+def check(record_path, phase, claim, *, host_confirmation=None):
     errors = []
     record = json.loads(record_path.read_text(encoding="utf-8"))
     if not isinstance(record, dict):
@@ -412,7 +416,16 @@ def check(record_path, phase, claim):
             elif exploration.get(key, 0) > limit:
                 errors.append("user_exploration_limit_exceeded:" + key)
 
-    if phase != "review":
+    if record.get('presentation', {}).get('mode') == 'linked_document':
+        from document_review import check_linked_document
+        check_linked_document(record, base)
+
+    if phase != "review" and host_confirmation is not None:
+        # Internal adapter only: the host has authenticated the current branch.
+        # Never inferred from record fields; the public CLI exposes no bypass flag.
+        if (host_confirmation.get('plan_sha256'), host_confirmation.get('bundle_sha256')) != (plan_sha, bundle_sha):
+            errors.append('approval_snapshot_mismatch')
+    elif phase != "review":
         if record.get("status") != "SCRIPT_APPROVED_ONCE":
             errors.append("not_approved")
         presentation = record.get("presentation")
@@ -424,7 +437,7 @@ def check(record_path, phase, claim):
             if presentation.get("mode") in ("rendered_document", "linked_document"):
                 from document_review import check_document
                 errors.extend(check_document(presentation, record.get("approval", {}), events,
-                                             base, assets, body, plan_sha, bundle_sha, plan_path))
+                                             base, assets, body, plan_sha, bundle_sha, plan_path, record))
             else:
                 shown_id = presentation.get("assistant_event_id")
                 shown = next((e for e in events if e.get("id") == shown_id), {})

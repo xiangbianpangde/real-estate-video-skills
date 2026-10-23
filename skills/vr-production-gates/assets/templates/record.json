@@ -50,36 +50,6 @@
       "origin": "actual_source"
     },
     {
-      "path": "precheck.json",
-      "sha256": "",
-      "role": "precheck_report",
-      "origin": "actual_run"
-    },
-    {
-      "path": "precheck.webm",
-      "sha256": "",
-      "role": "precheck",
-      "origin": "actual_run"
-    },
-    {
-      "path": "telemetry.json",
-      "sha256": "",
-      "role": "precheck",
-      "origin": "actual_run"
-    },
-    {
-      "path": "visual-review.md",
-      "sha256": "",
-      "role": "precheck",
-      "origin": "actual_run"
-    },
-    {
-      "path": "restore.json",
-      "sha256": "",
-      "role": "precheck",
-      "origin": "actual_run"
-    },
-    {
       "path": "视频剧本.html",
       "sha256": "",
       "role": "storyboard_source",
@@ -223,10 +193,6 @@
       "dpr": 1,
       "fov_axis": "vertical",
       "fov_deg": 85.57
-    },
-    "render_validation": {
-      "path": "precheck.json",
-      "sha256": ""
     },
     "validation_scope": "model_only",
     "continuity_class": "cross_room_travel",

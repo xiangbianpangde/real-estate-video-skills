@@ -3,7 +3,7 @@ name: vr-production-gates
 description: 房产视频的图文剧本、VR/模型采集、配音字幕与成片检查。制作房产视频、要求先审剧本、修复视频或维护本技能时使用；必须先交本版完整脚本，等待用户明确确认后才能制作。技能维护不自动执行视频制作。
 compatibility: Pi coding agent with bundled approval extension; Python 3.10+, FFmpeg/ffprobe; Chrome DevTools MCP for browser work
 metadata:
-  version: "4.12.0"
+  version: "4.13.0"
   status: "active"
   layer: "task"
   priority: "40"
@@ -74,7 +74,7 @@ disable-model-invocation: false
 
 ## 制作与交付
 
-按用户选择采集并完成后期；一镜到底指单一连续源时间线，不是只准执行一次。用户要求不硬切时，局部加速也保留完整区间，按[连续后期](references/short-route-motion.md)记录实际映射。显式不重拍或次数上限仍遵守。
+真实确认后先用`video_production_check`核capture/post；需要预留采集目录时用capture＋claim。它复用既有内容、来源、预检及连续性检查，由宿主传递本版确认，不让模型补写批准或再次索权；通过后才按范围采集与后期。一镜到底指单一连续源时间线，不是只准执行一次。局部加速保留完整区间，按[连续后期](references/short-route-motion.md)记录映射；用户明确不重拍或限次仍遵守。
 
 声音任务及本地BGM开头素材整理读[音频](references/audio-production.md)，字幕读[字幕](references/subtitle-style.md)，首尾改版读[首尾](references/opening-ending-layout.md)。按需加载，不为每次修正重复读全套。
 

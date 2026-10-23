@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.13.0 - 2026-10-23
+
+- 统一HTML/确认契约、正文嵌图和预检生命周期；[宿主检查](references/script-approval-gate.md)直连原CLI。补v3整链路回归，保留历史协议与硬要求。
+
 ## 4.12.0 - 2026-10-23
 
 - 增加[宿主脚本门禁](references/script-approval-gate.md)：仅真实用户确认解锁；补完整正文检查与工具链红绿验收。

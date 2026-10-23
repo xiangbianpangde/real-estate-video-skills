@@ -1,0 +1,140 @@
+{
+  "recorded_at": "2026-10-23T04:34:27.060325+00:00",
+  "task": "behavior-contract entropy reduction; no property production",
+  "baseline_commit": "b3aed4239f7c442e485ef9bd9b20e9ef004209e0",
+  "skill_version": "4.13.0",
+  "baseline": {
+    "python_tests": 209,
+    "host_cases": 25,
+    "existing_changes": [
+      "HANDOFF.md",
+      "wiki/entropy-reduction/方案.md",
+      "wiki/entropy-reduction/技术图.html",
+      "wiki/entropy-reduction/首轮审计.md"
+    ],
+    "backup": "local/validation/entropy-reduction/baseline-tracked.patch"
+  },
+  "changes": [
+    "shared current linked HTML validation",
+    "overview PNG reference in generated Markdown",
+    "future precheck assets removed from draft template",
+    "host confirmation to fixed capture/post check without record approval edits",
+    "shared bounded confirmation syntax and UTF-8 loading",
+    "framing verification status excluded from linked content digest, bad/pending production still rejected",
+    "navigation version de-duplication; history and explicit profiles preserved"
+  ],
+  "red_evidence": {
+    "contracts-red.log": "b95ebdb5904a89b18b28934079ba99c15ccd2b6819398a31e0e0f725e8b57b4f",
+    "runtime-red.log": "bf89f0cea94b48329b7f0d0b49a64a14450d57db56857d3fca74df0264b378ac",
+    "confirmation-red.log": "c250aa5f8bc294a5b1f6c0f7b5c5b2425e3a510ecc39c7078f7d2d0aa4040412",
+    "encoding-red.log": "c30492ba460623621291b0586609f4243339587c5a7c4ed45c4158abac817d32",
+    "framing-red.log": "78d6926920e5ef28f18e7271c308a43bd4703262a171038b346e8cf03d5dc938"
+  },
+  "checks": {
+    "python-final.log": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s skills/vr-production-gates/tests -p 'test_*.py'",
+      "passed": true,
+      "tests": 220,
+      "log": "local/validation/entropy-reduction/python-final.log",
+      "sha256": "c8ef6d53255ddd3b1e66fd92b714cd9a75650dbf3c5acd63f2efa5ed7f5af795"
+    },
+    "cli-final.log": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 skills/vr-production-gates/tests/run.py",
+      "passed": true,
+      "tests": 72,
+      "log": "local/validation/entropy-reduction/cli-final.log",
+      "sha256": "bd62d1801824dc85c2b0144271ccb4e8291c8302bd0d990f48775f72505d8b30"
+    },
+    "runtime-final.log": {
+      "command": "PI_CODING_AGENT_PACKAGE=<installed Pi package> PYTHONDONTWRITEBYTECODE=1 node skills/vr-production-gates/tests/test_approval_runtime.mjs",
+      "passed": true,
+      "cases": 26,
+      "log": "local/validation/entropy-reduction/runtime-final.log",
+      "sha256": "a312039207c88203364bd002e68ad8d787154ce88c954f84a558c9962af47bbc"
+    },
+    "design-final.json": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/verify_design_system.py --evidence-out local/validation/entropy-reduction/design-final.json",
+      "passed": true,
+      "cases": 5,
+      "log": "local/validation/entropy-reduction/design-final.json",
+      "sha256": "74fe164a3181d1913c5b6a7ffe73d3fe5b789e920ade4fa6b67d97fc2bcfd987"
+    },
+    "strict-final.log": {
+      "command": "PI_CODING_AGENT_PACKAGE=<installed Pi package> python3 ~/.pi/agent/skills/task/skill-authoring/scripts/validate.py --strict skills/vr-production-gates",
+      "passed": true,
+      "errors": 0,
+      "warnings": 0,
+      "log": "local/validation/entropy-reduction/strict-final.log",
+      "sha256": "c62de7548588c739d83ec5cceb0f41f9cc22c6b33cb9165966353513cc7a1d96"
+    },
+    "loader-final.json": {
+      "method": "Installed Pi DefaultResourceLoader + actual AgentSession; bindExtensions with onError, session.reload, session_shutdown and dispose",
+      "passed": true,
+      "loads": 2,
+      "skills_each": 20,
+      "target_count_each": 1,
+      "diagnostics": 0,
+      "extension_errors": 0,
+      "log": "local/validation/entropy-reduction/loader-final.json",
+      "sha256": "e57f46d5ec86849ae8db84c8046604b790d5ef87e0f32d8025de4618979e1e91"
+    },
+    "embeds-final.log": {
+      "command": "python3 ~/.pi/agent/skills/task/wendang/scripts/check_embeds.py wiki/entropy-reduction/方案.md",
+      "passed": true,
+      "log": "local/validation/entropy-reduction/embeds-final.log",
+      "sha256": "dc51b8c96c2d745df3bd5590d990230a482fd247123599548e0632fdbf97fc22"
+    },
+    "review-last.md": {
+      "method": "existing /review core changes, real model call",
+      "findings": 0,
+      "log": "local/validation/entropy-reduction/review-last.md",
+      "sha256": "811eaffa2e65b34c00730b8335806492a7e48683b38798b5bc90dcd0abea13d0"
+    },
+    "review-framing.md": {
+      "method": "existing /review final framing delta, real model call",
+      "findings": 0,
+      "log": "local/validation/entropy-reduction/review-framing.md",
+      "sha256": "5c28788c6caf732ae23dc0445961cbd8d17a137d90df48ef69656801fce828cd"
+    }
+  },
+  "source_sha256": {
+    "skills/vr-production-gates/scripts/approval/confirmation.json": "4dcbfc59164af4b6ca38d2ebb6273f7f13cba3f5e1e2b5b89388680498afa6de",
+    "skills/vr-production-gates/scripts/approval/index.ts": "d1e666f48b12ebd0bc258c1893e5770a17ebd25e95d77cd12659dd8489ba946e",
+    "skills/vr-production-gates/scripts/approval/policy.mjs": "d3de54f7e51500366dbc7f036b3dcc8b1f517993455be4c5044f6ed56448fb26",
+    "skills/vr-production-gates/scripts/approval/snapshot.py": "3b5d9fc87a8a6ebe2ddcd3e5735772896519e0a009647faaca00bf93c8bab316",
+    "skills/vr-production-gates/scripts/check_shooting_plan.py": "82a061af58d8bf98cca873072e6f659af64bfb9f2477b4d124d925d73e84f8c3",
+    "skills/vr-production-gates/scripts/document_review.py": "9cd2b4accfa4fc3166ecdd65828057bb14037f8b442fde976244fa1c0bf69764",
+    "skills/vr-production-gates/scripts/storyboard/render.py": "ccf0bdcebc9934e52ccbd39949ee5126d78ba1aff38530e0889b46c6bcd989b8",
+    "skills/vr-production-gates/assets/templates/record.json": "18eb176c6896e0e904b2f4a15429a0262868842e9e68d1dafd41604cad0b5558",
+    "skills/vr-production-gates/tests/test_current_workflow.py": "88651d8463a4d89a199a8ddf078aaf2c52fe8e1660bbd9b41f9e1eb072d7975b",
+    "skills/vr-production-gates/tests/test_approval_runtime.mjs": "8e871b5bb311bab71dce851bf7d64e7634a6beada6f491ab3958e895a617af82"
+  },
+  "diagram": {
+    "path": "wiki/entropy-reduction/技术图.png",
+    "sha256": "8014f9710d76fca0f4e0d166dbc5efa79608fab1f55c73d4b1a7b0ba4be5abb8",
+    "size_px": [
+      3000,
+      2240
+    ],
+    "embedded_in": "wiki/entropy-reduction/方案.md",
+    "visual_readback": true,
+    "observation": "Chinese labels, distinct authority boxes, script-confirmation-check chain, and maintenance boundary are legible; no visible clipping"
+  },
+  "review_refutation": {
+    "claim": "snapshot accepts non-linked mode",
+    "result": "rejected; existing snapshot entry checks linked_document; regression passed",
+    "log_sha256": "8995db86aec724a10e3b5f5bc90e952e215e169b25845253681543b416311016"
+  },
+  "limitations": [
+    "Synthetic/offline tests are not real property visual or audio acceptance.",
+    "Chrome DevTools MCP list returned no servers; no real property browser review.",
+    "No new-context live model trigger test; description unchanged.",
+    "DAUG unavailable: repository has no ledger; dependent docs synchronized by actual call-chain inspection.",
+    "Gate is a loaded Pi tool boundary, not an OS sandbox; internal stdin assertion is not a persistent permission token."
+  ],
+  "production_performed": false,
+  "media_or_approved_snapshots_modified": false,
+  "new_dependencies_installed": false,
+  "paths_moved": [],
+  "publication": "Commit and remote identity recorded separately after checks; this immutable record is not a push receipt."
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>房产视频 Skill 熵减 · 技术图源</title>
+<style>
+html,body{margin:0;background:#eef3f6;color:#17364b;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+.diagram-container{width:1500px;margin:24px auto;background:#fff;border-radius:18px;overflow:hidden}
+svg{display:block;width:1500px;height:1120px}
+text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#17364b}
+.title{font-size:32px;font-weight:700}.subtitle{font-size:18px;fill:#526a79}.heading{font-size:22px;font-weight:700}.label{font-size:20px;font-weight:600}.small{font-size:17px}.code{font-size:16px;font-family:Menlo,Consolas,monospace}.muted{fill:#526a79}.amber{fill:#825309}.red{fill:#943d3d}
+.box{fill:#f4f9fb;stroke:#8ba7b5;stroke-width:1.6}.authority{fill:#edf8f6;stroke:#3e9486;stroke-width:1.6}.gate{fill:#fff7e5;stroke:#c98a20;stroke-width:1.8}.risk{fill:#fff2ef;stroke:#b76050;stroke-width:1.8}.flow{fill:none;stroke:#337c90;stroke-width:2.5;marker-end:url(#arrow)}.pending{fill:none;stroke:#b76050;stroke-width:2.5;stroke-dasharray:7 5;marker-end:url(#risk-arrow)}
+</style>
+</head>
+<body>
+<main class="diagram-container">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1120" role="img" aria-labelledby="title desc">
+<title id="title">以行为契约贯通脚本生成、真实确认与执行验证</title>
+<desc id="desc">用户要求、行为规范、宿主批准和实际证据分别拥有权威来源。当前linked文档共用校验，宿主确认通过固定工具传给原CLI，身份与技术检查分离。维护不等于视频授权，真实房源画质和用户接受独立验证。</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#337c90"/></marker>
+<marker id="risk-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#b76050"/></marker>
+</defs>
+<rect width="1500" height="1120" fill="#ffffff"/>
+<text x="48" y="58" class="title">房产视频 Skill 熵减：以行为契约贯通真实执行链</text>
+<text x="48" y="91" class="subtitle">本轮修复后的责任与调用关系：复用已有实现，统一内容契约；技术检查、真实审看和用户接受分别记录。</text>
+
+<text x="48" y="139" class="heading">01 · 不同事实，分别有唯一权威</text>
+<rect x="48" y="160" width="336" height="90" rx="12" class="authority"/>
+<text x="68" y="193" class="label">用户真实指令</text><text x="68" y="224" class="small">需求、硬要求、范围与费用</text>
+<rect x="404" y="160" width="336" height="90" rx="12" class="authority"/>
+<text x="424" y="193" class="label">Skill 与专项规范</text><text x="424" y="224" class="small">行为约束；不代替宿主授权</text>
+<rect x="760" y="160" width="336" height="90" rx="12" class="authority"/>
+<text x="780" y="193" class="label">宿主会话中的本版确认</text><text x="780" y="224" class="small">真实消息＋快照＋当前分支</text>
+<rect x="1116" y="160" width="336" height="90" rx="12" class="authority"/>
+<text x="1136" y="193" class="label">实际产物与检查回执</text><text x="1136" y="224" class="small">技术结果；不代签用户接受</text>
+
+<text x="48" y="297" class="heading">02 · 当前主链：先完整脚本，再真实确认，最后执行</text>
+<rect x="48" y="319" width="244" height="114" rx="12" class="box"/>
+<text x="68" y="353" class="label">record.json</text><text x="68" y="384" class="small">范围、来源、章节、配置</text><text x="68" y="411" class="small muted">内容记录 ≠ 批准凭据</text>
+<path d="M292 376 H328" class="flow"/>
+<rect x="332" y="319" width="244" height="114" rx="12" class="box"/>
+<text x="352" y="353" class="label">校验与同源生成</text><text x="352" y="384" class="code">model / render / build</text><text x="352" y="411" class="small">HTML＋正文＋generation</text>
+<path d="M576 376 H612" class="flow"/>
+<rect x="616" y="319" width="264" height="114" rx="12" class="box"/>
+<text x="636" y="353" class="label">提交本版快照</text><text x="636" y="384" class="code">snapshot → check(review)</text><text x="636" y="411" class="small">完整性、来源与文档身份</text>
+<path d="M880 376 H916" class="flow"/>
+<rect x="920" y="319" width="532" height="114" rx="12" class="gate"/>
+<text x="940" y="353" class="label amber">展示完整链接 → 结束本轮 → 后续真实用户确认</text><text x="940" y="384" class="small">interactive / RPC 用户消息；模型自填 approval 无效</text><text x="940" y="411" class="small">内容漂移、撤回、换房或无确认分支均重新锁定</text>
+<path d="M1186 433 V468 H170 V500" class="flow"/>
+
+<rect x="48" y="505" width="244" height="114" rx="12" class="gate"/>
+<text x="68" y="540" class="label amber">宿主 tool_call</text><text x="68" y="570" class="small">复核快照与分支后放行</text><text x="68" y="597" class="small">不是任意操作授权</text>
+<path d="M292 562 H328" class="flow"/>
+<rect x="332" y="505" width="264" height="114" rx="12" class="authority"/>
+<text x="352" y="540" class="label">制作技术检查</text><text x="352" y="570" class="code">video_production_check</text><text x="352" y="597" class="small">复用 CLI capture / post</text>
+<path d="M596 562 H632" class="flow"/>
+<rect x="636" y="505" width="264" height="114" rx="12" class="box"/>
+<text x="656" y="540" class="label">批准范围内制作</text><text x="656" y="570" class="small">采集 → 变速 → 声音与字幕</text><text x="656" y="597" class="small">保留原件与已审版本</text>
+<path d="M900 562 H936" class="flow"/>
+<rect x="940" y="505" width="512" height="114" rx="12" class="box"/>
+<text x="960" y="540" class="label">分层验证与用户接受</text><text x="960" y="570" class="small">结构 / 加载 / 工具运行时 / 真实播放与试听</text><text x="960" y="597" class="small">合成测试不能证明房源画质或真人已接受</text>
+
+<rect x="48" y="649" width="1404" height="113" rx="12" class="authority"/>
+<text x="68" y="682" class="label">已对齐的契约：不删门禁，不让模型补造批准</text>
+<text x="68" y="713" class="small">linked HTML 共用角色、标准渲染与逐章校验；正文嵌 overview，真实动态预检在获批后补入。</text>
+<text x="68" y="741" class="small">宿主传递当前确认；固定工具只检查/预留目录、不生成媒体。现行 v3 模板贯通离线真实 Pi 工具链。</text>
+
+<text x="48" y="807" class="heading">03 · 熵减实施路线：每批只解决一个可验证问题</text>
+<rect x="48" y="830" width="200" height="80" rx="10" class="box"/><text x="68" y="860" class="label">① 只读盘点</text><text x="68" y="889" class="small">规则来源与调用链</text>
+<path d="M248 870 H278" class="flow"/>
+<rect x="282" y="830" width="200" height="80" rx="10" class="gate"/><text x="302" y="860" class="label amber">② 维护基线</text><text x="302" y="889" class="small">Git / 测试 / 回退点</text>
+<path d="M482 870 H512" class="flow"/>
+<rect x="516" y="830" width="200" height="80" rx="10" class="box"/><text x="536" y="860" class="label">③ 契约与裁决</text><text x="536" y="889" class="small">保留 / 合并 / 退役</text>
+<path d="M716 870 H746" class="flow"/>
+<rect x="750" y="830" width="200" height="80" rx="10" class="box"/><text x="770" y="860" class="label">④ 最小重构</text><text x="770" y="889" class="small">文档与实现同步</text>
+<path d="M950 870 H980" class="flow"/>
+<rect x="984" y="830" width="200" height="80" rx="10" class="box"/><text x="1004" y="860" class="label">⑤ 分层验证</text><text x="1004" y="889" class="small">正向与失败路径</text>
+<path d="M1184 870 H1214" class="flow"/>
+<rect x="1218" y="830" width="234" height="80" rx="10" class="box"/><text x="1238" y="860" class="label">⑥ 受控收尾</text><text x="1238" y="889" class="small">引用 / 退役 / 差异回读</text>
+
+<rect x="48" y="938" width="1404" height="130" rx="12" class="gate"/>
+<text x="68" y="973" class="label amber">维护 ≠ 视频授权</text>
+<text x="68" y="1006" class="small">当前执行工具与技能写入须由用户开启 /video-gate maintenance；图导出、测试和代码修改不能绕过。</text>
+<text x="68" y="1038" class="small">普通实现自主推进；硬要求、费用或授权语义变化才交用户裁决。历史证据保留，不新建审批框架。</text>
+</svg>
+</main>
+</body>
+</html>

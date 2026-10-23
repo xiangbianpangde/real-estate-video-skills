@@ -1,6 +1,6 @@
 // Deterministic host-boundary policy. Not a shell sandbox or intent classifier.
 import {resolve} from 'node:path';
-import {realpathSync} from 'node:fs';
+import {realpathSync, readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 
 const readTools=new Set(['read','grep','find','ls','google_search','web_search','fetch_content','get_search_content','source_check','task_guard_checkpoint','ask_user_question']);
@@ -37,14 +37,27 @@ export function linksDocument(text, document, cwd) {
   return false;
 }
 
+// Shared syntax only; the live host still owns source/branch/identity checks.
+const confirmation=JSON.parse(readFileSync(new URL('./confirmation.json',import.meta.url),'utf8'));
 export function approves(text, version) {
   if(typeof text!=='string') return false;
-  const value=text.trim();
-  // Do not infer authority from questions, quotations, examples or a broad task.
-  if(!value || value.length>300 || /[?？“”「」『』`]|(?:^|\s)["']|不|未|暂|先改|先调|拒绝|撤回|取消|修改|调整|not\b|don['’]?t\b|reject|deny/i.test(value)) return false;
-  const versions=value.match(/\bv\d+(?:\.\d+)*(?:[-_][\w.-]+)?\b/gi) || [];
+  const value=text.replace(new RegExp(confirmation.whitespace,'g'),' ').trim();
+  if(!value || value.length>300 || new RegExp(confirmation.reject,'i').test(value)) return false;
+  const versions=value.match(new RegExp(confirmation.versions,'gi')) || [];
   if(versions.some(v=>v.toLowerCase()!==version.toLowerCase())) return false;
-  return /^(?:我)?(?:已(?:经)?)?(?:(?:审核通过|批准)(?:(?:本版|这个|该|此)?(?:视频)?(?:脚本|剧本|方案))?|(?:同意|确认)(?:(?:本版|这个|该|此)?(?:视频)?(?:脚本|剧本|方案)|(?:现在)?(?:开始|继续|执行)(?:制作)?|制作)(?:\s*v[\w.-]+)?|(?:本版|这个|该|此)?(?:视频)?(?:脚本|剧本|方案)(?:\s*v[\w.-]+)?(?:审核通过|确认通过|通过|已确认)|接受[，,、\s]*(?:现在)?(?:开始|继续)|approve(?:d)?(?:\s+(?:this|the))?(?:\s+(?:script|storyboard))?)(?:[，,、。！!\s]*(?:现在)?(?:可以)?(?:开始|继续|进行|执行|制作|生产|拍摄|录制|后期|视频|下一步|本版|脚本|剧本|方案|范围|v[\w.-]+|[，,、。！!\s]))*$/i.test(value);
+  const prefix=new RegExp(confirmation.prefix,'i').exec(value);
+  if(!prefix) return false;
+  // Consume one token at a time; no ambiguous nested repetition/backtracking.
+  let rest=value.slice(prefix[0].length);
+  while(rest) {
+    if(confirmation.separators.includes(rest[0])) {rest=rest.slice(1);continue;}
+    const token=confirmation.tail_tokens.find(word=>rest.startsWith(word));
+    if(token) {rest=rest.slice(token.length);continue;}
+    const v=/^v[\w.-]+/i.exec(rest);
+    if(!v || v[0].toLowerCase()!==version.toLowerCase()) return false;
+    rest=rest.slice(v[0].length);
+  }
+  return true;
 }
 
 export function revokes(text) {

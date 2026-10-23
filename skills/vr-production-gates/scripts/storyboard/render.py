@@ -36,7 +36,7 @@ def render_html(record, images, floorplan):
     workflow = '整包审核 → 复用原件完成后期 → 按S-ID审成片' if scope.get('execution_mode')=='post_only' else '整包审核 → 完成采集与后期 → 按S-ID审成片'
     return f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>{esc(title)}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"><style>:root{{{''.join(css)}}}{(DESIGN/'styles.css').read_text()}{ROUTE_CSS}</style><main id="board">
-<header><div class="eyebrow">{esc(scope['source_namespace'])} · {esc(record['plan']['version'])} · {esc(record.get('status','DRAFT'))}</div><h1>{esc(title)}</h1>
+<header><div class="eyebrow">{esc(scope['source_namespace'])} · {esc(record['plan']['version'])} · 内容审核</div><h1>{esc(title)}</h1>
 <p>{' → '.join(esc(s['visual']['title']) for s in record['segments'])}</p>
 <div class="notice">约{scope['duration_s']:.1f}秒 · {esc(shape.get('width','待定'))}×{esc(shape.get('height','待定'))} · {esc(scope['render_method'])}</div>
 {showcase_notice}
@@ -86,6 +86,9 @@ def render_markdown(record, floorplan):
             if field in v: lines.append(f'- {field}：{json.dumps(v[field],ensure_ascii=False)}')
     lines += ['', '## 来源与审核边界','', '- 真实源参考不等于成片；动作图示不证明真实路径；首尾预览是排版设计。',
               '- 本正文、方案板、图源与实际回读绑定后才能提交一次整包审核。机器检查不代替目视和用户接受。']
+    overviews=[a for a in record.get('assets',[]) if a.get('role')=='overview']
+    if overviews:
+        lines[4:4]=[item for a in overviews for item in ['![完整方案板]('+a['path']+')','']]
     if record.get('review_route'):
         lines.insert(4,'## 一、完整方案板\n')
         pos=lines.index('## 制作范围')

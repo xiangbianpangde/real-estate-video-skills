@@ -1,4 +1,4 @@
-# 房产图文剧本设计系统 v1.1
+# 房产图文剧本设计系统
 
 同一份record生成单一中文HTML，内部包含可审阅的总板、完整户型路线板和详细正文；组件不授生产权限。审核入口见[提交协议](illustrated-script.md)。
 
@@ -35,7 +35,7 @@ python3 skills/vr-production-gates/scripts/build_script_package.py \
   --output-dir /private/version/generated
 ```
 
-生成视频剧本.html（唯一审核入口，含review_route完整板）、剧本正文.md和generation.json。生成包使用新输出目录以保护旧文件，实际导出PNG后看图片/图示/文字是否可读。草案可编辑；已批准内容保留，范围内迭代不重复索权。
+生成视频剧本.html（唯一审核入口，含review_route完整板）、剧本正文.md和generation.json；不生成已批准record。正文按overview资产嵌入相对PNG引用，截图和绑定步骤见[填写入口](illustrated-script-template.md)。HTML页头标“内容审核”，不从模型可写status宣称批准；宿主内存是真实确认来源。生成包使用新输出目录保护旧文件，实际导出PNG后核图像/图示/文字可读。草案可编辑；已批准内容保留，范围内迭代不重复索权。
 
 ## 完整路线板与完成标准
 

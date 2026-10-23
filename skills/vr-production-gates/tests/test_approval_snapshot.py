@@ -8,6 +8,7 @@ import run as fixtures
 
 SCRIPTS=Path(__file__).resolve().parents[1]/'scripts'
 sys.path.insert(0,str(SCRIPTS))
+from storyboard.render import load, render_html
 spec=importlib.util.spec_from_file_location('approval_snapshot',SCRIPTS/'approval/snapshot.py')
 module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
 
@@ -37,8 +38,8 @@ class SnapshotTests(unittest.TestCase):
         for seg in self.f.record['segments']:
             seg['visual']={'title':seg['id'],'layout':'source_reference','motion':{'kind':'static','label':'静态'}}
         self.save()
-        checked,images=module.load(self.path,'floorplan.png')
-        source=module.render_html(checked,images,'floorplan.png')
+        checked,images=load(self.path,'floorplan.png')
+        source=render_html(checked,images,'floorplan.png')
         path=self.f.root/'script.html'
         def render(transform=lambda text:text):
             path.write_text(transform(source))

@@ -7,10 +7,12 @@
 ## 当前入口与历史归档
 
 - [项目当前交接](../HANDOFF.md)：当前版本、制作状态、证据与唯一下一步。
-- [Skill当前规范](../skills/vr-production-gates/SKILL.md)：4.10.0执行入口；模式与专项参考的关系见[当前影响映射](skill-impact.md#当前映射)。
+- [Skill当前规范](../skills/vr-production-gates/SKILL.md)：唯一执行入口，版本以该文件为准；模式与专项参考关系见[影响映射](skill-impact.md#当前映射)。
 - [历史归档](archive/handoffs/index.md)：旧交接与历史路径的入口；仅用于追溯，不覆盖当前规范或项目状态。
 
 ## 本轮使用复盘
+
+- [Skill熵减方案与技术图](entropy-reduction/方案.md)、[首轮静态审计](entropy-reduction/首轮审计.md)：围绕模板、生成、确认与制作检查的契约一致性；实际实施状态与结果由根HANDOFF和既有问题台账续接，不新增执行门槛。
 
 2026-10-16补充：固定资料适配、错选户型、过密内容及双HTML问题见[ISSUE042](issues.md#issue-20261016-042)；4.5.0修订不代表新房源路线动态已通过。
 

@@ -2,11 +2,13 @@
 
 4.6.0增加点位标定与失败恢复：源对应→几何拟合及独立检查→已核房间近似示意；不推荐删去完整户型板。新1.3绑定图源SHA和房间证据，旧快照可读；结构检查不认证人工房间标签。具体执行规则见[固定资料适配](../skills/vr-production-gates/references/listing-materials.md)。
 
-本文按4.6.0实际入口整理模式与Skill的关系，只用于定位和追溯，不建立另一套门禁。行为以[Skill](../skills/vr-production-gates/SKILL.md)及其专项参考为准，当前项目状态见[根HANDOFF](../HANDOFF.md)。旧段号/探索配额等历史映射可从提交`147a3ac`的本文件追溯；不作为当前约束。
+本文基础映射整理于4.6.0；后续影响按明确修订范围补记，不代表已经覆盖全部现行实现。仅用于定位和追溯，不建立另一套门禁。行为以[Skill](../skills/vr-production-gates/SKILL.md)及其专项参考为准，当前项目状态见[根HANDOFF](../HANDOFF.md)。旧段号/探索配额等历史映射可从提交`147a3ac`的本文件追溯；不作为当前约束。
 
 设计系统规范现位于[references/design-system.md](../skills/vr-production-gates/references/design-system.md)，tokens、CSS、schema与示例位于[assets/design-system](../skills/vr-production-gates/assets/design-system/examples/README.md)；测试与CHANGELOG仍在Skill包根。旧交接集中在[历史归档](archive/handoffs/index.md)，不再作为Skill包的执行入口。
 
 ## 当前映射
+
+4.13.0补充：P001图文完整性、P004授权边界对应的当前linked HTML共用校验，现行模板正文自动嵌overview；宿主通过`video_production_check`传递真实确认给既有技术检查，不再要求模型补写本地批准。只读审计与最小复现见[熵减审计](entropy-reduction/首轮审计.md)，当前版本与运行结果从根HANDOFF定位。旧rendered/inline、制作profile与变速保护继续保留。
 
 4.5.0增加[固定资料适配](../skills/vr-production-gates/references/listing-materials.md)：01–06目录、身份核对、实际选图、短片取舍；新计划使用设计系统1.2逐边运动。历史1.0/1.1快照保留。
 
