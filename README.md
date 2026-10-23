@@ -8,6 +8,7 @@
 |---|---|
 | 当前项目状态与下一步 | [HANDOFF.md](HANDOFF.md) |
 | 通用制作行为 | [Skill](skills/vr-production-gates/SKILL.md) |
+| 脚本先审、用户确认门禁与加载 | [宿主门禁](skills/vr-production-gates/references/script-approval-gate.md) |
 | 本轮使用复盘 | [Wiki索引](wiki/index.md)、[CASE004](wiki/cases/CASE-20261016-004-skill-production-finalization.md) |
 | 归档与历史交接 | [归档索引](wiki/archive/handoffs/index.md) |
 | 图文设计 | [设计系统规范](skills/vr-production-gates/references/design-system.md) |
@@ -59,6 +60,8 @@ python3 tools/verify_design_system.py --evidence-out /path/to/new-evidence.json
 python3 tools/check_project.py
 ```
 
-音频/字幕检查使用含Pillow的Python及FFmpeg/ffprobe；Skill加载另用现有Pi严格校验与实际资源加载。结构检查不替代画面实看/声音试听。Pi独立加载可用 `pi --skill /path/to/skills/vr-production-gates`，不维护同名副本。包根CHANGELOG和tests是现有工具约定，不是项目状态入口。
+音频/字幕检查使用含Pillow的Python及FFmpeg/ffprobe；Skill加载另用现有Pi严格校验与实际资源加载。结构检查不替代画面实看/声音试听。本项目受信任后由`.pi/settings.json`自动加载审批扩展；启动制作前核`video_gate_status`。仅维护Skill时由用户输入`/video-gate maintenance`允许代码/测试，切回制作用`/video-gate production`重锁。
+
+其他制作目录同时加载唯一Skill和门禁：`pi --extension /path/to/vr-production-gates/scripts/approval/index.ts --skill /path/to/vr-production-gates`。只加载Skill不会自动启用硬拦截，不维护同名副本。宿主工具链离线验收为`node skills/vr-production-gates/tests/test_approval_runtime.mjs`；未加载扩展或真实MCP不可用时准确说明缺项，不绕过审核。包根CHANGELOG和tests是现有工具约定，不是项目状态入口。
 
 历史归档沿用Wiki归档索引，阶段被替代时标明原因、日期、原位置、内容身份和当前入口；不定期复制快照，不从历史配额恢复当前约束。

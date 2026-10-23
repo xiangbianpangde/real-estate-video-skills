@@ -314,6 +314,11 @@ def check(record_path, phase, claim):
             errors.append("incomplete_card:" + sid)
         elif any(segment[k] not in card_body for k in fields):
             errors.append("card_content_not_in_plan:" + sid)
+        # Bind all current reviewable words, not only action/focus. Otherwise a
+        # new narration/risk can be approved against an older visible script.
+        if any(not isinstance(segment.get(k, ""), str) or segment.get(k, "") not in card_body
+               for k in ("text", "risk", "music")):
+            errors.append("card_content_not_in_plan:" + sid)
         if any(not isinstance(h, str) or not h or h not in card_body for h in segment.get("highlights", [])):
             errors.append("highlights_not_in_plan:" + sid)
         start, end = segment.get("start_s"), segment.get("end_s")

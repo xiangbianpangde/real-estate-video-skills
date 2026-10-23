@@ -1,9 +1,9 @@
 ---
 name: vr-production-gates
-description: 房产视频的图文剧本、VR/模型采集、配音字幕与成片检查。用户要求先审剧本再制作、修复房产视频或维护本技能时使用；按当前要求自主推进验证和纠错。技能维护不自动执行视频制作。
-compatibility: Pi coding agent; Python 3.10+, FFmpeg/ffprobe; Chrome DevTools MCP for browser work
+description: 房产视频的图文剧本、VR/模型采集、配音字幕与成片检查。制作房产视频、要求先审剧本、修复视频或维护本技能时使用；必须先交本版完整脚本，等待用户明确确认后才能制作。技能维护不自动执行视频制作。
+compatibility: Pi coding agent with bundled approval extension; Python 3.10+, FFmpeg/ffprobe; Chrome DevTools MCP for browser work
 metadata:
-  version: "4.11.1"
+  version: "4.12.0"
   status: "active"
   layer: "task"
   priority: "40"
@@ -14,6 +14,14 @@ disable-model-invocation: false
 # 房产视频制作
 
 目标是交付可审核的图文剧本与完整视频，减少格式遗漏、声音错配和未经核验的完成声明。规则服务于交付；模板参数、历史案例和检查器字段不增加用户授权门槛。
+
+## 强制门禁：脚本 → 用户确认 → 制作
+
+每次制作先读[脚本确认门禁](references/script-approval-gate.md)，确认宿主`video_gate_status`实际返回`loaded=true`且处于production模式。未加载门禁时只准备脚本并说明接入缺项，不能无门禁制作；Skill正文不能代替工具拦截。仅维护Skill时由用户使用`/video-gate maintenance`，不因此批准房源视频。
+
+未获本版用户确认前，只准备素材与图文脚本。用`video_script_prepare`完成必要的资料清单/剧本生成/review，`video_script_submit`绑定完整本版，再在聊天给用户可打开的完整脚本链接和范围，请其审核，**结束本轮并等待回复**。不在同轮继续录制、TTS、混音、字幕烧录或最终导出；“自主推进/持续完成”、用户最初说“做视频/开始”、展示重点选择均不能跳过审核。
+
+只有脚本交付之后的真实用户明确确认，且本版快照匹配，才由宿主门禁放行制作。模型不能代填批准、伪造用户消息、沿用旧版/别套房源接受，或把生成/截图成功当审核通过。不同意、修改、歧义答复保持锁定；内容变化、新提交、撤回或换房按门禁重锁，普通运行参数修复不增设重复审批。
 
 ## 确认本次交付
 
@@ -60,7 +68,7 @@ disable-model-invocation: false
 
 使用[设计系统](references/design-system.md)的同一份record生成一个中文命名HTML，内部包含完整方案板、户型路线板和详细正文。固定短片使用完整实际口播字幕（verbatim_voiceover，烧录），关键词卡不能替代；最终画面/音频/字幕共用同一落位时间线，按实际音频时码核对应空间，不能只核总时长。章节含真实画面、动作图示、主体、口播/字幕和实际风险；首尾按当前要求画出真实布局。当前用户要求首镜户型、尾镜室内引流时，两者实际可见。
 
-[提交协议](references/illustrated-script.md)支持完整文档链接与自然语言批准，内部记录批准对象和内容快照；用户无需读哈希或重复状态口令。将拍法、声音、字幕、首尾和输出范围一次说明，获批后自主完成。仅实质改变事实、承诺、覆盖、用户硬要求、来源权利或费用时回审；范围内的角度、速度、布局、编码与故障修复不逐次请示。
+[提交协议](references/illustrated-script.md)支持完整文档链接与自然语言批准；[宿主门禁](references/script-approval-gate.md)从真实用户输入绑定本版内容，而不是信任模型填写的approval字段。将拍法、声音、字幕、首尾和输出范围一次说明，提交后停止等待；用户无需读哈希或重复状态口令。门禁放行后才在批准范围自主完成。仅实质改变事实、承诺、覆盖、用户硬要求、来源权利或费用时回审；范围内的角度、速度、布局、编码与故障修复不逐次请示。
 
 可复制的生产记录见[模板索引](assets/README.md)。素材与项目状态由调用方提供；本技能包不维护具体房源交接、机器私有路径或项目归档。
 

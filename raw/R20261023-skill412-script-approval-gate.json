@@ -1,0 +1,124 @@
+{
+  "schema": "skill-revision-evidence/v1",
+  "recorded_at": "2026-10-23",
+  "skill": "vr-production-gates",
+  "version_before": "4.11.1",
+  "version_after": "4.12.0",
+  "baseline_commit": "a7abecb4811948ed043e4947f7f03923a859bc21",
+  "initial_worktree": "clean",
+  "request": "Prevent video production before a complete current script is presented and explicitly confirmed by the user",
+  "root_cause": [
+    "Existing check_shooting_plan protects only callers that invoke it; direct shell, TTS and browser execution bypassed it",
+    "Model-written record.status/approval and local transcript SHA do not establish host user identity",
+    "Original chapter checker verified action/focus but not current text/risk/music against the visible script"
+  ],
+  "implementation": {
+    "host_extension": "skills/vr-production-gates/scripts/approval/index.ts",
+    "project_autoload": ".pi/settings.json",
+    "default": "production locked",
+    "tools": ["video_gate_status", "video_script_prepare", "video_script_submit"],
+    "flow": "fixed preparation -> validated snapshot -> standalone visible assistant link -> stop and wait -> subsequent live interactive/RPC input and actual user message -> execution allowed",
+    "authority": "current host session memory plus actual branch messages, not editable approval fields",
+    "relock": ["script/content/source/scope drift", "wrong version", "new or failed submission", "revocation", "new property", "branch without approval", "session reload"],
+    "operational_fixes": "Existing linked-document digest excludes output directory and render configuration; unchanged approved content can recover without another review",
+    "html": "Separate HTML must match current canonical render_html bytes and expose required fields per chapter",
+    "preapproval_browser": "observation-only MCP tools; arbitrary navigation, evaluate_script and recording locked",
+    "maintenance": "Only user /video-gate maintenance command opens code/test maintenance; /video-gate production resets locked state",
+    "unchanged": ["Chrome DevTools MCP browser requirement", "living room -> balcony -> primary bedroom", "outdoor default and indoor choice", "additional 1.5 transition multiplier", "production profiles"]
+  },
+  "red_evidence": {
+    "runtime": "local/validation/skill-4.12.0/runtime-red.log",
+    "observed": "Actual original Pi AgentSession executed unapproved bash and wrote the production sentinel; assertion failed before implementation",
+    "snapshot": "local/validation/skill-4.12.0/snapshot-red.log",
+    "snapshot_observed": "Missing current narration/risk/music did not fail old review checks",
+    "html": "local/validation/skill-4.12.0/html-red.log",
+    "html_observed": "Separate HTML could omit each chapter's fields while their words existed elsewhere"
+  },
+  "checks": [
+    {
+      "command": "PI_OFFLINE=1 PI_CODING_AGENT_PACKAGE=<installed-pi> PYTHON=<existing-python> node skills/vr-production-gates/tests/test_approval_runtime.mjs",
+      "exit_code": 0,
+      "cases": 25,
+      "kind": "real Pi AgentSession and tool pipeline; offline faux response provider; actual bash sentinel",
+      "evidence": "local/validation/skill-4.12.0/runtime-final.log",
+      "sha256": "3c102159b1751a511fc67dc68f4997271bf797b1b326ea840ee475ad1dc1286c"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s skills/vr-production-gates/tests -p 'test_*.py'",
+      "exit_code": 0,
+      "tests": 209,
+      "evidence": "local/validation/skill-4.12.0/tests-final.log",
+      "sha256": "b4f7c3dc091bc2966241c825966edfc998a042d4d3012984fd7e29481355016c"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 skills/vr-production-gates/tests/run.py",
+      "exit_code": 0,
+      "tests": 72,
+      "evidence": "local/validation/skill-4.12.0/gates-final.log",
+      "sha256": "725eb21b5e9453c2d76487ac98b08b26742c694c9f0fa3a1b768fba836e22c12"
+    },
+    {
+      "command": "python3 <installed-skill-authoring>/scripts/validate.py --strict skills/vr-production-gates",
+      "environment": "PI_CODING_AGENT_PACKAGE explicitly points at installed Pi; no dependency installation",
+      "exit_code": 0,
+      "validated": 1,
+      "errors": 0,
+      "warnings": 0,
+      "evidence": "local/validation/skill-4.12.0/strict-final.log"
+    },
+    {
+      "command": "python3 tools/verify_design_system.py --evidence-out local/validation/skill-4.12.0/design-final.json",
+      "exit_code": 0,
+      "cases": 5,
+      "evidence": "local/validation/skill-4.12.0/design-final.json"
+    },
+    {
+      "command": "node skills/vr-production-gates/tests/test_panorama_example.mjs",
+      "exit_code": 0,
+      "cases": 4,
+      "kind": "offline SDK mock; no real capture"
+    },
+    {
+      "method": "Trusted project SettingsManager + DefaultResourceLoader twice + actual AgentSession",
+      "extension_count": 1,
+      "extension_paths_equal_after_reload": true,
+      "video_tools": ["video_gate_status", "video_script_prepare", "video_script_submit"],
+      "skill_count": 1,
+      "diagnostics": [],
+      "errors": [],
+      "evidence": "local/validation/skill-4.12.0/project-load-final.json"
+    }
+  ],
+  "runtime_scenarios_include": [
+    "unapproved direct shell no output", "model-written approval ineffective", "same-turn submit and production blocked", "approval before presentation blocked",
+    "image/comment/inline-code/fenced/indented/unclosed-fence pseudolinks rejected", "preference and ambiguous confirmation rejected", "wrong version rejected",
+    "extension injected input rejected", "interactive/RPC actual confirmation allows execution", "document drift relocks", "operational output repair remains allowed",
+    "user Chinese and English revocation relocks", "new property relocks", "branch without approval relocks", "failed submission clears prior approval",
+    "unapproved MCP evaluate/navigation do not reach synthetic handler", "read-only preparation allowed", "fixed review CLI runs while locked", "model cannot open maintenance through shell",
+    "symlink gate-file overwrite blocked", "only user command enables maintenance"
+  ],
+  "review": {
+    "entry": "existing /review",
+    "provider_model": "cpa/gpt-6.1-sol",
+    "fixed_findings": ["preapproval HTML navigation active-content risk", "missing per-chapter HTML fields", "English stop/cancel/revoke/withdraw", "hidden HTML content", "image/comment/code pseudo-link presentation"],
+    "final_policy_findings": 0,
+    "final_scope": "policy.mjs; preceding index/snapshot findings fixed and covered by tests",
+    "evidence": "local/validation/skill-4.12.0/review-policy-final.md"
+  },
+  "documentation": {
+    "daug": "unavailable: repository has no initialized ledger; no ledger created",
+    "fallback": "manual call-chain review and existing Markdown/JSON checks",
+    "project_documents": 54,
+    "image_references": 16
+  },
+  "limits": [
+    "Requires extension loaded and production mode in the current Pi session; existing session must /reload",
+    "Other production directories must load the same extension plus Skill; no global user configuration was changed",
+    "Not an OS sandbox: external processes, disabled/unloaded extensions and same-privilege hostile extensions are outside scope",
+    "Approved arbitrary execution still must obey scope; this is not semantic authorization of every possible shell command",
+    "Checks on file drift occur before execution, not an OS-level file lock or cross-process transaction",
+    "MCP list is empty; no real Chrome DevTools MCP, property navigation/capture, TTS or final property video was executed",
+    "Faux responses validate runtime mechanics, not fresh real-model skill triggering or human video acceptance"
+  ],
+  "delivery": "Commit and normal push follow existing project authorization; actual local and remote commit identities are verified separately."
+}

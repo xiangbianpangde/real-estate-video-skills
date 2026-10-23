@@ -14,13 +14,15 @@
 
 ## 一次批准与内部绑定
 
+先按[宿主脚本门禁](script-approval-gate.md)用video_script_submit绑定本版完整脚本，在assistant聊天文本交付返回链接后，结束本轮等待用户。没有后续真实用户明确确认时，采集、配音、变速、混音、烧字和导出均不得开始；工具生成/截图成功和状态字段不能代签。宿主门禁只读本版结构快照，从interactive/RPC输入和当前分支真实消息确认，不从下列历史转录字段授予权限。
+
 用户对清晰版本/范围自然回复批准或“接受，现在开始”即可；不要求固定口令、紧邻parentId、浏览器Current URL或事先工具回执。孤立的同意、否定答复或指向其他版本的回复不算本版批准。
 
-新记录默认presentation.mode=linked_document，document_path指完整Markdown或已绑定的自包含HTML，transcript_path/assistant_event_id定位真实展示，approval.user_event_id/explicit_text定位实际回复；approval.plan_sha256/bundle_sha256由工具在收到批准时存内部快照。模板见[record](../assets/templates/record.json)。保存真实原事件，不自造批准；结构检查不认证人类身份。
+记录默认presentation.mode=linked_document，document_path指完整Markdown或已绑定的自包含HTML，transcript_path/assistant_event_id定位真实展示，approval.user_event_id/explicit_text定位实际回复；approval.plan_sha256/bundle_sha256由工具在收到批准时存内部快照。模板见[record](../assets/templates/record.json)。保存真实原事件，不自造批准；结构检查不认证人类身份。
 
 linked_document的BUNDLE只绑定可审核内容与范围，忽略探索计数、预检回执、渲染配置及输出目录等运行细节；用户明定预算仍绑定。素材/正文静默漂移被拒绝，范围内参数纠错与换新输出目录不要求第二次内容批准。历史inline_cards/rendered_document及原claim保留读取兼容，不要求重写旧批准。
 
-SCRIPT_APPROVED_ONCE是历史状态标识，表示完整范围已获批，不是只准尝试一次。获批后自主完成采集和列明后期；仅改变事实/承诺、覆盖、用户硬要求、来源权利或费用时回审。发布另核，用户明确不重拍仍生效。
+SCRIPT_APPROVED_ONCE是历史CLI状态标识，不能单独解锁宿主工具；其含义是完整范围已获批，不是只准尝试一次。获批后自主完成采集和列明后期；仅改变事实/承诺、覆盖、用户硬要求、来源权利或费用时回审。发布另核，用户明确不重拍仍生效。
 
 ## 工具
 

@@ -59,5 +59,6 @@ def chapter_card(seg, images, floorplan, fixture=False):
 <div class="field"><b>镜头动作</b><p>{esc(seg['action'])}</p></div>
 <div class="field"><b>观看重点</b><p>{esc(seg['focus'])}</p></div>
 <div class="field"><b>口播</b><p>{esc(seg.get('text', '') or '无旁白')}</p></div>
+<div class="field"><b>配乐</b><p>{esc(seg.get('music', '') or '无配乐')}</p></div>
 <p class="caption">黄标：{esc('、'.join(seg.get('highlights', []))) or '无'}</p>
 {risk_tag(v.get('risk_level','limitation'),seg['risk']) if seg.get('risk') else ''}</div></article>'''
